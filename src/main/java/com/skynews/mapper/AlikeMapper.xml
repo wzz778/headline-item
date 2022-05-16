@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skynews.dao.AlikeMapper">
+
+    <!-- 注意写好功能后，把mapper绑定到mybatis-config.xml中去 -->
+
+    <!--用户点赞-->
+    <update id="setAlike" parameterType="int">
+      update tosky.posts
+      set alike=alike + 1
+        where postsID = #{postsID}
+   </update>
+
+    <!--用户点赞（前端输入用户id，帖子id）-->
+    <insert id="setAlikeTable" parameterType="Alike">
+      insert into tosky.alike(postsID,userID)
+      values (#{postsID}, #{userID})
+   </insert>
+
+    <!--用户取消点赞-->
+    <update id="deleteAlike" parameterType="int">
+      update tosky.posts
+      set alike=alike - 1
+      where postsID = #{postsID}
+   </update>
+
+    <!--用户取消赞(删除表中的点赞记录)-->
+    <delete id="deleteAlikeTable" parameterType="Alike">
+      delete from tosky.alike
+      where postsID=#{postsID} and userID=#{userID}
+   </delete>
+
+    <!--判断该用户是否已经点赞过此帖子-->
+    <select id="queryAlike" resultType="Alike">
+        SELECT * from tosky.alike where postsID=#{postsID} and userID=#{userID}
+    </select>
+
+    <!--用户点赞（前端输入用户id，帖子id）之后在messages中增加一条数据表示此用户点赞的记录-->
+    <insert id="setMessages" parameterType="Messages">
+        insert into tosky.messages(reside,postsName,userID,authorID,times,postsID)
+      values (#{reside}, #{postsName},#{userID},#{authorID},#{times},#{postsID})
+    </insert>
+
+    <!--当用户查看此信息之后此信息状态改变-->
+    <update id="updateMessagesStatus" parameterType="int">
+      update tosky.messages set status=1 where messagesID = #{messagesID}
+   </update>
+
+    <!--查询某个用户下的所有信息（被收藏或点赞）-->
+    <select id="queryAllMessages" resultType="Messages">
+       select * from tosky.messages
+        where authorID=#{authorID} order by messagesID desc
+    </select>
+
+    <!--查询某个用户下的所有信息（收藏或点赞的用户信息）-->
+    <select id="queryAllMessagesUser" resultType="User">
+        select username,picture from tosky.user
+        where userID=#{userID}
+    </select>
+
+    <delete id="deleteMessages" parameterType="int">
+        delete from tosky.messages where messagesID=#{messagesID}
+    </delete>
+
+    <!--reside=alike userID postsID-->
+    <select id="queryMessagesID" resultType="Messages">
+        select * from tosky.messages where reside=#{reside}
+        and userID=#{userID} and postsID=#{postsID}
+    </select>
+</mapper>

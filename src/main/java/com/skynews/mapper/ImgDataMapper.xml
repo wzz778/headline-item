@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.skynews.dao.ImgDataMapper">
+<!--    上传图片库-->
+<insert id="ImgDates" parameterType="Picture">
+    insert into tosky.picture(account,userImg,userDepiction)
+    value (#{account},#{userImg},#{userDepiction})
+</insert>
+    <select id="getImg" resultType="Picture">
+        select * from tosky.picture where account=#{account}
+    </select>
+    <!--模糊查询-->
+    <select id="vagueQueryPicture" resultType="Picture">
+        select * from tosky.picture where userDepiction like concat('%',#{thing},'%')
+    </select>
+    <!--通过分页查询帖子-->
+    <select id="saveImgPages" resultType="Picture">
+        SELECT * from tosky.picture limit #{column},#{total}
+    </select>
+    <!--模糊查询-->
+    <select id="vagueSaveImgPages" resultType="Picture">
+        select * from tosky.picture where userDepiction like concat('%',#{thing},'%') limit #{column},#{total}
+    </select>
+    <!--将帖子状态更改为通过-->
+    <update id="auditPicture" parameterType="int">
+        update tosky.picture
+        set status = 1
+        where UserId = #{UserId}
+    </update>
+    <!--查询未审核的照片，也就是status为0的照片-->
+    <select id="downPicture" resultType="Picture">
+        SELECT * from tosky.picture where status=0
+    </select>
+
+    <!--查询所有审核过的帖子，也就是status为1的帖子-->
+    <select id="passPicture" resultType="Picture">
+        SELECT * from tosky.picture where status=1
+    </select>
+    <!--查询全部图片-->
+    <select id="allPicture" resultType="Picture">
+        SELECT * from tosky.picture
+    </select>
+</mapper>
