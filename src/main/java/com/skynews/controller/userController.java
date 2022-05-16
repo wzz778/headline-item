@@ -18,9 +18,9 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 @Api(tags="用户类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/user")
+
 public class userController {
     @Autowired
     private UserService userService;

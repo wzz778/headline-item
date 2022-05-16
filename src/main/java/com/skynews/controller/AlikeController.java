@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 
 @Api(tags="点赞类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/alike")
+@RestController
 public class AlikeController {
     @Autowired
     private AlikeService alikeService;

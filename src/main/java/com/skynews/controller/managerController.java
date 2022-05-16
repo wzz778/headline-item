@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Random;
 
 @Api(tags="管理员类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/users")
+@RestController
 public class   managerController {
     //controller调service层
     @Autowired

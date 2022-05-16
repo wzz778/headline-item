@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Api(tags="VIP类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/vip")
+@RestController
 public class VipController {
     @Autowired
     private VipService vipService;

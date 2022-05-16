@@ -19,9 +19,9 @@ import javax.imageio.stream.IIOByteBuffer;
 import java.util.List;
 
 @Api(tags="关注粉丝类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/focus")
+@RestController
 public class FocusController {
     @Autowired
     private FocusService focusService;

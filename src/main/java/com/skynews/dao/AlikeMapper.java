@@ -4,7 +4,6 @@ import com.skynews.pojo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
-@Mapper
 public interface AlikeMapper {
     //用户点赞
     int setAlike(int postsID);

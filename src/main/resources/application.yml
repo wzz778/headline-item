@@ -16,10 +16,10 @@ spring:
 
 
 mybatis:
-  mapper-locations: classpath:com.skynews.mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.skynews.pojo
-  configuration:
-    map-underscore-to-camel-case: true
+#  configuration:
+#    map-underscore-to-camel-case: true
 server:
   port: 8080
   servlet:
@@ -50,6 +50,12 @@ thymeleaf:
   prefix: classpath:/templates/  # 页面映射路径
   suffix: .html # 构建URL时附加到查看名称的后缀
   mode: HTML5 # 模板模式
+# 日志配置
+logging:
+  level:
+    com.example: info
+    org.springframework: warn
+
 
 
 

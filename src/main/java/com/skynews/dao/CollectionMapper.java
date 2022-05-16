@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 
 import java.util.List;
-@Mapper
+
 public interface CollectionMapper {
     //收藏（添加）
     int addCollection(Collections collections);

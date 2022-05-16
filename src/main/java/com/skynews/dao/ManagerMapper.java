@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
+
 public interface ManagerMapper {
 
     //添加用户

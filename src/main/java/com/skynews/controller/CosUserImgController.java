@@ -17,8 +17,8 @@ import org.thymeleaf.util.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 @Api("用户类")
-@Controller
-@CrossOrigin
+
+@RestController
 public class CosUserImgController {
     @Autowired
     private CosService cosService;

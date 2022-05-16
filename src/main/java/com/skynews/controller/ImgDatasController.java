@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Api(tags="图片库类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/img")
+@RestController
 public class ImgDatasController {
     @Autowired
     private CosService cosService;

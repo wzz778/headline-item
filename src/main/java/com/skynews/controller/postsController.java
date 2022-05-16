@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 @Api(tags="帖子类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/posts")
+@RestController
 public class postsController {
     //controller调service层
     @Autowired

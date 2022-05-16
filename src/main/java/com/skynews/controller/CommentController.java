@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags="评论类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/comments")
+@RestController
 public class CommentController {
     //controller调service层
 //    @Autowired(required = false)

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-@Mapper
+
 public interface ReviewsMapper {
 
     //查看某一条父评论下的所有子评论

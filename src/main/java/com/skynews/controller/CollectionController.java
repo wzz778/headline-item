@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags="收藏类")
-@Controller
-@CrossOrigin
+
 @RequestMapping("/collections")
+@RestController
 public class CollectionController {
     @Autowired
     private CollectionService collectionService;

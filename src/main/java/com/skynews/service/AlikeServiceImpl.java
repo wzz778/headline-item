@@ -1,7 +1,6 @@
 package com.skynews.service;
 
 import com.skynews.dao.AlikeMapper;
-import com.skynews.dao.CollectionMapper;
 import com.skynews.dao.PostsMapper;
 import com.skynews.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
