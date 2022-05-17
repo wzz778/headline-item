@@ -1,7 +1,7 @@
 package com.skynews.controller;
 
 import com.skynews.exception.CustomException;
-import com.skynews.exception.CustomExceptionResolver;
+//import com.skynews.exception.CustomExceptionResolver;
 import com.skynews.pojo.Picture;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
