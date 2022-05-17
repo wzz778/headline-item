@@ -103,7 +103,7 @@ window.addEventListener('load', function () {
                     all_commit_a.className = 'all_commit_a';
                     all_commit_a.innerHTML = `
                         <div class="all_commit_top">
-                        <img src="../../static/img/zyt/user.jpeg" alt="" class="all_commit_img">
+                        <img src="../static/img/zyt/user.jpeg" alt="" class="all_commit_img">
                             <a href="javascript:;" class="all_commit_name">${data[i].commentName}</a>
                             <div class="all_commit_time">${data[i].commentTime}</div>
                         </div>
