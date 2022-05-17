@@ -4,7 +4,7 @@ import com.skynews.utils.ResponseDot;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-@Repository
+
 public interface CosService {
 //    上传图片
     ResponseDot upload(MultipartFile file);

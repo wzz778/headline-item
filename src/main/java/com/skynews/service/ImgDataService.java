@@ -6,7 +6,7 @@ import com.skynews.utils.Response;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface ImgDataService {
     //上传图片库
     int ImgDates(Picture img);

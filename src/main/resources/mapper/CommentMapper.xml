@@ -16,8 +16,11 @@
     <!--展示某个帖子下所有评论-->
     <select id="queryCommentByPosts" resultType="Comment">
       SELECT * from tosky.comment
-      where postsID=#{postsID}
+      where
+      <if test="postsID">
+      postsID=#{postsID}
        order by commentID desc
+      </if>
    </select>
 
     <!--根据id删除评论-->
@@ -28,7 +31,10 @@
     <!--返回某帖子评论个数-->
     <select id="queryCommentCount" resultType="int">
       SELECT count(*) from tosky.comment
-            where postsID=#{postsID}
+            where
+            <if test="postsID">
+            postsID=#{postsID}
+            </if>
    </select>
 
 
@@ -46,19 +52,38 @@
     <!--查询某一个父评论下的所有子评论-->
     <select id="queryReviewsByParent" resultType="Reviews">
       select * from tosky.reviews
-      where parentID=#{parentID}
+      where
+      <if test="postsID">
+      parentID=#{parentID}
+      </if>
    </select>
 
     <!--通过reviewsID查询某一条子评论-->
     <select id="queryReviewsByReviewsID" resultType="Reviews">
       select * from tosky.reviews
-      where reviewsID=#{reviewsID}
+      where
+      <if test="reviewsID">
+      reviewsID=#{reviewsID}
+      </if>
    </select>
 
     <!--通过reviewsID查询某一条子评论-->
     <select id="queryReviewsIDByAll" resultType="Reviews">
       select * from tosky.reviews
-      where parentID=#{parentID} and contain=#{contain} and times=#{times} and makerID=#{makerID}
+      <where>
+      <if test="parentID">
+      parentID=#{parentID}
+      </if>
+          <if test="contain">
+      and contain=#{contain}
+          </if>
+          <if test="times">
+      and times=#{times}
+          </if>
+          <if test="makerID">
+      and makerID=#{makerID}
+          </if>
+      </where>
    </select>
 
     <!--通过reviewsID修改childID-->
@@ -70,7 +95,10 @@
 
     <!--查询某一条父评论下子评论的个数-->
     <select id="queryCountByParentID" resultType="int">
-      select count(*) from tosky.reviews where parentID=#{parentID}
+      select count(*) from tosky.reviews where
+      <if test="parentID">
+      parentID=#{parentID}
+      </if>
    </select>
 
     <!--根据parentID删除子评论-->

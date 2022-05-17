@@ -3,9 +3,11 @@ package com.skynews.dao;
 import com.skynews.pojo.Comment;
 import com.skynews.pojo.Reviews;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CommentMapper {
 
     //发布评论

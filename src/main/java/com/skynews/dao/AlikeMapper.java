@@ -4,9 +4,11 @@ import com.skynews.pojo.Alike;
 import com.skynews.pojo.Messages;
 import com.skynews.pojo.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AlikeMapper {
     //用户点赞
     int setAlike(int postsID);
