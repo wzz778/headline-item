@@ -38,14 +38,18 @@
     <!--全局搜索图片库+模糊查询+分页-->
     <select id="overAllPicture" resultType="Picture">
         select * from tosky.picture where status=1
+        <if test="thing!=null">
         and userDepiction
         like concat('%',#{thing},'%')
+        </if>
     </select>
 
     <!--判断该用户是否为vip用户（即根据用户id查询表中相应数据，判断是否有空值）-->
     <select id="judgeVip" resultType="Vip">
         select * from tosky.vip where
+        <if test="userID!=null">
         userID=#{userID}
+        </if>
     </select>
 
 <!--    test-->
