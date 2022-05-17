@@ -32,4 +32,6 @@ public interface VipMapper {
 
     //test
     Vip test(@Param("userID")int userID,@Param("times")String times);
+
+    //
 }
