@@ -37,9 +37,7 @@
             </button>
         </div>
     </div>
-
     <div class="recomments1">
-
         <div class="recomments1_wrap container1">
             <!-- 左侧边栏 -->
             <div class="left_nav">
@@ -47,10 +45,6 @@
                     <a href="javascript:;" class="recomments1_left_li" id="reco_left1">
                         <i class="fa fa-thumbs-up" aria-hidden="true" id="like_praise"></i>
                         <div class="left_nav_text">0</div>
-                    </a>
-                    <a href="javascript:;" class="recomments1_left_li" id="reco_left2">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true" id="remark_tubiao"></i>
-                        <div class="remark_tubiao_text">222</div>
                     </a>
                     <a href="javascript:;" class="recomments1_left_li" id="store_tu_bs">
                         <i class="fa fa-heart-o" aria-hidden="true" id="heart"></i>
@@ -61,6 +55,11 @@
                         <div class="share_text">分享</div>
                     </a>
                 </div>
+            </div>
+            <div class="showcommit">
+                <img src="../static/img/zyt/user.jpeg" alt="" class="user_img remark_content_user">
+                <button class="showcommit_tosay">评论</button>
+                <textarea name="" id="showcommit_area" placeholder="发表一条友善的评论..."></textarea>
             </div>
             <!-- 评论的隐藏部分 -->
             <div class="remark_hide">
@@ -122,18 +121,11 @@
                     <h1>这是文章内容</h1>
                 </div>
                 <div class="recos1_remark">
-                    <div class="recos1_title">评论内容:</div>
+                    <div class="recos1_title">共有 <span>2</span> 条评论</div>
                     <div class="recos1_remark_text">
-                        <div class="recos1_remark_text_top">
-                            <img src="../static/img/zyt/user.jpeg" alt="" class="user_img remark_content_user">
-                            <div class="recos1_remark_input">这是用户自己</div>
-                            <!--                        <span class="commentID">评论id</span>-->
-                            <!--                        <div class="markerID">评论人id</div>-->
-                            <!--                        <div class="postsID">帖子id</div>-->
-                            <button class="tosay">评论</button>
-                        </div>
-                        <textarea name="" id="remark_area" placeholder="请说点什么吗..."></textarea>
-                        <div class="remark_time"></div>
+                        <img src="../static/img/zyt/user.jpeg" alt="" class="user_img remark_content_user">
+                        <button class="tosay">评论</button>
+                        <textarea name="" id="remark_area" placeholder="发表一条友善的评论..."></textarea>
                     </div>
                     <ul class="all_commit_1">
                         <!-- <img src="../static/img/zyt/user.jpeg" alt="" class="all_commit_a_pic"> -->
@@ -145,18 +137,80 @@
                         <div class="all_commit_a">
                             <div class="all_commit_top">
                                 <img src="../static/img/zyt/user.jpeg" alt="" class="all_commit_img">
-                                <div class="all_commit_name">评论人</div>
+                                <a href="javascript:;" class="all_commit_name">发评人</a>
                             </div>
                             <div class="all_commit_text">这是评论的内容</div>
+                            <span style="display: none;" class="commentID"></span>
+                            <span style="display: none;" class="authorID"></span>
+                            <span style="display: none;" class="makerID"></span>
+                            <div class="all_commit_bon">
+                                <div class="all_commit_time">2021.10.12</div>
+                                <div class="all_commit_number"><span class="comsonnumber">0</span>条评论</div>
+                                <a class="com_reply" href="javascript:;">回复</a>
+                                <a class="com_delete" href="javascript:;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            </div>
                         </div>
                         <div class="all_commit_a">
                             <div class="all_commit_top">
                                 <img src="../static/img/zyt/user.jpeg" alt="" class="all_commit_img">
-                                <div class="all_commit_name">评论人</div>
+                                <a href="javascript:;" class="all_commit_name">发评人</a>
                             </div>
                             <div class="all_commit_text">这是评论的内容</div>
+                            <span style="display: none;" class="commentID"></span>
+                            <span style="display: none;" class="authorID"></span>
+                            <span style="display: none;" class="makerID"></span>
+                            <div class="all_commit_bon">
+                                <div class="all_commit_time">2021.10.12</div>
+                                <div class="all_commit_number"><span class="comsonnumber">0</span>条回复</div>
+                                <a class="com_reply" href="javascript:;">回复</a>
+                                <a class="com_delete" href="javascript:;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="comson">
+                                <div class="comson-a">
+                                    <img src="../static/img/wzz/header.jpg" alt="">
+                                    <span style="display: none;" class="comson-a-userid"></span>
+                                    <span style="display: none;" class="comson-a-reviewid"></span>
+                                    <div class="comson-main">
+                                        <a href="javascript:;" class="comson-name">这是用户名</a> :
+                                        <div class="comson-text">
+                                            这是子评论内容这是子评论内容这是子评论内容这是子评论内容这是子评论内容这是子评论内容
+                                            这是子评论内容这是子评论内容这是子评论内容这是子评论内容这是子评论内容这是子评论内容
+                                        </div>
+                                        <div class="comson-ton">
+                                            <span class="comson-time">2021.12.13</span>
+                                            <a href="javascript:;" class="comson_reply">回复</a>
+                                            <a class="comson_delete" href="javascript:;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comson-a">
+                                    <img src="../static/img/wzz/header.jpg" alt="">
+                                    <span style="display: none;" class="comson-a-userid"></span>
+                                    <span style="display: none;" class="comson-a-reviewid"></span>
+                                    <div class="comson-main">
+                                        <a  href="javascript:;" class="comson-name">这是用户名</a> :
+                                        <div class="comson-text">
+                                            这是子评论内容这是子评论内容这是子评论内容这是子评论内容这是子评论内容
+                                        </div>
+                                        <div class="comson-ton">
+                                            <span class="comson-time">2021.12.13</span>
+                                            <a href="javascript:;" class="comson_reply">回复</a>
+                                            <a class="comson_delete" href="javascript:;"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="javascript:;" class="soncommore">观看更多回复...</a>
+                            </div>
+                            <div class="sayshow">
+                                <div class="all_commit_say">
+                                    <img src="../static/img/zyt/user.jpeg" alt="" class="user_img">
+                                    <button class="comson-tosay">评论</button>
+                                    <textarea name="" class="comson-tosay-area" placeholder="发表一条友善的评论..."></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div id="comend">已经是全部评论了...</div>
                 </div>
             </div>
             <!-- 右边部分 -->
@@ -225,5 +279,6 @@
 <script src="../static/js/wzz/fire.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static/js/wzz/report.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static/js/zyt/js/recomments.js"></script>
+<script src="../static/js/zyt/comment.js"></script>
 
 </html>

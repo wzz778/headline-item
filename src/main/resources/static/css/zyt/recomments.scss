@@ -2,38 +2,108 @@
     margin: 0;
     padding: 0;
 }
-
+body{
+    background: {
+        color: #E9E9E9;
+        image:url(https://i.gtimg.cn/qzone/space_item/orig/3/72019_top.jpg);
+        size: cover;
+        repeat: no-repeat;
+        attachment: fixed;
+        position: center center;
+    }
+    a{
+        text-decoration: none;
+    }
+}
 .container2 {
     margin: 0 auto;
     max-width: 1200px;
     min-width: 900px;
     display: flex;
 }
-
+.down{
+	animation-name:down;
+	animation-duration: .6s;
+	transition-timing-function: linear;
+	-webkit-transition-timing-function: linear;
+}
+@keyframes down
+{
+	from {bottom:-100px;} 
+	to {bottom:0;}
+}
+@-webkit-keyframes down
+{
+	from {bottom:-100px;} 
+	to {bottom:0;}
+}
 .container1 {
     margin: 0 auto;
-    max-width: 1100px;
-    min-width: 900px;
+    max-width: 1150px;
+    min-width: 1000px;
     display: flex;
 }
-
 .recomments1 {
     margin-top: 50px;
     width: 100%;
-    // height: 2000px;
-    background-color: white;
+    min-height: 1000px;
 }
-
+.showcommit{
+    width: 770px;
+    height: 70px;
+    padding: 10px;
+    box-shadow: 0px 1px 3px #888888;
+    position: fixed;
+    bottom: -100px;
+    background-color: white;
+    z-index: 99;
+    border-radius: 8px 8px 0 0;
+    // transition: .3s;
+    img {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        left: 10px;
+        border-radius: 40px;
+    }
+    button {
+        right: 0px;
+        width: 90px;
+        height: 43px;
+        font-size: 16px;
+        position: absolute;
+        right: 30px;
+        border-radius: 4px;
+        background-color: #73b4f0;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: .3s;
+        &:hover {
+            background-color: #4fa2f0;
+        }
+    }
+    #showcommit_area{
+        position: absolute;
+        left: 60px;
+        resize: none;
+        outline: none;
+        border:rgb(242, 242, 242) 2px solid ;
+        width: 580px;
+        height: 31px;
+        padding: 5px;
+        line-height: 16px;
+        font-size: 14px;
+        border-radius: 5px;
+        background-color: rgb(242, 242, 242);
+        transition: .3s;
+    }
+}
 .recomments1_wrap {
     position: relative;
     margin: 0 auto;
-    // height: 2000px;
+    height: 100%;
 }
-
-a {
-    text-decoration: none;
-}
-
 .food_find_input_hide {
     // display: none;
     position: absolute;
@@ -147,7 +217,10 @@ a {
 
 .recomments1_middle {
     width: 750px;
-
+    padding: 20px;
+    min-height: 1100px ;
+    padding-bottom: 100px;
+    background-color: white;
     .big_title {
         margin-top: 20px;
         width: 100%;
@@ -182,92 +255,59 @@ a {
         margin-top: 30px;
         width: 100%;
         background-color: white;
-
         .recos1_title {
-            font-size: 20px;
-            color: #067ae6;
+            font-size: 16px;
+            color: #7ebcf6;
+            margin-bottom: 20px;
+            span{
+                font-size: 20px;
+                 color: #4aa1f2;
+            }
         }
-
         .recos1_remark_text {
-            .recos1_remark_text_top {
-                width: 100%;
+            width: 100%;
+            height: 65px;
+            margin: 10px 0;
+            line-height: 40px;
+            display: flex;
+            position: relative;
+            img {
+                position: absolute;
+                width: 40px;
                 height: 40px;
-                margin: 10px 0;
-                line-height: 40px;
-                display: flex;
-                position: relative;
-
-                img {
-                    margin: 5px 10px;
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 40px;
-                    border: 2px gainsboro solid;
-                }
-
-                .recos1_remark_input {
-                    padding: 0 10px;
-                    height: 40px;
-                    color: #067ae6;
-                }
-
-                .commentID {
-                    color: #999;
-                    font-size: 13px;
-                }
-
-                .markerID {
-                    float: left;
-                    color: #999;
-                    font-size: 13px;
-                    margin-right: 70px;
-                }
-
-                .postsID {
-                    float: left;
-                    margin-right: 70px;
-                    color: #999;
-                    font-size: 13px;
-                }
-
-                button {
-                    right: 30px;
-                    top: 4px;
-                    width: 70px;
-                    height: 32px;
-                    display: block;
-                    position: absolute;
-                    border-radius: 8px;
-                    opacity: .6;
-                    background-color: #99c5ee;
-                    color: #067ae6;
-                    border: #067ae6 1px solid;
-                    cursor: pointer;
-
-                    &:hover {
-                        opacity: 1;
-                    }
-                }
+                left: 10px;
+                border-radius: 40px;
             }
-
-            textarea {
-                resize: none;
-            }
-
-            #remark_area {
-                margin-left: 10px;
-                width: 700px;
-                height: 100px;
-                padding: 10px;
-                line-height: 16px;
+            button {
+                right: 0px;
+                width: 90px;
+                height: 43px;
                 font-size: 16px;
-                border-radius: 5px;
+                position: absolute;
+                border-radius: 4px;
+                background-color: #73b4f0;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: .3s;
+                &:hover {
+                    background-color: #4fa2f0;
+                }
             }
-
-            .remark_time {
-                margin-left: 20px;
-                font-size: 10px;
-                color: #999;
+            #remark_area{
+                position: absolute;
+                left: 60px;
+                resize: none;
+                outline: none;
+                border:rgb(242, 242, 242) 2px solid ;
+                width: 580px;
+                height: 31px;
+                padding: 5px;
+                line-height: 16px;
+                font-size: 14px;
+                border-radius: 5px;
+                background-color: rgb(242, 242, 242);
+                transition: .3s;
             }
         }
     }
@@ -275,103 +315,226 @@ a {
     .all_commit {
         width: 100%;
         padding: 10px 0;
-
         .all_commit_a {
+            padding-bottom: 20px;
+            border-bottom: 1.5px #b4b4b4 solid;
+            transition: .3s;
             .all_commit_top {
                 width: 100%;
-                height: 40px;
+                height: 35px;
                 margin: 10px 0;
                 line-height: 40px;
                 display: flex;
                 position: relative;
                 color: #615f5f;
-
                 img {
                     margin: 2px 10px;
-                    width: 35px;
-                    height: 35px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 40px;
                     border: 2px gainsboro solid;
                 }
-
-                div {
-                    padding: 0 10px;
-                    height: 40px;
-
-                }
-
                 .all_commit_name {
                     display: block;
                     font-size: 16px;
-
                     &:hover {
                         color: #067ae6;
                         font-weight: 800;
                     }
                 }
             }
-
             .all_commit_text {
                 margin-left: 10px;
                 width: 700px;
-                height: 50px;
+                min-height: 20px;
                 padding: 10px;
-                font-size: 14px;
-                color: #888888;
+                font-size: 15px;
+                color: #3e3e3e;
                 background-color: #f7f9fb;
                 border-radius: 5px;
             }
-
-            .all_commit_respond {
-                margin-top: 15px;
-                color: rgb(66, 154, 171);
-                font-size: 12px;
-                margin-left: 10px;
-            }
-
-            .sonArea {
-                outline: 0;
-                border: 0;
-                resize: none;
-                padding-top: 10px;
-                padding-left: 10px;
-                margin-left: 10px;
-                margin-top: 20px;
-                width: 710px;
-                max-height: 300px;
-                min-height: 70px;
-                border-radius: 10px;
-                background-color:#87a8c8;
-            }
-            .sonPush {
-                margin-top: 20px;
-                margin-left: 620px;
-                width: 90px;
-                height: 40px;
+            .all_commit_bon{
+                width: 100%;
+                height: 35px;
                 line-height: 40px;
-                text-align: center;
-                border-radius: 5px;
-                border: 0;
-                font-size: 14px;
-                color: rgb(153,157,198);
-                background-color: #8eb9f5;
+                display: flex;
+                position: relative;
+                color: #615f5f;
+                .all_commit_time{
+                    margin-left: 20px;
+                    height: 40px;
+                    color: #999;
+                    font-size: 15px;
+                }
+                .all_commit_number{
+                    font-size: 14px;
+                    margin-left: 120px;
+                    height: 40px;
+                    color: #999;
+                    span{
+                        padding: 0 5px;
+                        color: #615f5f;
+                    }
+                }
+                .com_reply{
+                    position: absolute;
+                    right: 60px;
+                    color: #888888;
+                    font-size: 15px;
+                    &:hover{
+                        color: #4fa2f0;
+                    }
+                }
+                .com_delete{
+                    position: absolute;
+                    right: 30px;
+                    color: #888888;
+                    font-size: 17px;
+                    &:hover{
+                        color: #4fa2f0;
+                    }
+                }
             }
-            .sonPush:hover {
-                background-color: #1890FF;
+            .all_commit_say{
+                width: 100%;
+                height: 50px;
+                margin: 10px 0;
+                line-height: 40px;
+                display: flex;
+                position: relative;
+                img {
+                    position: absolute;
+                    width: 40px;
+                    height: 40px;
+                    left: 10px;
+                    border-radius: 40px;
+                }
+                button {
+                    right: 0px;
+                    width: 90px;
+                    height: 41px;
+                    font-size: 16px;
+                    position: absolute;
+                    border-radius: 4px;
+                    background-color: #73b4f0;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    transition: .3s;
+                    &:hover {
+                        background-color: #4fa2f0;
+                    }
+                }
+                textarea{
+                    position: absolute;
+                    left: 60px;
+                    resize: none;
+                    outline: none;
+                    border:rgb(242, 242, 242) 1px solid ;
+                    width: 580px;
+                    height: 31px;
+                    padding: 5px;
+                    line-height: 16px;
+                    font-size: 14px;
+                    border-radius: 5px;
+                    background-color: rgb(242, 242, 242);
+                    transition: .3s;
+                }
+            }
+            .comson{
+                margin-top: 5px;
+                margin-left: 30px;
+                width: 680px;
+                .comson-a{
+                    margin-bottom: 10px;
+                    padding-bottom: 5px;
+                    width: 680px;
+                    min-height: 50px;
+                    border-bottom:1px #dcdcdc solid;
+                    img{
+                        position: absolute;
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 100px;
+                    }
+                    .comson-main{
+                        margin-left: 35px;
+                        width: 640px;
+                        min-height: 50px;
+                        .comson-name{
+                            font-size: 13px;
+                            color: #73b4f0;
+                            height: 20px;
+                            &:hover{
+                                color: #2f96f7;
+                                font-weight: 600;
+                            }
+                        }
+                        .comson-text{
+                            padding: 5px 10px;
+                            background-color: #f4f9ff;
+                            border-radius: 5px; 
+                            color: #3e3e3e;
+                            font-size: 14px;
+                            line-height: 18px;
+                            min-height: 18px;
+                        }
+                        .comson-ton{
+                            padding: 3px;
+                            color: #aeaeae;
+                            font-size: 13px;
+                            line-height: 18px;
+                            height: 18px;
+                            position: relative;
+                            .comson_delete{
+                                position: absolute;
+                                right: 30px;
+                                color: #888888;
+                                font-size: 16px;
+                                &:hover{
+                                    color: #4fa2f0;
+                                }
+                            }
+                            .comson_reply{
+                                color: #888888;
+                                font-size: 14px;
+                                margin-left: 50px;
+                                &:hover{
+                                    color: #4fa2f0;
+                                }
+                            }
+                        }
+                    }
+                }
+                .soncommore{
+                    font-size: 14px;
+                    color: #888888;
+                    &:hover{
+                        color: #4fa2f0;
+                    }
+                }
             }
         }
     }
 }
-
+#comend{
+    width: 750px;
+    display: none;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    color: #4aa1f2;
+    text-align: center;
+}
 .recos1_right {
     position: absolute;
-    top: 50px;
-    left: 780px;
-    width: 330px;
+    left: 800px;
+    padding: 0 10px 0 10px;
+    width: 320px;
     height: 100%;
-
+    background-color: white;
     .recos1_right_top {
-        margin-bottom: 30px;
+        margin: 30px 0;
         background-color: #f8fbfe;
         padding: 20px 0;
         border-radius: 8px;
