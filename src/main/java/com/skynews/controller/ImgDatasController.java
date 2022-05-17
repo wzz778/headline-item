@@ -1,6 +1,6 @@
 package com.skynews.controller;
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Picture;
 import com.skynews.service.CosService;
 import com.skynews.service.ImgDataService;
@@ -52,11 +52,11 @@ public class ImgDatasController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="thing",value = "模糊查询的片段")
     })
-    public Response vagueQueryPicture (String thing) throws CustomException {
+    public Response vagueQueryPicture (String thing)  {
         String thing1=thing.replaceAll(" ","");
-        if (StringUtils.isEmpty(thing) ){
-            throw new CustomException("类型为空");
-        }
+//        if (StringUtils.isEmpty(thing) ){
+//            throw new CustomException("类型为空");
+//        }
         return imgDataService.vagueQueryPicture(thing1);
     }
     @ApiOperation(value = "通过分页查询图片", notes = "获取地址", httpMethod = "POST")
@@ -66,10 +66,10 @@ public class ImgDatasController {
             @ApiImplicitParam(name="column",value = "开始查询索引"),
             @ApiImplicitParam(name="total",value = "查询数量"),
     })
-    public Response saveImgPages(Integer column, Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response saveImgPages(Integer column, Integer total) {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
 
         return imgDataService.saveImgPages(column,total);
     }
@@ -81,10 +81,10 @@ public class ImgDatasController {
             @ApiImplicitParam(name="column",value = "开始查询索引"),
             @ApiImplicitParam(name="total",value = "查询数量"),
     })
-    public Response vagueSaveImgPages(@RequestParam("thing") String thing,Integer column,Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response vagueSaveImgPages(@RequestParam("thing") String thing,Integer column,Integer total) {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
         return imgDataService.vagueSaveImgPages(thing,column,total);
     }
     //管理员查询待审核的图片
