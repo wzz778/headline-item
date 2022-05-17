@@ -63,7 +63,7 @@ function hot_post() {
             window.location.assign('recomments.html');
             let id = hot_posts[i].querySelector('.postsID').innerHTML;
             localStorage.setItem('article_id', id);
-            localStorage.setItem("tolook", '0');
+
         }
     }
 }

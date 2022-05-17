@@ -37,9 +37,9 @@ function aalltrue() {
 }
 //全选处理
 //获取总页数，总个数
-$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/allPosts',
+$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsCounts',
     function (date) {
-        let pages = date.length;
+        let pages = date;
         let pagen = pages % 10 != 0 ? parseInt(pages / 10) + 1 : parseInt(pages / 10);
         sessionStorage.setItem('apagen', pagen);
     })
@@ -141,9 +141,9 @@ var apage_number = document.getElementById('apage_number');
 function allchange1() {
     let p = apages.value;
     let page = (p - 1) * 10;
-    $.get('http://localhost:8080/ToSkyNews_war_exploded/posts/allPosts',
+    $.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsCounts',
         function (date) {
-            let pages = date.length;
+            let pages = date;
             let pagen = pages % 10 != 0 ? parseInt(pages / 10) + 1 : parseInt(pages / 10);
             apage_number.innerHTML = "总共有" + pages + "个文章,总共" + pagen + "页";
             sessionStorage.setItem('apagen', pagen);
