@@ -126,7 +126,7 @@ window.addEventListener('load', function () {
           var all_commit_a = document.createElement("div");
           all_commit.append(all_commit_a);
           all_commit_a.className = 'all_commit_a';
-          all_commit_a.innerHTML = "\n                        <div class=\"all_commit_top\">\n                        <img src=\"../../static/img/zyt/user.jpeg\" alt=\"\" class=\"all_commit_img\">\n                            <a href=\"javascript:;\" class=\"all_commit_name\">".concat(data[_i].commentName, "</a>\n                            <div class=\"all_commit_time\">").concat(data[_i].commentTime, "</div>\n                        </div>\n                        <div class=\"all_commit_text\">").concat(data[_i].contain, "</div>\n                        ");
+          all_commit_a.innerHTML = "\n                        <div class=\"all_commit_top\">\n                        <img src=\"../static/img/zyt/user.jpeg\" alt=\"\" class=\"all_commit_img\">\n                            <a href=\"javascript:;\" class=\"all_commit_name\">".concat(data[_i].commentName, "</a>\n                            <div class=\"all_commit_time\">").concat(data[_i].commentTime, "</div>\n                        </div>\n                        <div class=\"all_commit_text\">").concat(data[_i].contain, "</div>\n                        ");
 
           var all_commit_img = document.getElementsByClassName("all_commit_img")[_i];
 

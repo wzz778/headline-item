@@ -58,8 +58,8 @@ document.getElementById("top_about").onclick = function () {
 //             date_time.innerHTML = date.update_time;
 //             let imgm = date.wea_img;
 //             weather.innerHTML = date.city;
-//             img.src = `../../static/img/wzz/${imgm}.png`;
-//             img2.src = `../../static/img/wzz/${imgm}.png`;
+//             img.src = `../static/img/wzz/${imgm}.png`;
+//             img2.src = `../static/img/wzz/${imgm}.png`;
 //         })
 // }
 //搜索跳转：
@@ -263,7 +263,7 @@ function all_a() {
                                         <span style="display: none">${date[n].postsID}</span>
                                     </div>
                                 <img class="column_img"
-                                 src="../../static/img/wzz/header.jpg" 
+                                 src="../static/img/wzz/header.jpg" 
                                 alt="">
                         </a>
                     `;
@@ -369,7 +369,7 @@ function chance_sort() {
                                                 <span style="display: none">${date[n].postsID}</span>
                                             </div>
                                         <img class="column_img"
-                                        src="../../static/img/wzz/header.jpg" 
+                                        src="../static/img/wzz/header.jpg" 
                                         alt="">
                                 </a>
                             `;
