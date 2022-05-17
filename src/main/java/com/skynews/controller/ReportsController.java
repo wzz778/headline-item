@@ -1,6 +1,6 @@
 package com.skynews.controller;
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Reports;
 import com.skynews.service.ReportsService;
 import com.skynews.utils.Response;
@@ -33,14 +33,14 @@ public class ReportsController {
 //            @ApiImplicitParam(name="opinion",value = "举报原因"),
 //            @ApiImplicitParam(name="times",value = "用户反馈时间")
 //    })
-    public Response addReport(String kind, String contact, String opinion, Integer userID,Integer postsID,String times) throws CustomException {
-        if (StringUtils.isEmpty(kind) || StringUtils.isEmpty(contact)||StringUtils.isEmpty(opinion)||StringUtils.isEmpty(String.valueOf(userID))||StringUtils.isEmpty(String.valueOf(postsID))||StringUtils.isEmpty(times)){
-            throw new CustomException("类型不能为空");
-        }
-
-        if (StringUtils.startsWith(kind," ") || StringUtils.startsWith(contact," ")|| StringUtils.startsWith(opinion," ")||StringUtils.startsWith(userID," ")||StringUtils.startsWith(postsID," ")|| StringUtils.startsWith(times," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public Response addReport(String kind, String contact, String opinion, Integer userID,Integer postsID,String times)  {
+//        if (StringUtils.isEmpty(kind) || StringUtils.isEmpty(contact)||StringUtils.isEmpty(opinion)||StringUtils.isEmpty(String.valueOf(userID))||StringUtils.isEmpty(String.valueOf(postsID))||StringUtils.isEmpty(times)){
+//            throw new CustomException("类型不能为空");
+//        }
+//
+//        if (StringUtils.startsWith(kind," ") || StringUtils.startsWith(contact," ")|| StringUtils.startsWith(opinion," ")||StringUtils.startsWith(userID," ")||StringUtils.startsWith(postsID," ")|| StringUtils.startsWith(times," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
 
 //        if (kind == null||userID==null){
 //            throw new CustomException("类型为空！");
@@ -56,16 +56,16 @@ public class ReportsController {
             @ApiImplicitParam(name="column",value = "从第几条数据开始查询"),
             @ApiImplicitParam(name="total",value = "查询数量")
     })
-    public List<Reports> showReports(Integer column, Integer total) throws CustomException {
+    public List<Reports> showReports(Integer column, Integer total) {
 //        if(StringUtils.isEmpty(String.valueOf(column))||StringUtils.isEmpty(String.valueOf(total))){
 //            throw new CustomException("类型为空！");
 //        }
 //        if(StringUtils.startsWith(column," ")||StringUtils.startsWith(total," ")){
 //            throw new CustomException("类型存在空值");
 //        }
-        if(column==null || total==null){
-            throw new CustomException("类型为空！");
-        }
+//        if(column==null || total==null){
+//            throw new CustomException("类型为空！");
+//        }
         List<Reports>list=reportsService.showReports(column,total);
         return list;
     }
@@ -79,10 +79,10 @@ public class ReportsController {
     @PostMapping("/showPortsById")
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "举报的用户id")
-    public List<Reports> showPortsById(Integer userID) throws CustomException {
-        if(userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Reports> showPortsById(Integer userID){
+//        if(userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         List<Reports>list= reportsService.showPortsById(userID);
         return list;
     }
@@ -119,13 +119,13 @@ public class ReportsController {
     @PostMapping("/savePassPosts")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Response savePassPosts(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
-        if(StringUtils.startsWith(postsID," ")){
-            throw new CustomException("类型存在空值");
-        }
+    public Response savePassPosts(Integer postsID) {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if(StringUtils.startsWith(postsID," ")){
+//            throw new CustomException("类型存在空值");
+//        }
         int i = reportsService.savePassPorts(postsID);
         if(i==0){
             return Response.error("该帖子id不存在");
@@ -137,13 +137,13 @@ public class ReportsController {
     @PostMapping("/disSavePassPosts")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Response disSavePassPosts(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
-        if(StringUtils.startsWith(postsID," ")){
-            throw new CustomException("类型为空值");
-        }
+    public Response disSavePassPosts(Integer postsID) {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if(StringUtils.startsWith(postsID," ")){
+//            throw new CustomException("类型为空值");
+//        }
         int i = reportsService.disSavePassPorts(postsID);
         if(i==0){
             return Response.error("该帖子id不存在");
@@ -154,10 +154,10 @@ public class ReportsController {
     @PostMapping("/deleteReports")
     @ResponseBody
 //    @ApiImplicitParam(name="reportID",value = "举报ID")
-    public Response deleteReports(Integer reportID) throws CustomException {
-        if(reportID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response deleteReports(Integer reportID)  {
+//        if(reportID==null){
+//            throw new CustomException("类型为空！");
+//        }
         int i = reportsService.deleteReports(reportID);
         if(i==0){
             return Response.error("该举报的id不存在");
