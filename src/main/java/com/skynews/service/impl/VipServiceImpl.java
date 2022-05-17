@@ -1,19 +1,20 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
-import cn.hutool.json.JSONUtil;
-import com.skynews.dao.UserMapper;
 import com.skynews.dao.VipMapper;
 import com.skynews.pojo.Picture;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
 import com.skynews.pojo.Vip;
+import com.skynews.service.VipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class VipServiceImpl implements VipService{
+public class VipServiceImpl implements VipService {
     //service调dao层：组合Dao
     @Autowired
     private VipMapper vipMapper;
@@ -39,18 +40,15 @@ public class VipServiceImpl implements VipService{
     }
 
     @Override
-    public List<Posts> overAllPosts(String thing, int num) {
-        return vipMapper.overAllPosts(thing,num);
-    }
-
-    @Override
-    public List<User> overAllUser(String thing, int num) {
-        return vipMapper.overAllUser(thing,num);
-    }
-
-    @Override
-    public List<Picture> overAllPicture(String thing, int num) {
-        return vipMapper.overAllPicture(thing,num);
+    public Map<String, List> overAllPicture(String thing) {
+        List<Posts>posts=vipMapper.overAllPosts(thing);
+        List<User>users=vipMapper.overAllUser(thing);
+        List<Picture>pictures=vipMapper.overAllPicture(thing);
+        Map<String,List>map=new HashMap<>();
+        map.put("posts",posts);
+        map.put("user",users);
+        map.put("pictures",pictures);
+        return map;
     }
 
     @Override
@@ -62,5 +60,10 @@ public class VipServiceImpl implements VipService{
         }else{
             return 0;
         }
+    }
+
+    @Override
+    public Vip test(int userID, String times) {
+        return vipMapper.test(userID,times);
     }
 }

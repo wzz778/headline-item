@@ -1,7 +1,8 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
 import com.skynews.dao.PostsMapper;
 import com.skynews.pojo.Posts;
+import com.skynews.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PostsServiceImpl implements PostsService{
+public class PostsServiceImpl implements PostsService {
 
     //service层调用dao层：组合dao
     @Autowired

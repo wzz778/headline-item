@@ -2,17 +2,12 @@ package com.skynews.service;
 
 
 import com.skynews.pojo.Picture;
-
 import com.skynews.utils.Response;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 public interface ImgDataService {
     //上传图片库
     int ImgDates(Picture img);
-    //    通过图片id获取图片库id
-    Picture getImg(String account);
     //模糊查询图片库
     Response vagueQueryPicture(@Param("thing") String thing);
     //通过分页查询图片库
@@ -24,7 +19,15 @@ public interface ImgDataService {
     //查询所有审核过的照片，也就是status为1的照片
     Response passPicture();
     //对照片进行审核
-    Response auditPicture(int UserId);
-    //    查询图片库所以图片
-   Response allPicture();
+    Response auditPicture(int status,int PictureID);
+    //    查询图片库所有图片
+    Response allPicture();
+    //    用户删除发布的图片
+    Response deletePicture(int PictureID);
+    //用户根据帖子状态查询对应的帖子
+    Response statusPicture(int status,int userID,int start);
+    //分页遍历用户的所有图片
+    Response allUserPicture(int userID,int start);
+    //    获取该用户发布的所有图片的数量
+    Response allCountPicture(int userID);
 }

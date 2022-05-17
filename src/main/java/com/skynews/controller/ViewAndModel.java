@@ -1,13 +1,13 @@
-package com.skynews.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-@Controller
-public class    ViewAndModel {
+//package com.skynews.controller;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//
+//@Controller
+//public class    ViewAndModel {
 //    @RequestMapping("/about_title")
 //    public String q1(){
-//        return "/swagger-ui.html";
+//        return "/about_title";
 //    }
 //    @RequestMapping("/animate")
 //    public String q2(){
@@ -30,9 +30,9 @@ public class    ViewAndModel {
 //        return "/instruction";
 //    }
 //
-//    @RequestMapping("/u")
+//    @RequestMapping("/login")
 //    public String demo(){
-//        return "/swagger-ui";
+//        return "/login";
 //    }
 //    @RequestMapping("/lunbo")
 //    public String q5(){
@@ -124,15 +124,15 @@ public class    ViewAndModel {
 //    public String s8(){
 //        return "/VIP";
 //    }
-
-
-
-
-
-
-
-
-
-
-
-}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//}

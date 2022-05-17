@@ -5,6 +5,7 @@ import com.skynews.pojo.Manager;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
 import com.skynews.service.ManagerService;
+import com.skynews.utils.IDutils;
 import com.skynews.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,9 +23,9 @@ import java.util.List;
 import java.util.Random;
 
 @Api(tags="管理员类")
-
+@Controller
+@CrossOrigin
 @RequestMapping("/users")
-@RestController
 public class   managerController {
     //controller调service层
     @Autowired
@@ -222,5 +223,25 @@ public class   managerController {
             System.out.println(posts.getPostsID());
         }
         return list;
+    }
+
+    @ApiOperation(value = "增加manager", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/addManager")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="password",value = "管理员密码")
+    })
+    public Manager queryManagerByName(String password) throws CustomException {
+        if (StringUtils.isEmpty(password) ){
+            throw new CustomException("类型不能为空");
+        }
+        if (StringUtils.startsWith(password," ")){
+            throw new CustomException("类型不能有空位");
+        }
+        String managerName= IDutils.getManagerName();
+        Manager manager=new Manager(managerName,password);
+        managerService.addManager(manager);
+        Manager manager1=managerService.queryManagerByName(managerName);
+        return manager1;
     }
 }

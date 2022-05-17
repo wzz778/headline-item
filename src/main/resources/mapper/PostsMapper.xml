@@ -8,7 +8,7 @@
     <!-- 注意写好功能后，把mapper绑定到mybatis-config。xml中去 -->
     <!--查询全部posts-->
     <select id="queryAllPosts" resultType="Posts">
-      SELECT * from tosky.posts where status != -2
+      SELECT * from tosky.posts where status != -2 limit 0,140
    </select>
 
     <!--根据id删除一个posts-->
@@ -29,9 +29,9 @@
         where postsID = #{postsID}
     </update>
 
-    <!--根据用户id查询对应的帖子-->
+    <!--根据用户id查询对应的帖子    &lt;&gt;-->
     <select id="queryPostsByUserID" resultType="Posts">
-        SELECT * from tosky.posts where reside=#{reside} order by postsID desc
+        SELECT * from tosky.posts where reside=#{reside} and status !=-2 order by postsID desc
     </select>
     <!--模糊查询-->
     <select id="vagueQuery" resultType="Posts">
@@ -94,7 +94,7 @@
 
     <!--通过帖子id查询帖子-->
     <select id="queryPostsById" resultType="Posts">
-        SELECT * from tosky.posts where postsID=#{postsID}
+        SELECT * from tosky.posts where postsID=#{postsID} and status!=-2
     </select>
 
     <!--用户收藏帖子（即将用户id存collectionID中）-->
@@ -133,7 +133,7 @@
 
     <!--通过分页查询帖子-->
     <select id="queryPagingPosts" resultType="Posts">
-        SELECT * from tosky.posts limit #{column},#{total}
+        SELECT * from tosky.posts where status!=-2 order by postsID desc limit #{column},#{total}
     </select>
 
     <!--返回posts表里面的帖子个数-->

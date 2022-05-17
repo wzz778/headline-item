@@ -1,15 +1,15 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
-import com.skynews.dao.AlikeMapper;
 import com.skynews.dao.FeedbackMapper;
 import com.skynews.pojo.Feedback;
+import com.skynews.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class FeedbackServiceImpl implements FeedbackService{
+public class FeedbackServiceImpl implements FeedbackService {
 
     //service层调dao层：组合dao
     @Autowired

@@ -1,13 +1,15 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
 import com.skynews.dao.ReportsMapper;
 import com.skynews.pojo.Reports;
+import com.skynews.service.ReportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class ReportsServiceImpl implements ReportsService{
+public class ReportsServiceImpl implements ReportsService {
     @Autowired
     private ReportsMapper reportsMapper;
 

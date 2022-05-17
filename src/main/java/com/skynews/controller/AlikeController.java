@@ -2,7 +2,6 @@ package com.skynews.controller;
 
 import com.skynews.exception.CustomException;
 import com.skynews.pojo.Alike;
-import com.skynews.pojo.Collections;
 import com.skynews.pojo.Messages;
 import com.skynews.pojo.User;
 import com.skynews.service.AlikeService;
@@ -14,15 +13,15 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags="点赞类")
-
+@Controller
+@CrossOrigin
 @RequestMapping("/alike")
-@RestController
 public class AlikeController {
     @Autowired
     private AlikeService alikeService;
@@ -142,4 +141,48 @@ public class AlikeController {
 //    public Messages query(String reside, int userID, int postsID) throws CustomException {
 //        return alikeService.queryMessagesID(reside, userID, postsID);
 //    }
+
+    @ApiOperation(value = "分页查询某个用户下的所有信息（被收藏或点赞)", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/queryMessagesPages")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "authorID", value = "所要查询的某个用户的id"),
+            @ApiImplicitParam(name = "page", value = "第几页")
+    })
+    public Response update6(Integer authorID,Integer page) throws CustomException {
+        if (authorID == null||page==null) {
+            throw new CustomException("类型为空！");
+        }
+        List<Messages>list=alikeService.queryPagesMessages(authorID,page);
+        List<Integer>list1=alikeService.queryMessagesCount(authorID);
+        Map<String, List>map=new HashMap<>();
+        map.put("totalPages",list1);
+        map.put("list",list);
+        return Response.ok(map);
+    }
+
+    @ApiOperation(value = "用户批量删除信息", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/deleteBatchMessages")
+    @ResponseBody
+    public Response deleteBatchPosts(@RequestParam("List<Integer>list") List<Integer>list){
+        if(list.isEmpty()){
+            return Response.error("输入错误！");
+        }
+        else{
+            alikeService.deleteBatchMessages(list);
+            return Response.ok("批量删除成功！");
+        }
+    }
+
+    @ApiOperation(value = "删除某个用户下的所有信息", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/deleteAllMessagesByUserID")
+    @ResponseBody
+    @ApiImplicitParam(name = "userID", value = "待删除的用户id")
+    public Response update8(Integer userID) throws CustomException {
+        if (userID == null) {
+            throw new CustomException("类型为空！");
+        }
+        alikeService.deleteAllMessagesByUserID(userID);
+        return Response.ok("删除成功！");
+    }
 }

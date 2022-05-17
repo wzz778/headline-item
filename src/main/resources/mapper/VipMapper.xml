@@ -20,26 +20,42 @@
 
     <!--删除指定反馈-->
     <delete id="deleteVip" parameterType="int">
-        delete from tosky.vip where userID=#{userID}
+        delete from tosky.vip
+            where userID=#{userID}
+
     </delete>
 
     <!--全局搜索帖子+模糊查询+分页-->
     <select id="overAllPosts" resultType="Posts">
-        select * from tosky.posts where status=1 and postsName like concat('%',#{thing},'%') limit #{num},3
+        select * from tosky.posts where status=1 and postsName like concat('%',#{thing},'%')
     </select>
 
     <!--全局搜索用户+模糊查询+分页-->
     <select id="overAllUser" resultType="User">
-        select * from tosky.user where username like concat('%',#{thing},'%') limit #{num},3
+        select * from tosky.user where username like concat('%',#{thing},'%')
     </select>
 
     <!--全局搜索图片库+模糊查询+分页-->
     <select id="overAllPicture" resultType="Picture">
-        select * from tosky.picture where status=1 and userDepiction like concat('%',#{thing},'%') limit #{num},3
+        select * from tosky.picture where status=1
+        and userDepiction
+        like concat('%',#{thing},'%')
     </select>
 
     <!--判断该用户是否为vip用户（即根据用户id查询表中相应数据，判断是否有空值）-->
     <select id="judgeVip" resultType="Vip">
-        select * from tosky.vip where userID=#{userID}
+        select * from tosky.vip where
+        userID=#{userID}
+    </select>
+
+<!--    test-->
+    <select id="test" resultType="Vip">
+        select * from tosky.vip where 1=1
+        <if test="userID!=null and userID!=''">
+        and userID=#{userID}
+        </if>
+        <if test="times!=null and times!=''">
+        and times=#{times}
+        </if>
     </select>
 </mapper>

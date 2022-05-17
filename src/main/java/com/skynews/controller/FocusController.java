@@ -1,10 +1,7 @@
 package com.skynews.controller;
 
 import com.skynews.exception.CustomException;
-import com.skynews.pojo.Collections;
-import com.skynews.pojo.Feedback;
 import com.skynews.pojo.Focus;
-import com.skynews.service.FeedbackService;
 import com.skynews.service.FocusService;
 import com.skynews.utils.Response;
 import io.swagger.annotations.Api;
@@ -13,15 +10,17 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.imageio.stream.IIOByteBuffer;
 import java.util.List;
 
 @Api(tags="关注粉丝类")
-
+@Controller
+@CrossOrigin
 @RequestMapping("/focus")
-@RestController
 public class FocusController {
     @Autowired
     private FocusService focusService;
@@ -37,9 +36,13 @@ public class FocusController {
         if(fansID==null||focusID==null){
             throw new CustomException("类型为空！");
         }
-        Focus focus=new Focus(focusID,fansID);
-        focusService.addFocus(focus);
-        return Response.ok("关注成功！");
+        if(focusID==fansID){
+            return Response.error("用户自己不能关注自己！");
+        }else {
+            Focus focus = new Focus(focusID, fansID);
+            focusService.addFocus(focus);
+            return Response.ok("关注成功！");
+        }
     }
 
     @ApiOperation(value = "取消关注", notes = "获取地址", httpMethod = "POST")
@@ -97,8 +100,9 @@ public class FocusController {
         int a=focusService.queryFocus(focus);
         if(a==1){
             return Response.error("该用户已经关注过此用户！");
+        }else {
+            return Response.ok("未关注！");
         }
-        return Response.ok("未关注！");
     }
 
     @ApiOperation(value = "根据用户id获取用户的粉丝数", notes = "获取地址", httpMethod = "POST")

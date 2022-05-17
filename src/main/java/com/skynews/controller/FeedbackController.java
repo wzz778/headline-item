@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags="反馈类")
-
+@Controller
+@CrossOrigin
 @RequestMapping("/collections")
-@RestController
 public class FeedbackController {
     @Autowired
     private FeedbackService feedbackService;

@@ -5,6 +5,7 @@
 
 <mapper namespace="com.skynews.dao.AlikeMapper">
 
+
     <!-- 注意写好功能后，把mapper绑定到mybatis-config.xml中去 -->
 
     <!--用户点赞-->
@@ -49,7 +50,7 @@
       update tosky.messages set status=1 where messagesID = #{messagesID}
    </update>
 
-    <!--查询某个用户下的所有信息（被收藏或点赞）-->
+<!--    查询某个用户下的所有信息（被收藏或点赞）-->
     <select id="queryAllMessages" resultType="Messages">
        select * from tosky.messages
         where authorID=#{authorID} order by messagesID desc
@@ -70,4 +71,41 @@
         select * from tosky.messages where reside=#{reside}
         and userID=#{userID} and postsID=#{postsID}
     </select>
+
+    <!--分页查询某个用户下的所有信息（被收藏或点赞）-->
+    <select id="queryPagesMessages" resultType="Messages">
+       select * from tosky.messages
+        where authorID=#{authorID} order by messagesID desc limit #{page},7
+    </select>
+
+    <!--数量）某个用户下的所有信息（被收藏或点赞）-->
+    <select id="queryMessagesCount" resultType="int">
+       select count(*) from tosky.messages
+        where authorID=#{authorID}
+    </select>
+
+    <!--    根据reside，userID，postsID，查询指定信息-->
+    <select id="queryOneMessages" resultType="Messages">
+       select * from tosky.messages
+        where reside=#{reside} and userID=#{userID} and postsID=#{postsID}
+    </select>
+
+<!--    通过id修改某条信息-->
+    <update id="updateMessages">
+        update tosky.messages
+      set times=#{times}
+      where messagesID=#{messagesID}
+    </update>
+
+    <!--批量删除信息-->
+    <delete id="deleteBatchMessages">
+        delete from tosky.messages
+    where
+        messagesID=#{messagesID}
+    </delete>
+
+    <!--删除某个用户下的所有信息-->
+    <delete id="deleteAllMessagesByUserID" parameterType="int">
+        delete from tosky.messages where userID=#{userID}
+    </delete>
 </mapper>

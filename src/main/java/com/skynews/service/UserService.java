@@ -1,6 +1,8 @@
 package com.skynews.service;
 
-import com.skynews.pojo.*;
+import com.skynews.pojo.Collections;
+import com.skynews.pojo.Posts;
+import com.skynews.pojo.User;
 import com.skynews.utils.Response;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,10 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface UserService {
-    //邮箱验证
-    void mail(String mail,String code);
+
     //用户注册
-    int register(User user);
+    int  register(User user);
     //    用户登录
     User login(String account,String password);
     //根据用户名得到该密码
@@ -46,11 +47,11 @@ public interface UserService {
     //    用户查询自己审核通过的帖子
     List<Posts> allPass(int reside);
     //用户查询自己审核未通过的图片
-   Response allAuditingPicture(String account);
+   Response allAuditingPicture(int userID);
     //用户查询自己审核通过的图片
-    Response allPassPicture(String account);
+    Response allPassPicture(int userID);
     //    对用户发布的文章进行固定每页数量的分页
-   Response disDrafts(int reside,int status,int start);
+   Response disDrafts(int reside,int status,int start,int count);
     //        <!--用户发布帖子总数-->
     int allCountPosts(int reside);
     //    对用户的收藏帖子的分页
@@ -58,13 +59,15 @@ public interface UserService {
     //    通过id和状态值查询相对应的帖子信息
     List<Posts> trends(int reside,int status,int start,int count);
     //    获取草稿箱的内容
-    List<Posts> drafts(int reside);
+    Response drafts(int reside);
     //用户对草稿箱内容进行发布
     int upDrafts(int reside);
     //    未通过审核的帖子，已通过审核的帖子，未审核的帖子
     Response savePosts(int reside,int column);
     //通过帖子id查询帖子
     Posts queryPostsById(int postsID);
+    //用户根据状态 查询对应的帖子
+    Response onePicture(int userID,int status);
 
 
 }

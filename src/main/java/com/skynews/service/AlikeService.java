@@ -3,9 +3,7 @@ package com.skynews.service;
 import com.skynews.pojo.Alike;
 import com.skynews.pojo.Messages;
 import com.skynews.pojo.User;
-import org.apache.ibatis.annotations.Param;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface AlikeService {
@@ -34,4 +32,16 @@ public interface AlikeService {
 
     //reside=alike userID postsID
     Messages queryMessagesID(String reside,int userID, int postsID);
+
+    //分页查询某个用户下的所有信息（被收藏或点赞）
+    List<Messages> queryPagesMessages(int authorID,int page);
+
+    //（数量）某个用户下的所有信息（被收藏或点赞）
+    List<Integer> queryMessagesCount(int authorID);
+
+    //批量删除信息
+    int deleteBatchMessages(List<Integer>list);
+
+    //删除某个用户下的所有信息
+    int deleteAllMessagesByUserID(int userID);
 }

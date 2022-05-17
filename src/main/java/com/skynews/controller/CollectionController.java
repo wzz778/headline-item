@@ -3,6 +3,7 @@ package com.skynews.controller;
 import com.skynews.exception.CustomException;
 import com.skynews.pojo.Collections;
 import com.skynews.service.CollectionService;
+import com.skynews.service.PostsService;
 import com.skynews.utils.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -15,13 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Api(tags="收藏类")
-
+@Controller
+@CrossOrigin
 @RequestMapping("/collections")
-@RestController
 public class CollectionController {
     @Autowired
     private CollectionService collectionService;
 
+    @Autowired
+    private PostsService postsService;
 
     @ApiOperation(value = "收藏(添加)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addCollection")
@@ -111,6 +114,37 @@ public class CollectionController {
             collectionService.deleteBatchCollections(nums[i],userID);
         }
         return Response.ok("批量删除成功！");
+    }
+
+//    @ApiOperation(value = "用户批量删除帖子", notes = "获取地址", httpMethod = "POST")
+//    @PostMapping("/deleteBatchPosts")
+//    @ResponseBody
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name="thing",value = "帖子ID"),
+//    })
+//    public Response deleteBatchPosts(String thing){
+//        String[]strings=thing.split(",");
+//        int []nums=new int[strings.length];
+//        for(int i=0;i<strings.length;i++) {
+//            nums[i]=Integer.parseInt(strings[i]);
+//        }
+//        for(int i=0;i<nums.length;i++){
+//            postsService.deletePostsById(nums[i]);
+//        }
+//        return Response.ok("批量删除成功！");
+//    }
+
+    @ApiOperation(value = "用户批量删除帖子", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/deleteBatchPosts")
+    @ResponseBody
+    public Response deleteBatchPosts(@RequestParam("List<Integer>list") List<Integer>list){
+        if(list.isEmpty()){
+            return Response.error("输入错误！");
+        }
+        else{
+            collectionService.deleteBatchPosts(list);
+            return Response.ok("批量删除成功！");
+        }
     }
 
 }

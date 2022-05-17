@@ -94,4 +94,15 @@
     <delete id="deleteCollectionByPostsID" parameterType="int">
       delete from tosky.collections where postsID=#{postsID}
    </delete>
+
+    <!--增加一个manager-->
+    <insert id="addManager" parameterType="Manager">
+      insert into tosky.manager(managerName,password)
+      values (#{managerName}, #{password})
+   </insert>
+
+    <!--根据名字查询用户-->
+    <select id="queryManagerByName" resultType="Manager">
+        select * from tosky.manager where managerName=#{managerName}
+    </select>
 </mapper>
