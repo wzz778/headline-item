@@ -40,4 +40,10 @@ public interface ManagerService {
 
     //通过用户id返回其发布的所有帖子id
     List<Posts> queryPostsID(int reside);
+
+    //添加manager
+    int addManager(Manager manager);
+
+    //根据名字查询manager
+    Manager queryManagerByName(String managerName);
 }

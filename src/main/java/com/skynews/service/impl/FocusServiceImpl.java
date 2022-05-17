@@ -1,16 +1,15 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
-import com.skynews.dao.FeedbackMapper;
 import com.skynews.dao.FocusMapper;
-import com.skynews.pojo.Collections;
 import com.skynews.pojo.Focus;
+import com.skynews.service.FocusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class FocusServiceImpl implements FocusService{
+public class FocusServiceImpl implements FocusService {
 
     //service层调dao层：组合dao
     @Autowired
@@ -45,8 +44,9 @@ public class FocusServiceImpl implements FocusService{
         Focus focus1=focusMapper.queryFocus(focus);
         if(focus1!=null){
             return 1;
+        }else {
+            return 0;
         }
-        return 0;
     }
 
     @Override

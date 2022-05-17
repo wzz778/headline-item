@@ -30,4 +30,51 @@
       SELECT count(*) from tosky.comment
             where postsID=#{postsID}
    </select>
+
+
+    <!--发布子评论-->
+    <insert id="addReviews" parameterType="Reviews">
+      insert into tosky.reviews(parentID,childID,childName,childPicture,contain,times,makerID)
+      values (#{parentID}, #{childID},#{childName},#{childPicture},#{contain},#{times},#{makerID})
+   </insert>
+
+    <!--删除子评论（前端输入子评论id）-->
+    <delete id="deleteReviews" parameterType="int">
+      delete from tosky.reviews where reviewsID=#{reviewsID}
+   </delete>
+
+    <!--查询某一个父评论下的所有子评论-->
+    <select id="queryReviewsByParent" resultType="Reviews">
+      select * from tosky.reviews
+      where parentID=#{parentID}
+   </select>
+
+    <!--通过reviewsID查询某一条子评论-->
+    <select id="queryReviewsByReviewsID" resultType="Reviews">
+      select * from tosky.reviews
+      where reviewsID=#{reviewsID}
+   </select>
+
+    <!--通过reviewsID查询某一条子评论-->
+    <select id="queryReviewsIDByAll" resultType="Reviews">
+      select * from tosky.reviews
+      where parentID=#{parentID} and contain=#{contain} and times=#{times} and makerID=#{makerID}
+   </select>
+
+    <!--通过reviewsID修改childID-->
+    <update id="updateChildID" parameterType="int">
+      update tosky.reviews
+      set childID=#{childID}
+      where reviewsID=#{reviewsID}
+   </update>
+
+    <!--查询某一条父评论下子评论的个数-->
+    <select id="queryCountByParentID" resultType="int">
+      select count(*) from tosky.reviews where parentID=#{parentID}
+   </select>
+
+    <!--根据parentID删除子评论-->
+    <delete id="deleteReviewsByParentID" parameterType="int">
+      delete from tosky.reviews where parentID=#{parentID}
+   </delete>
 </mapper>

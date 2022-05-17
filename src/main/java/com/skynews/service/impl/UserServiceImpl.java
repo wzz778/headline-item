@@ -1,17 +1,20 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
 import com.skynews.dao.UserMapper;
-import com.skynews.pojo.*;
-import com.skynews.utils.PageUtils;
+import com.skynews.pojo.Collections;
+import com.skynews.pojo.Picture;
+import com.skynews.pojo.Posts;
+import com.skynews.pojo.User;
+import com.skynews.service.PostsService;
+import com.skynews.service.UserService;
 import com.skynews.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
+
 @Service
 public class UserServiceImpl implements UserService {
     //service调dao层：组合Dao
@@ -24,17 +27,12 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    @Override
-    public void mail(String mail, String code) {
-        userMapper.mail(mail, code);
-    }
 
     @Override
     public int register(User user) {
         String account = user.getAccount();
         //根据账号查询用户
-        User user1 = userMapper.getUser(account);
-        if(user1!=null){
+        if(account!=null){
             return 0;
         }else{
             account= String.valueOf(new Random().nextInt(899999) + 1000000);
@@ -150,30 +148,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response allAuditingPicture(String account) {
-        List<Picture> pictures = userMapper.allAuditingPicture(account);
-        if(pictures==null){
+    public Response allAuditingPicture(int userID) {
+        List<Picture> pictures = userMapper.allAuditingPicture(userID);
+        if(pictures.size()==0){
             return Response.error("error");
         }
         return Response.ok(pictures); 
     }
 
     @Override
-    public Response allPassPicture(String account) {
-        List<Picture> pictures = userMapper.allPassPicture(account);
-        if(pictures==null){
+    public Response allPassPicture(int userID) {
+        List<Picture> pictures = userMapper.allPassPicture(userID);
+        if(pictures.size()==0){
             return Response.error("error");
         }
         return Response.ok(pictures);
     }
 
     @Override
-    public Response disDrafts(int reside,int status,int start) {
-        List<Posts> postsList = userMapper.disDrafts(reside, status, start);
-        if(postsList==null){
-            return Response.error("不存在");
+    public Response disDrafts(int reside,int status,int start,int count) {
+        List<Posts> postsList = userMapper.disDrafts(reside, status, start,count);
+        if(!postsList.isEmpty()){
+            if(status==1){
+                return Response.ok(postsList,"审核通过的帖子");
+            }else if(status==-1){
+                return Response.ok(postsList,"未审核通过的帖子");
+            }else if(status==0){
+                return Response.ok(postsList,"待审核的帖子");
+            }
         }
-        return Response.ok(postsList);
+        return Response.error("输入错误");
     }
 
     @Override
@@ -192,8 +196,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Posts> drafts(int reside) {
-        return userMapper.drafts(reside);
+    public Response drafts(int reside) {
+        List<Posts> drafts = userMapper.drafts(reside);
+        if(drafts.isEmpty()){
+            return Response.error("查询为空");
+        }
+        return  Response.ok(drafts);
     }
 
     @Override
@@ -207,10 +215,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Response onePicture(int userID, int status) {
+        List<Picture> pictures = userMapper.onePicture(userID, status);
+        System.out.println(pictures);
+        if(pictures.isEmpty()){
+            return Response.error("查询为空");
+        }
+        return Response.ok(pictures);
+    }
+
+    @Override
     public Response savePosts(int reside, int column) {
         List<Posts> postsList = userMapper.savePosts(reside, column);
         if(postsList==null){
-            return Response.error("不存在");
+            return Response.error("查询为空");
         }
         return Response.ok(postsList);
     }

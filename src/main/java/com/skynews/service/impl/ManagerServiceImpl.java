@@ -1,12 +1,10 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
 import com.skynews.dao.ManagerMapper;
-import com.skynews.dao.UserMapper;
-import com.skynews.pojo.Collections;
 import com.skynews.pojo.Manager;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
+import com.skynews.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -104,6 +102,16 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public List<Posts> queryPostsID(int reside) {
         return managerMapper.queryPostsID(reside);
+    }
+
+    @Override
+    public int addManager(Manager manager) {
+        return managerMapper.addManager(manager);
+    }
+
+    @Override
+    public Manager queryManagerByName(String managerName) {
+        return managerMapper.queryManagerByName(managerName);
     }
 
 

@@ -1,6 +1,6 @@
 package com.skynews.controller;
-import com.skynews.exception.CustomException;
 
+import com.skynews.exception.CustomException;
 import com.skynews.pojo.Reports;
 import com.skynews.service.ReportsService;
 import com.skynews.utils.Response;
@@ -10,14 +10,17 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
 @Api(tags="举报帖子类")
-
-@RestController
+@Controller
+@CrossOrigin
 public class ReportsController {
     @Autowired
     private ReportsService reportsService;

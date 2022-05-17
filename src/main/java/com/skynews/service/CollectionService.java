@@ -1,8 +1,6 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Collections;
-import org.apache.ibatis.annotations.Param;
-
 
 import java.util.List;
 
@@ -21,4 +19,7 @@ public interface CollectionService {
 
     //批量删除所收藏帖子
     int deleteBatchCollections(int postsID,int userID);
+
+    //批量删除帖子
+    int deleteBatchPosts(List<Integer>list);
 }

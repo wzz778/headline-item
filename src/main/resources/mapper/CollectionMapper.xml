@@ -33,7 +33,8 @@
     <select id="queryCollection" resultType="Collections">
         select * from tosky.collections where postsID=#{postsID} and userID=#{userID}
     </select>
-    
+
+    <!--批量删除所收藏帖子-->
     <delete id="deleteBatchCollections">
         delete from tosky.collections
     where
@@ -46,4 +47,25 @@
         insert into tosky.messages(reside,postsName,userID,authorID,times,postsID)
       values (#{reside}, #{postsName},#{userID},#{authorID},#{times},#{postsID})
     </insert>
+
+    <!--删除点赞记录-->
+    <delete id="deleteAlikeWrite" parameterType="int">
+      delete from tosky.alike
+     where
+     postsID=#{postsID}
+   </delete>
+
+    <!--删除收藏记录-->
+    <delete id="deleteCollectionWrite" parameterType="int">
+      delete from tosky.collections
+     where
+     postsID=#{postsID}
+   </delete>
+
+    <!--删除评论记录-->
+    <delete id="deleteCommentWrite" parameterType="int">
+      delete from tosky.comment
+     where
+     postsID=#{postsID}
+   </delete>
 </mapper>

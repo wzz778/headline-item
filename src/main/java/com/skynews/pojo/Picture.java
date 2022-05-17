@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Picture {
+    @ApiModelProperty(value="图片id")
+    private int PictureID;
     @ApiModelProperty(value="用户id")
-    private int UserId;
-    @ApiModelProperty(value="用户账号")
-    private String account;
+    private int userID;
     @ApiModelProperty(value="图片")
     private String userImg;
     @ApiModelProperty(value="图片描述")

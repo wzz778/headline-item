@@ -2,9 +2,7 @@ package com.skynews.dao;
 
 import com.skynews.pojo.Collections;
 import com.skynews.pojo.Messages;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 
 import java.util.List;
 
@@ -26,4 +24,13 @@ public interface CollectionMapper {
 
     //收藏（添加）之后在messages中增加一条数据表示此用户收藏的记录
     int setMessages(Messages messages);
+
+    //删除点赞记录
+    int deleteAlikeWrite(int postsID);
+
+    //删除收藏记录
+    int deleteCollectionWrite(int postsID);
+
+    //删除评论记录
+    int deleteCommentWrite(int postsID);
 }

@@ -30,7 +30,7 @@
 
     <!--判断该用户是否已经关注过另一个用户-->
     <select id="queryFocus" resultType="Focus">
-        SELECT * from tosky.focus where focusID=#{focusID} and fansID=#{fansID}
+        select * from tosky.focus where focusID=#{focusID} and fansID=#{fansID}
     </select>
 
     <!--根据用户id获取用户的粉丝数-->

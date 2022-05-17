@@ -1,7 +1,6 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Feedback;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

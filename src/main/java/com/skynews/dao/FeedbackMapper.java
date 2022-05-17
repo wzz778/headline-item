@@ -1,7 +1,6 @@
 package com.skynews.dao;
 
 import com.skynews.pojo.Feedback;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public interface FeedbackMapper {
     int addFeedback(Feedback feedback);
 
     //查询所有反馈
-    List<Feedback> queryAllFeedback(@Param("column") int column,@Param("total") int total);
+    List<Feedback> queryAllFeedback(@Param("column") int column, @Param("total") int total);
 
     //查询所有反馈(返回一共多少条反馈)
     int queryFeedbackCount();

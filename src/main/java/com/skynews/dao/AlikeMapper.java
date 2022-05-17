@@ -1,9 +1,12 @@
 package com.skynews.dao;
 
-import com.skynews.pojo.*;
-import org.apache.ibatis.annotations.Mapper;
+import com.skynews.pojo.Alike;
+import com.skynews.pojo.Messages;
+import com.skynews.pojo.User;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
+
 public interface AlikeMapper {
     //用户点赞
     int setAlike(int postsID);
@@ -37,4 +40,22 @@ public interface AlikeMapper {
 
     //reside=alike userID postsID
     Messages queryMessagesID(@Param("reside") String reside,@Param("userID") int userID,@Param("postsID") int postsID);
+
+    //分页查询某个用户下的所有信息（被收藏或点赞）
+    List<Messages> queryPagesMessages(@Param("authorID") int authorID,@Param("page") int page);
+
+    //（数量）某个用户下的所有信息（被收藏或点赞）
+    int queryMessagesCount(int authorID);
+
+    //根据reside，userID，postsID，查询指定信息
+    List<Messages> queryOneMessages(@Param("reside") String reside,@Param("userID") int userID,@Param("postsID") int postsID);
+
+    //通过id修改某条信息
+    int updateMessages(@Param("times") String times,@Param("messagesID") int messagesID);
+
+    //批量删除信息
+    int deleteBatchMessages(int messagesID);
+
+    //删除某个用户下的所有信息
+    int deleteAllMessagesByUserID(int userID);
 }

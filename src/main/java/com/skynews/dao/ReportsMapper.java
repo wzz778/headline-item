@@ -1,8 +1,5 @@
 package com.skynews.dao;
-import com.skynews.pojo.Feedback;
-import com.skynews.pojo.Picture;
 import com.skynews.pojo.Reports;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

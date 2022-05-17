@@ -1,4 +1,5 @@
 package com.skynews.controller;
+
 import com.skynews.exception.CustomException;
 import com.skynews.pojo.Picture;
 import com.skynews.service.CosService;
@@ -13,16 +14,16 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-@Api(tags="图片库类")
 
+import java.util.HashMap;
+import java.util.Map;
+
+@Api(tags="图片库类")
+@Controller
+@CrossOrigin
 @RequestMapping("/img")
-@RestController
 public class ImgDatasController {
     @Autowired
     private CosService cosService;
@@ -33,12 +34,12 @@ public class ImgDatasController {
     @ApiOperation(value = "照片库上传", httpMethod = "POST")
     @PostMapping("/getImgProfile")
     @ResponseBody
-    public ResponseDot getImgProfile(@RequestParam("profile") MultipartFile profile1, @RequestParam("account") String  account,@RequestParam("userDepiction") String userDepiction) {
-        ResponseDot upload = cosService.upload(profile1);
-        String profile = String.valueOf(upload.getData());
+    public ResponseDot getImgProfile(@RequestParam("profile") MultipartFile profile, @RequestParam("userID") int  userID,@RequestParam("userDepiction") String userDepiction) {
+        ResponseDot upload = cosService.upload(profile);
+        String profile1 = String.valueOf(upload.getData());
         Picture img=new Picture();
-        img.setAccount(account);
-        img.setUserImg(profile);
+        img.setUserID(userID);
+        img.setUserImg(profile1);
         img.setUserDepiction(userDepiction);
         imgDataService.ImgDates(img);
         Map<String,ResponseDot> map=new HashMap<>();
@@ -97,9 +98,13 @@ public class ImgDatasController {
     @ApiOperation(value = "审核照片", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/auditPicture")
     @ResponseBody
-    @ApiImplicitParam(name="UserId",value = "用户id")
-    public Response auditPicture(Integer UserId){
-        return imgDataService.auditPicture(UserId);
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="status",value = "图片状态"),
+            @ApiImplicitParam(name="PictureID",value = "图片id")
+    })
+
+    public Response auditPicture(Integer status,Integer PictureID){
+        return imgDataService.auditPicture(status,PictureID);
     }
     //查询所有审核过的帖子，也就是status为1的帖子
     @ApiOperation(value = "管理员查询审核通过的照片", notes = "获取地址", httpMethod = "GET")
@@ -117,13 +122,39 @@ public class ImgDatasController {
     @ApiOperation(value = "用户查询暂未审核的图片", notes = "获取地址", httpMethod = "GET")
     @GetMapping("/allAuditingPicture")
     @ResponseBody
-    public Response allAuditing(@RequestParam("account") String account){
-        return userService.allAuditingPicture(account);
+    public Response allAuditingPicture(@RequestParam("userID") int userID){
+        return userService.allAuditingPicture(userID);
     }
     @ApiOperation(value = "用户查询暂审核过的图片", notes = "获取地址", httpMethod = "GET")
     @GetMapping("/allPassPicture")
     @ResponseBody
-    public Response allPassPicture (@RequestParam("account") String account){
-        return userService.allPassPicture(account);
+    public Response allPassPicture (@RequestParam("userID") int userID){
+        return userService.allPassPicture(userID);
+    }
+    @ApiOperation(value = "用户删除图片", notes = "获取地址", httpMethod = "GET")
+    @GetMapping("/deletePicture")
+    @ResponseBody
+//    @ApiImplicitParam(name="PictureID",value = "图片id")
+    public Response deletePicture (@RequestParam("PictureID") int PictureID ){
+        return imgDataService.deletePicture(PictureID);
+    }
+    //    用户根据状态 查询对应图片
+    @ApiOperation(value = "用户根据状态 查询对应的图片", notes = "获取地址", httpMethod = "GET")
+    @GetMapping("/statusPicture")
+    @ResponseBody
+    public Response statusPicture (int status,@RequestParam("userID") int userID,int start){
+        return imgDataService.statusPicture(status,userID,start);
+    }
+    @ApiOperation(value = "得到用户的所有图片", notes = "获取地址", httpMethod = "GET")
+    @GetMapping("/allUserPicture")
+    @ResponseBody
+    public Response allUserPicture (@RequestParam("userID") int userID,int start){
+        return imgDataService.allUserPicture(userID,start);
+    }
+    @ApiOperation(value = "得到用户的所有帖子", notes = "获取地址", httpMethod = "GET")
+    @GetMapping("/allCountPicture")
+    @ResponseBody
+    public Response  allCountPicture(@RequestParam("userID") int userID){
+        return imgDataService.allCountPicture(userID);
     }
 }

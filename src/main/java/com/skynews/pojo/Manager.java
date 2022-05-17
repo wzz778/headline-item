@@ -1,7 +1,5 @@
 package com.skynews.pojo;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +18,9 @@ public class Manager {
     private String managerName;
     @ApiModelProperty(value="密码")
     private String password;
+
+    public Manager(String managerName, String password) {
+        this.managerName = managerName;
+        this.password = password;
+    }
 }

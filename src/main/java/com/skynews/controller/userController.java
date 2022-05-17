@@ -1,27 +1,38 @@
 package com.skynews.controller;
+
 import com.skynews.exception.CustomException;
-import com.skynews.pojo.Collections;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
+import com.skynews.pojo.Collections;
 import com.skynews.service.PostsService;
 import com.skynews.service.UserService;
-import com.skynews.utils.*;
+import com.skynews.utils.PageUtils;
+import com.skynews.utils.Response;
+import com.skynews.utils.SendMail;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 import springfox.documentation.annotations.ApiIgnore;
+
 import javax.servlet.http.HttpSession;
 import java.util.*;
+
+
 @Api(tags="用户类")
-
+@Controller
+@CrossOrigin
 @RequestMapping("/user")
-
 public class userController {
+//    创建记录日志的对象
+    private static final Logger log= LoggerFactory.getLogger(userController.class);
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -42,6 +53,11 @@ public class userController {
         if (StringUtils.startsWith(targetEmail," ")){
             throw new CustomException("邮箱号不能有空位");
         }
+        log.debug("debug.....");
+//        消息
+        log.info("info.....");
+        log.error("error....");
+        log.warn("warn....");
         //生成六位数验证码
         authCode = String.valueOf(new Random().nextInt(899999) + 100000);
         //sendMail.sendMail(email, "你的验证码为" + captcha + "(五分钟内有效)");
@@ -72,13 +88,9 @@ public class userController {
             throw new CustomException("用户名或密码不能为空");
         }
         User user=new User(username,password,targetEmail);
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(password);
-//        user.setTelephone(targetEmail);
-        if( authCode1.equals(authCode)) {
+        if(authCode1.equals(authCode)) {
            int register = userService.register(user);
-           if (register == 1) {
+           if (register == 0) {
                System.out.println(account);
                 return Response.ok(user,"验证码输入正确,账号生成成功,注册成功");
            } else {
@@ -335,8 +347,9 @@ public class userController {
         if(StringUtils.isEmpty(String.valueOf(userID))||StringUtils.isEmpty(String.valueOf(column))){
             throw new CustomException("类型不能为空");
         }
-        List<Collections> list=userService.saveCollections(userID,column);
-        return list;
+//        List<Collections> list=userService.saveCollections(userID,column);
+        List<com.skynews.pojo.Collections> collections = userService.saveCollections(userID, column);
+        return collections;
     }
     @ApiImplicitParams({
             @ApiImplicitParam(name="userID",value = "用户id",required = true),
@@ -380,8 +393,6 @@ public class userController {
         pageUtils.setStart(start);
         pageUtils.setCount(count);
         List<Posts> list = userService.trends(reside,status,pageUtils.getStart(),pageUtils.getCount());
-        System.out.println(list);
-        System.out.println(pageUtils);
         Map<String,Object> map=new HashMap<>();
         map.put("pagaUtils",pageUtils);
         map.put("list",list);
@@ -390,17 +401,16 @@ public class userController {
     @ApiOperation(value = "用户获取草稿箱的内容", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/drafts")
     @ResponseBody
-
-            @ApiImplicitParam(name="reside",value = "用户id",required = true)
-    public List<Posts> drafts( int reside){
+    @ApiImplicitParam(name="reside",value = "用户id",required = true)
+    public Response drafts( int reside){
 //        if(StringUtils.startsWith(userID," ")||StringUtils.startsWith(column," ")){
 //            throw new CustomException("类型不能有空位");
 //        }
 //        if(StringUtils.isEmpty(String.valueOf(userID))||StringUtils.isEmpty(String.valueOf(column))){
 //            throw new CustomException("类型不能为空");
 //        }
-        List<Posts> list = userService.drafts(reside);
-        return list;
+
+        return userService.drafts(reside);
     }
     @ApiOperation(value = "发布", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/upDrafts")
@@ -422,8 +432,8 @@ public class userController {
     @ApiOperation(value = "用户根据状态值获取对应的帖子", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/disDrafts")
     @ResponseBody
-    public Response disDrafts(int reside,int status,int start){
-        return userService.disDrafts(reside,status,start);
+    public Response disDrafts(int reside,int status,int start,int count){
+        return userService.disDrafts(reside,status,start,count);
     }
     @ApiOperation(value = "除了草稿箱的用户的所有帖子", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/savePosts")

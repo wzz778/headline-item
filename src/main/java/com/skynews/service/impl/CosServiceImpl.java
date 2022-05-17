@@ -1,4 +1,4 @@
-package com.skynews.service;
+package com.skynews.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.qcloud.cos.COSClient;
@@ -6,6 +6,7 @@ import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.model.CannedAccessControlList;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.skynews.config.CosConfig;
+import com.skynews.service.CosService;
 import com.skynews.utils.ResponseDot;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;

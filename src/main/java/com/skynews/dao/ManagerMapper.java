@@ -2,7 +2,6 @@ package com.skynews.dao;
 import com.skynews.pojo.Manager;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -57,5 +56,11 @@ public interface ManagerMapper {
 
     //根据帖子id删除收藏表里面的帖子
     int deleteCollectionByPostsID(int postsID);
+
+    //添加manager
+    int addManager(Manager manager);
+
+    //根据名字查询manager
+    Manager queryManagerByName(String managerName);
 }
 

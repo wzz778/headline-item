@@ -1,23 +1,22 @@
-package com.skynews.service;
-
+package com.skynews.service.impl;
 
 
 import com.skynews.dao.AlikeMapper;
 import com.skynews.dao.CollectionMapper;
-
 import com.skynews.dao.PostsMapper;
+import com.skynews.pojo.Collections;
 import com.skynews.pojo.Messages;
 import com.skynews.pojo.Posts;
+import com.skynews.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.skynews.pojo.Collections;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 @Service
-public class CollectionServiceImpl implements CollectionService{
+public class CollectionServiceImpl implements CollectionService {
 
     //service层调dao层：组合dao
     @Autowired
@@ -77,12 +76,12 @@ public class CollectionServiceImpl implements CollectionService{
     @Override
     public int deleteCollectionById(Collections collections) {
         /******** messages *********/
-        int userID=collections.getUserID();
-        int postsID=collections.getPostsID();
-        String reside="collections";
-        Messages messages=alikeMapper.queryMessagesID(reside,userID,postsID);
-        int messagesID=messages.getMessagesID();
-        alikeMapper.deleteMessages(messagesID);
+//        int userID=collections.getUserID();
+//        int postsID=collections.getPostsID();
+//        String reside="collections";
+//        Messages messages=alikeMapper.queryMessagesID(reside,userID,postsID);
+//        int messagesID=messages.getMessagesID();
+//        alikeMapper.deleteMessages(messagesID);
         /******** messages *********/
         return collectionMapper.deleteCollectionById(collections);
     }
@@ -103,5 +102,14 @@ public class CollectionServiceImpl implements CollectionService{
         return collectionMapper.deleteBatchCollections(postsID,userID);
     }
 
+    public int deleteBatchPosts(List<Integer>list){
+        for(int i=0;i<list.size();i++){
+            postsMapper.deletePostsById(list.get(i));
+            collectionMapper.deleteAlikeWrite(list.get(i));
+            collectionMapper.deleteCollectionWrite(list.get(i));
+            collectionMapper.deleteCommentWrite(list.get(i));
+        }
+        return 0;
+    }
 
 }
