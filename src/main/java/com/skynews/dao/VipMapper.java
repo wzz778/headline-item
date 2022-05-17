@@ -33,5 +33,9 @@ public interface VipMapper {
     //test
     Vip test(@Param("userID")int userID,@Param("times")String times);
 
-    //
+    //返回除了status为-2的文章的个数
+    int queryStatusNoTwo();
+
+    //返回status为1的文章（n条）
+    List<Posts> queryStatusOneN(int count);
 }

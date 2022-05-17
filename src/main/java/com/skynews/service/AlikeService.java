@@ -3,9 +3,11 @@ package com.skynews.service;
 import com.skynews.pojo.Alike;
 import com.skynews.pojo.Messages;
 import com.skynews.pojo.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AlikeService {
 
     //用户点赞（前端输入用户id，帖子id）

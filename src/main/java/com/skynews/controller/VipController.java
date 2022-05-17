@@ -1,6 +1,7 @@
 package com.skynews.controller;
 
 
+import com.skynews.pojo.Posts;
 import com.skynews.pojo.Vip;
 import com.skynews.service.VipService;
 import com.skynews.utils.Response;
@@ -101,5 +102,25 @@ public class VipController {
     @ResponseBody
     public Vip judgeVipI(int userID,String times){
        return vipService.test(userID,times);
+    }
+
+//    //返回除了status为-2的文章的个数
+//    int queryStatusNoTwo();
+//
+//    //返回status为1的文章（n条）
+//    List<Posts> queryStatusOneN(int count);
+
+    @ApiOperation(value = "返回除了status为-2的文章的个数", notes = "获取地址", httpMethod = "GET")
+    @GetMapping("/queryStatusNoTwo")
+    @ResponseBody
+    public int queryStatusNoTwo(){
+        return vipService.queryStatusNoTwo();
+    }
+
+    @ApiOperation(value = "返回status为1的文章（n条）", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/queryStatusOneN")
+    @ResponseBody
+    public List<Posts> queryStatusOneN(int count) {
+        return vipService.queryStatusOneN(count);
     }
 }

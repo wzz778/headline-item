@@ -1,9 +1,11 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Collections;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CollectionService {
     //收藏（添加）
     int addCollection(Collections collections);

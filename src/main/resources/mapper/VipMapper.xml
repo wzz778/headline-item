@@ -58,4 +58,14 @@
         and times=#{times}
         </if>
     </select>
+
+    <!--返回除了status为-2的文章的个数-->
+    <select id="queryStatusNoTwo" resultType="int">
+        select count(*) from tosky.posts where status &lt;&gt; -2
+    </select>
+
+    <!--返回status为1的文章（n条）-->
+    <select id="queryStatusOneN" resultType="Posts">
+        	select * from tosky.posts where status=1 order by postsID desc limit #{count}
+    </select>
 </mapper>

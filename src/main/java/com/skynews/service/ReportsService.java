@@ -2,9 +2,11 @@ package com.skynews.service;
 
 import com.skynews.pojo.Reports;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ReportsService {
     //    添加举报
     int addReport(Reports reports);
