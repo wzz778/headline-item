@@ -3,9 +3,11 @@ package com.skynews.dao;
 import com.skynews.pojo.Collections;
 import com.skynews.pojo.Messages;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CollectionMapper {
     //收藏（添加）
     int addCollection(Collections collections);

@@ -2,9 +2,11 @@ package com.skynews.dao;
 
 import com.skynews.pojo.Feedback;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface FeedbackMapper {
 
     //添加反馈

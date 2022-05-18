@@ -1,6 +1,6 @@
 package com.skynews.controller;
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Collections;
 import com.skynews.service.CollectionService;
 import com.skynews.service.PostsService;
@@ -34,10 +34,10 @@ public class CollectionController {
             @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
     })
 
-    public Response addCollection(Integer postsID, Integer userID) throws CustomException {
-        if(postsID==null||userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response addCollection(Integer postsID, Integer userID)  {
+//        if(postsID==null||userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         Collections collections=new Collections(postsID,userID);
         int a=collectionService.addCollection(collections);
         if(a==1){
@@ -51,10 +51,10 @@ public class CollectionController {
     @PostMapping("/queryCollectionByUserID")
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "所要查询的用户ID")
-    public List<Collections> list(Integer userID) throws CustomException {
-        if(userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Collections> list(Integer userID) {
+//        if(userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         List <Collections> list=collectionService.queryCollectionByUserID(userID);
         return list;
     }
@@ -66,10 +66,10 @@ public class CollectionController {
             @ApiImplicitParam(name="postsID",value = "所收藏帖子ID"),
             @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
     })
-    public Response deleteCollections(Integer postsID, Integer userID) throws CustomException {
-        if(postsID==null||userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response deleteCollections(Integer postsID, Integer userID) {
+//        if(postsID==null||userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         Collections collections=new Collections(postsID,userID);
         collectionService.deleteCollectionById(collections);
         return Response.ok("取消收藏成功！");
@@ -82,10 +82,10 @@ public class CollectionController {
             @ApiImplicitParam(name="postsID",value = "所收藏帖子ID"),
             @ApiImplicitParam(name="userID",value = "所收藏用户ID")
     })
-    public Response queryCollectionBo(Integer postsID, Integer userID) throws CustomException {
-        if(postsID==null||userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response queryCollectionBo(Integer postsID, Integer userID){
+//        if(postsID==null||userID==null){
+//            throw new CustomException("类型为空！");
+//        }
   //      Collections collections=new Collections(postsID,userID);
         int a=collectionService.queryCollection(postsID,userID);
         System.out.println("controller"+a);
@@ -104,7 +104,7 @@ public class CollectionController {
             @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
    //         @ApiImplicitParam(name="num",value = "批量删除数据个数")
     })
-    public Response deleteBatchCollections(String thing, Integer userID) throws CustomException {
+    public Response deleteBatchCollections(String thing, Integer userID)  {
         String[]strings=thing.split("，");
         int []nums=new int[strings.length];
         for(int i=0;i<strings.length;i++) {

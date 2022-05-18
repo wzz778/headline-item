@@ -4,10 +4,12 @@ import com.skynews.pojo.Picture;
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Repository
 public interface UserMapper {
     //邮箱验证
     void mail(String mail,String code);

@@ -8,11 +8,13 @@ import com.skynews.pojo.Vip;
 import com.skynews.service.VipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Transactional
 @Service
 public class VipServiceImpl implements VipService {
     //service调dao层：组合Dao
@@ -65,5 +67,15 @@ public class VipServiceImpl implements VipService {
     @Override
     public Vip test(int userID, String times) {
         return vipMapper.test(userID,times);
+    }
+
+    @Override
+    public int queryStatusNoTwo() {
+        return vipMapper.queryStatusNoTwo();
+    }
+
+    @Override
+    public List<Posts> queryStatusOneN(int count) {
+        return vipMapper.queryStatusOneN(count);
     }
 }

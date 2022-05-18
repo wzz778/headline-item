@@ -1,6 +1,6 @@
 package com.skynews.controller;
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
 import com.skynews.pojo.Collections;
@@ -45,14 +45,14 @@ public class userController {
     @PostMapping("/getCode")
     @ResponseBody
 //    @ApiImplicitParam(name="targetEmail",value = "邮箱号")
-    public Response mail(@RequestParam("targetEmail") String targetEmail) throws CustomException {
+    public Response mail(@RequestParam("targetEmail") String targetEmail) {
         String targetEmail1=targetEmail.replaceAll(" ","");
-        if (StringUtils.isEmpty(targetEmail)){
-            throw new CustomException("邮箱号不能为空");
-        }
-        if (StringUtils.startsWith(targetEmail," ")){
-            throw new CustomException("邮箱号不能有空位");
-        }
+//        if (StringUtils.isEmpty(targetEmail)){
+//            throw new CustomException("邮箱号不能为空");
+//        }
+//        if (StringUtils.startsWith(targetEmail," ")){
+//            throw new CustomException("邮箱号不能有空位");
+//        }
         log.debug("debug.....");
 //        消息
         log.info("info.....");
@@ -78,15 +78,15 @@ public class userController {
                              String username,
                              String password,
                              String targetEmail,
-                             String authCode1) throws CustomException
+                             String authCode1)
                              {
-        if (StringUtils.startsWith(username," ") || StringUtils.startsWith(password," ")|| StringUtils.startsWith(targetEmail," ")|| StringUtils.startsWith(authCode1," ")){
-            throw new CustomException("类型不能有空位");
-        }
-
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)|| StringUtils.isEmpty(targetEmail)|| StringUtils.isEmpty(authCode1)){
-            throw new CustomException("用户名或密码不能为空");
-        }
+//        if (StringUtils.startsWith(username," ") || StringUtils.startsWith(password," ")|| StringUtils.startsWith(targetEmail," ")|| StringUtils.startsWith(authCode1," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//
+//        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)|| StringUtils.isEmpty(targetEmail)|| StringUtils.isEmpty(authCode1)){
+//            throw new CustomException("用户名或密码不能为空");
+//        }
         User user=new User(username,password,targetEmail);
         if(authCode1.equals(authCode)) {
            int register = userService.register(user);
@@ -110,15 +110,15 @@ public class userController {
 //
 //    })
     public Response login(@RequestParam("account") String account,
-                          @RequestParam("password") String password,@ApiIgnore HttpSession session) throws CustomException {
+                          @RequestParam("password") String password,@ApiIgnore HttpSession session)  {
         User user1=userService.login(account,password);
-        if (StringUtils.startsWith(account," ") || StringUtils.startsWith(password," ")){
-            throw new CustomException("类型不能有空位");
-        }
-
-        if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password)){
-            throw new CustomException("用户名或密码不能为空");
-        }
+//        if (StringUtils.startsWith(account," ") || StringUtils.startsWith(password," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//
+//        if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password)){
+//            throw new CustomException("用户名或密码不能为空");
+//        }
         session.setAttribute("user",user1);
         System.out.println(user1);
         if (user1 != null) {
@@ -135,14 +135,14 @@ public class userController {
             @RequestParam("newpassword") String password,
                                    @RequestParam("newpassword2") String newpassword2,
                                    @RequestParam("targetEmail") String targetEmail,
-                                   @RequestParam("authCode1") String authCode1) throws CustomException {
-        if (StringUtils.startsWith(account," ") || StringUtils.startsWith(password," ")||StringUtils.startsWith(newpassword2," ")|| StringUtils.startsWith(targetEmail," ")|| StringUtils.startsWith(authCode1," ")){
-            throw new CustomException("类型不能有空位");
-        }
-
-        if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password)||StringUtils.isEmpty(newpassword2)|| StringUtils.isEmpty(targetEmail)|| StringUtils.isEmpty(authCode1)){
-            throw new CustomException("类型不能为空");
-        }
+                                   @RequestParam("authCode1") String authCode1)  {
+//        if (StringUtils.startsWith(account," ") || StringUtils.startsWith(password," ")||StringUtils.startsWith(newpassword2," ")|| StringUtils.startsWith(targetEmail," ")|| StringUtils.startsWith(authCode1," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//
+//        if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password)||StringUtils.isEmpty(newpassword2)|| StringUtils.isEmpty(targetEmail)|| StringUtils.isEmpty(authCode1)){
+//            throw new CustomException("类型不能为空");
+//        }
         User user = userService.getUser(account);
         if(user!=null){
             String telephone = user.getTelephone();
@@ -173,13 +173,13 @@ public class userController {
     @ApiOperation(value = "修改用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/updateUser")
     @ResponseBody
-    public Response updateUser(User user) throws CustomException {
-        if (StringUtils.isEmpty(String.valueOf(user))){
-            throw new CustomException("用户信息不能为空");
-        }
-        if(StringUtils.startsWith(user," ")){
-            throw new CustomException("用户信息含空位");
-        }
+    public Response updateUser(User user) {
+//        if (StringUtils.isEmpty(String.valueOf(user))){
+//            throw new CustomException("用户信息不能为空");
+//        }
+//        if(StringUtils.startsWith(user," ")){
+//            throw new CustomException("用户信息含空位");
+//        }
         System.out.println(user);
         int i = userService.updateUser(user);
         if(i==1){
@@ -192,13 +192,13 @@ public class userController {
     @ApiOperation(value = "注销用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/del/{userID}")
     @ResponseBody
-    public Response deleteUser(@PathVariable("userID")Integer userID) throws CustomException {
-        if(StringUtils.isEmpty(String.valueOf(userID))){
-            throw new CustomException("类型为空!");
-        }
-        if(StringUtils.startsWith(userID," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public Response deleteUser(@PathVariable("userID")Integer userID){
+//        if(StringUtils.isEmpty(String.valueOf(userID))){
+//            throw new CustomException("类型为空!");
+//        }
+//        if(StringUtils.startsWith(userID," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         User user = userService.queryUserById(userID);
         if(user!=null){
             userService.deleteUserById(userID);
@@ -214,15 +214,15 @@ public class userController {
 //    @ApiImplicitParams({
 //            @ApiImplicitParam(name="thing",value = "模糊查询的片段")
 //    })
-    public List<User> vagueQueryUsername (String thing) throws CustomException {
+    public List<User> vagueQueryUsername (String thing) {
         String thing1=thing.replaceAll(" ","");
    //     System.out.println(thing1);
-        if (StringUtils.isEmpty(thing)) {
-            throw new CustomException("类型为空!");
-        }
-        if (StringUtils.startsWith(thing," ")){
-            throw new CustomException("类型有空位");
-        }
+//        if (StringUtils.isEmpty(thing)) {
+//            throw new CustomException("类型为空!");
+//        }
+//        if (StringUtils.startsWith(thing," ")){
+//            throw new CustomException("类型有空位");
+//        }
         List <User> list= userService.vagueQueryUsername(thing1);
         return list;
     }
@@ -233,13 +233,13 @@ public class userController {
 //            @ApiImplicitParam(name="column",value = "开始查询索引"),
 //            @ApiImplicitParam(name="total",value = "查询数量"),
 //    })
-    public List<User>savePages(@RequestParam("column") int column,@RequestParam("total") int total) throws CustomException {
-        if(StringUtils.startsWith(column," ")||StringUtils.startsWith(total," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(StringUtils.isEmpty(String.valueOf(column))||StringUtils.isEmpty(String.valueOf(total))){
-            throw new CustomException("类型不能为空");
-        }
+    public List<User>savePages(@RequestParam("column") int column,@RequestParam("total") int total)  {
+//        if(StringUtils.startsWith(column," ")||StringUtils.startsWith(total," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(StringUtils.isEmpty(String.valueOf(column))||StringUtils.isEmpty(String.valueOf(total))){
+//            throw new CustomException("类型不能为空");
+//        }
         List <User> list=userService.savePages(column,total);
         return list;
     }
@@ -251,13 +251,13 @@ public class userController {
 //            @ApiImplicitParam(name="column",value = "开始查询索引"),
 //            @ApiImplicitParam(name="total",value = "查询数量"),
 //    })
-    public List<User>vagueSavePages(@RequestParam("thing")String thing,@RequestParam("column")int column,@RequestParam("total")int total) throws CustomException {
-        if(StringUtils.startsWith(thing," ")||StringUtils.startsWith(column," ")||StringUtils.startsWith(total," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(StringUtils.isEmpty(thing)||StringUtils.isEmpty(String.valueOf(column))||StringUtils.isEmpty(String.valueOf(total))){
-            throw new CustomException("类型不能为空");
-        }
+    public List<User>vagueSavePages(@RequestParam("thing")String thing,@RequestParam("column")int column,@RequestParam("total")int total)  {
+//        if(StringUtils.startsWith(thing," ")||StringUtils.startsWith(column," ")||StringUtils.startsWith(total," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(StringUtils.isEmpty(thing)||StringUtils.isEmpty(String.valueOf(column))||StringUtils.isEmpty(String.valueOf(total))){
+//            throw new CustomException("类型不能为空");
+//        }
         List <User> list=userService.vagueSavePages(thing,column,total);
         return list;
     }
@@ -265,16 +265,16 @@ public class userController {
     @PostMapping("/allAuditing")
     @ResponseBody
     @ApiImplicitParam(name="reside",value = "用户id")
-    public List<Posts>allAuditing(@RequestParam("reside") Integer reside) throws CustomException {
+    public List<Posts>allAuditing(@RequestParam("reside") Integer reside)  {
 //        if(StringUtils.startsWith(reside," ")){
 //            throw new CustomException("类型不能有空位");
 //        }
 //        if(StringUtils.isEmpty(String.valueOf(reside))){
 //            throw new CustomException("类型不能为空");
 //        }
-            if(reside==null){
-            throw new CustomException("类型不能为空");
-            }
+//            if(reside==null){
+//            throw new CustomException("类型不能为空");
+//            }
         List <Posts> list=userService.allAuditing(reside);
         return list;
     }
@@ -282,13 +282,13 @@ public class userController {
     @PostMapping("/allPass")
     @ResponseBody
     @ApiImplicitParam(name="reside",value = "用户id")
-    public List<Posts>allPass(@RequestParam("reside") int reside) throws CustomException {
-        if(StringUtils.startsWith(reside," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(StringUtils.isEmpty(String.valueOf(reside))){
-            throw new CustomException("类型不能为空");
-        }
+    public List<Posts>allPass(@RequestParam("reside") int reside){
+//        if(StringUtils.startsWith(reside," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(StringUtils.isEmpty(String.valueOf(reside))){
+//            throw new CustomException("类型不能为空");
+//        }
         List <Posts> list=userService.allPass(reside);
         return list;
     }
@@ -323,13 +323,13 @@ public class userController {
     @PostMapping("/allCountPosts")
     @ResponseBody
     @ApiImplicitParam(name="reside",value = "用户id",required = true)
-    public int allCountPosts(@RequestParam("reside") int reside) throws CustomException {
-        if(StringUtils.startsWith(reside," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(StringUtils.isEmpty(String.valueOf(reside))){
-            throw new CustomException("类型不能为空");
-        }
+    public int allCountPosts(@RequestParam("reside") int reside) {
+//        if(StringUtils.startsWith(reside," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(StringUtils.isEmpty(String.valueOf(reside))){
+//            throw new CustomException("类型不能为空");
+//        }
         int list=userService.allCountPosts(reside);
         return list;
     }
@@ -340,13 +340,13 @@ public class userController {
             @ApiImplicitParam(name="column",value = "开始查询索引",required = true),
             @ApiImplicitParam(name="column",value = "索引",required = true),
     })
-    public List<Collections> saveCollections(@RequestParam("userID") int userID,@RequestParam("column") int column) throws CustomException {
-        if(StringUtils.startsWith(userID," ")||StringUtils.startsWith(column," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(StringUtils.isEmpty(String.valueOf(userID))||StringUtils.isEmpty(String.valueOf(column))){
-            throw new CustomException("类型不能为空");
-        }
+    public List<Collections> saveCollections(@RequestParam("userID") int userID,@RequestParam("column") int column) {
+//        if(StringUtils.startsWith(userID," ")||StringUtils.startsWith(column," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(StringUtils.isEmpty(String.valueOf(userID))||StringUtils.isEmpty(String.valueOf(column))){
+//            throw new CustomException("类型不能为空");
+//        }
 //        List<Collections> list=userService.saveCollections(userID,column);
         List<com.skynews.pojo.Collections> collections = userService.saveCollections(userID, column);
         return collections;
@@ -358,10 +358,10 @@ public class userController {
     @ApiOperation(value = "对用户的收藏帖子的分页(返回帖子id查询相对应的帖子)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryPostsByCollectionID")
     @ResponseBody
-    public List<Posts> queryPostsByCollectionID (Integer userID,Integer column) throws CustomException {
-        if(userID==null||column==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Posts> queryPostsByCollectionID (Integer userID,Integer column)  {
+//        if(userID==null||column==null){
+//            throw new CustomException("类型为空！");
+//        }
         List<Collections>list=userService.saveCollections(userID,column);
         List<Posts>list1=new ArrayList<>();
         for(int i=0;i<list.size();i++){

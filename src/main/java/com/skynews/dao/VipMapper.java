@@ -5,9 +5,11 @@ import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
 import com.skynews.pojo.Vip;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface VipMapper {
     //成为vip
     int addVip(Vip vip);
@@ -32,4 +34,10 @@ public interface VipMapper {
 
     //test
     Vip test(@Param("userID")int userID,@Param("times")String times);
+
+    //返回除了status为-2的文章的个数
+    int queryStatusNoTwo();
+
+    //返回status为1的文章（n条）
+    List<Posts> queryStatusOneN(int count);
 }

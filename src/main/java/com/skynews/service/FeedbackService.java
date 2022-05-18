@@ -1,8 +1,10 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Feedback;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 public interface FeedbackService {
 

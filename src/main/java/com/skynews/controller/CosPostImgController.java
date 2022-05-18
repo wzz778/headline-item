@@ -1,5 +1,5 @@
 package com.skynews.controller;
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Posts;
 import com.skynews.service.CosService;
 import com.skynews.service.PostsService;
@@ -40,10 +40,10 @@ public class CosPostImgController {
             @ApiImplicitParam(name="picture",value = "发布帖子时间",required = true),
             @ApiImplicitParam(name="status",value = "发布帖子状态",required = true)
     })
-    public ResponseDot setPostProfile(MultipartFile profile1,String postsName,String label,Integer reside,String content,String contentA,String picture,int status) throws CustomException {
-        if (StringUtils.startsWith(postsName," ")||StringUtils.startsWith(label," ")||StringUtils.startsWith(reside," ")||StringUtils.startsWith(content," ")||StringUtils.startsWith(contentA," ")||StringUtils.startsWith(picture," ")){
-            throw new CustomException("类型存在空位");
-        }
+    public ResponseDot setPostProfile(MultipartFile profile1,String postsName,String label,Integer reside,String content,String contentA,String picture,int status)  {
+//        if (StringUtils.startsWith(postsName," ")||StringUtils.startsWith(label," ")||StringUtils.startsWith(reside," ")||StringUtils.startsWith(content," ")||StringUtils.startsWith(contentA," ")||StringUtils.startsWith(picture," ")){
+//            throw new CustomException("类型存在空位");
+//        }
         ResponseDot upload = cosService.upload(profile1);
         String profile = String.valueOf(upload.getData());
 //        Posts posts=new Posts(postsName,label,reside,content,contentA,picture,profile);
@@ -75,10 +75,10 @@ public class CosPostImgController {
             @ApiImplicitParam(name="picture",value = "发布帖子时间",required = true),
             @ApiImplicitParam(name="postsID",value = "帖子id",required = true),
     })
-    public ResponseDot changePostProfile(MultipartFile profile1,String postsName,String label,Integer reside,String content,String contentA,String picture,Integer  postsID) throws CustomException {
-        if (StringUtils.startsWith(postsName," ")||StringUtils.startsWith(label," ")||StringUtils.startsWith(reside," ")||StringUtils.startsWith(content," ")||StringUtils.startsWith(contentA," ")||StringUtils.startsWith(picture," ")){
-            throw new CustomException("类型存在空位");
-        }
+    public ResponseDot changePostProfile(MultipartFile profile1,String postsName,String label,Integer reside,String content,String contentA,String picture,Integer  postsID){
+//        if (StringUtils.startsWith(postsName," ")||StringUtils.startsWith(label," ")||StringUtils.startsWith(reside," ")||StringUtils.startsWith(content," ")||StringUtils.startsWith(contentA," ")||StringUtils.startsWith(picture," ")){
+//            throw new CustomException("类型存在空位");
+//        }
         ResponseDot upload = cosService.upload(profile1);
         String profile = String.valueOf(upload.getData());
         Posts posts=new Posts();

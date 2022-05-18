@@ -1,8 +1,10 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Posts;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 public interface PostsService {
     //查询所有帖子

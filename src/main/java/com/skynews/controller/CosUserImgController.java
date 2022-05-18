@@ -1,6 +1,6 @@
 package com.skynews.controller;
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.User;
 import com.skynews.service.CosService;
 import com.skynews.service.UserService;
@@ -33,10 +33,10 @@ public class CosUserImgController {
     @ApiImplicitParam(name="account",value = "账号",required = true)
 
 
-    public ResponseDot saveUserProfile(MultipartFile profile1,String account) throws CustomException {
-        if(StringUtils.startsWith(account," ")){
-            throw new CustomException("存在空位");
-        }
+    public ResponseDot saveUserProfile(MultipartFile profile1,String account) {
+//        if(StringUtils.startsWith(account," ")){
+//            throw new CustomException("存在空位");
+//        }
         ResponseDot upload = cosService.upload(profile1);
         String profile = String.valueOf(upload.getData());
         System.out.println(profile);

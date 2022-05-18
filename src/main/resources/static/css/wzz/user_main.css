@@ -370,6 +370,7 @@ body a {
 
 #main_top #top #top_message {
   display: none;
+  transition: 0.3s;
 }
 
 #main_top #top #head_show {
@@ -773,6 +774,18 @@ body a {
   text-align: center;
   background-color: white;
   transition: .3s;
+  position: relative;
+}
+
+.main .main_right .id_card button div {
+  display: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  position: absolute;
+  background-color: red;
+  top: 10px;
+  right: 20px;
 }
 
 .main .main_right .id_card button:hover {

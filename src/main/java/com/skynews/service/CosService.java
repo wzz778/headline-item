@@ -1,7 +1,9 @@
 package com.skynews.service;
 
 import com.skynews.utils.ResponseDot;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+
 
 public interface CosService {
 //    上传图片

@@ -2,9 +2,11 @@ package com.skynews.dao;
 
 import com.skynews.pojo.Focus;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface FocusMapper {
 
     //关注某用户

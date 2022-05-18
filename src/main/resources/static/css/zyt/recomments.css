@@ -3,6 +3,19 @@
   padding: 0;
 }
 
+body {
+  background-color: #E9E9E9;
+  background-image: url(https://i.gtimg.cn/qzone/space_item/orig/3/72019_top.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+}
+
+body a {
+  text-decoration: none;
+}
+
 .container2 {
   margin: 0 auto;
   max-width: 1200px;
@@ -10,26 +23,103 @@
   display: flex;
 }
 
+.down {
+  animation-name: down;
+  animation-duration: .6s;
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+}
+
+@keyframes down {
+  from {
+    bottom: -100px;
+  }
+  to {
+    bottom: 0;
+  }
+}
+
+@-webkit-keyframes down {
+  from {
+    bottom: -100px;
+  }
+  to {
+    bottom: 0;
+  }
+}
+
 .container1 {
   margin: 0 auto;
-  max-width: 1100px;
-  min-width: 900px;
+  max-width: 1150px;
+  min-width: 1000px;
   display: flex;
 }
 
 .recomments1 {
   margin-top: 50px;
   width: 100%;
+  min-height: 1000px;
+}
+
+.showcommit {
+  width: 770px;
+  height: 70px;
+  padding: 10px;
+  box-shadow: 0px 1px 3px #888888;
+  position: fixed;
+  bottom: -100px;
   background-color: white;
+  z-index: 99;
+  border-radius: 8px 8px 0 0;
+}
+
+.showcommit img {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+  border-radius: 40px;
+}
+
+.showcommit button {
+  right: 0px;
+  width: 90px;
+  height: 43px;
+  font-size: 16px;
+  position: absolute;
+  right: 30px;
+  border-radius: 4px;
+  background-color: #73b4f0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.showcommit button:hover {
+  background-color: #4fa2f0;
+}
+
+.showcommit #showcommit_area {
+  position: absolute;
+  left: 60px;
+  resize: none;
+  outline: none;
+  border: #f2f2f2 2px solid;
+  width: 580px;
+  height: 31px;
+  padding: 5px;
+  line-height: 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  transition: .3s;
 }
 
 .recomments1_wrap {
   position: relative;
   margin: 0 auto;
-}
-
-a {
-  text-decoration: none;
+  height: 100%;
 }
 
 .food_find_input_hide {
@@ -143,6 +233,10 @@ a {
 
 .recomments1_middle {
   width: 750px;
+  padding: 20px;
+  min-height: 1100px;
+  padding-bottom: 100px;
+  background-color: white;
 }
 
 .recomments1_middle .big_title {
@@ -181,89 +275,65 @@ a {
 }
 
 .recomments1_middle .recos1_remark .recos1_title {
-  font-size: 20px;
-  color: #067ae6;
+  font-size: 16px;
+  color: #7ebcf6;
+  margin-bottom: 20px;
 }
 
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top {
+.recomments1_middle .recos1_remark .recos1_title span {
+  font-size: 20px;
+  color: #4aa1f2;
+}
+
+.recomments1_middle .recos1_remark .recos1_remark_text {
   width: 100%;
-  height: 40px;
+  height: 65px;
   margin: 10px 0;
   line-height: 40px;
   display: flex;
   position: relative;
 }
 
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top img {
-  margin: 5px 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 40px;
-  border: 2px gainsboro solid;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top .recos1_remark_input {
-  padding: 0 10px;
-  height: 40px;
-  color: #067ae6;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top .commentID {
-  color: #999;
-  font-size: 13px;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top .markerID {
-  float: left;
-  color: #999;
-  font-size: 13px;
-  margin-right: 70px;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top .postsID {
-  float: left;
-  margin-right: 70px;
-  color: #999;
-  font-size: 13px;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top button {
-  right: 30px;
-  top: 4px;
-  width: 70px;
-  height: 32px;
-  display: block;
+.recomments1_middle .recos1_remark .recos1_remark_text img {
   position: absolute;
-  border-radius: 8px;
-  opacity: .6;
-  background-color: #99c5ee;
-  color: #067ae6;
-  border: #067ae6 1px solid;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+  border-radius: 40px;
+}
+
+.recomments1_middle .recos1_remark .recos1_remark_text button {
+  right: 0px;
+  width: 90px;
+  height: 43px;
+  font-size: 16px;
+  position: absolute;
+  border-radius: 4px;
+  background-color: #73b4f0;
+  color: white;
+  border: none;
   cursor: pointer;
+  transition: .3s;
 }
 
-.recomments1_middle .recos1_remark .recos1_remark_text .recos1_remark_text_top button:hover {
-  opacity: 1;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text textarea {
-  resize: none;
+.recomments1_middle .recos1_remark .recos1_remark_text button:hover {
+  background-color: #4fa2f0;
 }
 
 .recomments1_middle .recos1_remark .recos1_remark_text #remark_area {
-  margin-left: 10px;
-  width: 700px;
-  height: 100px;
-  padding: 10px;
+  position: absolute;
+  left: 60px;
+  resize: none;
+  outline: none;
+  border: #f2f2f2 2px solid;
+  width: 580px;
+  height: 31px;
+  padding: 5px;
   line-height: 16px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 5px;
-}
-
-.recomments1_middle .recos1_remark .recos1_remark_text .remark_time {
-  margin-left: 20px;
-  font-size: 10px;
-  color: #999;
+  background-color: #f2f2f2;
+  transition: .3s;
 }
 
 .recomments1_middle .all_commit {
@@ -271,9 +341,15 @@ a {
   padding: 10px 0;
 }
 
+.recomments1_middle .all_commit .all_commit_a {
+  padding-bottom: 20px;
+  border-bottom: 1.5px #b4b4b4 solid;
+  transition: .3s;
+}
+
 .recomments1_middle .all_commit .all_commit_a .all_commit_top {
   width: 100%;
-  height: 40px;
+  height: 35px;
   margin: 10px 0;
   line-height: 40px;
   display: flex;
@@ -283,15 +359,10 @@ a {
 
 .recomments1_middle .all_commit .all_commit_a .all_commit_top img {
   margin: 2px 10px;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   border-radius: 40px;
   border: 2px gainsboro solid;
-}
-
-.recomments1_middle .all_commit .all_commit_a .all_commit_top div {
-  padding: 0 10px;
-  height: 40px;
 }
 
 .recomments1_middle .all_commit .all_commit_a .all_commit_top .all_commit_name {
@@ -307,64 +378,223 @@ a {
 .recomments1_middle .all_commit .all_commit_a .all_commit_text {
   margin-left: 10px;
   width: 700px;
-  height: 50px;
+  min-height: 20px;
   padding: 10px;
-  font-size: 14px;
-  color: #888888;
+  font-size: 15px;
+  color: #3e3e3e;
   background-color: #f7f9fb;
   border-radius: 5px;
 }
 
-.recomments1_middle .all_commit .all_commit_a .all_commit_respond {
-  margin-top: 15px;
-  color: #429aab;
-  font-size: 12px;
-  margin-left: 10px;
-}
-
-.recomments1_middle .all_commit .all_commit_a .sonArea {
-  outline: 0;
-  border: 0;
-  resize: none;
-  padding-top: 10px;
-  padding-left: 10px;
-  margin-left: 10px;
-  margin-top: 20px;
-  width: 710px;
-  max-height: 300px;
-  min-height: 70px;
-  border-radius: 10px;
-  background-color: #87a8c8;
-}
-
-.recomments1_middle .all_commit .all_commit_a .sonPush {
-  margin-top: 20px;
-  margin-left: 620px;
-  width: 90px;
-  height: 40px;
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon {
+  width: 100%;
+  height: 35px;
   line-height: 40px;
-  text-align: center;
-  border-radius: 5px;
-  border: 0;
-  font-size: 14px;
-  color: #999dc6;
-  background-color: #8eb9f5;
+  display: flex;
+  position: relative;
+  color: #615f5f;
 }
 
-.recomments1_middle .all_commit .all_commit_a .sonPush:hover {
-  background-color: #1890FF;
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .all_commit_time {
+  margin-left: 20px;
+  height: 40px;
+  color: #999;
+  font-size: 15px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .all_commit_number {
+  font-size: 14px;
+  margin-left: 120px;
+  height: 40px;
+  color: #999;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .all_commit_number span {
+  padding: 0 5px;
+  color: #615f5f;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .com_reply {
+  position: absolute;
+  right: 60px;
+  color: #888888;
+  font-size: 15px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .com_reply:hover {
+  color: #4fa2f0;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .com_delete {
+  position: absolute;
+  right: 30px;
+  color: #888888;
+  font-size: 17px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_bon .com_delete:hover {
+  color: #4fa2f0;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_say {
+  width: 100%;
+  height: 50px;
+  margin: 10px 0;
+  line-height: 40px;
+  display: flex;
+  position: relative;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_say img {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+  border-radius: 40px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_say button {
+  right: 0px;
+  width: 90px;
+  height: 41px;
+  font-size: 16px;
+  position: absolute;
+  border-radius: 4px;
+  background-color: #73b4f0;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_say button:hover {
+  background-color: #4fa2f0;
+}
+
+.recomments1_middle .all_commit .all_commit_a .all_commit_say textarea {
+  position: absolute;
+  left: 60px;
+  resize: none;
+  outline: none;
+  border: #f2f2f2 1px solid;
+  width: 580px;
+  height: 31px;
+  padding: 5px;
+  line-height: 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  transition: .3s;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson {
+  margin-top: 5px;
+  margin-left: 30px;
+  width: 680px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  width: 680px;
+  min-height: 50px;
+  border-bottom: 1px #dcdcdc solid;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a img {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main {
+  margin-left: 35px;
+  width: 640px;
+  min-height: 50px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-name {
+  font-size: 13px;
+  color: #73b4f0;
+  height: 20px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-name:hover {
+  color: #2f96f7;
+  font-weight: 600;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-text {
+  padding: 5px 10px;
+  background-color: #f4f9ff;
+  border-radius: 5px;
+  color: #3e3e3e;
+  font-size: 14px;
+  line-height: 18px;
+  min-height: 18px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-ton {
+  padding: 3px;
+  color: #aeaeae;
+  font-size: 13px;
+  line-height: 18px;
+  height: 18px;
+  position: relative;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-ton .comson_delete {
+  position: absolute;
+  right: 30px;
+  color: #888888;
+  font-size: 16px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-ton .comson_delete:hover {
+  color: #4fa2f0;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-ton .comson_reply {
+  color: #888888;
+  font-size: 14px;
+  margin-left: 50px;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .comson-a .comson-main .comson-ton .comson_reply:hover {
+  color: #4fa2f0;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .soncommore {
+  font-size: 14px;
+  color: #888888;
+}
+
+.recomments1_middle .all_commit .all_commit_a .comson .soncommore:hover {
+  color: #4fa2f0;
+}
+
+#comend {
+  width: 750px;
+  display: none;
+  height: 40px;
+  font-size: 20px;
+  line-height: 40px;
+  color: #4aa1f2;
+  text-align: center;
 }
 
 .recos1_right {
   position: absolute;
-  top: 50px;
-  left: 780px;
-  width: 330px;
+  left: 800px;
+  padding: 0 10px 0 10px;
+  width: 320px;
   height: 100%;
+  background-color: white;
 }
 
 .recos1_right .recos1_right_top {
-  margin-bottom: 30px;
+  margin: 30px 0;
   background-color: #f8fbfe;
   padding: 20px 0;
   border-radius: 8px;

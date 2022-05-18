@@ -1,8 +1,10 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Focus;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 
 public interface FocusService {
     //关注某用户
