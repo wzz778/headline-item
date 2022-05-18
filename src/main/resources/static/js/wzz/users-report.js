@@ -114,7 +114,7 @@ function r_allbegin() {
             })
     } else if (apage.value == "" || sessionStorage.getItem('rpagen') == null) { }
     else {
-        newalert("请输入合理的页数！");
+        swal("请输入合理的页数！");
     }
 }
 function isEmpty(obj) {
@@ -151,7 +151,7 @@ function allchange3() {
             console.log(postID);
             $.post('http://localhost:8080/ToSkyNews_war_exploded/savePassPosts', { 'postsID': postID },
                 function (date) {
-                    newalert(date.data);
+                    swal(date.data);
                     if (sessionStorage.getItem("reportfind")=="1") {
                         on_report();
                     } else{
@@ -167,7 +167,7 @@ function allchange3() {
             $.post('http://localhost:8080/ToSkyNews_war_exploded/disSavePassPosts', { 'postsID': postID },
                 function (date) {
                     if (date.data == '审核通过！') {
-                        newalert('审核未通过！');
+                        swal('审核未通过！');
                     }
                     if (sessionStorage.getItem("reportfind")=="1") {
                         on_report();
@@ -252,24 +252,38 @@ function ralltrue() {
 }
 var reportall = document.getElementsByName("report_all")[0];
 function reportdelete() {
-    let choose = confirm("你确定删除选中文章的信息?");
-    if (choose) {
-        for (let i in fa) {
-            if (fa[i].checked) {
-                var id = fa[i].parentNode.parentNode.children[1].innerHTML;
-                $.post('http://localhost:8080/ToSkyNews_war_exploded/deleteReports',
-                    { "reportID": id },
-                    function (date) {
-                        if (sessionStorage.getItem("reportfind")=="1") {
-                            on_report();
-                        } else{
-                            r_allbegin();
-                        }
-                    })
+    swal({ 
+        title: "你确定删除选中的举报信息?", 
+        text: "你将无法恢复该些举报信息！", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！", 
+        cancelButtonText: "取消删除！",
+        closeOnConfirm: false, 
+        closeOnCancel: false	
+        },
+        function(isConfirm){ 
+        if (isConfirm) { 
+            for (let i in fa) {
+                if (fa[i].checked) {
+                    var id = fa[i].parentNode.parentNode.children[1].innerHTML;
+                    $.post('http://localhost:8080/ToSkyNews_war_exploded/deleteReports',
+                        { "reportID": id },
+                        function (date) {
+                            if (sessionStorage.getItem("reportfind")=="1") {
+                                on_report();
+                            } else{
+                                r_allbegin();
+                            }
+                        })
+                }
             }
-        }
-        newalert("删除成功");
-    }
+            swal("删除！", "你所勾选的举报信息被删除。","success"); 
+        } else { 
+            swal("取消！", "你已经取消删除:","error"); 
+        } 
+    });
 }
 var report_t_b = document.getElementsByClassName("report_t_b")[0];
 report_t_b.onmousemove = function () {
@@ -282,7 +296,7 @@ report_t_b.onmousemove = function () {
     if (!c) {
         report_t_b.style.cursor = "not-allowed";
         report_t_b.onclick = () => {
-            newalert("请勾选你要删除的对象！");
+            swal("请勾选你要删除的对象！");
         };
     } else {
         report_t_b.style.cursor = "pointer";

@@ -755,6 +755,8 @@ body a {
   border-radius: 8px;
   background-color: #FAFAFA;
   transition: .3s;
+  top: 0;
+  position: relative;
 }
 
 .main .main_right .id_card:hover {
