@@ -54,7 +54,11 @@ function teamdeletef() {
                 $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
                     { "userID": id },
                     function (date) {
-                        changepage();
+                        if (sessionStorage.getItem("teamfind")=="1") {
+                            teamfind() ;
+                        } else{
+                            changepage();
+                        }
                     })
             }
         }
@@ -95,7 +99,11 @@ function r() {
                     { "userID": id },
                     function (date) {
                         newalert(date.data);
-                        changepage();
+                        if (sessionStorage.getItem("teamfind")=="1") {
+                            teamfind() ;
+                        } else{
+                            changepage();
+                        }
                     })
             }
         }
@@ -140,7 +148,11 @@ function r() {
                                 backfade.classList.remove('fade');
                                 backfade.style.display='none';
                             }
-                            changepage();
+                            if (sessionStorage.getItem("teamfind")=="1") {
+                                teamfind() ;
+                            } else{
+                                changepage();
+                            }
                         })
                 }
             }
@@ -288,12 +300,20 @@ function s() {
 }
 //实现全选功能
 function teamfind() {
+    sessionStorage.setItem("teamfind", '1');
     let name = document.getElementsByClassName("team_find_input")[0].value;
     if (name == '') {
         newalert("请输入搜索内容!");
     } else {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryVagueUser', { 'thing': name },
             function (date) {
+                if (date.length==0) {
+                    team.innerHTML =`   
+                    <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                        <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                        什么都没有呢 . . .
+                    </div>`;
+                }else{
                 team.innerHTML = "<tr class='tmt'><th class='ms'><input type='checkbox' onchange='s()' name='team_all' value='all'></th>" +
                     "<th class='ms'>用户名</th>" +
                     " <th class='ml' style='display: none;'>密码</th>" +
@@ -331,13 +351,17 @@ function teamfind() {
                 }
                 //获取一页的用户信息
                 r();
+            }
             })
         team_b.style.display='none';
         team_back_max.style.display='block';
     }
 }
 //查找页面栏目
+sessionStorage.setItem("teamfind", '0');
 function backpagen1(){
+    sessionStorage.setItem("teamfind", '0');
+    document.getElementsByClassName("team_find_input")[0].value='';
     changepage();
     team_b.style.display=' flex';
     team_back_max.style.display='none';

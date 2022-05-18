@@ -11,8 +11,8 @@ var column = document.getElementsByClassName("column")[0];
 var haveland = document.getElementsByClassName('havaland');
 var lookmore= document.getElementById("lookmore");
 var lookend= document.getElementById("lookend");
-$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsCounts',
-    function (date) { sessionStorage.setItem('postall', date); })
+$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPassPosts',
+    function (date) { sessionStorage.setItem('postall', date.length); })
 //重新newalert（）方法
 var alertbox = document.getElementById("alert");
 var alertfade = document.getElementById("alertfade");
@@ -234,8 +234,8 @@ window.onscroll = function () {
 // 实现文章的懒加载
 //展示综合栏目
 function all_a() {
-    $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPagingPosts',
-        { 'column': '0', 'total': sessionStorage.getItem('postsnumber') },
+    $.post('http://localhost:8080/ToSkyNews_war_exploded/vip/queryStatusOneN',
+        {'count': sessionStorage.getItem('postsnumber') },
         function (date) {
             column.innerHTML = null;
             for (let n = 0; n < date.length; n++) {
@@ -473,7 +473,7 @@ function showmessage() {
     }, 300)
     var messagetime = setInterval(function () {
         top_message.style.color = "#1682e6";
-        redspot .style.display = "none";
+        redspot.style.display = "none";
     }, 1200)
 }
 //判断是否有反馈
