@@ -11,6 +11,109 @@ body{
     background-repeat: no-repeat;
     background-size: 100%;
 }
+//弹窗
+.chooseCover{
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    top: 0px;
+    z-index: 101;
+    display: none;
+    opacity: 0;
+    .tip{
+        position: relative;
+        width: 300px;
+        height: 0px;
+        z-index: 99;
+        overflow: hidden;
+        top: 120px;
+        // left: 40%;
+        background-color: #fff;
+        // box-shadow: 0 10px 30px rgba(175, 169, 169, 0.4);
+        border-radius: 10px;
+        transition: all .4s;
+        p{
+            position: absolute;
+            width: 100%;
+            height: 60px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 21px;
+            font-weight: 700;
+            color: #6fa1e3;
+            top: 30px;
+        }
+        .choose{
+            position: absolute;
+            display: flex;
+            bottom: 0;
+            justify-content: space-around;
+            width: 100%;
+            height: 40px;
+            .tipNo,
+            .tipOk{
+                width: 50%;
+                height: 40px;
+                border: none;
+                color: #fff;
+                background-color: #2f70c5;
+                border: 1px solid rgb(137, 175, 220)
+                // margin-left: 190px;
+            }
+        }
+    }
+}
+.sureCover{
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    position: fixed;
+    top: 0px;
+    z-index: 101;
+    display: none;
+    opacity: 0;
+    .successTip{
+        position: relative;
+        width: 300px;
+        height: 0px;
+        z-index: 99;
+        overflow: hidden;
+        top: 120px;
+        // left: 40%;
+        background-color: #fff;
+        // box-shadow: 0 10px 30px rgba(175, 169, 169, 0.4);
+        border-radius: 10px;
+        transition: all .4s;
+        p{
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 21px;
+            font-weight: 700;
+            margin-top: 30px;
+            color: #6fa1e3;
+        }
+        .successOk{
+            position: absolute;
+            display: flex;
+            bottom: 0;
+            justify-content: space-around;
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            background-color: #2f70c5;
+            color: rgb(255, 255, 255);
+            border: 1px solid rgb(137, 175, 220)
+            // margin-left: 190px;
+        }
+    }
+}
 .nav{
     width: 100%;
     height: 50px;
@@ -171,7 +274,8 @@ body{
             height: 70px;
             width: 100%;
             border-bottom: 1.5px #e5e5e5 solid;
-            .check{
+            .chooseBox{
+                display: none;
                 width: 15px;
                 height: 15px;
                 margin-top: 30px;

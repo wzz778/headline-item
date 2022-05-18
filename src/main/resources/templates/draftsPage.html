@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 </head>
 <body>
+<!-- 弹窗 -->
+<div class="chooseCover">
+    <div class="tip">
+        <p class="tipText">确定要删除吗</p>
+        <div class="choose">
+            <button class="tipNo">取消</button>
+            <button class="tipOk">确定</button>
+        </div>
+    </div>
+</div>
+<div class="sureCover">
+    <div class="successTip">
+        <p class="successText">删除成功！</p>
+        <button class="successOk">确定</button>
+    </div>
+</div>
     <div class="nav">
         <i class="fa fa-gg" aria-hidden="true"></i>未来草稿箱<i class="fa fa-gg" aria-hidden="true"></i> 
         <button id="back_history" onclick="window.history.go(-1);">
@@ -112,6 +128,7 @@
                 </div>
             </div>
         </div>
+    <script src="../static/js/jquery-3.6.0.js"></script>
     <script src="../static/js/yxy/draftsPage.js"></script>
 </body>
 </html>

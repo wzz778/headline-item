@@ -13,6 +13,111 @@ body {
   background-size: 100%;
 }
 
+.chooseCover {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0px;
+  z-index: 101;
+  display: none;
+  opacity: 0;
+}
+
+.chooseCover .tip {
+  position: relative;
+  width: 300px;
+  height: 0px;
+  z-index: 99;
+  overflow: hidden;
+  top: 120px;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: all .4s;
+}
+
+.chooseCover .tip p {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  color: #6fa1e3;
+  top: 30px;
+}
+
+.chooseCover .tip .choose {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  justify-content: space-around;
+  width: 100%;
+  height: 40px;
+}
+
+.chooseCover .tip .choose .tipNo,
+.chooseCover .tip .choose .tipOk {
+  width: 50%;
+  height: 40px;
+  border: none;
+  color: #fff;
+  background-color: #2f70c5;
+  border: 1px solid #89afdc;
+}
+
+.sureCover {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0px;
+  z-index: 101;
+  display: none;
+  opacity: 0;
+}
+
+.sureCover .successTip {
+  position: relative;
+  width: 300px;
+  height: 0px;
+  z-index: 99;
+  overflow: hidden;
+  top: 120px;
+  background-color: #fff;
+  border-radius: 10px;
+  transition: all .4s;
+}
+
+.sureCover .successTip p {
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 21px;
+  font-weight: 700;
+  margin-top: 30px;
+  color: #6fa1e3;
+}
+
+.sureCover .successTip .successOk {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  justify-content: space-around;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: #2f70c5;
+  color: white;
+  border: 1px solid #89afdc;
+}
+
 .nav {
   width: 100%;
   height: 50px;
@@ -193,7 +298,8 @@ body {
   border-bottom: 1.5px #e5e5e5 solid;
 }
 
-.content .list li .check {
+.content .list li .chooseBox {
+  display: none;
   width: 15px;
   height: 15px;
   margin-top: 30px;

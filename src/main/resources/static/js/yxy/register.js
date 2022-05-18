@@ -126,7 +126,7 @@ getNum.addEventListener('click',function(){
                             var passJudge=passLimit.test(newPass.value);
                             var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
                             var mailJudge=mailLimit.test(inputMail.value);
-                            if(nameJudge==true&&passJudge==true&&mailJudge==true&&surePass.value!=''){
+                            if(nameJudge==true&&passJudge==true&&mailJudge==true){
                                 //发送用户信息进行注册
                                 $.ajax({
                                     type:'post',
@@ -169,8 +169,8 @@ getNum.addEventListener('click',function(){
                                                 }
                                             })
                                         }
-                                        else if(res.data=='注册失败！您的用户名已有人使用！'){
-                                            tipText.innerHTML='用户名已存在';
+                                        else if(res.data=='注册失败！您的账号已存在！'){
+                                            tipText.innerHTML='该用户已存在';
                                             loginTip.style.height='200px';
                                             loginTip.style.top='50px';
                                         }else if(res.data=='验证码输入错误'){
