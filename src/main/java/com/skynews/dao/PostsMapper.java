@@ -96,7 +96,7 @@ public interface PostsMapper {
     List<Posts> findUser();
 
     //获取用户list 用@Param 对mapper文件 进行多个参数的传递
-    List<Posts> getlist(@Param("start") int start, @Param("count") int count);
+    List<Posts> getList(@Param("start") int start, @Param("count") int count);
 
     //获取用户总数
     Integer getTotal();

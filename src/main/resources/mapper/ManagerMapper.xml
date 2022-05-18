@@ -42,7 +42,9 @@
     <!--根据id查询,返回一个user-->
     <select id="queryUserById" resultType="User">
       select * from tosky.user
+      <if test="userID!=null">
         where userID = #{userID}
+      </if>
    </select>
 
     <!--查询全部user-->
@@ -53,21 +55,32 @@
     <!--管理员登录-->
     <select id="select" resultType="Manager">
       select * from tosky.manager
+      <if test="managerName!=null">
         where managerName = #{managerName}
+      </if>
    </select>
     <!--根据名字模糊查询用户-->
     <select id="queryVagueUser" parameterType="String" resultType="User">
-        select * from tosky.user where username like concat('%',#{thing},'%')
+        select * from tosky.user
+        <if test="thing!=null">
+        where username like concat('%',#{thing},'%')
+        </if>
     </select>
 
     <!--根据名字查询用户-->
     <select id="queryUserByName" resultType="User">
-        select * from tosky.user where username=#{username}
+        select * from tosky.user
+        <if test="username !=null">
+        where username=#{username}
+        </if>
     </select>
 
     <!--通过分页查询用户-->
     <select id="queryPagingUser" resultType="User">
-        SELECT * from tosky.user limit #{column},#{total}
+        SELECT * from tosky.user
+        <if test="column!=null and total!=null">
+        limit #{column},#{total}
+        </if>
     </select>
 
     <!--返回user表里面的用户个数-->
@@ -87,7 +100,10 @@
 
     <!--通过用户id返回其发布的所有帖子id-->
     <select id="queryPostsID" resultType="Posts">
-        select postsID from tosky.posts where reside=#{reside}
+        select postsID from tosky.posts
+        <if test="reside!=null">
+        where reside=#{reside}
+        </if>
     </select>
 
     <!--根据帖子id删除收藏表里面的帖子-->
@@ -103,6 +119,9 @@
 
     <!--根据名字查询用户-->
     <select id="queryManagerByName" resultType="Manager">
-        select * from tosky.manager where managerName=#{managerName}
+        select * from tosky.manager
+        <if test="managerName!=null">
+        where managerName=#{managerName}
+        </if>
     </select>
 </mapper>
