@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -78,4 +79,41 @@ public class VipServiceImpl implements VipService {
     public List<Posts> queryStatusOneN(int count) {
         return vipMapper.queryStatusOneN(count);
     }
+
+    @Override
+    public Map<String,List> queryVaguePagesYXY(int reside, int page, int num) {
+        int count=vipMapper.queryVaguePagesYXYCount(reside);
+        int totalPages;
+        int total;
+        Map<String,List>map=new HashMap<>();
+        if(count%num==0){
+            totalPages=count/num;
+        }else{
+            total=count/num;
+            totalPages=total+1;
+        }
+        List<Integer>list=new LinkedList<>();
+        list.add(totalPages);
+        map.put("总共的页数：",list);
+        List<Integer>list1=new LinkedList<>();
+        list1.add(count);
+        map.put("总条数：",list1);
+        int thePage=(page-1)*num;
+        List<Posts>list2=vipMapper.queryVaguePagesYXY(reside,thePage,num);
+        map.put("分页模糊查询帖子：",list2);
+        return map;
+    }
 }
+/*int count=alikeMapper.queryMessagesCount(authorID);
+        int totalPages;
+        int total;
+        if(count%7==0){
+            totalPages=count/7;
+        }else{
+            total=count/7;
+            totalPages=total+1;
+        }
+        List<Integer>list=new LinkedList<>();
+        list.add(count);
+        list.add(totalPages);
+        return list;*/

@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags="VIP类")
 @Controller
@@ -122,5 +125,27 @@ public class VipController {
     @ResponseBody
     public List<Posts> queryStatusOneN(int count) {
         return vipService.queryStatusOneN(count);
+    }
+
+    /***************************/
+    @ApiOperation(value = "模糊查询某个用户的草稿箱信息（分页）", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/queryVaguePagesYXY")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="reside",value = "用户id"),
+            @ApiImplicitParam(name="page",value = "第几页"),
+            @ApiImplicitParam(name="num",value = "查询数量")
+    })
+    public Response YXY(int reside,int page,int num) {
+        Map<String,List> map=new HashMap<String, List>();
+        if(page<0){
+            List<String>list=new LinkedList<>();
+            list.add("请输入合理的页数！");
+            map.put("error",list);
+            return Response.error(map);
+        }else{
+            map=vipService.queryVaguePagesYXY(reside,page,num);
+            return Response.ok(map);
+        }
     }
 }
