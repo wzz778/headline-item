@@ -9,8 +9,8 @@
 
     <!--发布评论-->
     <insert id="addComment" parameterType="Comment">
-      insert into tosky.comment(commentID,contain,authorID,postsID,makerID,picture,commentTime,commentName)
-      values (#{commentID}, #{contain},#{authorID},#{postsID},#{makerID},#{picture},#{commentTime},#{commentName})
+      insert into tosky.comment(contain,authorID,postsID,makerID,picture,commentTime,commentName)
+      values ( #{contain},#{authorID},#{postsID},#{makerID},#{picture},#{commentTime},#{commentName})
    </insert>
 
     <!--展示某个帖子下所有评论-->

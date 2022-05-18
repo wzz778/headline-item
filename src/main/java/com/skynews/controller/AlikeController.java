@@ -25,6 +25,7 @@ public class AlikeController {
     @Autowired
     private AlikeService alikeService;
 
+    /**待注接口*/
     @ApiOperation(value = "用户点赞", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/setAlike")
     @ResponseBody
@@ -33,14 +34,12 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
     public Response setAlike(Integer postsID, Integer userID){
-//        if (postsID == null || userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         Alike alike = new Alike(postsID, userID);
         alikeService.setAlikeTable(alike);
         return Response.ok("点赞成功！");
     }
 
+    /**待注接口*/
     @ApiOperation(value = "用户取消点赞", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/deleteAlike")
     @ResponseBody
@@ -49,9 +48,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
     public Response deleteAlike(Integer postsID, Integer userID) {
-//        if (postsID == null || userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         Alike alike = new Alike(postsID, userID);
         int a = alikeService.deleteAlikeTable(alike);
         if (a == 1) {
@@ -61,6 +57,31 @@ public class AlikeController {
         }
     }
 
+    /*******用户点赞和取消点赞的整合**********/
+    @ApiOperation(value = "用户（点赞）取消点赞", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/setOrDeleteAlike")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "thing", value = "选择（点赞输入1，取消输入-1）"),
+            @ApiImplicitParam(name = "postsID", value = "被点赞帖子ID"),
+            @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
+    })
+    public Response deleteAlike(Integer postsID, Integer userID,String thing) {
+        Alike alike = new Alike(postsID, userID);
+        if(thing.equals("1")){
+            alikeService.setAlikeTable(alike);
+            return Response.ok("点赞成功！");
+        }else {
+            int a = alikeService.deleteAlikeTable(alike);
+            if (a == 1) {
+                return Response.ok("取消点赞成功！");
+            } else {
+                return Response.error("取消点赞失败！该用户未给此帖点过赞！");
+            }
+        }
+    }
+
+
     @ApiOperation(value = "判断该用户是否已经点赞过此帖子", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryAlikeBoolean")
     @ResponseBody
@@ -69,9 +90,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
     public Response queryAlikeBoolean(Integer postsID, Integer userID) {
-//        if (postsID == null || userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         Alike alike = new Alike(postsID, userID);
         int a = alikeService.queryAlike(alike);
         if (a == 1) {
@@ -86,9 +104,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "messagesID", value = "信息id")
     public Response update1(Integer messagesID) {
-//        if (messagesID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.updateMessagesStatus(messagesID);
         return Response.ok("用户已查看此信息！");
     }
@@ -100,9 +115,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "authorID", value = "所要查询的某个用户的id"),
     })
     public List<Messages> update5(Integer authorID) {
-//        if (authorID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         return alikeService.queryAllMessages(authorID);
     }
 
@@ -113,9 +125,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所要查询的某个用户的id"),
     })
     public List<User> update2(Integer userID) {
-//        if (userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         return alikeService.queryAllMessagesUser(userID);
     }
 

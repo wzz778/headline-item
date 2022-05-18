@@ -32,7 +32,7 @@ public class SwaggerConfig {
                     .build();
         }
         private Contact contact() {
-            return new Contact("toSkyNews", "https://www.toutiao.com/", "2728771838@qq.com");
+            return new Contact("toSkyNews", "https://www.wlgzs.net/", "2728771838@qq.com");
         }
 
     }

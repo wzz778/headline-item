@@ -137,32 +137,32 @@ inputImg.onclick=function(){
     tailoring.style.display='block'
 }
 inputImg.onchange = function () {
-    // var ff = $("#file").val();
-    // console.log(ff)
-   // if(/.(gif|jpg|jpeg|png|gif|jpg|png)$/.test(ff)){
-       //获取文件
-       var file = this.files[0];
-       //创建读取文件对象
-       var reader = new FileReader();
-       //读取文件
-       reader.readAsDataURL(file);
-       //在回调函数中修改Img的src属性
-       reader.onload = function (evt) {
-           img.src = reader.result;
-           console.log(evt,cropper,'./.evt.target.result')
-           var replaceSrc = evt.target.result;
-           // 更换cropper的图片
-           cropper.replace(replaceSrc, false);// 默认false，适应高度，不失真
-       }
-   // }else{
-   //     tip.innerHTML = "图片类型错误，请重新上传"
-   //     shadow2.style.display = "block";
-   //     successTip.style.display = "block";
-   //     img.src = '';
-   // }
+    var ff = $("#file").val();
+    console.log(ff)
+    if(/.(gif|jpg|jpeg|png|gif|jpg|png)$/.test(ff)){
+        //获取文件
+        var file = this.files[0];
+        //创建读取文件对象
+        var reader = new FileReader();
+        //读取文件
+        reader.readAsDataURL(file);
+        //在回调函数中修改Img的src属性
+        reader.onload = function (evt) {
+            img.src = reader.result;
+            console.log(evt,cropper,'./.evt.target.result')
+            var replaceSrc = evt.target.result;
+            // 更换cropper的图片
+            cropper.replace(replaceSrc, false);// 默认false，适应高度，不失真
+        }
+    }else{
+        tip.innerHTML = "图片类型错误，请重新上传"
+        shadow2.style.display = "block";
+        successTip.style.display = "block";
+        img.src = '';
+    }
 }
 var cropper =  new Cropper($('#tailoringImg')[0],{
-    aspectRatio: 0 / 0,// 默认比例
+    aspectRatio: 0 / 0,
     preview: '.previewImg',// 预览视图
     guides: true, // 裁剪框的虚线(九宫格)
     autoCropArea: 0.5, // 0-1之间的数值，定义自动剪裁区域的大小，默认0.8
@@ -182,16 +182,7 @@ var cropper =  new Cropper($('#tailoringImg')[0],{
         $("#fileImg").prop("src", base64);// 显示图片
     }
 });
-function selectImg(file) {
-    var reader = new FileReader();
-    reader.onload = function (evt) {
-        console.log(evt, cropper, './.evt.target.result')
-        var replaceSrc = evt.target.result;
-        // 更换cropper的图片
-        cropper.replace(replaceSrc, false);// 默认false，适应高度，不失真
-    }
-    reader.readAsDataURL(file.files[0]);
-}
+
 // 旋转
 $(".cropper-rotate-btn").on("click", function () {
     cropper.rotate(45);
@@ -254,6 +245,7 @@ function fileChange() {
     formData.append('label',labelPut.value);
     formData.append('postsName',postsName.value);
     formData.append('reside', user_id);
+    formData.append('status', 0);
     formData.append('picture', today());
     $.ajax({
         type: "POST",
@@ -264,6 +256,7 @@ function fileChange() {
         processData: false,
         success: function(date) {
             tip.innerHTML = "发布成功，请耐心等待审核"
+            tip.style.top=50+'px';
             shadow2.style.display = "block";
             timeDiv.style.display='block'
             sure.style.display='none'
@@ -296,18 +289,19 @@ function nofileChange(){
             label: labelPut.value,
             postsName: postsName.value,
             userID: user_id,
-            picture: today()
+            picture: today(),
+            reside: user_id,
+            status:0
         },
         dataType: "json",
         success: function (data) {
-            tip.innerHTML = "发布成功，请耐心等待审核"
-            shadow2.style.display = "block";
-            timeDiv.style.display='block'
-            successTip.style.display = "block";
-            console.log(labelPut.value)
             if (data.data == "success") {
                 shadow2.style.display = "block";
                 successTip.style.display = "block";
+                tip.innerHTML = "发布成功，请耐心等待审核"
+                tip.style.top=50+'px';
+                timeDiv.style.display='block'
+                sure.style.display='none'
             }
             var second = 3;
             showTime();
@@ -327,22 +321,26 @@ function nofileChange(){
 
     })
 }
-
+// 发布文章
 function publish() {
     if (postsName.value == '') {
         tip.innerHTML = "文章题目不能为空！！"
         shadow2.style.display = "block";
+        sure.style.top=130+'px';
         successTip.style.display = "block";
     } else if (content.value == '') {
         tip.innerHTML = "内容不能为空！！"
         shadow2.style.display = "block";
+        sure.style.top=130+'px';
+        tip.style.left=15+'px'
         successTip.style.display = "block";
     } else if (labelPut.value == '') {
         tip.innerHTML = "标签不能为空！！"
+        tip.style.left=15+'px'
         shadow2.style.display = "block";
+        sure.style.top=130+'px';
         successTip.style.display = "block";
     } else  {
-
         if(window.localStorage.yesNo=='是'){
             fileChange()
         }
@@ -351,27 +349,125 @@ function publish() {
         }
 
     }
-
 }
-// touxiang();
+// 保存草稿
+function save(){
+    if(window.localStorage.yesNo=='是'){
+        fileSave()
+    }
+    if(window.localStorage.yesNo=='否'){
+        nofileSave()
+    }
+}
+function nofileSave() {
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/posts/addPosts",
+        data: {
+            content: content.value,
+            contentA: contentA.value,
+            label: labelPut.value,
+            postsName: postsName.value,
+            userID: user_id,
+            picture: today(),
+            reside: user_id,
+            status: -2
+        },
+        dataType: "json",
+        success: function (data) {
+            tip.innerHTML = "草稿已保存在草稿箱"
+            tip.style.top=50+'px'
+            shadow2.style.display = "block";
+            timeDiv.style.display='block'
+            sure.style.display='none'
+            successTip.style.display = "block";
+            if (data.data == "success") {
+                shadow2.style.display = "block";
+                successTip.style.display = "block";
+            }
+            var second = 3;
+            showTime();
+            function showTime() {
+                let time = document.querySelector("#time");
+                second--;
+                if (second <= 0) {
+                    location.href = "myPage.html";
+                }
+                time.innerHTML= second.toString();
+            }
+            setInterval(showTime,1000);
+        },
+        err: function (result) {
+            console.log('出错啦！')
+        }
+
+    })
+}
+
+function fileSave() {
+    let cas = cropper.getCroppedCanvas();// 获取被裁剪后的canvas
+    var base64 = cas.toDataURL('image/jpeg'); //转换为base64
+    var formData = new FormData();
+    var file = dataURLtoBlob(base64);
+    var nameImg=new Date().getTime()+'.png'
+    formData.append('profile1', file,nameImg);
+    formData.append('content',content.value);
+    formData.append('contentA',contentA.value);
+    formData.append('label',labelPut.value);
+    formData.append('postsName',postsName.value);
+    formData.append('reside', user_id);
+    formData.append('status', -2);
+    formData.append('picture', today());
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/setPostProfile",
+        data: formData,
+        dataType:"json",
+        contentType: false,
+        processData: false,
+        success: function(date) {
+            tip.innerHTML = "草稿已保存在草稿箱"
+            shadow2.style.display = "block";
+            timeDiv.style.display='block'
+            tip.style.top=50+'px'
+            sure.style.display='none'
+            successTip.style.display = "block";
+            var second = 3;
+            showTime();
+            function showTime() {
+                let time = document.querySelector("#time");
+                second--;
+                if (second <= 0) {
+                    location.href = "myPage.html";
+                }
+                time.innerHTML= second.toString();
+            }
+            setInterval(showTime,1000);
+        },
+        error: function(data) {
+            console.log("出错啦");
+        }
+    })
+}
+// 获取头像
 if(localStorage.getItem('have_land')=="true") {
     var user_img=document.querySelector('.user_img');
     var user_name = document.getElementById('user_name');
     var user_id = localStorage.getItem('user_id');
-        $.ajax({
-            type: 'post',
-            url: 'http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}',
-            data: {
-                userID: user_id
-            },
-            success: function (date) {
-                var user_img=document.querySelector('.user_img');
-                localStorage.setItem('user_name', date.username);
-                user_name.innerHTML = date.username;
-                // user_img.src=date.picture;
-                user_img.style.backgroundImage=`url(${date.picture})`;
-            }
-        })
+    $.ajax({
+        type: 'post',
+        url: 'http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}',
+        data: {
+            userID: user_id
+        },
+        success: function (date) {
+            var user_img=document.querySelector('.user_img');
+            localStorage.setItem('user_name', date.username);
+            user_name.innerHTML = date.username;
+            // user_img.src=date.picture;
+            user_img.style.backgroundImage=`url(${date.picture})`;
+        }
+    })
 }
 function signoutland(){
     localStorage.setItem('have_land',"false");
