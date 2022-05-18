@@ -131,26 +131,6 @@ newPassBtn.addEventListener('click',function(){
         getNum.addEventListener('click',function(){
             var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
             var passJudge=passLimit.test(newPass.value);
-            // // console.log(passJudge)
-            // if(mail.value==''){
-            //     tipText.innerHTML='请输入邮箱!';
-            //     tip.style.height='200px';
-            //     inputReadOnly();
-            //     tipOk.addEventListener('click',function(){
-            //         tip.style.height=0;
-            //         inputChange();
-            //     })
-            // }else if(surePass.value!=newPass.value){
-            //     tipText.innerHTML='新密码与确认密码不一致!';
-            //     tip.style.height='200px';
-            //     inputReadOnly();
-            //     tipOk.addEventListener('click',function(){
-            //         tip.style.height=0;
-            //         inputChange();
-            //     })
-            //  }else if(passJudge==false){
-            //     newPassTip.style.display='inline';
-            //  }
             if(mail.value==''){
                 mailTip.innerHTML='邮箱不能为空';
                 mailTip.style.display='inline';

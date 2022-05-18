@@ -96,7 +96,6 @@ getNum.addEventListener('click',function(){
             mailFill.innerHTML='邮箱格式不正确';
             mailFill.style.display='inline';
         }else{
-            mamailFillilTip.style.display='none';
             var time=30;
             var timer=setInterval(function(){
                 if(time==0){
