@@ -279,7 +279,7 @@ public class postsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="postsName",value = "帖子名称/标题"),
             @ApiImplicitParam(name="label",value = "标签"),
-            @ApiImplicitParam(name="userID",value = "发布帖子的用户的id"),
+            @ApiImplicitParam(name="reside",value = "发布帖子的用户的id"),
             @ApiImplicitParam(name="content",value = "帖子内容(有格式)"),
             @ApiImplicitParam(name="contentA",value = "帖子内容(纯文本)"),
             @ApiImplicitParam(name="picture",value = "发布帖子时间")

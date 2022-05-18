@@ -119,10 +119,10 @@ public class ImgDataServiceImpl implements ImgDataService {
 
     @Override
     public Response allCountPicture(int userID) {
-        Picture userIDImg = imgDataMapper.getUserIDImg(userID);
-        if(userIDImg==null){
-            return Response.error("用户输入错误");
-        }
+//        Picture userIDImg = imgDataMapper.getUserIDImg(userID);
+//        if(userIDImg==null){
+//            return Response.error("用户输入错误");
+//        }
         int i = imgDataMapper.allCountPicture(userID);
         return Response.ok(i);
     }

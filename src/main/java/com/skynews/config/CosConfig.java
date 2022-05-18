@@ -4,12 +4,32 @@ import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
 import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.region.Region;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
+@Data
 public class CosConfig {
+//    @Value("${spring.tengxun.secretId}")
+//    private String secretId;
+//
+//    @Value("${spring.tengxun.SecretKey}")
+//    private String secretKey;
+//
+//    @Value("${spring.tengxun.region}")
+//    private String region;
+//
+//    @Value("${spring.tengxun.bucketName}")
+//    private String bucketName;
+//
+//    @Value("${spring.tengxun.path}")
+//    private String path;
+
     private String secretId="AKIDWrvkIYXGjwsXw83h5C1Zrsc4HDsGNEp8";
 
     private String secretKey="3qMbZGgphIdhU0FDuJSKuDF1WkgLksjJ";

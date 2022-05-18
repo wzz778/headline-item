@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-
 @Repository
 public interface UserMapper {
     //邮箱验证
