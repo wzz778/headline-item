@@ -142,9 +142,6 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParam(name="parentID",value = "父评论id")
     public Response list1(Integer parentID) {
-//        if(parentID==null){
-//            throw new CustomException("类型为空！");
-//        }
         return Response.ok(commentService.queryReviewsByParent(parentID));
     }
 
