@@ -149,6 +149,6 @@
 
     <!--删除某个用户下的所有信息-->
     <delete id="deleteAllMessagesByUserID" parameterType="int">
-        delete from tosky.messages where userID=#{userID}
+        delete from tosky.messages where authorID=#{authorID}
     </delete>
 </mapper>

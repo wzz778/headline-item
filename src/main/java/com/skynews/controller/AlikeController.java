@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -158,15 +159,19 @@ public class AlikeController {
             @ApiImplicitParam(name = "page", value = "第几页")
     })
     public Response update6(Integer authorID,Integer page) {
-//        if (authorID == null||page==null) {
-//            throw new CustomException("类型为空！");
-//        }
-        List<Messages>list=alikeService.queryPagesMessages(authorID,page);
-        List<Integer>list1=alikeService.queryMessagesCount(authorID);
         Map<String, List>map=new HashMap<>();
-        map.put("totalPages",list1);
-        map.put("list",list);
-        return Response.ok(map);
+        if(page<1){
+            List<String>list2=new LinkedList<>();
+            list2.add("请输入合理的页数！");
+            map.put("error",list2);
+            return Response.ok(map);
+        }else {
+            List<Messages> list = alikeService.queryPagesMessages(authorID, page);
+            List<Integer> list1 = alikeService.queryMessagesCount(authorID);
+            map.put("totalPages", list1);
+            map.put("list", list);
+            return Response.ok(map);
+        }
     }
 
     @ApiOperation(value = "用户批量删除信息", notes = "获取地址", httpMethod = "POST")

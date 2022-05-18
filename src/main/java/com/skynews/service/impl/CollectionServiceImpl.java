@@ -57,7 +57,7 @@ public class CollectionServiceImpl implements CollectionService {
              * 创建格式化时间日期类
              *构造入参String类型就是我们想要转换成的时间形式
              */
-            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("*******************"+postsID+"*******************");
             System.out.println("格式化后的时间------->"+format.format(date));
             Messages messages=new Messages(reside,postsName,userID,authorID,format.format(date),postsID);
