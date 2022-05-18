@@ -1,0 +1,289 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-image: url(../../img/yxy/draftBGI.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.nav{
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    text-align: center;
+    color: #76aef3;
+    font-size: 25px;
+    font-weight: 700;
+    border-bottom: #0771f3 2px solid;
+    line-height: 50px;
+    #back_history{
+        border: #1a7cf4 1px solid;
+        font-size: 14px;
+        width: 30px;
+        margin-top: 3px;
+        margin-left: 20px;
+        height: 30px;
+        cursor: pointer;
+        background-color: #64a6f7;
+        color: #1e1e1e;
+        padding: 5px;
+        border-radius: 6px;
+        &:hover{
+            background-color: #2989ff;
+            color: white;
+        }
+    }
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1100px;
+    min-width: 1000px;
+    margin-top: 50px;
+    background-color: #fff;
+    min-height: 600px;
+    max-height: 700px;
+    border-radius: 30px;
+    border-top: 5px solid #90bcf3;
+    box-shadow: 0 5px 5px rgb(215, 210, 210);
+    .handle{
+        position: relative;
+        width: 100%;
+        height: 70px;
+        border-bottom: #a3cbfc 2px solid;
+        .massDelete{
+            position: absolute;
+            right: 100px;
+            top: 20px;
+            width: 80px;
+            height: 30px;
+            color: #fff;
+            background: rgba(184, 72, 72, 0.5);
+            border: none;
+            border-radius: 5px;
+        }
+        .reset{
+            position: absolute;
+            right: 100px;
+            top: 20px;
+            width: 80px;
+            height: 30px;
+            color: #fff;
+            background: rgba(184, 72, 72, 0.5);
+            border: none;
+            border-radius: 5px;
+        }
+        .allChoose,
+        .cancelAll,
+        .reset{
+            display: none;
+            width: 80px;
+            height: 30px;
+            background-color: #76aef3;
+            font-size: 15px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+        }
+        .allChoose{
+            position: absolute;
+            top: 20px;
+            right: 200px;
+        }
+        .cancelAll{
+            position: absolute;
+            top: 20px;
+            right: 300px;
+        }
+        .reset{
+            position: absolute;
+            top: 20px;
+            right: 400px;
+        }
+        .findBox{
+            display: flex;
+            position: absolute;
+            top: 14px;
+            left: 200px;
+            width: 230px;
+            height: 42px;
+            input{
+                display: inline-block;
+                width: 170px;
+                height: 40px;
+                padding-left: 10px;
+                outline: none;
+                border: none;
+                border: 1px solid #a3cbfc;
+                border-radius: 5px;
+            }
+            .findBtn{
+                display: inline-block;
+                width: 50px;
+                height: 42px;
+                background-color: #76aef3;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+        }
+    }
+    .empty{
+        // display: flex;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        width: 80%;
+        height: 380px;
+        background-color: #fff;
+        .emptyBox{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            height: 100px;
+            color: dimgrey;
+            font-size: 25px;i{
+                font-size: 35px;
+            }
+        }
+    }
+    .list{
+        display: flex;
+        // display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        height: 420px;
+        background-color: #fff;
+        li{
+            display: flex;
+            position: relative;
+            height: 70px;
+            width: 100%;
+            border-bottom: 1.5px #e5e5e5 solid;
+            .check{
+                width: 15px;
+                height: 15px;
+                margin-top: 30px;
+            }
+            .itemContent{
+                display: inline-block;
+                position: absolute;
+                left: 40px;
+                width: 500px;
+                height: 100%;
+                .title{
+                    display: inline-block;
+                    width: 100%;
+                    height: 30px;
+                    font-size: 20px;
+                    font-weight: 700;
+                    margin-top: 10px;
+                    cursor: pointer;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    &:hover{
+                        color: #4e92e6;
+                    }
+                }
+                .lastTime{
+                    display: inline-block;
+                    width: 100%;
+                    font-size: 14px;
+                    color: #76aef3;
+                }
+            }
+            .itemHandle{
+                position: absolute;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 150px;
+                height: 100%;
+                right: 40px;
+            }
+            button{
+                width: 60px;
+                height: 30px;
+                color: rgb(102, 94, 94);
+                border: none;
+                border-radius: 5px;
+                font-weight: 600;
+            }
+            .itemDelete{
+                background-color: pink;
+            }
+            .itemChange{
+                background-color: #76aef3;
+            }
+        }
+    }
+    .page{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: relative;
+        width: 500px;
+        height: 50px;
+        margin-top: 40px;
+        // background-color: #d8e2ef;
+        .line{
+            color: #76aef3;
+        }
+        .lastPage,
+        .nextPage{
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 40px;
+            color: cornflowerblue;
+            font-size: 25px;
+            font-weight: 700;
+            border: 1px solid #a3cbfc;
+            cursor: pointer;
+            &:hover{
+                color: #fff;
+                background-color: cornflowerblue;
+            }
+        }
+        .searchPageBox{
+            display: flex;
+            width: 163px;
+            height: 32px;
+            input{
+                display: inline-block;
+                width: 100px;
+                height: 30px;
+                padding-left: 10px;
+                outline: none;
+                border: none;
+                border: 1px solid #a3cbfc;
+                border-radius: 2px;
+            }
+            .sure{
+                display: inline-block;
+                width: 50px;
+                height: 32px;
+                background-color: #76aef3;
+                color: #fff;
+                border: none;
+                border-radius: 2px;
+                margin-left: -2px;
+                cursor: pointer;
+            }
+        }
+    }
+}

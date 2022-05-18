@@ -30,7 +30,6 @@ eyeOpen2.addEventListener('click',function(){
 })
 
 var newPassBtn=document.querySelector('.newPassBtn');
-var fill=document.querySelectorAll('.fill');
 var getNum=document.querySelector('.getNum');
 var mail=document.querySelector('.mail');
 var newPass=document.querySelector('.newPass');
@@ -40,60 +39,122 @@ var tipOk=document.querySelector('.tipOk');
 var inputAccount=document.querySelector('.inputAccount');
 var newPassTip=document.querySelector('#newPassTip');
 var inputNum=document.querySelector('.inputNum');
-
+var accountTip=document.querySelector('#accountTip');
+var sureTip=document.querySelector('#sureTip');
+var mailTip=document.querySelector('.mailTip');
+inputAccount.addEventListener('blur',function(){
+    if(inputAccount.value==''){
+        accountTip.style.display='inline';
+    }else{
+        accountTip.style.display='none';
+    }
+})
+inputAccount.addEventListener('focus',function(){
+    accountTip.style.display='none';
+})
+newPass.addEventListener('blur',function(){
+    var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+    var passJudge=passLimit.test(newPass.value);
+    if(newPass.value==''){
+        newPassTip.innerHTML='新密码不能为空';
+        newPassTip.style.display='inline';
+    }else if(passJudge==false){
+        newPassTip.innerHTML='新密码格式错误';
+        newPassTip.style.display='inline';
+    }else{
+        newPassTip.style.display='none';
+    }
+})
+newPass.addEventListener('focus',function(){
+    newPassTip.style.display='none';
+})
+surePass.addEventListener('blur',function(){
+    if(surePass.value==''){
+        sureTip.innerHTML='请确认密码';
+        sureTip.style.display='inline';
+    }else if(surePass.value!=newPass.value){
+        sureTip.innerHTML='两次输入的密码不一致';
+        sureTip.style.display='inline';
+    }else{
+        sureTip.style.display='none';
+    }
+})
+surePass.addEventListener('focus',function(){
+    sureTip.style.display='none';
+})
+mail.addEventListener('blur',function(){
+    var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    var mailJudge=mailLimit.test(mail.value);
+    if(mail.value==''){
+        mailTip.innerHTML='邮箱不能为空';
+        mailTip.style.display='inline';
+    }else if(mailJudge==false){
+        mailTip.innerHTML='邮箱格式不正确';
+        mailTip.style.display='inline';
+    }else{
+        mailTip.style.display='none';
+    }
+})
+mail.addEventListener('focus',function(){
+    mailTip.style.display='none';
+})
 newPassBtn.addEventListener('click',function(){
-    for(let i=0;i<fill.length;i++){
-        if(inputs[i].value==''){
-            fill[i].style.display='inline';
-        }else{
-            fill[i].style.display='none';
-            if(mail.value==''){
-                tipText.innerHTML='请输入邮箱!';
-                tip.style.height='200px';
-                inputReadOnly();
-                tipOk.addEventListener('click',function(){
-                    tip.style.height=0;
-                    inputChange();
-                })
-            }else if(mail.value!=''&&inputNum.value==''){
-                tipText.innerHTML='请输入验证码!';
-                tip.style.height='200px';
-                inputReadOnly();
-                tipOk.addEventListener('click',function(){
-                    tip.style.height=0;
-                    inputChange();
-                })
-            }
-            
-        }
-        
+    var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    var mailJudge=mailLimit.test(mail.value);
+    if(inputAccount.value==''){
+        accountTip.style.display='inline';
+    }
+    if(newPass.value==''){
+        newPassTip.innerHTML='新密码不能为空';
+        newPassTip.style.display='inline';
+    }
+    if(surePass.value==''){
+        sureTip.innerHTML='请确认密码';
+        sureTip.style.display='inline';
+    }
+    if(mail.value==''){
+        mailTip.innerHTML='邮箱不能为空';
+        mailTip.style.display='inline';
+    }
+    if(inputAccount.value!=''&&mail.value!=''&&surePass.value!=''&&newPass.value!=''&&inputNum.value==''){
+        tipText.innerHTML='请输入验证码!';
+        tip.style.height='200px';
+        inputReadOnly();
+        tipOk.addEventListener('click',function(){
+            tip.style.height=0;
+            inputChange();
+        })
     }
 })
 
-        //找回密码
+        //获取验证码
         getNum.addEventListener('click',function(){
             var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
             var passJudge=passLimit.test(newPass.value);
-            // console.log(passJudge)
+            // // console.log(passJudge)
+            // if(mail.value==''){
+            //     tipText.innerHTML='请输入邮箱!';
+            //     tip.style.height='200px';
+            //     inputReadOnly();
+            //     tipOk.addEventListener('click',function(){
+            //         tip.style.height=0;
+            //         inputChange();
+            //     })
+            // }else if(surePass.value!=newPass.value){
+            //     tipText.innerHTML='新密码与确认密码不一致!';
+            //     tip.style.height='200px';
+            //     inputReadOnly();
+            //     tipOk.addEventListener('click',function(){
+            //         tip.style.height=0;
+            //         inputChange();
+            //     })
+            //  }else if(passJudge==false){
+            //     newPassTip.style.display='inline';
+            //  }
             if(mail.value==''){
-                tipText.innerHTML='请输入邮箱!';
-                tip.style.height='200px';
-                inputReadOnly();
-                tipOk.addEventListener('click',function(){
-                    tip.style.height=0;
-                    inputChange();
-                })
-            }else if(surePass.value!=newPass.value){
-                tipText.innerHTML='新密码与确认密码不一致!';
-                tip.style.height='200px';
-                inputReadOnly();
-                tipOk.addEventListener('click',function(){
-                    tip.style.height=0;
-                    inputChange();
-                })
-             }else if(passJudge==false){
-                newPassTip.style.display='inline';
-             }
+                mailTip.innerHTML='邮箱不能为空';
+                mailTip.style.display='inline';
+            }
              else{
                 newPassTip.style.display='none';
                 var time=30;
@@ -119,58 +180,54 @@ newPassBtn.addEventListener('click',function(){
                     success:function(res){
                         // console.log(res);
                         newPassBtn.addEventListener('click',function(){
-                            $.ajax({
-                                type:'post',
-                                url:'http://localhost:8080/ToSkyNews_war_exploded/user/changePassword',
-                                data:{
-                                    account:inputAccount.value,
-                                    authCode1:inputNum.value,
-                                    newpassword:newPass.value,
-                                    newpassword2:surePass.value,
-                                    targetEmail:mail.value
-                                },
-                                success:function(res){
-                                    // console.log(res);
-                                    if(surePass.value!=newPass.value){
-                                        tipText.innerHTML='新密码与确认密码不一致!';
-                                        tip.style.height='200px';
-                                        inputReadOnly();
-                                        tipOk.addEventListener('click',function(){
-                                            tip.style.height=0;
-                                            inputChange();
-                                        })
-                                     }
-                                     
-                                     if(res.data=='验证码输入错误,请重新输入'){
-                                        tipText.innerHTML='验证码错误';
-                                        tip.style.height='200px';
-                                        inputReadOnly();
-                                        tipOk.addEventListener('click',function(){
-                                            tip.style.height=0;
-                                            inputChange();
-                                        })
-                                     }
-                                     else if(res.data=='验证码输入正确,两次密码输入正确,修改密码成功,请登录'){
-                                        tipText.innerHTML='请重新登录';
-                                        newPassTip.style.display='none';
-                                        tip.style.height='200px';
-                                        inputReadOnly();
-                                        tipOk.addEventListener('click',function(){
-                                            tip.style.height=0;
-                                            inputChange();
-                                            localStorage.removeItem('user_id');
-                                            localStorage.setItem('have_land','false');
-                                            localStorage.setItem("tolook", '0');
-                                            window.location.replace("../templates/login.html");
-                                        })
-                                     }
-                                    
-                                   
-                                },
-                                error:function(err){
-                                    // console.log(err);
-                                }
+                            tipText.innerHTML='确认要修改?';
+                            tip.style.height='200px';
+                            inputReadOnly();
+                            tipOk.addEventListener('click',function(){
+                                tip.style.height=0;
+                                inputChange();
+                                $.ajax({
+                                    type:'post',
+                                    url:'http://localhost:8080/ToSkyNews_war_exploded/user/changePassword',
+                                    data:{
+                                        account:inputAccount.value,
+                                        authCode1:inputNum.value,
+                                        newpassword:newPass.value,
+                                        newpassword2:surePass.value,
+                                        targetEmail:mail.value
+                                    },
+                                    success:function(res){
+                                        // console.log(res);
+                                         if(res.data=='验证码输入错误,请重新输入'){
+                                            tipText.innerHTML='验证码错误';
+                                            tip.style.height='200px';
+                                            inputReadOnly();
+                                            tipOk.addEventListener('click',function(){
+                                                tip.style.height=0;
+                                                inputChange();
+                                            })
+                                         }
+                                         else if(res.data=='验证码输入正确,两次密码输入正确,修改密码成功,请登录'){
+                                            tipText.innerHTML='请重新登录';
+                                            newPassTip.style.display='none';
+                                            tip.style.height='200px';
+                                            inputReadOnly();
+                                            tipOk.addEventListener('click',function(){
+                                                tip.style.height=0;
+                                                inputChange();
+                                                localStorage.removeItem('user_id');
+                                                localStorage.setItem('have_land','false');
+                                                localStorage.setItem("tolook", '0');
+                                                window.location.replace("../templates/login.html");
+                                            })
+                                         }
+                                    },
+                                    error:function(err){
+                                        // console.log(err);
+                                    }
+                                })
                             })
+                            
                         })
                         
                     },

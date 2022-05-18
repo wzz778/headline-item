@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>个人中心</title>
     <link rel="stylesheet" href="../static/css/yxy/myPage.css">
+    <link rel="stylesheet" href="../static/css/wzz/new.min.css">
     <link rel="shortcut icon" href="../static/img/wzz/newicon.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/css/wzz/new.min.css">
 </head>
 <body>
 <!-- 用户自己的主页 -->
@@ -43,9 +45,9 @@
             <input type="text" class="food_find_input" placeholder=" 请输入您要寻找的文章与描述">
             <a href="javascript:;" class="food_find_bon"><i class="fa fa-search" aria-hidden="true"></i>搜索</a>
         </div>
-        <!-- <a class="top_land top_left" href="javascript:;">
-            登录
-        </a> -->
+        <button id="back_history" onclick="window.history.go(-1);">
+            <i class="fa fa-reply-all" aria-hidden="true"></i>
+        <btton>
     </div>
 </div>
 <!-- 侧边框 -->
@@ -83,8 +85,9 @@
     </div>
     <div class="works">
         <div class="workNav">
-            <span class="myWorksNav">我的作品<span class="workNum"></span></span>
+            <span class="myWorksNav" index=1>我的作品<span class="workNum"></span></span>
             <span class="collectWorkNav">收藏<span class="collectNum"></span></span>
+            <span class="drafts"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>草稿箱</span>
             <i class="fa fa-search" aria-hidden="true" id="find"></i>
         </div>
         <div class="searchNav">
@@ -102,8 +105,13 @@
                 <p class="noWork">暂未发表作品</p>
             </div>
             <!-- 有作品时 -->
-            <div class="haveWorks"></div>
+            <div class="haveWorks">
+                <!-- <div class="haveMyWork"></div> -->
+                
+            </div>
             <span class="moreWorks">加载更多</span>
+                <!-- <div class="haveCollect"></div> -->
+            <span class="moreCollect">加载更多</span>
         </div>
     </div>
 </div>

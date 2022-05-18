@@ -67,9 +67,9 @@
             <h3>修改密码</h3>
             <div class="userHead"></div>
             <form name="passInfo">
-                <span>账号&nbsp;&nbsp;<span class="fill">账号不能为空</span></span>
+                <span>账号&nbsp;&nbsp;<span class="fill" id="accountText">账号不能为空</span></span>
                 <input type="text" placeholder="请输入账号" id="inputAccount" class="fillText" autocomplete="off"/>
-                <span>原密码&nbsp;&nbsp;<span class="fill">原密码不能为空</span></span>
+                <span>原密码&nbsp;&nbsp;<span class="fill" id="oldText">原密码不能为空</span></span>
                 <div class="oldPassBox">
                     <input type="password" placeholder="请输入原密码" id="oldPass" class="fillText" autocomplete="off"/>
                     <i class="fa fa-eye" aria-hidden="true" id="eyeOpen_1"></i>
@@ -81,7 +81,7 @@
                     <i class="fa fa-eye" aria-hidden="true" id="eyeOpen_2"></i>
                     <i class="fa fa-eye-slash" aria-hidden="true" id="eyeClose_2"></i>
                 </div>
-                <span>确认新密码&nbsp;&nbsp;<span class="fill">请确认新密码</span></span>
+                <span>确认新密码&nbsp;&nbsp;<span class="fill" id="surePassText">请确认新密码</span></span>
                 <div class="surePassBox">
                     <input type="password" placeholder="请确认新密码" id="surePass" class="fillText" autocomplete="off"/>
                     <i class="fa fa-eye" aria-hidden="true" id="eyeOpen_3"></i>

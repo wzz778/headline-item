@@ -145,7 +145,7 @@ body{
                 width: 48px;
                 height: 48px;
                 border-radius: 48px;
-                background-image: url(../../img/yxy/userHead.jpg);
+                background-image: url(../img/yxy/userHead.jpg);
                 background-size: cover;
                 background-repeat: no-repeat;
                 cursor: pointer;
@@ -516,7 +516,7 @@ body{
             width: 100px;
             height: 100px;
             border-radius: 100px;
-            background-image: url(../../img/yxy/userHead.jpg);
+            background-image: url(../img/yxy/userHead.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             margin-top: 6px;
@@ -629,10 +629,16 @@ body{
                     color: $userColor;
                 }
             }
+            .drafts{
+                color: rgb(70, 175, 179);
+                &:hover{
+                    color: rgb(61, 149, 154);
+                }
+            }
             .myWorksNav{
                 color: $userColor;
             }
-            i{
+            #find{
                 position: absolute;
                 right: 50px;
                 font-size: 20px;
@@ -680,7 +686,8 @@ body{
         .workList{
             width: 100%;
             height: auto;
-            .moreWorks{
+            .moreWorks,
+            .moreCollect{
                 display: inline-block;
                 width: 100%;
                 height: 30px;
@@ -690,6 +697,9 @@ body{
                 font-size: 20px;
                 font-weight: 700;
             }
+            .moreCollect{
+                display: none;
+            }
         }
         // 有作品时
         .haveWorks{
@@ -697,15 +707,22 @@ body{
             flex-direction: column;
             width: 100%;
             height: auto;
+            .haveCollect{
+                display: none;
+            }
             .worksItem{
                 width: 100%;
                 height: auto;
                 border-bottom: 1px solid rgb(186, 183, 183);
                 .workTitle{
-                    max-width: 100%;
-                    height: auto;
+                    width: 100%;
+                    height: 29px;
                     margin-top: 24px;
                     font-size: 22px;
+                    line-height: 29px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                     cursor: pointer;
                     &:hover{
                         color: #3b89d1;
@@ -713,7 +730,7 @@ body{
                 }
                 .footer{
                     display: inline-block;
-                    max-width: 100%;
+                    width: 100%;
                     height: 20px;
                     margin: 15px 0 15px 0;
                     color: #888888;
