@@ -15,7 +15,10 @@
 
     <!--管理员查询所有反馈-->
     <select id="queryAllFeedback" resultType="Feedback">
-        select * from tosky.feedback limit #{column},#{total}
+        select * from tosky.feedback
+        <if test="column!=null and total!=null">
+        limit #{column},#{total}
+        </if>
     </select>
 
     <!--查询所有反馈(返回一共多少条反馈)-->
@@ -25,38 +28,55 @@
 
     <!--展示个人反馈-->
     <select id="queryUserFeedback" resultType="Feedback">
-        select * from tosky.feedback where userID=#{userID}
+        select * from tosky.feedback
+        <if test="userID !=null">
+            where userID=#{userID}
+        </if>
     </select>
 
     <!--管理员针对用户的反馈作出反馈-->
     <update id="addManagerFeedback" >
-        update tosky.feedback set managerContent=#{managerContent} where feedbackID=#{feedbackID}
+        update tosky.feedback set managerContent=#{managerContent}
+        <if test="feedbackID!=null">
+            where feedbackID=#{feedbackID}
+        </if>
     </update>
 
     <!--管理员反馈->管理员反馈managerOr-》1-->
     <update id="updateManagerToOne" parameterType="int">
       update tosky.feedback
       set managerOr=1
-      where feedbackID=#{feedbackID}
+      <if test="feedbackID!=null">
+          where feedbackID=#{feedbackID}
+      </if>
    </update>
 
     <!--管理员反馈->用户未接收到反馈userOr-》-1-->
     <update id="updateManagerToToOne" parameterType="int">
       update tosky.feedback
       set userOr=-1
-      where feedbackID=#{feedbackID}
+      <if test="feedbackID !=null">
+          where
+      feedbackID=#{feedbackID}
+      </if>
    </update>
 
     <!--用户查看管理员反馈-》用户接收到反馈userOr-》1-->
     <update id="updateUserToOne" parameterType="int">
       update tosky.feedback
       set userOr=1
-      where feedbackID=#{feedbackID}
+      <if test="feedbackID !=null">
+          where
+      feedbackID=#{feedbackID}
+      </if>
    </update>
 
     <!--用户是否已经查看管理员回复-->
     <select id="queryManagerToUser" resultType="Feedback">
-        select * from tosky.feedback where feedbackID=#{feedbackID} and userOr = 1
+        select * from tosky.feedback where userOr = 1
+        <if test="feedbackID !=null">
+        and feedbackID=#{feedbackID}
+        </if>
     </select>
 
     <!--删除指定反馈-->

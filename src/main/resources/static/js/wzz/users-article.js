@@ -1,6 +1,6 @@
 var tbody = document.getElementsByClassName("article_main")[0].getElementsByTagName("tbody")[0];
 var aaa = document.getElementsByName("article_a");
-var article_back_max=document.getElementsByClassName('article_back_max')[0];
+var article_back_max = document.getElementsByClassName('article_back_max')[0];
 //重新newalert（）方法
 var alertbox = document.getElementById("alert");
 var alertfade = document.getElementById("alertfade");
@@ -37,7 +37,7 @@ function aalltrue() {
 }
 //全选处理
 //获取总页数，总个数
-$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsCounts',
+$.get('http://localhost:8080/ToSkyNews_war_exploded/vip/queryStatusNoTwo',
     function (date) {
         let pages = date;
         let pagen = pages % 10 != 0 ? parseInt(pages / 10) + 1 : parseInt(pages / 10);
@@ -83,7 +83,14 @@ function articleall() {
                             // console.log(id);
                             // alert("成功批准！");
                             n.parentNode.parentNode.children[4].innerHTML = "批准";
-                            allchange1();
+                            let findstatus=sessionStorage.getItem("articlefind");
+                            if (findstatus=='0') {
+                                allchange1();                
+                            }else if(findstatus=='1'){
+                                articlefind();
+                            }else{
+                                articlefail();
+                            }
                         })
                 }
             }
@@ -107,7 +114,14 @@ function articleall() {
                             // console.log(id);
                             // alert("成功批准！");
                             n.parentNode.parentNode.children[4].innerHTML = "拒绝";
-                            allchange1();
+                            let findstatus=sessionStorage.getItem("articlefind");
+                            if (findstatus=='0') {
+                                allchange1();                
+                            }else if(findstatus=='1'){
+                                articlefind();
+                            }else{
+                                articlefail();
+                            }
                         })
                 }
             }
@@ -141,7 +155,7 @@ var apage_number = document.getElementById('apage_number');
 function allchange1() {
     let p = apages.value;
     let page = (p - 1) * 10;
-    $.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsCounts',
+    $.get('http://localhost:8080/ToSkyNews_war_exploded/vip/queryStatusNoTwo',
         function (date) {
             let pages = date;
             let pagen = pages % 10 != 0 ? parseInt(pages / 10) + 1 : parseInt(pages / 10);
@@ -198,7 +212,7 @@ function allchange1() {
                 articleall();
             })
     }
-    else if (apages.value == ""||sessionStorage.getItem('apagen')==null) { }
+    else if (apages.value == "" || sessionStorage.getItem('apagen') == null) { }
     else {
         newalert("请输入合理的页数！");
     }
@@ -208,6 +222,7 @@ allchange1();
 //搜索栏目
 var article_bon = document.getElementsByClassName("article_bon")[0];
 function articlefind() {
+    sessionStorage.setItem("articlefind", '1');
     let name = document.getElementsByClassName("article_input")[0].value;
     if (name == '') {
         newalert('请输入搜索内容！');
@@ -215,17 +230,24 @@ function articlefind() {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/vagueQueryAll',
             { 'thing': name, 'column': "0", 'total': "10" },
             function (date) {
-                tbody.innerHTML = null;
-                for (let n = 0; n < date.length; n++) {
-                    let status;
-                    if (date[n].status == 1) {
-                        status = "批准"
-                    } else if (date[n].status == -1) {
-                        status = "拒绝"
-                    } else {
-                        status = "未批准"
-                    }
-                    tbody.innerHTML += `
+                if (date.length == 0) {
+                    tbody.innerHTML = `   
+                    <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                        <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                        什么都没有呢 . . .
+                    </div>`;
+                } else {
+                    tbody.innerHTML = null;
+                    for (let n = 0; n < date.length; n++) {
+                        let status;
+                        if (date[n].status == 1) {
+                            status = "批准"
+                        } else if (date[n].status == -1) {
+                            status = "拒绝"
+                        } else {
+                            status = "未批准"
+                        }
+                        tbody.innerHTML += `
                 <tr>
                     <td class='ams'><input type='checkbox' name='article_a' value='all'></td>
                     <td class="ams" style="display: none">${date[n].reside}</td>
@@ -242,24 +264,25 @@ function articlefind() {
                     </td>
                 </tr>
                 `;
-                    let ms = document.getElementsByClassName("ams");
-                    let ml = document.getElementsByClassName("aml");
-                    for (let i of ms) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
+                        let ms = document.getElementsByClassName("ams");
+                        let ml = document.getElementsByClassName("aml");
+                        for (let i of ms) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
+                        }
+                        for (let i of ml) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
                         }
                     }
-                    for (let i of ml) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
-                        }
-                    }
+                    //获取一页的用户信息
+                    articleall();
                 }
-                //获取一页的用户信息
-                articleall();
             })
-        article_back_max.style.display='block';
-        article_b.style.display=' none';
+        article_back_max.style.display = 'block';
+        article_b.style.display = ' none';
     }
 }
 //搜索栏目
@@ -267,17 +290,25 @@ function articlefind() {
 function articlefail() {
     $.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPendingPosts',
         function (date) {
-            tbody.innerHTML = null;
-            for (let n = 0; n < date.length; n++) {
-                let status;
-                if (date[n].status == 1) {
-                    status = "批准"
-                } else if (date[n].status == -1) {
-                    status = "拒绝"
-                } else {
-                    status = "未批准"
-                }
-                tbody.innerHTML += `
+            sessionStorage.setItem("articlefind", '2');
+            if (date.length == 0) {
+                team.innerHTML = `   
+                <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                    <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                    什么都没有呢 . . .
+                </div>`;
+            } else {
+                tbody.innerHTML = null;
+                for (let n = 0; n < date.length; n++) {
+                    let status;
+                    if (date[n].status == 1) {
+                        status = "批准"
+                    } else if (date[n].status == -1) {
+                        status = "拒绝"
+                    } else {
+                        status = "未批准"
+                    }
+                    tbody.innerHTML += `
             <tr>
                 <td class='ams'><input type='checkbox' name='article_a' value='all'></td>
                 <td class="ams" style="display: none">${date[n].reside}</td>
@@ -294,23 +325,24 @@ function articlefail() {
                 </td>
             </tr>
             `;
-                let ms = document.getElementsByClassName("ams");
-                let ml = document.getElementsByClassName("aml");
-                for (let i of ms) {
-                    if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                        i.innerHTML = " ";
+                    let ms = document.getElementsByClassName("ams");
+                    let ml = document.getElementsByClassName("aml");
+                    for (let i of ms) {
+                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                            i.innerHTML = " ";
+                        }
+                    }
+                    for (let i of ml) {
+                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                            i.innerHTML = " ";
+                        }
                     }
                 }
-                for (let i of ml) {
-                    if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                        i.innerHTML = " ";
-                    }
-                }
+                articleall();
             }
-            articleall();
         })
-    article_back_max.style.display='block';
-    article_b.style.display=' none';
+    article_back_max.style.display = 'block';
+    article_b.style.display = ' none';
 }
 //未处理文章展示
 //批量删除
@@ -326,7 +358,14 @@ function articledelete() {
                 console.log(id);
                 $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/deletePosts', { "postsID": id },
                     function (date) {
-                        allchange1();
+                        let findstatus=sessionStorage.getItem("articlefind");
+                            if (findstatus=='0') {
+                                allchange1();                
+                            }else if(findstatus=='1'){
+                                articlefind();
+                            }else{
+                                articlefail();
+                            }
                     })
             }
         }
@@ -351,9 +390,12 @@ articldelete.onmousemove = function () {
     }
 }
 //空选删除处理
-function backpagen2(){
+sessionStorage.setItem("articlefind", '0');
+function backpagen2() {
+    sessionStorage.setItem("articlefind", '0');
+    document.getElementsByClassName("article_input")[0].value='';
     allchange1();
-    article_b.style.display=' flex';
-    article_back_max.style.display='none';
+    article_b.style.display = ' flex';
+    article_back_max.style.display = 'none';
 }
 articleall();

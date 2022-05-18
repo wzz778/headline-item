@@ -418,7 +418,7 @@ public class postsController {
         PageUtils pageUtils = new PageUtils(start, count);
         pageUtils.setCount(count);
         pageUtils.setStart(start);
-        List<Posts> usersList = postsService.getlist(pageUtils.getStart(), pageUtils.getCount());
+        List<Posts> usersList = postsService.getList(pageUtils.getStart(), pageUtils.getCount());
         int total = postsService.getTotal();
         pageUtils.setTotal(total);
         Map<String, Object> map = new HashMap();

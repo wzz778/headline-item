@@ -17,7 +17,7 @@
     <select id="queryCommentByPosts" resultType="Comment">
       SELECT * from tosky.comment
       where
-      <if test="postsID">
+      <if test="postsID !=null">
       postsID=#{postsID}
        order by commentID desc
       </if>
@@ -32,7 +32,7 @@
     <select id="queryCommentCount" resultType="int">
       SELECT count(*) from tosky.comment
             where
-            <if test="postsID">
+            <if test="postsID !=null">
             postsID=#{postsID}
             </if>
    </select>
@@ -53,7 +53,7 @@
     <select id="queryReviewsByParent" resultType="Reviews">
       select * from tosky.reviews
       where
-      <if test="postsID">
+      <if test="postsID !=null">
       parentID=#{parentID}
       </if>
    </select>
@@ -62,7 +62,7 @@
     <select id="queryReviewsByReviewsID" resultType="Reviews">
       select * from tosky.reviews
       where
-      <if test="reviewsID">
+      <if test="reviewsID !=null">
       reviewsID=#{reviewsID}
       </if>
    </select>
@@ -71,16 +71,16 @@
     <select id="queryReviewsIDByAll" resultType="Reviews">
       select * from tosky.reviews
       <where>
-      <if test="parentID">
+      <if test="parentID !=null">
       parentID=#{parentID}
       </if>
-          <if test="contain">
+          <if test="contain !=null">
       and contain=#{contain}
           </if>
-          <if test="times">
+          <if test="times !=null">
       and times=#{times}
           </if>
-          <if test="makerID">
+          <if test="makerID !=null">
       and makerID=#{makerID}
           </if>
       </where>
@@ -96,7 +96,7 @@
     <!--查询某一条父评论下子评论的个数-->
     <select id="queryCountByParentID" resultType="int">
       select count(*) from tosky.reviews where
-      <if test="parentID">
+      <if test="parentID !=null">
       parentID=#{parentID}
       </if>
    </select>

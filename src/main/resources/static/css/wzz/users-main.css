@@ -218,7 +218,9 @@ input[type="number"] {
 }
 
 #body .column .column_a i {
-  padding: 0px 5px;
+  padding: 2px;
+  width: 22px;
+  height: 20px;
 }
 
 #body .column .column_a span {
@@ -517,18 +519,16 @@ input[type="number"] {
 
 #team .team_back_max button {
   float: right;
-  background-color: #d5fcc3;
-  color: #5de81c;
-  border: #84f650 1px solid;
+  color: #5a5e66;
+  border: none;
   padding: 7px 14px;
   font-size: 15px;
+  background-color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
 
 #team .team_back_max button:hover {
-  background-color: #5de81c;
-  color: white;
+  color: #1890FF;
 }
 
 #team .team_b {
@@ -735,18 +735,16 @@ input[type="number"] {
 
 #article .article_back_max button {
   float: right;
-  background-color: #d5fcc3;
-  color: #1aea36;
-  border: #84f650 1px solid;
+  color: #5a5e66;
+  border: none;
   padding: 7px 14px;
   font-size: 15px;
+  background-color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
 
 #article .article_back_max button:hover {
-  background-color: #5de81c;
-  color: white;
+  color: #1890FF;
 }
 
 #article .article_b {
@@ -953,18 +951,16 @@ input[type="number"] {
 
 #feedback .feedback_back_max button {
   float: right;
-  background-color: #d5fcc3;
-  color: #5de81c;
-  border: #84f650 1px solid;
+  color: #5a5e66;
+  border: none;
   padding: 7px 14px;
   font-size: 15px;
+  background-color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
 
 #feedback .feedback_back_max button:hover {
-  background-color: #5de81c;
-  color: white;
+  color: #1890FF;
 }
 
 #feedback .feedback_b {
@@ -1259,18 +1255,16 @@ input[type="number"] {
 
 #report .report_back_max button {
   float: right;
-  background-color: #d5fcc3;
-  color: #5de81c;
-  border: #84f650 1px solid;
+  color: #5a5e66;
+  border: none;
   padding: 7px 14px;
   font-size: 15px;
+  background-color: white;
   cursor: pointer;
-  border-radius: 5px;
 }
 
 #report .report_back_max button:hover {
-  background-color: #5de81c;
-  color: white;
+  color: #1890FF;
 }
 
 #report .report_b {

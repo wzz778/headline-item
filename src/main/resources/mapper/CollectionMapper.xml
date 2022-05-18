@@ -16,8 +16,8 @@
     <!--展示某个用户下的所有收藏-->
     <select id="queryCollectionByUserID" resultType="Collections">
       SELECT * from tosky.collections
-     where
-     <if test="userID">
+     <if test="userID !=null">
+         where
          userID=#{userID}
             order by collectionID desc
      </if>
@@ -35,10 +35,10 @@
     <select id="queryCollection" resultType="Collections">
         select * from tosky.collections
         <where>
-        <if test="postsID">
+        <if test="postsID !=null">
         postsID=#{postsID}
         </if>
-        <if test="userID">
+        <if test="userID !=null">
         and userID=#{userID}
         </if>
         </where>

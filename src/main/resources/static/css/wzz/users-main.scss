@@ -187,7 +187,9 @@ $bluecolor: #1890FF;
                 background-color: $bluecolor;
             }
             i{
-                padding:0px 5px;
+                padding: 2px;
+                width: 22px;
+                height: 20px;
             }
             span{
                 display: block;
@@ -447,16 +449,14 @@ $bluecolor: #1890FF;
         display: none;
         button{
             float: right;
-            background-color: #d5fcc3;
-            color: #5de81c ;
-            border: #84f650 1px solid;
+            color: #5a5e66;
+            border: none;
             padding: 7px 14px;
             font-size: 15px;
+            background-color: white;
             cursor: pointer;
-            border-radius: 5px;
             &:hover{
-                background-color: #5de81c ;
-                color: white;
+                color:#1890FF;
             }
         }
     }
@@ -630,16 +630,14 @@ $bluecolor: #1890FF;
         display: none;
         button{
             float: right;
-            background-color: #d5fcc3;
-            color: #1aea36 ;
-            border: #84f650 1px solid;
+            color: #5a5e66;
+            border: none;
             padding: 7px 14px;
             font-size: 15px;
+            background-color: white;
             cursor: pointer;
-            border-radius: 5px;
             &:hover{
-                background-color: #5de81c ;
-                color: white;
+                color:#1890FF;
             }
         }
     }
@@ -813,16 +811,14 @@ $bluecolor: #1890FF;
         display: none;
         button{
             float: right;
-            background-color: #d5fcc3;
-            color: #5de81c ;
-            border: #84f650 1px solid;
+            color: #5a5e66;
+            border: none;
             padding: 7px 14px;
             font-size: 15px;
+            background-color: white;
             cursor: pointer;
-            border-radius: 5px;
             &:hover{
-                background-color: #5de81c ;
-                color: white;
+                color:#1890FF;
             }
         }
     }
@@ -1078,16 +1074,14 @@ $bluecolor: #1890FF;
         display: none;
         button{
             float: right;
-            background-color: #d5fcc3;
-            color: #5de81c ;
-            border: #84f650 1px solid;
+            color: #5a5e66;
+            border: none;
             padding: 7px 14px;
             font-size: 15px;
+            background-color: white;
             cursor: pointer;
-            border-radius: 5px;
             &:hover{
-                background-color: #5de81c ;
-                color: white;
+                color:#1890FF;
             }
         }
     }
