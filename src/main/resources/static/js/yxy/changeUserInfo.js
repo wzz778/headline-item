@@ -58,31 +58,65 @@ var nameFill=document.querySelector('.nameFill');
 var ageFill=document.querySelector('.ageFill');
 var mailFill=document.querySelector('.mailFill');
 sameInfo();
-keepBtn.addEventListener('click',function(){
+// keepBtn.addEventListener('click',function(){
     var inputAge=document.querySelector('.inputAge');
-    var ageLimit=/^((1[0-1])|[1-9])?\d$/;
-    var nameLimit=/(^[\u4e00-\u9fa5]{1}[\u4e00-\u9fa5\.·。]{0,8}[\u4e00-\u9fa5]{1}$)|(^[a-zA-Z]{1}[a-zA-Z\s]{0,8}[a-zA-Z]{1}$)/;
-    var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-    var ageJudge=ageLimit.test(inputAge.value);
-    var nameJudge=nameLimit.test(inputName.value);
-    var mailJudge=mailLimit.test(inputMail.value);
     // console.log(ageJudge);
-    if(inputName.value==''){
-        nameFill.style.display='inline';
-        nameFill.innerHTML='昵称不能为空';
-    }else if(ageJudge==false){
-        ageFill.style.display='inline';
-    }else if(nameJudge==false){
-        nameFill.innerHTML='昵称不合格，请重新设置';
-        nameFill.style.display='inline';
-    }else if(mailJudge==false){
-        mailFill.innerHTML='邮箱不规范，请重新填写'
-        mailFill.style.display='inline';
-    }
-    else{
-        ageFill.style.display='none';
+    var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    var mailJudge=mailLimit.test(inputMail.value);
+    inputName.addEventListener('blur',function(){
+        var nameLimit=/(^[\u4e00-\u9fa5]{1}[\u4e00-\u9fa5\.·。]{0,8}[\u4e00-\u9fa5]{1}$)|(^[a-zA-Z]{1}[a-zA-Z\s]{0,8}[a-zA-Z]{1}$)/;
+        var nameJudge=nameLimit.test(inputName.value);
+        if(inputName.value==''){
+            nameFill.innerHTML='昵称不能为空';
+            nameFill.style.display='inline';
+        }
+        else if(nameJudge==false){
+            nameFill.innerHTML='昵称不合格，请重新设置';
+            nameFill.style.display='inline';
+        }else{
+            nameFill.style.display='none';
+        }
+    })
+    inputName.addEventListener('focus',function(){
         nameFill.style.display='none';
-        mailFill.style.display='none';
+    })
+    inputAge.addEventListener('blur',function(){
+        var ageLimit=/^((1[0-1])|[1-9])?\d$/;
+        var ageJudge=ageLimit.test(inputAge.value);
+        if(inputAge.value==''){
+            ageFill.innerHTML='年龄不能为空';
+            ageFill.style.display='inline';
+        }else if(ageJudge==false){
+            ageFill.innerHTML='年龄设置不规范';
+            ageFill.style.display='inline';
+        }else{
+            ageFill.style.display='none';
+        }
+    })
+    inputAge.addEventListener('focus',function(){
+        ageFill.style.display='none';
+    })
+    inputMail.addEventListener('blur',function(){
+        var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        var mailJudge=mailLimit.test(inputMail.value);
+        if(inputMail.value==''){
+            mailFill.innerHTML='邮箱能为空'
+            mailFill.style.display='inline';
+        }else if(mailJudge==false){
+            mailFill.innerHTML='邮箱不规范，请重新填写'
+            mailFill.style.display='inline';
+        }else{
+            mailFill.style.display='none';   
+        }
+    })
+keepBtn.addEventListener('click',function(){
+    var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+    var mailJudge=mailLimit.test(inputMail.value);
+    var ageLimit=/^((1[0-1])|[1-9])?\d$/;
+    var ageJudge=ageLimit.test(inputAge.value);
+    var nameLimit=/(^[\u4e00-\u9fa5]{1}[\u4e00-\u9fa5\.·。]{0,8}[\u4e00-\u9fa5]{1}$)|(^[a-zA-Z]{1}[a-zA-Z\s]{0,8}[a-zA-Z]{1}$)/;
+    var nameJudge=nameLimit.test(inputName.value);
+    if(nameJudge==true&&ageJudge==true&&mailJudge==true){
         keepBefore.style.height='200px';
         inputReadOnly();
         next.addEventListener('click',function(){
@@ -195,33 +229,78 @@ var passFill=document.querySelector('#passFill');
 var surePass=document.querySelector('#surePass');
 var oldPass=document.querySelector('#oldPass');
 var inputAccount=document.querySelector('#inputAccount');
-changePassBtn.addEventListener('click',function(){
-    for(let i=0;i<fill.length;i++){
-        if(fillText[i].value==''){
-            fill[i].style.display='inline';
-        }else{
-            fill[i].style.display='none';
-        }
-        
+var surePassText=document.querySelector('#surePassText');
+var accountText=document.querySelector('#accountText');
+var oldText=document.querySelector('#oldText');
+inputAccount.addEventListener('blur',function(){
+    if(inputAccount.value==''){
+        accountText.style.display='inline';
+    }else{
+        accountText.style.display='none';
     }
-    if(fillText[0].value!=''&&fillText[1].value!=''&&fillText[2].value!=''&&fillText[3].value!=''){
-        var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
-        var passJudge=passLimit.test(newPass.value);
-        if(newPass.value!=surePass.value){
-            successText.innerHTML='新密码与确认密码不一致！'
-            keepSuccess.style.height='200px';
-            inputReadOnly();
-            okBtn.addEventListener('click',function(){
-                keepSuccess.style.height='0';
-                inputChange();
-            })
-        }else if(passJudge==false){
-            passFill.innerHTML='新密码不符合规范';
-            passFill.style.display='inline';
-        }
-        else{
-            passFill.style.display='none';
-            passFill.innerHTML='新密码不能为空';
+})
+inputAccount.addEventListener('focus',function(){
+    accountText.style.display='none';
+})
+oldPass.addEventListener('blur',function(){
+    if(oldPass.value==''){
+        oldText.style.display='inline';
+    }else{
+        oldText.style.display='none';
+    }
+})
+oldPass.addEventListener('focus',function(){
+    oldText.style.display='none';
+})
+newPass.addEventListener('blur',function(){
+    var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+    var passJudge=passLimit.test(newPass.value);
+    if(newPass.value==''){
+        passFill.innerHTML='新密码不能为空';
+        passFill.style.display='inline';
+    }else if(passJudge==false){
+        passFill.innerHTML='新密码不符合规范';
+        passFill.style.display='inline';
+    }else{
+        passFill.style.display='none';
+    }
+})
+newPass.addEventListener('focus',function(){
+    passFill.style.display='none';
+})
+surePass.addEventListener('blur',function(){
+    if(newPass.value==''){
+        surePassText.innerHTML='请先输入新密码';
+        surePassText.style.display='inline';
+    }else if(surePass.value==''){
+        surePassText.innerHTML='请确认新密码';
+        surePassText.style.display='inline';
+    }else if(surePass.value!=newPass.value){
+        surePassText.innerHTML='两次输入密码不一致';
+        surePassText.style.display='inline';
+    }else{
+        surePassText.style.display='none';
+    }
+})
+surePass.addEventListener('focus',function(){
+    surePassText.style.display='none';
+})
+changePassBtn.addEventListener('click',function(){
+    var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+    var passJudge=passLimit.test(newPass.value);
+    if(inputAccount.value==''){
+        accountText.style.display='inline';
+    }
+    if(oldPass.value==''){
+        oldText.style.display='inline';
+    }
+    if(newPass.value==''){
+        passFill.style.display='inline';
+    }
+    if(surePass.value==''){
+        surePassText.style.display='inline';
+    }
+    if(inputAccount.value!=''&&oldPass.value!=''&&passJudge==true&&newPass.value==surePass.value){
             passBefore.style.height='200px';
             passNext.addEventListener('click',function(){
                 passBefore.style.height=0;
@@ -284,9 +363,6 @@ changePassBtn.addEventListener('click',function(){
             passQuit.addEventListener('click',function(){
                 passBefore.style.height=0;
             })
-        }
-           
-            
     }
 })
 
