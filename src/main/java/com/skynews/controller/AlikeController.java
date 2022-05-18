@@ -25,6 +25,7 @@ public class AlikeController {
     @Autowired
     private AlikeService alikeService;
 
+    /***/
     @ApiOperation(value = "用户点赞", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/setAlike")
     @ResponseBody
@@ -41,6 +42,7 @@ public class AlikeController {
         return Response.ok("点赞成功！");
     }
 
+    /***/
     @ApiOperation(value = "用户取消点赞", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/deleteAlike")
     @ResponseBody
@@ -60,6 +62,31 @@ public class AlikeController {
             return Response.error("取消点赞失败！该用户未给此帖点过赞！");
         }
     }
+
+    /*******用户点赞和取消点赞的整合**********/
+    @ApiOperation(value = "用户（点赞）取消点赞", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/setOrDeleteAlike")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "thing", value = "选择（点赞输入1，取消输入-1）"),
+            @ApiImplicitParam(name = "postsID", value = "被点赞帖子ID"),
+            @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
+    })
+    public Response deleteAlike(Integer postsID, Integer userID,String thing) {
+        Alike alike = new Alike(postsID, userID);
+        if(thing.equals("1")){
+            alikeService.setAlikeTable(alike);
+            return Response.ok("点赞成功！");
+        }else {
+            int a = alikeService.deleteAlikeTable(alike);
+            if (a == 1) {
+                return Response.ok("取消点赞成功！");
+            } else {
+                return Response.error("取消点赞失败！该用户未给此帖点过赞！");
+            }
+        }
+    }
+
 
     @ApiOperation(value = "判断该用户是否已经点赞过此帖子", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryAlikeBoolean")
