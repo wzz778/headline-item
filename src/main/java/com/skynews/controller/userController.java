@@ -62,7 +62,7 @@ public class userController {
         authCode = String.valueOf(new Random().nextInt(899999) + 100000);
         //sendMail.sendMail(email, "你的验证码为" + captcha + "(五分钟内有效)");
         sendMail.sendEmailCode(targetEmail1, "你的验证码为" + authCode + "(五分钟内有效)");
-        return Response.ok(0,"验证码发生成功");
+        return Response.ok(targetEmail1,"验证码发生成功");
     }
     //注册
     @ApiOperation(value ="注册",notes = "获取注册",httpMethod = "POST")

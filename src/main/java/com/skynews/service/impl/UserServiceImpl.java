@@ -175,7 +175,10 @@ public class UserServiceImpl implements UserService {
                 return Response.ok(postsList,"未审核通过的帖子");
             }else if(status==0){
                 return Response.ok(postsList,"待审核的帖子");
+            }else if(status==-2){
+                return Response.ok(postsList,"草稿箱内容");
             }
+            return Response.error("状态值输入错误");
         }
         return Response.error("输入错误");
     }

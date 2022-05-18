@@ -82,8 +82,10 @@
                 font-size: 18px;
                 margin-top: 10px;
                 font-weight: 700;
-                .fill,
-                #newPassTip{
+                #accountTip,
+                #newPassTip,
+                #sureTip,
+                .mailTip{
                     display: none;
                     width: auto;
                     font-size: 12px;

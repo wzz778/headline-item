@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 public interface AlikeService {
 
     //用户点赞（前端输入用户id，帖子id）

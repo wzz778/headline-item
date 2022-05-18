@@ -1,5 +1,11 @@
 
 spring:
+  tengxun:
+    secretId: AKIDWrvkIYXGjwsXw83h5C1Zrsc4HDsGNEp8
+    secretKey: 3qMbZGgphIdhU0FDuJSKuDF1WkgLksjJ
+    region: ap-shanghai
+    bucketName: linxun-1310915694
+    path: https://linxun-1310915694.cos.ap-shanghai.myqcloud.com
   datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://110.40.210.213:3306/tosky?useSSL=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai&useSSL=false
@@ -56,8 +62,12 @@ logging:
     com.example: info
     org.springframework: warn
 
-
-
+tengxun:
+    secretId: AKIDWrvkIYXGjwsXw83h5C1Zrsc4HDsGNEp8
+    secretKey: 3qMbZGgphIdhU0FDuJSKuDF1WkgLksjJ
+    region: ap-shanghai
+    bucketName: linxun-1310915694
+    path: https://linxun-1310915694.cos.ap-shanghai.myqcloud.com
 
 
 

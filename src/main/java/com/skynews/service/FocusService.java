@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 public interface FocusService {
     //关注某用户
     int addFocus(Focus focus);

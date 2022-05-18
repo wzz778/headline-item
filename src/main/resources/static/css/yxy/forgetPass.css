@@ -90,8 +90,10 @@
   font-weight: 700;
 }
 
-.allPage .findPass form span .fill,
-.allPage .findPass form span #newPassTip {
+.allPage .findPass form span #accountTip,
+.allPage .findPass form span #newPassTip,
+.allPage .findPass form span #sureTip,
+.allPage .findPass form span .mailTip {
   display: none;
   width: auto;
   font-size: 12px;

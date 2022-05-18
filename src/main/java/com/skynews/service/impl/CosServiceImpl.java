@@ -10,6 +10,7 @@ import com.skynews.service.CosService;
 import com.skynews.utils.ResponseDot;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +20,20 @@ import java.util.Map;
 
 @Service
 public class CosServiceImpl implements CosService {
+//    @Value("${spring.tengxun.secretId}")
+//    private String secretId;
+//
+//    @Value("${spring.tengxun.SecretKey}")
+//    private String secretKey;
+//
+//    @Value("${spring.tengxun.region}")
+//    private String region;
+//
+//    @Value("${spring.tengxun.bucketName}")
+//    private String bucketName;
+//
+//    @Value("${spring.tengxun.path}")
+//    private String path;
     private String secretId="AKIDWrvkIYXGjwsXw83h5C1Zrsc4HDsGNEp8";
 
     private String secretKey="3qMbZGgphIdhU0FDuJSKuDF1WkgLksjJ";
