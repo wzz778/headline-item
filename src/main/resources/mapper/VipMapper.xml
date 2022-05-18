@@ -27,12 +27,18 @@
 
     <!--全局搜索帖子+模糊查询+分页-->
     <select id="overAllPosts" resultType="Posts">
-        select * from tosky.posts where status=1 and postsName like concat('%',#{thing},'%')
+        select * from tosky.posts where status=1
+        <if test="thing!=null">
+        and postsName like concat('%',#{thing},'%')
+        </if>
     </select>
 
     <!--全局搜索用户+模糊查询+分页-->
     <select id="overAllUser" resultType="User">
-        select * from tosky.user where username like concat('%',#{thing},'%')
+        select * from tosky.user where
+        <if test="thing!=null">
+        username like concat('%',#{thing},'%')
+        </if>
     </select>
 
     <!--全局搜索图片库+模糊查询+分页-->
