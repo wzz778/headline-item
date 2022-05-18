@@ -9,11 +9,12 @@
     <link rel="shortcut icon" href="https://gw.alipayobjects.com/mdn/prod_resou/afts/img/A*CUIoT4xopNYAAAAAAAAAAABkARQnAQ" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" type="text/css" media="screen"href="https://cdn.staticfile.org/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="../static/css/lsw/publish.css">
-
+    <link rel="stylesheet" href="https://cdn.bootcss.com/cropperjs/2.0.0-alpha.1/cropper.css">
+    <script src="https://cdn.bootcss.com/cropperjs/2.0.0-alpha.1/cropper.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.5.0/jquery.min.js"></script>
 </head>
 
 <body>
-<!--<button id="editorGetBtn2" onclick="post()">获取内容2</button>-->
 <div id="center">
     <div id="publishNav">
         <div id="publishNav-top">
@@ -34,7 +35,7 @@
                     </div>
                     <div class="publish-block" id="user">
                         <div id="touxiang">
-<!--                                <img class="user_img" src="static/img/wzz/header.jpg" alt="" style="width: 40px;border-radius: 50%">-->
+                            <!--                                <img class="user_img" src="static/img/wzz/header.jpg" alt="" style="width: 40px;border-radius: 50%">-->
                             <div class="user_img"></div>
                             <span id="user_name" style="font-size: 12px;position: absolute;top: 20px">用户昵称</span>
                         </div>
@@ -110,12 +111,42 @@
             <input type="text" id="answer" name="CheckResult" hidden/>
         </div>
         <div id="profile-silder">
-            <img id="img"  alt="">
+            <img id="img"  alt="" style="width: 160px;height: 110px;">
             <input type="file" id="file" name="image" size="50">
+        </div>
+    </div>
+    <div id="tailoring-silder">
+        <div id="tailoring">
+            <div class="str">
+                <img id="fileImg" src="" style="width:160px;height: 110px;">
+                <div class="tailoring-content-three">
+                    <button class="l-btn cropper-reset-btn">复位</button>
+                    <button class="l-btn cropper-rotate-btn">旋转</button>
+                    <button class="l-btn cropper-scaleX-btn">换向</button>
+                    <button class="l-btn cropper-enlarge-btn">放大</button>
+                    <button class="l-btn cropper-narrow-btn">缩小</button>
+                    <button class="l-btn sureCut" id="sureCut">确定</button>
+                </div>
+            </div>
+            <div class="tailoring-container">
+                <div class="black-cloth" onclick="closeTailor(this)"  style="width: 550px"></div>
+                <div class="tailoring-content">
+                    <div class="tailoring-content-two">
+                        <div class="tailoring-box-parcel">
+                            <img id="tailoringImg" style="width:420px;height: 460px;margin-left: 5px;margin-top: 10px;">
+                        </div>
+                        <div class="preview-box-parcel">
+                            <div class="square previewImg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div id="ok">
         <div id="btn">
+            <button id="saveBtn" onclick="save()">保存草稿</button>
+            <button id="publishBtn" onclick="publish()">发布</button>
             <button id="publishBtn_change" onclick="publishBtn_change()">修改</button>
         </div>
     </div>
