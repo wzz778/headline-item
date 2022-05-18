@@ -68,7 +68,15 @@ tengxun:
     region: ap-shanghai
     bucketName: linxun-1310915694
     path: https://linxun-1310915694.cos.ap-shanghai.myqcloud.com
-
+mail:
+    username: 3056726345@qq.com
+    password: wuvqzvgwuplvddcg
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 
 
 
