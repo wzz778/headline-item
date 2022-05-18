@@ -42,14 +42,10 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParams({
             @ApiImplicitParam(name="contain",value = "评论内容"),
-            @ApiImplicitParam(name="authorID",value = "发帖人/作者id"),
             @ApiImplicitParam(name="postsID",value = "帖子id"),
             @ApiImplicitParam(name="makerID",value = "评论人id"),
-            @ApiImplicitParam(name="picture",value = "评论人头像"),
-            @ApiImplicitParam(name="commentTime",value = "评论时间"),
-            @ApiImplicitParam(name="commentName",value = "发评人名字")
     })
-    public Response addComment(String contain, Integer authorID, Integer postsID, Integer makerID, String picture, String commentTime, String commentName) {
+    public Response addComment(String contain, Integer postsID, Integer makerID) {
 //        if (StringUtils.isEmpty(contain) || StringUtils.isEmpty(picture)|| StringUtils.isEmpty(commentTime)|| StringUtils.isEmpty(commentName)){
 //            throw new CustomException("类型不能为空");
 //        }
@@ -59,7 +55,7 @@ public class CommentController {
 //        if(authorID==null||makerID==null||postsID==null){
 //            throw new CustomException("类型为空！");
 //        }
-        Comment comment=new Comment(contain,authorID,postsID,makerID,picture,commentTime,commentName);
+        Comment comment=new Comment(contain,postsID,makerID);
         commentService.addComment(comment);
         return Response.ok("评论成功！");
     }

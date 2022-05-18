@@ -35,4 +35,10 @@ public class Comment {
         this.commentTime = commentTime;
         this.commentName = commentName;
     }
+
+    public Comment(String contain, int postsID, int makerID) {
+        this.contain = contain;
+        this.postsID = postsID;
+        this.makerID = makerID;
+    }
 }
