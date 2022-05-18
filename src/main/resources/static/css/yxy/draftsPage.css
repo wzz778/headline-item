@@ -171,7 +171,8 @@ body {
   border-bottom: #a3cbfc 2px solid;
 }
 
-.content .handle .massDelete {
+.content .handle .massDelete,
+.content .handle .deleteChoose {
   position: absolute;
   right: 100px;
   top: 20px;
@@ -181,6 +182,10 @@ body {
   background: rgba(184, 72, 72, 0.5);
   border: none;
   border-radius: 5px;
+}
+
+.content .handle .deleteChoose {
+  display: none;
 }
 
 .content .handle .reset {
@@ -296,6 +301,11 @@ body {
   height: 70px;
   width: 100%;
   border-bottom: 1.5px #e5e5e5 solid;
+  border-radius: 8px;
+}
+
+.content .list li:hover {
+  background-color: #dae8fa;
 }
 
 .content .list li .chooseBox {
@@ -324,10 +334,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.content .list li .itemContent .title:hover {
-  color: #4e92e6;
+  color: #636262;
 }
 
 .content .list li .itemContent .lastTime {

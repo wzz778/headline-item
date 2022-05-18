@@ -709,6 +709,22 @@ body {
   height: auto;
 }
 
+.allPage .works .workList .moreWorks,
+.allPage .works .workList .moreCollect {
+  display: inline-block;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #6fa1e3;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.allPage .works .workList .moreCollect {
+  display: none;
+}
+
 .allPage .works .haveWorks {
   display: flex;
   flex-direction: column;
@@ -723,10 +739,14 @@ body {
 }
 
 .allPage .works .haveWorks .worksItem .workTitle {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 29px;
   margin-top: 24px;
   font-size: 22px;
+  line-height: 29px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: pointer;
 }
 
@@ -735,7 +755,7 @@ body {
 }
 
 .allPage .works .haveWorks .worksItem .footer {
-  max-width: 100%;
+  width: 100%;
   height: 20px;
   margin: 15px 0 15px 0;
   color: #888888;
