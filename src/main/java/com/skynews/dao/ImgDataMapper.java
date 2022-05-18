@@ -7,8 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-
-@Repository
 public interface ImgDataMapper {
     //上传图片库
     int ImgDates(Picture img);
