@@ -2,7 +2,7 @@ var rbody = document.getElementById("report_main_body");
 var fa = document.getElementsByName("report_a");
 var report_fade = document.getElementsByClassName("report_fade")[0];
 var fade = document.getElementsByClassName("fade")[3];
-var report_back_max=document.getElementsByClassName('report_back_max')[0];
+var report_back_max = document.getElementsByClassName('report_back_max')[0];
 //重新newalert（）方法
 var alertbox = document.getElementById("alert");
 var alertfade = document.getElementById("alertfade");
@@ -112,8 +112,8 @@ function r_allbegin() {
                 //获取一页的用户信息
                 allchange3();
             })
-    } else if (apage.value == ""||sessionStorage.getItem('rpagen')==null) { }
-     else {
+    } else if (apage.value == "" || sessionStorage.getItem('rpagen') == null) { }
+    else {
         newalert("请输入合理的页数！");
     }
 }
@@ -152,7 +152,11 @@ function allchange3() {
             $.post('http://localhost:8080/ToSkyNews_war_exploded/savePassPosts', { 'postsID': postID },
                 function (date) {
                     newalert(date.data);
-                    r_allbegin();
+                    if (sessionStorage.getItem("reportfind")=="1") {
+                        on_report();
+                    } else{
+                        r_allbegin();
+                    }
                 })
         }
     }
@@ -165,15 +169,26 @@ function allchange3() {
                     if (date.data == '审核通过！') {
                         newalert('审核未通过！');
                     }
-                    r_allbegin();
+                    if (sessionStorage.getItem("reportfind")=="1") {
+                        on_report();
+                    } else{
+                        r_allbegin();
+                    }
                 })
         }
     }
 }
-function on_report(){
-        $.get('http://localhost:8080/ToSkyNews_war_exploded/downReports',
-            function (date) {
-                var rbody = document.getElementById("report_main_body");
+function on_report() {
+    $.get('http://localhost:8080/ToSkyNews_war_exploded/downReports',
+        function (date) {
+            var rbody = document.getElementById("report_main_body");
+            if (date.length == 0) {
+                rbody.innerHTML = `   
+                    <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                        <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                        什么都没有呢 . . .
+                    </div>`;
+            } else {
                 rbody.innerHTML = null;
                 for (let n = 0; n < date.length; n++) {
                     let status;
@@ -217,9 +232,10 @@ function on_report(){
                 }
                 //获取一页的用户信息
                 allchange3();
-            })
-        report_b.style.display='none';
-        report_back_max.style.display='block';
+            }
+        })
+    report_b.style.display = 'none';
+    report_back_max.style.display = 'block';
 }
 function ralltrue() {
     let feedall = document.getElementsByName("report_all")[0];
@@ -244,7 +260,11 @@ function reportdelete() {
                 $.post('http://localhost:8080/ToSkyNews_war_exploded/deleteReports',
                     { "reportID": id },
                     function (date) {
-                        r_allbegin();
+                        if (sessionStorage.getItem("reportfind")=="1") {
+                            on_report();
+                        } else{
+                            r_allbegin();
+                        }
                     })
             }
         }
@@ -270,9 +290,12 @@ report_t_b.onmousemove = function () {
     }
 }
 //空选删除处理
-function backpagen4(){
+sessionStorage.setItem("reportfind", '0');
+function backpagen4() {
+    sessionStorage.setItem("reportfind", '0');
+    document.getElementsByClassName("report_find_input")[0].value='';
     r_allbegin();
-    report_b.style.display=' flex';
-    report_back_max.style.display='none';
+    report_b.style.display = ' flex';
+    report_back_max.style.display = 'none';
 }
 r_allbegin();

@@ -2,7 +2,7 @@ var tbody = document.getElementsByClassName("feedback_main")[0].getElementsByTag
 var fa = document.getElementsByName("feedback_a");
 var feedback_fade = document.getElementsByClassName("feedback_fade")[0];
 var fade = document.getElementsByClassName("fade")[2];
-var feedback_back_max=document.getElementsByClassName('feedback_back_max')[0];
+var feedback_back_max = document.getElementsByClassName('feedback_back_max')[0];
 //重新newalert（）方法
 var alertbox = document.getElementById("alert");
 var alertfade = document.getElementById("alertfade");
@@ -59,7 +59,11 @@ function feedbackdelete() {
                 $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/deleteFeedback',
                     { "feedbackID": id },
                     function (date) {
-                        allbegin();
+                        if (sessionStorage.getItem("feedbackfind")=="1") {
+                            on_feedback() ;
+                        } else{
+                            allbegin();
+                        }
                     })
             }
         }
@@ -97,7 +101,7 @@ function allbegin() {
     let apage = feedback_b.getElementsByTagName("input")[0];
     let p = apage.value;
     let page = (p - 1) * 10;
-    if (0 < p && p <=parseInt(sessionStorage.getItem('fpagen'))) {
+    if (0 < p && p <= parseInt(sessionStorage.getItem('fpagen'))) {
         fpages.innerText = p;
         $.get('http://localhost:8080/ToSkyNews_war_exploded/collections/queryFeedbackCount',
             function (date) {
@@ -153,7 +157,7 @@ function allbegin() {
                 //获取一页的用户信息
                 allchange2();
             })
-    } else if (apage.value == ""||sessionStorage.getItem('fpagen')==null) { } 
+    } else if (apage.value == "" || sessionStorage.getItem('fpagen') == null) { }
     else {
         newalert("请输入合理的页数！");
     }
@@ -167,10 +171,18 @@ function isEmpty(obj) {
         return false;
     }
 }
-function on_feedback(){
+function on_feedback() {
+    sessionStorage.setItem("feedbackfind", '1');
     $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/queryManagerOrFeedback',
-            function (date) {
-                let tbody = document.getElementsByClassName("feedback_main")[0].getElementsByTagName("tbody")[0];
+        function (date) {
+            let tbody = document.getElementsByClassName("feedback_main")[0].getElementsByTagName("tbody")[0];
+            if (date.length == 0) {
+                tbody.innerHTML = `   
+                    <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                        <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                        什么都没有呢 . . .
+                    </div>`;
+            } else {
                 tbody.innerHTML = null;
                 for (let n = 0; n < date.length; n++) {
                     let status;
@@ -213,9 +225,10 @@ function on_feedback(){
                 }
                 //获取一页的用户信息
                 allchange2();
-            })
-        feedback_b.style.display='none';
-        feedback_back_max.style.display='block';
+            }
+        })
+    feedback_b.style.display = 'none';
+    feedback_back_max.style.display = 'block';
 }
 var feedback_text = document.getElementById('feedback_text');
 var feedback_reply = document.getElementById('feedback_reply');
@@ -227,13 +240,18 @@ function feedback_to() {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/updateUserToOne',
             { 'feedbackID': id, 'managerContent': text },
             function (date) {
-                allbegin();
                 console.log(date);
                 if (date.message == 'success') {
                     newalert('管理员回复成功！');
                     feedback_fade.style.top = "-500px";
+                    backfade.classList.remove('fade');
+                    backfade.style.display = 'none';
+                    if (sessionStorage.getItem("feedbackfind")=="1") {
+                        on_feedback();
+                    } else{
+                        allbegin();
+                    }
                 } else {
-
                     newalert(date.message);
                 }
             })
@@ -263,17 +281,14 @@ function allchange2() {
             localStorage.setItem("f_managerContent", managerContent);
         }
     }
-    for (let i of reply) {
-        i.onclick = function () {
+    for (let i in reply) {
+        reply[i].onclick = function () {
             backfade.classList.add('fade');
-            backfade.style.display='block';
-            let feedbackID = i.parentNode.parentNode.children[1].innerHTML;
-            let feedtext = i.parentNode.parentNode.children[6].innerHTML;
-            let feedreply = i.parentNode.parentNode.children[7].innerHTML;
-            sessionStorage.setItem('feedbackid', feedbackID);
+            backfade.style.display = 'block';
             feedback_fade.style.top = "20vh";
-            feedback_text.innerHTML = feedtext;
-            feedback_reply.innerHTML = feedreply;
+            feedback_text.innerHTML = this.parentNode.parentNode.children[6].innerHTML;
+            feedback_reply.innerHTML = this.parentNode.parentNode.children[7].innerHTML==" "?"":this.parentNode.parentNode.children[7].innerHTML;
+            sessionStorage.setItem('feedbackid', this.parentNode.parentNode.children[1].innerHTML);
         }
     }
 }
@@ -281,7 +296,7 @@ function allchange2() {
 fade.onclick = function () {
     feedback_fade.style.top = "-500px";
     backfade.classList.remove('fade');
-    backfade.style.display='none';
+    backfade.style.display = 'none';
 }
 var feedback_t_b = document.getElementsByClassName("feedback_t_b")[0];
 feedback_t_b.onmousemove = function () {
@@ -303,9 +318,12 @@ feedback_t_b.onmousemove = function () {
     }
 }
 //空选删除处理
-function backpagen3(){
+sessionStorage.setItem("feedbackfind", '0');
+function backpagen3() {
+    sessionStorage.setItem("feedbackfind", '0');
+    document.getElementsByClassName("feedback_find_input")[0].value='';
     allbegin();
-    feedback_b.style.display=' flex';
-    feedback_back_max.style.display='none';
+    feedback_b.style.display = ' flex';
+    feedback_back_max.style.display = 'none';
 }
 allbegin();
