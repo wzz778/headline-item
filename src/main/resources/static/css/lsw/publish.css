@@ -83,15 +83,15 @@
 .publish-block a{
     display: block;
     width: 60px;
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 16px;
+    margin-top: 15px;
     margin-left: 20px;
     height: 15px;
     background-color: aliceblue;
 }
 #standard{
-    font-size: 12px;
-    margin-top: 15px;
+    font-size: 15px;
+    margin-top: 16px;
     cursor: default;
 }
 #standard:hover{
@@ -227,7 +227,14 @@
     height: 50px;
     display: inline-block;
     border-radius: 50%;
+    position: absolute;
     background-size: cover;
+}
+#user_name{
+    font-size: 15px;
+    position: absolute;
+    top: 15px;
+    margin-left: 60px;
 }
 #profile-silder{
     width: 150px;
@@ -238,10 +245,6 @@
     font-size: 15px;
     display: none;
 }
-/*#img{*/
-/*    width: 150px;*/
-/*    height: 110px;*/
-/*}*/
 #touxiang button{
     width: 70px;
     height: 30px;
@@ -367,7 +370,7 @@
     width: 410px;
     height:200px;
     display: none;
-    position: absolute;
+    position: relative;
     top: 32%;
     left: 35%;
     border-radius: 10px;
@@ -379,6 +382,7 @@
 #tip{
     margin: 40px auto;
     width: 250px;
+    position: absolute;
     font-size: 20px;
 }
 #tckTip{
@@ -397,6 +401,7 @@
     background-color: #3b89d1;
     margin-left: 150px;
     outline-style: none;
+    position: absolute;
     border-style: none;
 }
 #sure:hover{
@@ -466,8 +471,8 @@
     display: none;
 }
 #btn{
-    width: 300px;
-    margin-left: 1000px;
+    width: 400px;
+    margin-left: 750px;
     margin-top: 5px;
     background-color: transparent;
 }
@@ -478,6 +483,7 @@
     border-radius: 5px;
     outline-style: none;
     border-style: none;
+    border: 1px solid black;
     background-color: white;
 }
 #btn button:hover{

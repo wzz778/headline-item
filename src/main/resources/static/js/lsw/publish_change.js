@@ -165,6 +165,110 @@ function check(radio) {
 }
 var img=document.getElementById("img");
 var timeDiv=document.getElementById('timeDiv');
+var inputImg=document.getElementById('file')
+inputImg.onclick=function(){
+    var tailoring=document.getElementById('tailoring')
+    var tailoring_silder=document.getElementById('tailoring-silder')
+    tailoring_silder.style.display='block'
+    tailoring.style.display='block'
+}
+inputImg.onchange = function () {
+    var ff = $("#file").val();
+    console.log(ff)
+    if(/.(gif|jpg|jpeg|png|gif|jpg|png)$/.test(ff)){
+        //获取文件
+        var file = this.files[0];
+        //创建读取文件对象
+        var reader = new FileReader();
+        //读取文件
+        reader.readAsDataURL(file);
+        //在回调函数中修改Img的src属性
+        reader.onload = function (evt) {
+            img.src = reader.result;
+            console.log(evt,cropper,'./.evt.target.result')
+            var replaceSrc = evt.target.result;
+            // 更换cropper的图片
+            cropper.replace(replaceSrc, false);// 默认false，适应高度，不失真
+        }
+    }else{
+        tip.innerHTML = "图片类型错误，请重新上传"
+        shadow2.style.display = "block";
+        successTip.style.display = "block";
+        img.src = '';
+    }
+}
+var cropper =  new Cropper($('#tailoringImg')[0],{
+    aspectRatio: 0 / 0,
+    preview: '.previewImg',// 预览视图
+    guides: true, // 裁剪框的虚线(九宫格)
+    autoCropArea: 0.5, // 0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+    movable: true, // 是否允许移动图片
+    dragCrop: true, // 是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+    movable: true, // 是否允许移动剪裁框
+    resizable: true, //是否允许改变裁剪框的大小
+    scalable:true, //是否可以缩放图片
+    zoomable: true, // 是否允许缩放图片大小
+    mouseWheelZoom: false, // 是否允许通过鼠标滚轮来缩放图片
+    touchDragZoom: false, // 是否允许通过触摸移动来缩放图片
+    rotatable: true, // 是否允许旋转图片
+    crop: function (e) {
+        let cas = cropper.getCroppedCanvas();// 获取被裁剪后的canvas
+        var base64 = cas.toDataURL('image/jpeg'); //转换为base64
+        $("#img").prop("src", base64);// 显示图片
+        $("#fileImg").prop("src", base64);// 显示图片
+    }
+});
+
+// 旋转
+$(".cropper-rotate-btn").on("click", function () {
+    cropper.rotate(45);
+});
+// 复位
+$(".cropper-reset-btn").on("click", function () {
+    cropper.reset();
+});
+// 放大
+$('.cropper-enlarge-btn').on('click',function(){
+    console.log(cropper,'cropper---enlarge')
+    cropper.zoom(2);
+})
+// 缩小
+$('.cropper-narrow-btn').on('click',function(){
+    console.log(cropper,'cropper---narrow')
+    cropper.zoom(-2);
+})
+var sureCut=document.getElementById('sureCut')
+sureCut.onclick=function(){
+    var tailoring=document.getElementById('tailoring')
+    var tailoring_silder=document.getElementById('tailoring-silder')
+    tailoring_silder.style.display='none'
+    tailoring.style.display='none'
+}
+// 换向
+var flagX = true;
+$(".cropper-scaleX-btn").on("click", function () {
+    if (flagX) {
+        cropper.scaleX(-1);
+        flagX = false;
+    } else {
+        cropper.scaleX(1);
+        flagX = true;
+    }
+    flagX != flagX;
+});
+
+function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    //[u8arr] [] 不能省略
+    return new Blob([u8arr], { type: mime });
+}
 function filePublishChange() {
     var formData = new FormData();
     formData.append('profile1', $('#file')[0].files[0]);
@@ -186,6 +290,8 @@ function filePublishChange() {
             tip.innerHTML = "修改成功●ω●"
             shadow2.style.display = "block";
             timeDiv.style.display='block'
+            tip.style.top=50+'px';
+            sure.style.display='none'
             successTip.style.display = "block";
             var second = 3;
             showTime();
@@ -219,12 +325,12 @@ function nofilePublishChange(){
         },
         dataType:"json",
         success:function(data){
-            tip.innerHTML = "修改成功●ω●"
-            shadow2.style.display = "block";
-            timeDiv.style.display='block'
-            successTip.style.display = "block";
             if(data.message=="success"){
+                tip.innerHTML = "修改成功●ω●"
+                tip.style.top=50+'px';
+                sure.style.display='none'
                 shadow2.style.display = "block";
+                timeDiv.style.display='block'
                 successTip.style.display = "block";
             }
             var second = 3;
@@ -248,14 +354,20 @@ function publishBtn_change() {
     if (postsName2.value == '') {
         tip.innerHTML = "文章题目不能为空！！"
         shadow2.style.display = "block";
+        tip.style.top=50+'px';
+        sure.style.top=130+'px';
         successTip.style.display = "block";
     } else if (content2.value == '') {
         tip.innerHTML = "内容不能为空！！"
         shadow2.style.display = "block";
+        tip.style.top=50+'px';
+        sure.style.top=130+'px';
         successTip.style.display = "block";
     } else if (labelPut2.value == '') {
         tip.innerHTML = "标签不能为空！！"
         shadow2.style.display = "block";
+        tip.style.top=50+'px';
+        sure.style.top=130+'px';
         successTip.style.display = "block";
     } else {
         if (window.localStorage.yesNo == '是') {
@@ -264,6 +376,225 @@ function publishBtn_change() {
         if (window.localStorage.yesNo == '否') {
             nofilePublishChange()
         }
+    }
+}
+// 保存草稿
+function save(){
+    if(window.localStorage.yesNo=='是'){
+        fileSave()
+    }
+    if(window.localStorage.yesNo=='否'){
+        nofileSave()
+    }
+}
+function nofileSave() {
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/posts/addPosts",
+        data: {
+            content: content2.value,
+            contentA: contentA2.value,
+            label: labelPut2.value,
+            postsName: postsName2.value,
+            userID: user_id,
+            picture: today(),
+            reside: user_id,
+            status: -2
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data.data == "success") {
+                tip.innerHTML = "草稿已保存在草稿箱"
+                shadow2.style.display = "block";
+                timeDiv.style.display='block'
+                tip.style.top=50+'px'
+                tip.style.left=-30+'px'
+                sure.style.display='none'
+                successTip.style.display = "block";
+            }
+            var second = 3;
+            showTime();
+            function showTime() {
+                let time = document.querySelector("#time");
+                second--;
+                if (second <= 0) {
+                    location.href = "myPage.html";
+                }
+                time.innerHTML= second.toString();
+            }
+            setInterval(showTime,1000);
+        },
+        err: function (result) {
+            console.log('出错啦！')
+        }
+
+    })
+}
+
+function fileSave() {
+    let cas = cropper.getCroppedCanvas();// 获取被裁剪后的canvas
+    var base64 = cas.toDataURL('image/jpeg'); //转换为base64
+    var formData = new FormData();
+    var file = dataURLtoBlob(base64);
+    var nameImg=new Date().getTime()+'.png'
+    formData.append('profile1', file,nameImg);
+    formData.append('content',content2.value);
+    formData.append('contentA',contentA2.value);
+    formData.append('label',labelPut2.value);
+    formData.append('postsName',postsName2.value);
+    formData.append('reside', user_id);
+    formData.append('status', -2);
+    formData.append('picture', today());
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/setPostProfile",
+        data: formData,
+        dataType:"json",
+        contentType: false,
+        processData: false,
+        success: function(date) {
+            tip.innerHTML = "草稿已保存在草稿箱"
+            shadow2.style.display = "block";
+            timeDiv.style.display='block'
+            tip.style.top=50+'px'
+            tip.style.left=-30+'px'
+            sure.style.display='none'
+            successTip.style.display = "block";
+            var second = 3;
+            showTime();
+            function showTime() {
+                let time = document.querySelector("#time");
+                second--;
+                if (second <= 0) {
+                    location.href = "myPage.html";
+                }
+                time.innerHTML= second.toString();
+            }
+            setInterval(showTime,1000);
+        },
+        error: function(data) {
+            console.log("出错啦");
+        }
+    })
+}
+function fileChange() {
+    let cas = cropper.getCroppedCanvas();// 获取被裁剪后的canvas
+    var base64 = cas.toDataURL('image/jpeg'); //转换为base64
+    var formData = new FormData();
+    var file = dataURLtoBlob(base64);
+    var nameImg=new Date().getTime()+'.png'
+    formData.append('profile1', file,nameImg);
+    formData.append('content',content2.value);
+    formData.append('contentA',contentA2.value);
+    formData.append('label',labelPut2.value);
+    formData.append('postsName',postsName2.value);
+    formData.append('reside', user_id);
+    formData.append('status', 0);
+    formData.append('picture', today());
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/setPostProfile",
+        data: formData,
+        dataType:"json",
+        contentType: false,
+        processData: false,
+        success: function(date) {
+            tip.innerHTML = "发布成功，请耐心等待审核"
+            tip.style.top=50+'px';
+            tip.style.right=50+'px'
+            shadow2.style.display = "block";
+            timeDiv.style.display='block'
+            sure.style.display='none'
+            successTip.style.display = "block";
+            var second = 3;
+            showTime();
+            function showTime() {
+                let time = document.querySelector("#time");
+                second--;
+                if (second <= 0) {
+                    location.href = "user_main.html";
+                }
+                time.innerHTML= second.toString();
+            }
+            setInterval(showTime,1000);
+        },
+        error: function(data) {
+            console.log("出错啦");
+        }
+    })
+}
+function nofileChange(){
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/posts/addPosts",
+        data: {
+            content: content2.value,
+            contentA: contentA2.value,
+            label: labelPut2.value,
+            postsName: postsName2.value,
+            userID: user_id,
+            picture: today(),
+            reside: user_id,
+            status:0
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data.data == "success") {
+                tip.innerHTML = "发布成功，请耐心等待审核"
+                tip.style.top=50+'px';
+                tip.style.right=50+'px'
+                shadow2.style.display = "block";
+                timeDiv.style.display='block';
+                sure.style.display='none';
+                successTip.style.display = "block";
+            }
+            var second = 3;
+            showTime();
+            function showTime() {
+                let time = document.querySelector("#time");
+                second--;
+                if (second <= 0) {
+                    location.href = "user_main.html";
+                }
+                time.innerHTML= second.toString();
+            }
+            setInterval(showTime,1000);
+        },
+        err: function (result) {
+            console.log('出错啦！')
+        }
+
+    })
+}
+// 发布文章
+function publish() {
+    if (postsName2.value == '') {
+        tip.innerHTML = "文章题目不能为空！！"
+        shadow2.style.display = "block";
+        tip.style.top=50+'px';
+        sure.style.top=130+'px';
+        successTip.style.display = "block";
+    } else if (content2.value == '') {
+        tip.innerHTML = "内容不能为空！！"
+        shadow2.style.display = "block";
+        tip.style.top=50+'px';
+        sure.style.top=130+'px';
+        successTip.style.display = "block";
+    } else if (labelPut2.value == '') {
+        tip.innerHTML = "标签不能为空！！"
+        shadow2.style.display = "block";
+        tip.style.top=50+'px';
+        sure.style.top=130+'px';
+        successTip.style.display = "block";
+    } else  {
+
+        if(window.localStorage.yesNo=='是'){
+            fileChange()
+        }
+        if(window.localStorage.yesNo=='否'){
+            nofileChange()
+        }
+
     }
 }
 // 获得头像
@@ -280,7 +611,6 @@ if(localStorage.getItem('have_land')=="true") {
             var user_img=document.querySelector('.user_img');
             localStorage.setItem('user_name', date.username);
             user_name.innerHTML = date.username;
-            // user_img.src=date.picture;
             user_img.style.backgroundImage=`url(${date.picture})`;
         }
     })

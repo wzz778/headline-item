@@ -33,7 +33,7 @@ function label_count(){
                 label: sort,
             },
             success: function (data) {
-                 var labelNum=data
+                var labelNum=data
                 window.localStorage.labelNum=labelNum;
                 changePage();
             },
@@ -74,7 +74,7 @@ function sorts() {
                                             <p class="height postName">${result[n].postsName}</p>
                                             </div>
                                         <div class="item-content-sectence">
-                                            <span>作者：${result[n].alike}</span><br>
+                                            <span>作者：${result[n].reside}</span><br>
                                             <span class="height">${result[n].contentA}</span>
                                         </div>
                                         <div class="item-block-bottom-sectence">
@@ -166,7 +166,7 @@ function search1() {
                             <p class="height postName">${result[i].postsName}</p>
                           </div>
                           <div class="item-content-sectence">
-                            <span>作者：${result[i].alike}</span><br>
+                            <span>作者：${result[i].reside}</span><br>
                             <span class="height">${result[i].contentA}</span>
                           </div>
                           <div class="item-block-bottom-sectence">
@@ -234,16 +234,16 @@ function search() {
                 localStorage.setItem('search_input',input.value);
                 leftcontent.innerHTML = null;
                 for(let i=0;i<result.length;i++) {
-                        if (result[i].cover == null) {
-                            $('#leftContent').append(
-                                `
+                    if (result[i].cover == null) {
+                        $('#leftContent').append(
+                            `
                           <div class="item-block" target="_blank">
                           <div class="item-title">
                             <span class="postsID">${result[i].postsID}</span>
                             <p class="height postName">${result[i].postsName}</p>
                           </div>
                           <div class="item-content-sectence">
-                            <span>作者：${result[i].alike}</span><br>
+                            <span>作者：${result[i].reside}</span><br>
                             <span class="height">${result[i].contentA}</span>
                           </div>
                           <div class="item-block-bottom-sectence">
@@ -252,9 +252,9 @@ function search() {
                           </div>
                           </div>
                             `
-                            )
-                        }else{
-                            leftcontent.innerHTML += `
+                        )
+                    }else{
+                        leftcontent.innerHTML += `
                                   <div class="item-block" target="_blank">
                                       <div class="item-title">
                                       <span class="postsID">${result[i].postsID}</span>
@@ -273,15 +273,15 @@ function search() {
                                        </div>
                                   </div>
                                   `;
-                            let item_block=document.getElementsByClassName('item-block')[i];
-                            let img=item_block.getElementsByClassName('img')[0];
-                            img.src=result[i].cover;
-                            }
-                        }
-                    allchange();
-                    //超过一定字数加省略号
-                    wordlimit();
-                    highlight();
+                        let item_block=document.getElementsByClassName('item-block')[i];
+                        let img=item_block.getElementsByClassName('img')[0];
+                        img.src=result[i].cover;
+                    }
+                }
+                allchange();
+                //超过一定字数加省略号
+                wordlimit();
+                highlight();
             },
             error: function (result) {
                 console.log(result)
@@ -345,85 +345,85 @@ function changePage() {
     }
 }
 // 浏览量
-    var item_title = document.getElementsByClassName('item-title')
-    var article_id = localStorage.getItem('article_id');
-    function allchange() {
-        for (let i in item_title) {
-            item_title[i].onclick = function () {
-                $.ajax({
-                    type: "post",
-                    url: "http://localhost:8080/ToSkyNews_war_exploded/posts/setBrowse",
-                    data: {
-                        postsID: article_id
-                    },
-                    dataType: "json",
-                    success: function (result) {
-                        console.log(result)
-                    },
-                    err: function (result) {
-                        console.log("报错了！")
-                    }
-                })
-                window.location.assign('recomments.html');
-                var id = item_title[i].querySelector('.postsID').innerHTML;
-                console.log(id)
-                localStorage.setItem('article_id', id)
-                localStorage.setItem("tolook", '0');
-            }
+var item_title = document.getElementsByClassName('item-title')
+var article_id = localStorage.getItem('article_id');
+function allchange() {
+    for (let i in item_title) {
+        item_title[i].onclick = function () {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/ToSkyNews_war_exploded/posts/setBrowse",
+                data: {
+                    postsID: article_id
+                },
+                dataType: "json",
+                success: function (result) {
+                    console.log(result)
+                },
+                err: function (result) {
+                    console.log("报错了！")
+                }
+            })
+            window.location.assign('recomments.html');
+            var id = item_title[i].querySelector('.postsID').innerHTML;
+            console.log(id)
+            localStorage.setItem('article_id', id)
+
         }
     }
+}
 
 // 限制字数显露
-    function wordlimit(cname, wordlength) {
-        var cname = document.getElementsByClassName('item-content-sectence');
-        for (let i = 0; i < cname.length; i++) {
-            var nowLength = cname[i].innerHTML.length;
-            if (nowLength > 250) {
-                cname[i].innerHTML = cname[i].innerHTML.substr(0, 250) + '...';
-            }
+function wordlimit(cname, wordlength) {
+    var cname = document.getElementsByClassName('item-content-sectence');
+    for (let i = 0; i < cname.length; i++) {
+        var nowLength = cname[i].innerHTML.length;
+        if (nowLength > 250) {
+            cname[i].innerHTML = cname[i].innerHTML.substr(0, 250) + '...';
         }
-    };
+    }
+};
 
 // 关键字标红
-    function highlight() {
-        clearSelection();//先清空一下上次高亮显示的内容；
-        var searchText = $('.input_text').val();
-        var regExp = new RegExp(searchText, 'g');
-        $('.height').each(function ()//遍历文章
-        {
-            var html = $(this).html();
-            var newHtml = html.replace(regExp, '<a class="highlight" style="color: #ff0000">' + searchText + '</a>');
-            $(this).html(newHtml);//更新文章；
-        });
-    }
+function highlight() {
+    clearSelection();//先清空一下上次高亮显示的内容；
+    var searchText = $('.input_text').val();
+    var regExp = new RegExp(searchText, 'g');
+    $('.height').each(function ()//遍历文章
+    {
+        var html = $(this).html();
+        var newHtml = html.replace(regExp, '<a class="highlight" style="color: #ff0000">' + searchText + '</a>');
+        $(this).html(newHtml);//更新文章；
+    });
+}
 
-    function clearSelection() {
-        $('.height').each(function ()//遍历
+function clearSelection() {
+    $('.height').each(function ()//遍历
+    {
+        $(this).find('.highlight').each(function ()//找到所有highlight属性的元素；
         {
-            $(this).find('.highlight').each(function ()//找到所有highlight属性的元素；
-            {
-                $(this).replaceWith($(this).html());//将他们的属性去掉
-            });
+            $(this).replaceWith($(this).html());//将他们的属性去掉
         });
-    }
+    });
+}
 
 // 热搜热榜
-    hotSearch()
-    function hotSearch() {
-        $.ajax({
-            type: "post",
-            url: "http://localhost:8080/ToSkyNews_war_exploded/posts/queryAlikeDesc",
-            data: {
-                column: 0,
-                total: 30
-            },
-            dataType: "json",
-            success: function (result) {
-                let index = 0;
-                for (let i = 0; i < result.length; i++) {
-                    index++;
-                    $('.showBox').append(
-                        `
+hotSearch()
+function hotSearch() {
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/posts/queryAlikeDesc",
+        data: {
+            column: 0,
+            total: 30
+        },
+        dataType: "json",
+        success: function (result) {
+            let index = 0;
+            for (let i = 0; i < result.length; i++) {
+                index++;
+                $('.showBox').append(
+                    `
                         <li class="tpl">
                             <span class="number">${index}</span>
                             <a class="hot_posts">${result[i].postsName}
@@ -431,52 +431,52 @@ function changePage() {
                             </a>
                         </li>
                         `
-                    )
-                }
-                queryData();
-                hot_post();
-            },
-            err: function (result) {
-                console.log("报错了！！")
+                )
             }
-        })
-    }
+            queryData();
+            hot_post();
+        },
+        err: function (result) {
+            console.log("报错了！！")
+        }
+    })
+}
 // 热搜分页
-    function queryData() {
-        let change = document.getElementById('change');
-        let oLi = document.getElementsByClassName('tpl');
-        let number = document.getElementsByClassName('number');
-        number[0].style.backgroundColor = 'red'
-        number[1].style.backgroundColor = 'orange'
-        number[2].style.backgroundColor = 'coral'
-        var k = 0;
-        change.onclick = function () {
-            if(k<2){
-                k=k+1;
-            }else if(k=3){
-                k=0;
-            }
-            for(let j = 0; j < oLi.length; j++) {
-                oLi[j].style.display = "none";
-            }
-            for (let j = k * 10; j < (k + 1) * 10; j++) {
-                oLi[j].style.display = "block";
-            }
+function queryData() {
+    let change = document.getElementById('change');
+    let oLi = document.getElementsByClassName('tpl');
+    let number = document.getElementsByClassName('number');
+    number[0].style.backgroundColor = 'red'
+    number[1].style.backgroundColor = 'orange'
+    number[2].style.backgroundColor = 'coral'
+    var k = 0;
+    change.onclick = function () {
+        if(k<2){
+            k=k+1;
+        }else if(k=3){
+            k=0;
+        }
+        for(let j = 0; j < oLi.length; j++) {
+            oLi[j].style.display = "none";
+        }
+        for (let j = k * 10; j < (k + 1) * 10; j++) {
+            oLi[j].style.display = "block";
         }
     }
+}
 
 // 点击热搜跳转页面
-    var hot_posts = document.getElementsByClassName('hot_posts')
+var hot_posts = document.getElementsByClassName('hot_posts')
 
-    function hot_post() {
-        for (let i in hot_posts) {
-            hot_posts[i].onclick = function () {
-                window.location.assign('recomments.html');
-                let id = hot_posts[i].querySelector('.postsID').innerHTML;
-                localStorage.setItem('article_id', id)
-            }
+function hot_post() {
+    for (let i in hot_posts) {
+        hot_posts[i].onclick = function () {
+            window.location.assign('recomments.html');
+            let id = hot_posts[i].querySelector('.postsID').innerHTML;
+            localStorage.setItem('article_id', id)
         }
-        localStorage.setItem("tolook", '0');
     }
+    localStorage.setItem("tolook", '0');
+}
 
 
