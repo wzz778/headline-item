@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="../static/img/wzz/newicon.png" type="image/vnd.microsoft.icon">
     <link rel="stylesheet" href="../static/css/yxy/otherUserPage.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="../static/css/wzz/new.min.css">
 </head>
 <body>
 <!-- 其他用户主页 -->
@@ -44,6 +45,9 @@
             <input type="text" class="food_find_input" placeholder=" 请输入您要寻找的文章与描述">
             <a href="javascript:;" class="food_find_bon"><i class="fa fa-search" aria-hidden="true"></i>搜索</a>
         </div>
+        <button id="back_history" onclick="window.history.go(-1);">
+            <i class="fa fa-reply-all" aria-hidden="true"></i>
+        <btton>
         <!-- <a class="top_land top_left" href="javascript:;">
             登录
         </a> -->
@@ -116,8 +120,8 @@
             </div>
             <!-- 有作品时 -->
             <div class="haveWorks"></div>
-            <!-- <button class="moreInfo">加载更多</button>
-            <button class="moreCollectInfo">加载更多</button> -->
+            <span class="moreWorks">加载更多</span>
+            <span class="moreCollect">加载更多</span>
         </div>
     </div>
 

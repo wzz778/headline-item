@@ -288,7 +288,7 @@ function getMyWorks(x){
                                             success:function(res){
                                                 console.log(res);
                                                 collect[y].innerHTML='取消收藏';
-                                                num();
+                                                // num();
                                             },
                                             error:function(err){
                                                 console.log(err);
@@ -309,7 +309,7 @@ function getMyWorks(x){
                                             success:function(suc){
                                                 console.log(suc);
                                                 collect[y].innerHTML='收藏';
-                                                num();
+                                                // num();
                                             },
                                             error:function(fal){
                                                 console.log(fal);
@@ -361,27 +361,28 @@ function getMyWorks(x){
                                     },
                                     success:function(res){
                                         console.log(res);
-                                        sureAppear("确定要删除吗？");
+                                        sureAppear("删除成功");
                                         successOk.addEventListener('click',function(){
                                             sureFade();
                                         })
                                         haveWorks.removeChild(worksItem[y]);
-                                        num();
+                                        // num();
                                     },
                                     error:function(err){
                                         console.log(err);
                                     }
                                 })
                             })
-                            //跳转到修改页面
-                            var changeText=document.querySelectorAll('.changeText');
-                            changeText[y].addEventListener('click',function(e){
-                                e.stopPropagation();
-                                localStorage.setItem('article_id',workTitle[y].textID);
-                                // localStorage.setItem("tolook", '0');
-                                window.location.assign("../templates/publish-change.html");
-                            },false)
+                           
                         },false)
+                         //跳转到修改页面
+                         var changeText=document.querySelectorAll('.changeText');
+                         changeText[y].addEventListener('click',function(e){
+                             e.stopPropagation();
+                             localStorage.setItem('article_id',workTitle[y].textID);
+                             // localStorage.setItem("tolook", '0');
+                             window.location.assign("../templates/publish-change.html");
+                         },false)
                     },60)
                  }
         },
@@ -498,7 +499,7 @@ function getLoveWorks(m){
                                               sureFade();
                                           })
                                           haveWorks.removeChild(worksItem[n]);
-                                          num();
+                                        //   num();
                                       },
                                       error:function(fal){
                                           console.log(fal);
@@ -784,7 +785,7 @@ searchBox.addEventListener('click',function(){
                                         successOk.addEventListener('click',function(){
                                             sureFade();
                                         })
-                                        num();
+                                        // num();
                                     
                                     },
                                     error:function(err){
@@ -815,7 +816,7 @@ searchBox.addEventListener('click',function(){
                                         success:function(res){
                                             // console.log(res);
                                             collect[i].innerHTML='取消收藏';
-                                            num();
+                                            // num();
                                         },
                                         error:function(err){
                                             // console.log(err);
@@ -836,7 +837,7 @@ searchBox.addEventListener('click',function(){
                                         success:function(suc){
                                             // console.log(suc);
                                             collect[i].innerHTML='收藏';
-                                            num();
+                                            // num();
                                             
                                         },
                                         error:function(fal){
