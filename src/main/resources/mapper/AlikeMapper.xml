@@ -12,8 +12,8 @@
     <update id="setAlike" parameterType="int">
       update tosky.posts
       set alike=alike + 1
-        where
-        <if test="postsID">
+        <if test="postsID!=null">
+            where
         postsID = #{postsID}
         </if>
    </update>
@@ -28,7 +28,9 @@
     <update id="deleteAlike" parameterType="int">
       update tosky.posts
       set alike=alike - 1
+      <if test="postsID !=null">
       where postsID = #{postsID}
+      </if>
    </update>
 
     <!--用户取消赞(删除表中的点赞记录)-->
@@ -41,10 +43,10 @@
     <select id="queryAlike" resultType="Alike">
         SELECT * from tosky.alike
         <where>
-        <if test="postsID">
+        <if test="postsID !=null">
          postsID=#{postsID}
         </if>
-            <if test="userID">
+            <if test="userID !=null">
          and userID=#{userID}
             </if>
         </where>
@@ -58,8 +60,9 @@
 
     <!--当用户查看此信息之后此信息状态改变-->
     <update id="updateMessagesStatus" parameterType="int">
-      update tosky.messages set status=1 where
-      <if test="messagesID">
+      update tosky.messages set status=1
+      <if test="messagesID !=null">
+          where
       messagesID = #{messagesID}
       </if>
    </update>
@@ -67,13 +70,17 @@
 <!--    查询某个用户下的所有信息（被收藏或点赞）-->
     <select id="queryAllMessages" resultType="Messages">
        select * from tosky.messages
+       <if test="authorID !=null">
         where authorID=#{authorID} order by messagesID desc
+       </if>
     </select>
 
     <!--查询某个用户下的所有信息（收藏或点赞的用户信息）-->
     <select id="queryAllMessagesUser" resultType="User">
         select username,picture from tosky.user
+        <if test="userID !=null">
         where userID=#{userID}
+        </if>
     </select>
 
     <delete id="deleteMessages" parameterType="int">
@@ -82,8 +89,18 @@
 
     <!--reside=alike userID postsID-->
     <select id="queryMessagesID" resultType="Messages">
-        select * from tosky.messages where reside=#{reside}
-        and userID=#{userID} and postsID=#{postsID}
+        select * from tosky.messages
+        <where>
+        <if test="reside !=null">
+        reside=#{reside}
+        </if>
+        <if test="userID !=null">
+        and userID=#{userID}
+        </if>
+        <if test="postsID !=null">
+        and postsID=#{postsID}
+        </if>
+        </where>
     </select>
 
     <!--分页查询某个用户下的所有信息（被收藏或点赞）-->
@@ -95,13 +112,25 @@
     <!--数量）某个用户下的所有信息（被收藏或点赞）-->
     <select id="queryMessagesCount" resultType="int">
        select count(*) from tosky.messages
+       <if test="authorID !=null">
         where authorID=#{authorID}
+       </if>
     </select>
 
     <!--    根据reside，userID，postsID，查询指定信息-->
     <select id="queryOneMessages" resultType="Messages">
        select * from tosky.messages
-        where reside=#{reside} and userID=#{userID} and postsID=#{postsID}
+       <where>
+       <if test="reside!=null">
+            reside=#{reside}
+       </if>
+       <if test="userID!=null">
+            and userID=#{userID}
+       </if>
+       <if test="postsID!=null">
+            and postsID=#{postsID}
+       </if>
+       </where>
     </select>
 
 <!--    通过id修改某条信息-->

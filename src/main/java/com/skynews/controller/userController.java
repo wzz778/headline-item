@@ -90,7 +90,7 @@ public class userController {
         User user=new User(username,password,targetEmail);
         if(authCode1.equals(authCode)) {
            int register = userService.register(user);
-           if (register == 0) {
+           if (register == 1) {
                System.out.println(account);
                 return Response.ok(user,"验证码输入正确,账号生成成功,注册成功");
            } else {
@@ -119,7 +119,7 @@ public class userController {
 //        if (StringUtils.isEmpty(account) || StringUtils.isEmpty(password)){
 //            throw new CustomException("用户名或密码不能为空");
 //        }
-        session.setAttribute("user",user1);
+        session.setAttribute("user1",user1);
         System.out.println(user1);
         if (user1 != null) {
             return Response.ok(user1,"登录成功");

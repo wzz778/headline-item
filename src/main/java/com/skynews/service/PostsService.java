@@ -88,6 +88,6 @@ public interface PostsService {
     Posts getPost(int postsID);
 
     List<Posts> findUser();
-    List<Posts> getlist(int start,int count); //获取用户list
+    List<Posts> getList(int start,int count); //获取用户list
     Integer getTotal(); //获取用户总数
 }

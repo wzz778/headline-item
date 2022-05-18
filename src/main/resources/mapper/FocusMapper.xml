@@ -20,38 +20,65 @@
 
     <!--查询某个用户所有粉丝-->
     <select id="queryAllFans" resultType="Focus">
-        select * from tosky.focus where focusID=#{focusID} order by autoID desc
+        select * from tosky.focus
+        where
+        <if test="focusID !=null">
+        focusID=#{focusID} order by autoID desc
+        </if>
     </select>
 
     <!--查询某个用户所有关注-->
     <select id="queryAllFocus" resultType="Focus">
-        select * from tosky.focus where fansID=#{fansID} order by autoID desc
+        select * from tosky.focus where
+        <if test="fansID !=null">
+        fansID=#{fansID} order by autoID desc
+        </if>
     </select>
 
     <!--判断该用户是否已经关注过另一个用户-->
     <select id="queryFocus" resultType="Focus">
-        select * from tosky.focus where focusID=#{focusID} and fansID=#{fansID}
+        select * from tosky.focus
+        <where>
+        <if test="focusID !=null">
+        focusID=#{focusID}
+        </if>
+        <if test="fansID !=null">
+        and fansID=#{fansID}
+        </if>
+        </where>
     </select>
 
     <!--根据用户id获取用户的粉丝数-->
     <select id="querySumFans" resultType="int">
-        select count(*) from focus where focusID=#{focusID};
+        select count(*) from focus where
+        <if test="focusID !=null">
+        focusID=#{focusID}
+        </if>
     </select>
 
 <!--    ******************* resultType ********************-->
     <!--根据用户id获取用户的关注数-->
-    <select id="querySumFocus" parameterType="int">
-        select count(*) from focus where fansID=#{fansID};
+    <select id="querySumFocus" resultType="int">
+        select count(*) from tosky.focus
+        <if test="fansID !=null">
+            where fansID=#{fansID}
+        </if>
     </select>
 
     <!--查询某个用户所有粉丝（分页查询）-->
     <select id="queryAllFansPage" resultType="Focus">
-        select * from tosky.focus where focusID=#{focusID} limit #{num},8
+        select * from tosky.focus where
+        <if test="focusID !=null">
+        focusID=#{focusID} limit #{num},8
+        </if>
     </select>
 
     <!--查询某个用户所有关注（分页查询）-->
     <select id="queryAllFocusPage" resultType="Focus">
-        select * from tosky.focus where fansID=#{fansID} limit #{num},8
+        select * from tosky.focus where
+        <if test="fansID !=null and num!=null">
+        fansID=#{fansID} limit #{num},8
+        </if>
     </select>
 
 </mapper>
