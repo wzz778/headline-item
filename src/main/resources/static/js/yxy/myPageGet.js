@@ -21,75 +21,124 @@ var collectNum=document.querySelector('.collectNum');
 var moreWorks=document.querySelector('.moreWorks');
 var moreCollect=document.querySelector('.moreCollect');
 var drafts=document.querySelector('.drafts');
+num();
+function num(){
+    $.ajax({
+        type:'post',
+        url:'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',
+        data:{
+            userID:user_id
+        },
+        success:function(suc_1){
+             collectNum.innerHTML=suc_1.length;
+        },
+        error:function(err){
+            console.log(err);
+        }
+    })
+    $.ajax({
+        type:'post',
+        url:'http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsByUserID',
+        data:{
+            userID:user_id
+        },
+        success:function(suc_1){
+            //  console.log(suc_1.length);
+             workNum.innerHTML=suc_1.length;
+             if(workNum.innerHTML=='0'){
+                console.log(workNum.innerHTML);
+                moreWorks.style.display='none';
+                moreCollect.style.display='none';
+                haveWorks.style.display='none';
+                empty.style.display='flex';
+             }else{
+                console.log(workNum.innerHTML);
+                empty.style.display='none';
+                moreWorks.style.display='inline-block';
+                moreCollect.style.display='none';
+                haveWorks.style.display='inline-block';
+                more();
+             }
+        },
+        error:function(err){
+            console.log(err);
+        }
+    })
+}
 drafts.addEventListener('click',function(){
     // localStorage.setItem("tolook", '0');
     window.location.assign("../templates/draftsPage.html");
 })
-//加载更多的滚动监听
-myWorksNav.setAttribute('condition',1);
-collectWorkNav.setAttribute('condition',0);
-var ind=1;
-$(window).on("resize scroll",function(){
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    if (scrollHeight - 1 <= scrollTop + windowHeight) {
-        myWorksNav.setAttribute('index',ind);
-        if(myWorksNav.getAttribute('condition')==1){
-            console.log(ind)
-            if(workNum.innerHTML*1%10==0){
-                if(workNum.innerHTML*1/10!=ind){
-                    getMyWorks(ind*10);
-                    ind++;
-                    myWorksNav.setAttribute('index',ind);
-                    console.log(ind)
-                }else if(workNum.innerHTML*1/10==ind){
-                    moreWorks.innerHTML='已加载全部';
+
+
+function more(){
+    getMyWorks(0);
+    myWorksNav.setAttribute('condition',1);
+    collectWorkNav.setAttribute('condition',0);
+    var ind=1;
+    $(window).on("resize scroll",function(){
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        if (scrollHeight - 1 <= scrollTop + windowHeight) {
+            myWorksNav.setAttribute('index',ind);
+            if(myWorksNav.getAttribute('condition')==1){
+                console.log(ind)
+                if(workNum.innerHTML*1%10==0){
+                    if(workNum.innerHTML*1/10!=ind){
+                        getMyWorks(ind*10);
+                        ind++;
+                        myWorksNav.setAttribute('index',ind);
+                        console.log(ind)
+                    }else if(workNum.innerHTML*1/10==ind){
+                        moreWorks.innerHTML='已加载全部';
+                    }
+                }else{
+                    if(Math.ceil(workNum.innerHTML*1/10)!=ind){
+                        getMyWorks( ind*10);
+                        ind++;
+                        myWorksNav.setAttribute('index',ind);
+                        console.log(ind)
+                    }else if(Math.ceil(workNum.innerHTML*1/10)==ind){
+                        moreWorks.innerHTML='已加载全部';
+                    }
                 }
-            }else{
-                if(Math.ceil(workNum.innerHTML*1/10)!=ind){
-                    getMyWorks( ind*10);
-                    ind++;
-                    myWorksNav.setAttribute('index',ind);
-                    console.log(ind)
-                }else if(Math.ceil(workNum.innerHTML*1/10)==ind){
-                    moreWorks.innerHTML='已加载全部';
+            } 
+        }
+    });
+    var n=1;
+    $(window).on("resize scroll",function(){
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        if (scrollHeight - 1 <= scrollTop + windowHeight) {
+            collectWorkNav.setAttribute('num',n);
+            if(collectWorkNav.getAttribute('condition')==1){
+                console.log(ind)
+                if(collectWorkNav.innerHTML*1%10==0){
+                    if(collectNum.innerHTML*1/10!=ind){
+                        getLoveWorks(n*10);
+                        n++;
+                        collectWorkNav.setAttribute('num',n);
+                        console.log(n)
+                    }else if(collectNum.innerHTML*1/10==n){
+                        moreCollect.innerHTML='已加载全部';
+                    }
+                }else{
+                    if(Math.ceil(collectNum.innerHTML*1/10)!=n){
+                        getLoveWorks(n*10);
+                        n++;
+                        collectWorkNav.setAttribute('num',n);
+                        console.log(n)
+                    }else if(Math.ceil(collectNum.innerHTML*1/10)==n){
+                        moreCollect.innerHTML='已加载全部';
+                    }
                 }
-            }
-        } 
-    }
-});
-var n=1;
-$(window).on("resize scroll",function(){
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    if (scrollHeight - 1 <= scrollTop + windowHeight) {
-        collectWorkNav.setAttribute('num',n);
-        if(collectWorkNav.getAttribute('condition')==1){
-            console.log(ind)
-            if(collectWorkNav.innerHTML*1%10==0){
-                if(collectNum.innerHTML*1/10!=ind){
-                    getLoveWorks(n*10);
-                    n++;
-                    collectWorkNav.setAttribute('num',n);
-                    console.log(n)
-                }else if(collectNum.innerHTML*1/10==n){
-                    moreCollect.innerHTML='已加载全部';
-                }
-            }else{
-                if(Math.ceil(collectNum.innerHTML*1/10)!=n){
-                    getLoveWorks(n*10);
-                    n++;
-                    collectWorkNav.setAttribute('num',n);
-                    console.log(n)
-                }else if(Math.ceil(collectNum.innerHTML*1/10)==n){
-                    moreCollect.innerHTML='已加载全部';
-                }
-            }
-        } 
-    }
-});
+            } 
+        }
+    });
+}
+
 
 //弹窗
 var chooseCover=document.querySelector('.chooseCover');
@@ -116,44 +165,7 @@ function sureFade(){
     sureCover.style.opacity=0;
     successTip.style.height='0px';
 }
-num();
-function num(){
-    $.ajax({
-        type:'post',
-        url:'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',
-        data:{
-            userID:user_id
-        },
-        success:function(suc_1){
-             collectNum.innerHTML=suc_1.length;
-        },
-        error:function(err){
-            console.log(err);
-        }
-    })
-    $.ajax({
-        type:'post',
-        url:'http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsByUserID',
-        data:{
-            userID:user_id
-        },
-        success:function(suc_1){
-             console.log(suc_1.length);
-             workNum.innerHTML=suc_1.length;
-             if(suc_1.length==0){
-                 empty.style.display='flex';
-                 haveWorks.style.display='none';
-             }else{
-                empty.style.display='none';
-                haveWorks.style.display='block';
-             }
-             
-        },
-        error:function(err){
-            console.log(err);
-        }
-    })
-}
+
 // var haveMyWork=document.querySelector('.haveMyWork');
 //用户自己的帖子
 function getMyWorks(x){
@@ -376,13 +388,13 @@ function getMyWorks(x){
                            
                         },false)
                          //跳转到修改页面
-                         var changeText=document.querySelectorAll('.changeText');
-                         changeText[y].addEventListener('click',function(e){
-                             e.stopPropagation();
-                             localStorage.setItem('article_id',workTitle[y].textID);
-                             // localStorage.setItem("tolook", '0');
-                             window.location.assign("../templates/publish-change.html");
-                         },false)
+                            var changeText=document.querySelectorAll('.changeText');
+                            changeText[y].addEventListener('click',function(e){
+                                e.stopPropagation();
+                                localStorage.setItem('article_id',workTitle[y].textID);
+                                // localStorage.setItem("tolook", '0');
+                                window.location.assign("../templates/publish-change.html");
+                            },false)
                     },60)
                  }
         },
@@ -527,27 +539,29 @@ var noWork=document.querySelector('.noWork');
 var searchNav=document.querySelector('.searchNav');
 var workNav=document.querySelector('.workNav');
 var find=document.querySelector('#find');
-getMyWorks(0);
 // getLoveWorks(0);
 myWorksNav.addEventListener('click',function(){
     haveWorks.innerHTML='';
     if(workNum.innerHTML==0){
         empty.style.display='flex';
         haveWorks.style.display='none';
+        moreWorks.style.display='none';
+        moreCollect.style.display='none';
     }else{
        empty.style.display='none';
        haveWorks.style.display='block';
+       // noWork.innerHTML='暂未发表作品';
+        myWorksNav.style.color='cornflowerblue';
+        collectWorkNav.style.color='black';
+        // haveCollect.style.display='none';
+        // haveMyWork.style.display='block';
+        moreWorks.style.display='inline-block';
+        moreCollect.style.display='none';
+        myWorksNav.setAttribute('condition',1);
+        collectWorkNav.setAttribute('condition',0);
+        getMyWorks(0);
     }
-    // noWork.innerHTML='暂未发表作品';
-    myWorksNav.style.color='cornflowerblue';
-    collectWorkNav.style.color='black';
-    // haveCollect.style.display='none';
-    // haveMyWork.style.display='block';
-    moreWorks.style.display='inline-block';
-    moreCollect.style.display='none';
-    myWorksNav.setAttribute('condition',1);
-    collectWorkNav.setAttribute('condition',0);
-    getMyWorks(0);
+    
 })
 collectWorkNav.addEventListener('click',function(){
     haveWorks.innerHTML='';
