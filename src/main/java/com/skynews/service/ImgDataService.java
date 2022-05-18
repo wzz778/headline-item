@@ -4,6 +4,7 @@ package com.skynews.service;
 import com.skynews.pojo.Picture;
 import com.skynews.utils.Response;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 public interface ImgDataService {
     //上传图片库

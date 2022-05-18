@@ -3,7 +3,7 @@ package com.skynews.controller;
 
 //import com.skynews.exception.CustomException;
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Comment;
 import com.skynews.pojo.Reviews;
 import com.skynews.service.CommentService;
@@ -42,24 +42,20 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParams({
             @ApiImplicitParam(name="contain",value = "评论内容"),
-            @ApiImplicitParam(name="authorID",value = "发帖人/作者id"),
             @ApiImplicitParam(name="postsID",value = "帖子id"),
             @ApiImplicitParam(name="makerID",value = "评论人id"),
-            @ApiImplicitParam(name="picture",value = "评论人头像"),
-            @ApiImplicitParam(name="commentTime",value = "评论时间"),
-            @ApiImplicitParam(name="commentName",value = "发评人名字")
     })
-    public Response addComment(String contain, Integer authorID, Integer postsID, Integer makerID, String picture, String commentTime, String commentName) throws CustomException {
-        if (StringUtils.isEmpty(contain) || StringUtils.isEmpty(picture)|| StringUtils.isEmpty(commentTime)|| StringUtils.isEmpty(commentName)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(contain," ") || StringUtils.startsWith(picture," ")|| StringUtils.startsWith(commentName," ")|| StringUtils.startsWith(commentTime," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(authorID==null||makerID==null||postsID==null){
-            throw new CustomException("类型为空！");
-        }
-        Comment comment=new Comment(contain,authorID,postsID,makerID,picture,commentTime,commentName);
+    public Response addComment(String contain, Integer postsID, Integer makerID) {
+//        if (StringUtils.isEmpty(contain) || StringUtils.isEmpty(picture)|| StringUtils.isEmpty(commentTime)|| StringUtils.isEmpty(commentName)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(contain," ") || StringUtils.startsWith(picture," ")|| StringUtils.startsWith(commentName," ")|| StringUtils.startsWith(commentTime," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(authorID==null||makerID==null||postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
+        Comment comment=new Comment(contain,postsID,makerID);
         commentService.addComment(comment);
         return Response.ok("评论成功！");
     }
@@ -69,10 +65,10 @@ public class CommentController {
     @PostMapping("/queryCommentByPosts")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子id")
-    public List<Comment> list(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Comment> list(Integer postsID)  {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         List <Comment> list=commentService.queryCommentByPosts(postsID);
         return list;
     }
@@ -82,10 +78,10 @@ public class CommentController {
     @PostMapping("/deleteComment")
     @ResponseBody
     @ApiImplicitParam(name="commentID",value = "评论ID")
-    public Response deletePosts(Integer commentID) throws CustomException {
-        if(commentID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response deletePosts(Integer commentID)  {
+//        if(commentID==null){
+//            throw new CustomException("类型为空！");
+//        }
         commentService.deleteCommentById(commentID);
         return Response.ok("删除成功！");
     }
@@ -94,10 +90,10 @@ public class CommentController {
     @PostMapping("/queryCommentCount")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public int queryCommentCounts(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public int queryCommentCounts(Integer postsID){
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         return commentService.queryCommentCount(postsID);
     }
 
@@ -110,16 +106,16 @@ public class CommentController {
             @ApiImplicitParam(name="contain",value = "子评论内容"),
             @ApiImplicitParam(name="makerID",value = "写这条评论的人的id")
     })
-    public Response addReviews(Integer parentID,Integer childID,String contain,Integer makerID) throws CustomException {
-        if (StringUtils.isEmpty(contain)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(contain," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(parentID==null||makerID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response addReviews(Integer parentID,Integer childID,String contain,Integer makerID) {
+//        if (StringUtils.isEmpty(contain)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(contain," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(parentID==null||makerID==null){
+//            throw new CustomException("类型为空！");
+//        }
         if(childID==null){
             childID=0;
         }
@@ -133,10 +129,10 @@ public class CommentController {
     @PostMapping("/deleteReviewsByID")
     @ResponseBody
     @ApiImplicitParam(name="reviewsID",value = "子评论ID")
-    public Response deleteReviews(Integer reviewsID) throws CustomException {
-        if(reviewsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response deleteReviews(Integer reviewsID) {
+//        if(reviewsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         commentService.deleteReviews(reviewsID);
         return Response.ok("删除子评论成功！");
     }
@@ -145,10 +141,10 @@ public class CommentController {
     @PostMapping("/queryReviewsByParentID")
     @ResponseBody
     @ApiImplicitParam(name="parentID",value = "父评论id")
-    public Response list1(Integer parentID) throws CustomException {
-        if(parentID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response list1(Integer parentID) {
+//        if(parentID==null){
+//            throw new CustomException("类型为空！");
+//        }
         return Response.ok(commentService.queryReviewsByParent(parentID));
     }
 

@@ -1,11 +1,12 @@
 package com.skynews.dao;
 import com.skynews.pojo.Reports;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface ReportsMapper {
-//    添加举报
+//添加举报
     int addReport(Reports reports);
 
 //    管理员查询所有举报内容

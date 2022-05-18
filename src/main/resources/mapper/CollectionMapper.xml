@@ -16,9 +16,11 @@
     <!--展示某个用户下的所有收藏-->
     <select id="queryCollectionByUserID" resultType="Collections">
       SELECT * from tosky.collections
-     where
+     <if test="userID !=null">
+         where
          userID=#{userID}
             order by collectionID desc
+     </if>
    </select>
 
     <!--用户取消收藏(删除)-->
@@ -31,7 +33,15 @@
 
     <!--判断该用户是否已经收藏过此帖子-->
     <select id="queryCollection" resultType="Collections">
-        select * from tosky.collections where postsID=#{postsID} and userID=#{userID}
+        select * from tosky.collections
+        <where>
+        <if test="postsID !=null">
+        postsID=#{postsID}
+        </if>
+        <if test="userID !=null">
+        and userID=#{userID}
+        </if>
+        </where>
     </select>
 
     <!--批量删除所收藏帖子-->

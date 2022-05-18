@@ -11,8 +11,8 @@ var column = document.getElementsByClassName("column")[0];
 var haveland = document.getElementsByClassName('havaland');
 var lookmore= document.getElementById("lookmore");
 var lookend= document.getElementById("lookend");
-$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsCounts',
-    function (date) { sessionStorage.setItem('postall', date); })
+$.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPassPosts',
+    function (date) { sessionStorage.setItem('postall', date.length); })
 //重新newalert（）方法
 var alertbox = document.getElementById("alert");
 var alertfade = document.getElementById("alertfade");
@@ -173,7 +173,7 @@ $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryAlikeDesc',
             maxfire[i].onclick = function () {
                 let id = fireid[i].innerHTML;
                 localStorage.setItem("article_id", id);
-                localStorage.setItem("tolook", '0');
+
                 window.location.assign("../templates/recomments.html");
             }
         }
@@ -191,7 +191,7 @@ function allchange() {
                     console.log(date);
                 })
             localStorage.setItem("article_id", id);
-            localStorage.setItem("tolook", '0');
+
         }
     }
 }
@@ -203,28 +203,29 @@ window.onscroll = function () {
     let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
     let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
     let that = this;
-    if (scrollHeight - 1 <= scrollTop + windowHeight) {
-        if (sessionStorage.getItem('postall') >= sessionStorage.getItem('postsnumber') && sessionStorage.getItem('all') == 1) {
-            let newpost = parseInt(sessionStorage.getItem('postsnumber')) + 5;
+    if (scrollHeight - 1<= scrollTop + windowHeight) {
+        if (sessionStorage.getItem('postall') >= parseInt(sessionStorage.getItem('postsnumber'))  && sessionStorage.getItem('all') == 1) {
+            let newpost = parseInt(sessionStorage.getItem('postsnumber')) + 3;
             sessionStorage.setItem('postsnumber', newpost);
+            console.log(newpost);
             setTimeout(function () {
                 all_a();
-            }, 1000);
+            }, 1500);
             lookmore.style.display='block';
             lookend.style.display='none';
-        }else if(sessionStorage.getItem('postall') < sessionStorage.getItem('postsnumber') && sessionStorage.getItem('all') == 1){
+        }else if(sessionStorage.getItem('postall') <parseInt(sessionStorage.getItem('postsnumber'))   && sessionStorage.getItem('all') == 1){
             lookmore.style.display='none';
             lookend.style.display='block';
         }
-        if (sessionStorage.getItem('sortall') >= sessionStorage.getItem('postsnumber') && sessionStorage.getItem('sortshow') == 1) {
-            let newpost = parseInt(sessionStorage.getItem('postsnumber')) + 5;
+        if (sessionStorage.getItem('sortall') >= parseInt(sessionStorage.getItem('postsnumber'))   && sessionStorage.getItem('sortshow') == 1) {
+            let newpost = parseInt(sessionStorage.getItem('postsnumber')) + 3;
             sessionStorage.setItem('postsnumber', newpost);
             setTimeout(function () {
                 chance_sort();
-            }, 1000);
+            }, 1500);
             lookmore.style.display='block';
             lookend.style.display='none';
-        }else if(sessionStorage.getItem('sortall') < sessionStorage.getItem('postsnumber') && sessionStorage.getItem('sortshow') == 1){
+        }else if(sessionStorage.getItem('sortall') <parseInt(sessionStorage.getItem('postsnumber'))  && sessionStorage.getItem('sortshow') == 1){
             lookmore.style.display='none';
             lookend.style.display='block';
         }
@@ -233,8 +234,8 @@ window.onscroll = function () {
 // 实现文章的懒加载
 //展示综合栏目
 function all_a() {
-    $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPagingPosts',
-        { 'column': '0', 'total': sessionStorage.getItem('postsnumber') },
+    $.post('http://localhost:8080/ToSkyNews_war_exploded/vip/queryStatusOneN',
+        {'count': sessionStorage.getItem('postsnumber') },
         function (date) {
             column.innerHTML = null;
             for (let n = 0; n < date.length; n++) {
@@ -435,30 +436,44 @@ function tomymain() {
 }
 //判断是否有反馈
 var top_message = document.getElementById("top_message");
+var redspot = document.getElementById("redspot");
+top_message.onclick= function () {
+    window.location.assign("../templates/mymessage.html");
+}
 $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/queryUserFeedback',
     { "userID": localStorage.getItem('user_id') },
     function (date) {
         for (let i of date) {
             if (i.userOr == -1) {
+                top_message.style.display='block';
                 showmessage();
-                document.getElementById("top_message").onclick = function () {
-                    window.location.assign("../templates/mymessage.html");
-                }
                 break;
             }
         }
-    })
-
+})
+$.post('http://localhost:8080/ToSkyNews_war_exploded/alike/queryAllMessages',
+{ "authorID": localStorage.getItem('user_id') },
+    function (date) {
+    for (let i of date) {
+        if (i.status== 0) {
+            top_message.style.display='block';
+            showmessage();
+            break;
+        }
+    }
+})
 function showmessage() {
     var mn = 0;
     var messagetime = setInterval(function () {
         if (mn % 4 == 0) {
-            top_message.style.display = "block";
+            top_message.style.color = "white";
+            redspot.style.display = "block";
         }
         mn++;
     }, 300)
     var messagetime = setInterval(function () {
-        top_message.style.display = "none";
+        top_message.style.color = "#1682e6";
+        redspot.style.display = "none";
     }, 1200)
 }
 //判断是否有反馈

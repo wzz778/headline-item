@@ -20,15 +20,15 @@ for(let i in inputs){
     }
 }
 var open=true;
-if(sessionStorage.getItem("tousers")=='1'){
-    setTimeout(function(){
-        window.location.reload();
-    },500);
-    sessionStorage.setItem("tousers", '0');
-}else if(sessionStorage.getItem("tousers")==null){
-    alert("请先登录！");
-    window.location.assign("../templates/users-land.html");
-}
+// if(sessionStorage.getItem("tousers")=='1'){
+//     setTimeout(function(){
+//         window.location.reload();
+//     },500);
+//     sessionStorage.setItem("tousers", '0');
+// }else if(sessionStorage.getItem("tousers")==null){
+//     alert("请先登录！");
+//     window.location.assign("../templates/users-land.html");
+// }
 smaller.onclick=()=>{
     if(open){
         columnm.style.width="4%";

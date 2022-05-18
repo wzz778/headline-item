@@ -1,7 +1,7 @@
 package com.skynews.controller;
 
 
-import com.skynews.exception.CustomException;
+
 import com.skynews.pojo.Posts;
 import com.skynews.service.PostsService;
 import com.skynews.service.UserService;
@@ -45,10 +45,10 @@ public class postsController {
     @PostMapping("/deletePosts")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Response deletePosts(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response deletePosts(Integer postsID)  {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         postsService.deletePostsById(postsID);
         return Response.ok("删除成功！");
     }
@@ -58,10 +58,10 @@ public class postsController {
     @PostMapping("/auditingPosts")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Response auditing(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response auditing(Integer postsID)  {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         postsService.auditing(postsID);
         return Response.ok("审核通过！");
     }
@@ -70,10 +70,10 @@ public class postsController {
     @PostMapping("/disAuditing")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Response disAuditing(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response disAuditing(Integer postsID) {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         postsService.disAuditing(postsID);
         return Response.ok("审核未通过！");
     }
@@ -83,10 +83,10 @@ public class postsController {
     @PostMapping("/queryPostsByUserID")
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "用户ID")
-    public List<Posts>list (Integer userID) throws CustomException {
-        if(userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Posts>list (Integer userID) {
+//        if(userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         List <Posts> list= postsService.queryPostsByUserID(userID);
         return list;
     }
@@ -109,19 +109,19 @@ public class postsController {
 //            @ApiImplicitParam(name="column",value = "从第几条数据开始查询"),
 //            @ApiImplicitParam(name="total",value = "查询数量"),
 //    })
-    public List<Posts>list2 (@RequestParam("thing") String thing,@RequestParam("column")int column, @RequestParam("total")int total) throws CustomException {
-        if (StringUtils.isEmpty(thing)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(thing," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if (StringUtils.isEmpty(thing)){
-            throw new CustomException("模糊查询片段不能为空");
-        }
-        if (StringUtils.startsWith(thing," ")){
-            throw new CustomException("模糊查询片段不能有空位");
-        }
+    public List<Posts>list2 (@RequestParam("thing") String thing,@RequestParam("column")int column, @RequestParam("total")int total) {
+//        if (StringUtils.isEmpty(thing)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(thing," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if (StringUtils.isEmpty(thing)){
+//            throw new CustomException("模糊查询片段不能为空");
+//        }
+//        if (StringUtils.startsWith(thing," ")){
+//            throw new CustomException("模糊查询片段不能有空位");
+//        }
         List <Posts> list= postsService.vagueQuery(thing,column,total);
         return list;
     }
@@ -131,13 +131,13 @@ public class postsController {
     @PostMapping("/vagueQueryCountAll")
     @ResponseBody
 //    @ApiImplicitParam(name="thing",value = "模糊查询的片段")
-    public int queryVagueAllCount (String thing) throws CustomException {
-        if (StringUtils.isEmpty(thing)){
-            throw new CustomException("模糊查询片段不能为空");
-        }
-        if (StringUtils.startsWith(thing," ")){
-            throw new CustomException("模糊查询片段不能有空位");
-        }
+    public int queryVagueAllCount (String thing) {
+//        if (StringUtils.isEmpty(thing)){
+//            throw new CustomException("模糊查询片段不能为空");
+//        }
+//        if (StringUtils.startsWith(thing," ")){
+//            throw new CustomException("模糊查询片段不能有空位");
+//        }
        return postsService.queryVagueCountAll(thing);
     }
 
@@ -152,16 +152,16 @@ public class postsController {
 //            @ApiImplicitParam(name="column",value = "开始查询索引"),
 //            @ApiImplicitParam(name="total",value = "查询数量"),
 //    })
-    public List<Posts>list3 (String thing,String label,Integer column, Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
-        if (StringUtils.isEmpty(thing) || StringUtils.isEmpty(label)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(thing," ") || StringUtils.startsWith(label," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public List<Posts>list3 (String thing,String label,Integer column, Integer total) {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if (StringUtils.isEmpty(thing) || StringUtils.isEmpty(label)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(thing," ") || StringUtils.startsWith(label," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         List <Posts> list= postsService.querySameLabel(thing,label,column,total);
         return list;
     }
@@ -170,16 +170,16 @@ public class postsController {
     @ApiOperation(value = "根据帖子标签查询所有相同标签且审核通过的帖子", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/querySameLabelBy")
     @ResponseBody
-    public List<Posts>list4 (String label,Integer column, Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
-        if (StringUtils.isEmpty(label)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(label," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public List<Posts>list4 (String label,Integer column, Integer total)  {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if (StringUtils.isEmpty(label)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(label," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         List <Posts> list= postsService.querySameLabelBy(label,column,total);
         return list;
     }
@@ -189,13 +189,13 @@ public class postsController {
     @PostMapping("/querySameLabelCount")
     @ResponseBody
 //    @ApiImplicitParam(name="label",value = "标签")
-    public int queryCount (@RequestParam("label")String label) throws CustomException {
-        if (StringUtils.isEmpty(label)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(label," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public int queryCount (@RequestParam("label")String label)  {
+//        if (StringUtils.isEmpty(label)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(label," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         return postsService.querySameLabelCount(label);
     }
 
@@ -203,13 +203,13 @@ public class postsController {
     @ApiOperation(value = "返回数量（根据帖子标签查询所有相同标签的帖子）(模糊查询)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryVagueSameLabelCount")
     @ResponseBody
-    public int queryVagueCount (@RequestParam("label")String label,@RequestParam("thing")String thing) throws CustomException {
-        if (StringUtils.isEmpty(label)||StringUtils.isEmpty(thing)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(label," ")||StringUtils.startsWith(thing," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public int queryVagueCount (@RequestParam("label")String label,@RequestParam("thing")String thing)  {
+//        if (StringUtils.isEmpty(label)||StringUtils.isEmpty(thing)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(label," ")||StringUtils.startsWith(thing," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         return postsService.queryVagueSameLabelCount(label,thing);
     }
 
@@ -235,16 +235,16 @@ public class postsController {
             @ApiImplicitParam(name="contentA",value = "帖子内容(纯文本)"),
             @ApiImplicitParam(name="picture",value = "发布帖子时间")
     })
-    public Response userUpdatePosts (Integer postsID,String postsName,String label,String content,String contentA,String picture) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
-        if (StringUtils.isEmpty(postsName) || StringUtils.isEmpty(label)|| StringUtils.isEmpty(content)|| StringUtils.isEmpty(contentA)|| StringUtils.isEmpty(picture)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(postsName," ") || StringUtils.startsWith(label," ")|| StringUtils.startsWith(content," ")|| StringUtils.startsWith(contentA," ")|| StringUtils.startsWith(picture," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public Response userUpdatePosts (Integer postsID,String postsName,String label,String content,String contentA,String picture)  {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if (StringUtils.isEmpty(postsName) || StringUtils.isEmpty(label)|| StringUtils.isEmpty(content)|| StringUtils.isEmpty(contentA)|| StringUtils.isEmpty(picture)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(postsName," ") || StringUtils.startsWith(label," ")|| StringUtils.startsWith(content," ")|| StringUtils.startsWith(contentA," ")|| StringUtils.startsWith(picture," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         Posts posts=new Posts(postsID,postsName,label,content,contentA,picture);
         postsService.updatePosts(posts);
         return Response.ok("修改成功！");
@@ -258,16 +258,16 @@ public class postsController {
             @ApiImplicitParam(name="userID",value = "用户ID"),
             @ApiImplicitParam(name="thing",value = "模糊查询的片段")
     })
-    public List<Posts>list4 (Integer userID,String thing) throws CustomException {
-        if(userID==null){
-            throw new CustomException("类型为空！");
-        }
-        if (StringUtils.isEmpty(thing)){
-            throw new CustomException("模糊查询的片段不能为空");
-        }
-        if (StringUtils.startsWith(thing," ")){
-            throw new CustomException("模糊查询的片段不能有空位");
-        }
+    public List<Posts>list4 (Integer userID,String thing)  {
+//        if(userID==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if (StringUtils.isEmpty(thing)){
+//            throw new CustomException("模糊查询的片段不能为空");
+//        }
+//        if (StringUtils.startsWith(thing," ")){
+//            throw new CustomException("模糊查询的片段不能有空位");
+//        }
         List <Posts> list= postsService.vagueQueryPerson(userID,thing);
         return list;
     }
@@ -279,21 +279,21 @@ public class postsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="postsName",value = "帖子名称/标题"),
             @ApiImplicitParam(name="label",value = "标签"),
-            @ApiImplicitParam(name="userID",value = "发布帖子的用户的id"),
+            @ApiImplicitParam(name="reside",value = "发布帖子的用户的id"),
             @ApiImplicitParam(name="content",value = "帖子内容(有格式)"),
             @ApiImplicitParam(name="contentA",value = "帖子内容(纯文本)"),
             @ApiImplicitParam(name="picture",value = "发布帖子时间")
     })
-    public Response addUser(String postsName,String label,Integer reside,String content,String contentA,String picture,int status) throws CustomException {
-        if(reside==null){
-            throw new CustomException("类型为空！");
-        }
-        if (StringUtils.isEmpty(postsName) || StringUtils.isEmpty(label)|| StringUtils.isEmpty(content)|| StringUtils.isEmpty(contentA)|| StringUtils.isEmpty(picture)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(postsName," ") || StringUtils.startsWith(label," ")|| StringUtils.startsWith(content," ")|| StringUtils.startsWith(contentA," ")|| StringUtils.startsWith(picture," ")){
-            throw new CustomException("类型不能有空位");
-        }
+    public Response addUser(String postsName,String label,Integer reside,String content,String contentA,String picture,int status) {
+//        if(reside==null){
+//            throw new CustomException("类型为空！");
+//        }
+//        if (StringUtils.isEmpty(postsName) || StringUtils.isEmpty(label)|| StringUtils.isEmpty(content)|| StringUtils.isEmpty(contentA)|| StringUtils.isEmpty(picture)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(postsName," ") || StringUtils.startsWith(label," ")|| StringUtils.startsWith(content," ")|| StringUtils.startsWith(contentA," ")|| StringUtils.startsWith(picture," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
         Posts posts=new Posts(postsName,label,reside,content,contentA,picture,status);
         postsService.addPosts(posts);
         return Response.ok("success");
@@ -305,10 +305,10 @@ public class postsController {
     @PostMapping("/queryPostsByID")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Posts queryPostsByID (Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Posts queryPostsByID (Integer postsID) {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         Posts posts= postsService.queryPostsById(postsID);
         return posts;
     }
@@ -342,10 +342,10 @@ public class postsController {
             @ApiImplicitParam(name="column",value = "开始查询索引"),
             @ApiImplicitParam(name="total",value = "查询数量"),
     })
-    public List<Posts>list4(Integer column,Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Posts>list4(Integer column,Integer total) {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
         List <Posts> list=postsService.queryPagingPosts(column,total);
         return list;
     }
@@ -354,10 +354,10 @@ public class postsController {
     @PostMapping("/setBrowse")
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
-    public Response setBrowse(Integer postsID) throws CustomException {
-        if(postsID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response setBrowse(Integer postsID) {
+//        if(postsID==null){
+//            throw new CustomException("类型为空！");
+//        }
         int post=postsService.setBrowse(postsID);
         if(post==1){
             return Response.ok("浏览成功！");
@@ -373,10 +373,10 @@ public class postsController {
             @ApiImplicitParam(name="column",value = "从第几条数据开始查询"),
             @ApiImplicitParam(name="total",value = "查询数量"),
     })
-    public List<Posts>list6(Integer column,Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Posts>list6(Integer column,Integer total)  {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
         List <Posts> list=postsService.queryAlikeDesc(column,total);
         return list;
     }
@@ -385,10 +385,10 @@ public class postsController {
     @PostMapping("/queryAllSumAlike")
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "该用户的所有点赞数(如果该用户不存在则返回0)")
-    public int queryAllSumFocus(Integer userID) throws CustomException {
-        if(userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public int queryAllSumFocus(Integer userID)  {
+//        if(userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         return postsService.querySumAlike(userID);
     }
 
@@ -418,7 +418,7 @@ public class postsController {
         PageUtils pageUtils = new PageUtils(start, count);
         pageUtils.setCount(count);
         pageUtils.setStart(start);
-        List<Posts> usersList = postsService.getlist(pageUtils.getStart(), pageUtils.getCount());
+        List<Posts> usersList = postsService.getList(pageUtils.getStart(), pageUtils.getCount());
         int total = postsService.getTotal();
         pageUtils.setTotal(total);
         Map<String, Object> map = new HashMap();
@@ -431,10 +431,10 @@ public class postsController {
     @PostMapping("/upDrafts")
     @ResponseBody
     @ApiImplicitParam(name="reside",value = "用户ID")
-    public Response upDrafts(Integer reside) throws CustomException {
-        if(reside==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response upDrafts(Integer reside)  {
+//        if(reside==null){
+//            throw new CustomException("类型为空！");
+//        }
         userService.upDrafts(reside);
         return Response.ok("发布成功！");
     }

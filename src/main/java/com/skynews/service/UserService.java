@@ -5,9 +5,11 @@ import com.skynews.pojo.Posts;
 import com.skynews.pojo.User;
 import com.skynews.utils.Response;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+
 
 public interface UserService {
 

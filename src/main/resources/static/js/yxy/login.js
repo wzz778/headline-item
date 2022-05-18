@@ -29,53 +29,74 @@ var tipOk=document.querySelector('.tipOk');
 var tipText=document.querySelector('.tipText');
 var loginTip=document.querySelector('.loginTip');
 var loginBtn=document.querySelector('.loginBtn');
+var accountFull=document.querySelector('#accountFull');
+var passFull=document.querySelector('#passFull');
+inputAccount.addEventListener('blur',function(){
+    if(inputAccount.value==''){
+        accountFull.style.display='inline';
+    }else{
+        accountFull.style.display='none';
+    }
+})
+inputAccount.addEventListener('focus',function(){
+    accountFull.style.display='none';
+})
+inputPass.addEventListener('blur',function(){
+    if(inputPass.value==''){
+        passFull.style.display='inline';
+    }else{
+        passFull.style.display='none';
+    }
+})
+inputPass.addEventListener('focus',function(){
+    passFull.style.display='none';
+})
 loginBtn.addEventListener('click',function(){
-    for(let i=0;i<2;i++){
-        if(judge[i].value==''){
-            nothing[i].style.display='inline-block';
-        }else{
-            nothing[i].style.display='none';
-        }
-        if(judge[0].value!=''&&judge[1].value!=''){
-            $.ajax({
-                type:'post',
-                url:'http://localhost:8080/ToSkyNews_war_exploded/user/login',
-                data:{
-                    account :inputAccount.value,
-                    password:inputPass.value
-                },
-                success:function(res){
-                    // console.log(res);
-                    if(res.code==1){
-                        tipText.innerHTML='登录成功';
-                        loginTip.style.height='200px';
-                        loginTip.style.top='50px';
-                        tipOk.addEventListener('click',function(){
-                            loginTip.style.height='0';
-                            loginTip.style.top='0';
-                            localStorage.setItem('user_id',res.data.userID);
-                            localStorage.setItem('have_land',"true");
-                            localStorage.setItem("tolook", '0');
-                            window.location.replace("../templates/user_main.html");
-                        })
-                        
-                    }else if(res.code=='-1'){
-                        tipText.innerHTML='账号或密码错误';
-                        loginTip.style.height='200px';
-                        loginTip.style.top='50px';
-                        tipOk.addEventListener('click',function(){
-                            loginTip.style.height='0';
-                            loginTip.style.top='0';
-                        })
-                    }
-
-                },
-                error:function(err){
-                    // console.log(err);
-
+    if(inputAccount.value==''){
+        accountFull.style.display='inline';
+    }
+    if(inputPass.value==''){
+        passFull.style.display='inline';
+    }
+    if(inputAccount.value!=''&&inputPass.value!=''){
+        $.ajax({
+            type:'post',
+            url:'http://localhost:8080/ToSkyNews_war_exploded/user/login',
+            data:{
+                account :inputAccount.value,
+                password:inputPass.value
+            },
+            success:function(res){
+                // console.log(res);
+                if(res.code==1){
+                    tipText.innerHTML='登录成功';
+                    loginTip.style.height='200px';
+                    loginTip.style.top='50px';
+                    tipOk.addEventListener('click',function(){
+                        loginTip.style.height='0';
+                        loginTip.style.top='0';
+                        localStorage.setItem('user_id',res.data.userID);
+                        localStorage.setItem('have_land',"true");
+                        localStorage.setItem("tolook", '0');
+                        window.location.replace("../templates/user_main.html");
+                    })
+                    
+                }else if(res.code=='-1'){
+                    tipText.innerHTML='账号或密码错误';
+                    loginTip.style.height='200px';
+                    loginTip.style.top='50px';
+                    tipOk.addEventListener('click',function(){
+                        loginTip.style.height='0';
+                        loginTip.style.top='0';
+                    })
                 }
-            })
-        }
+
+            },
+            error:function(err){
+                // console.log(err);
+
+            }
+        })
     }
 })
 //密码可见

@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="backfade">
-        <div class="team_fade">
+        <div class="team_fade">·
             <button class="fade">×</button>
             <div id="register_main">
                 <span style="color: #1890FF;font-size: 20px;font-weight: 500;">用户添加栏目</span>
@@ -56,9 +56,9 @@
         <div class="column">
             <a id="smaller" href="javascript:;"><i class="fa fa-server" aria-hidden="true"></i></a>
             <div class="column_a"><i  class="fa fa-steam-square" aria-hidden="true"></i><span class="column_span">用户管理</span></div>
-            <div class="column_a"><i style="padding: 0 5px;" class="fa fa-file-word-o" aria-hidden="true"></i><span class="column_span">文章管理</span></div>
-            <div class="column_a"><i style="padding: 0 5px;" class="fa fa-envelope-open-o" aria-hidden="true"></i><span class="column_span">用户反馈</span></div>
-            <div class="column_a"><i style="padding: 0 5px;" class="fa fa-exclamation-circle" aria-hidden="true"></i><span class="column_span">文章举报</span></div>
+            <div class="column_a"><i class="fa fa-file-word-o" aria-hidden="true"></i><span class="column_span">文章管理</span></div>
+            <div class="column_a"><i  class="fa fa-envelope-open-o" aria-hidden="true"></i><span class="column_span">用户反馈</span></div>
+            <div class="column_a"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span class="column_span">文章审核</span></div>
         </div>
         <div class="function">
             <div class="functions" id="team">
@@ -98,7 +98,7 @@
                     <span id="page_number">共0个用户</span>
                 </div>
                 <div class="team_back_max">
-                    <button onclick="backpagen1()" class="team_back">返回分页查找</button>
+                    <button onclick="backpagen1()" class="team_back">返回全局查找 . . .</button>
                 </div>
             </div>
             <div class="functions" id="article" style="display: none;">
@@ -130,21 +130,6 @@
                             <td class="ams">2020.12.12</td>
                             <td class="ams">科技</td>
                             <td class="ams">未批准</td>
-                            <td class="aml">文章标题1</td>
-                            <td class="aml" style="display: none;">操作码</td>
-                            <td class="aml">
-                                <a class="a_look" href="javascript:;" ><i class="fa fa-book" aria-hidden="true"></i>查看内容</a>
-                                <a class="a_reply" href="javascript:;"><i class="fa fa-check-square-o" aria-hidden="true"></i>批准</a>
-                                <a class="a_refuse" href="javascript:;"><i class="fa error" aria-hidden="true"></i>拒绝</a>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class='ams'><input type='checkbox' name='article_a' value='all'></td>
-                            <td class="ams">阿泽</td>
-                            <td class="ams">2020.12.12</td>
-                            <td class="ams">科技</td>
-                            <td class="ams">未批准</td>
                             <td class="aml">文章标题3</td>
                             <td class="aml">
                                 <a class="a_look" href="javascript:;"><i class="fa fa-book" aria-hidden="true"></i>查看内容</a>
@@ -162,7 +147,7 @@
                     <span id="apage_number">共0个文章</span>
                 </div>
                 <div class="article_back_max">
-                    <button onclick="backpagen2()" class="article_back">返回分页查找</button>
+                    <button onclick="backpagen2()" class="article_back">返回全局查找 . . .</button>
                 </div>
             </div>
             <div class="functions" id="feedback" style="display: none;">
@@ -186,7 +171,7 @@
                     </div>
                 </div>
                 <table class="feedback_main">
-                    <thead> 
+                    <thead>
                         <tr class="fmt">
                             <th class="fms"><input type="checkbox" onchange="falltrue()" name="feedback_all" value="all"></th>
                             <th class="fms none">用户id</th>
@@ -218,37 +203,6 @@
                                 <a class="f_reply" href="javascript:;"><i class="fa fa-commenting-o" aria-hidden="true"></i>回复</a>
                             </td>
                         </tr>
-                        <tr>
-                            <td class='fms'><input type='checkbox' name='feedback_a' value='all'></td>
-                            <td class="fms none">阿泽2</td>
-                            <td class="fms">2020.12.12</td>
-                            <td class="fms">优化推荐</td>
-                            <td class="fml">2295908251</td>
-                            <td class="fml">阿瑟法恩莎你付款加我发送阿温湿度阿萨大赛</td>
-                            <td class="fml">收到</td>
-                            <td class="fms">0</td>
-                            <td class="fml">
-                                <a class="f_look" href="javascript:;"><i class="fa fa-book" aria-hidden="true"></i>查看内容</a>
-                                <a class="f_reply" href="javascript:;"><i class="fa fa-commenting-o" aria-hidden="true"></i>回复</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class='fms'><input type='checkbox' name='feedback_a' value='all'></td>
-                            <td class="fms none">阿泽3</td>
-                            <td class="fms">2020.12.12</td>
-                            <td class="fms">优化推荐</td>
-                            <td class="fml">2295908251</td>
-                            <td class="fml">
-                                阿瑟法恩莎你付款加我发送阿温湿度阿萨大赛
-                                阿瑟法恩莎你付款加我发送阿温湿度阿萨大赛
-                            </td>
-                            <td class="fml">收到</td>
-                            <td class="fms">0</td>
-                            <td class="fml">
-                                <a class="f_look" href="javascript:;"><i class="fa fa-book" aria-hidden="true"></i>查看内容</a>
-                                <a class="f_reply" href="javascript:;"><i class="fa fa-commenting-o" aria-hidden="true"></i>回复</a>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
                 <div class="feedback_b">
@@ -259,7 +213,7 @@
                     <span id="feedpage_number">共0个用户</span>
                 </div>
                 <div class="feedback_back_max">
-                    <button onclick="backpagen3()" class="feedback_back">返回分页查找</button>
+                    <button onclick="backpagen3()" class="feedback_back">返回全局查找 . . .</button>
                 </div>
             </div>
             <div class="functions" id="report" style="display: none;">
@@ -312,7 +266,7 @@
                     <span id="reportpage_number">共0个用户</span>
                 </div>
                 <div class="report_back_max">
-                    <button onclick="backpagen4()" class="article_back">返回分页查找</button>
+                    <button onclick="backpagen4()" class="article_back">返回全局查找 . . .</button>
                 </div>
             </div>
         </div>

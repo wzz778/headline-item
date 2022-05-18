@@ -2,7 +2,10 @@ package com.skynews.service.impl;
 
 import com.skynews.dao.CommentMapper;
 import com.skynews.dao.ManagerMapper;
+import com.skynews.dao.PostsMapper;
+import com.skynews.dao.UserMapper;
 import com.skynews.pojo.Comment;
+import com.skynews.pojo.Posts;
 import com.skynews.pojo.Reviews;
 import com.skynews.pojo.User;
 import com.skynews.service.CommentService;
@@ -15,12 +18,18 @@ import java.util.*;
 @Service
 public class CommentServiceImpl implements CommentService {
 
+    @Autowired
+    private UserMapper userMapper;
+
     //service层调dao层：组合dao
     @Autowired
     private CommentMapper commentMapper ;
     public void setCommentMapper(CommentMapper commentMapper){
         this.commentMapper=commentMapper;
     }
+
+    @Autowired
+    private PostsMapper postsMapper;
 
     //service层调dao层：组合dao
     @Autowired
@@ -31,7 +40,25 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public int addComment(Comment comment) {
-        return commentMapper.addComment(comment);
+        //使用Date创建日期对象
+        Date date = new Date();
+        /**
+         * 创建格式化时间日期类
+         *构造入参String类型就是我们想要转换成的时间形式
+         */
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        System.out.println("格式化后的时间------->"+format.format(date));
+        String contain=comment.getContain();
+        int postsID=comment.getPostsID();
+        int makerID=comment.getMakerID();
+        Posts posts=postsMapper.getPost(postsID);
+        int authorID=posts.getReside();
+        System.out.println(authorID+"aaaaaaa");
+        User user=userMapper.queryUserById(makerID);
+        String picture=user.getPicture();
+        String commentName=user.getUsername();
+        Comment comment1=new Comment(contain,authorID,postsID,makerID,picture,format.format(date),commentName);
+        return commentMapper.addComment(comment1);
     }
 
     @Override

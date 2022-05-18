@@ -1,6 +1,5 @@
 package com.skynews.controller;
 
-import com.skynews.exception.CustomException;
 import com.skynews.pojo.Feedback;
 import com.skynews.service.FeedbackService;
 import com.skynews.utils.Response;
@@ -32,16 +31,16 @@ public class FeedbackController {
             @ApiImplicitParam(name="opinion",value = "你的意见"),
             @ApiImplicitParam(name="times",value = "用户反馈时间")
     })
-    public Response addFeedback(String kind,String contact,String opinion,Integer userID,String times) throws CustomException {
-        if (StringUtils.isEmpty(kind) || StringUtils.isEmpty(contact)||StringUtils.isEmpty(opinion)||StringUtils.isEmpty(times)){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(kind," ") || StringUtils.startsWith(contact," ")|| StringUtils.startsWith(opinion," ")|| StringUtils.startsWith(times," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if (kind == null||userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response addFeedback(String kind,String contact,String opinion,Integer userID,String times){
+//        if (StringUtils.isEmpty(kind) || StringUtils.isEmpty(contact)||StringUtils.isEmpty(opinion)||StringUtils.isEmpty(times)){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(kind," ") || StringUtils.startsWith(contact," ")|| StringUtils.startsWith(opinion," ")|| StringUtils.startsWith(times," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if (kind == null||userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         Feedback feedback=new Feedback(kind,contact,opinion,userID,times);
         feedbackService.addFeedback(feedback);
         return Response.ok("反馈成功！");
@@ -54,10 +53,10 @@ public class FeedbackController {
             @ApiImplicitParam(name="column",value = "从第几条数据开始查询"),
             @ApiImplicitParam(name="total",value = "查询数量")
     })
-    public List<Feedback> list(Integer column,Integer total) throws CustomException {
-        if(column==null||total==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Feedback> list(Integer column,Integer total) {
+//        if(column==null||total==null){
+//            throw new CustomException("类型为空！");
+//        }
         List<Feedback>list=feedbackService.queryAllFeedback(column,total);
         return list;
     }
@@ -73,10 +72,10 @@ public class FeedbackController {
     @PostMapping("/queryUserFeedback")
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "反馈的用户id")
-    public List<Feedback> list1(Integer userID) throws CustomException {
-        if(userID==null){
-            throw new CustomException("类型为空！");
-        }
+    public List<Feedback> list1(Integer userID){
+//        if(userID==null){
+//            throw new CustomException("类型为空！");
+//        }
         List<Feedback>list=feedbackService.queryUserFeedback(userID);
         return list;
     }
@@ -88,16 +87,16 @@ public class FeedbackController {
             @ApiImplicitParam(name="managerContent",value = "管理员反馈内容"),
             @ApiImplicitParam(name="feedbackID",value = "反馈id")
     })
-    public Response addManagerFeedback(String managerContent,Integer feedbackID) throws CustomException {
-        if (StringUtils.isEmpty(managerContent) ){
-            throw new CustomException("类型不能为空");
-        }
-        if (StringUtils.startsWith(managerContent," ")){
-            throw new CustomException("类型不能有空位");
-        }
-        if(feedbackID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response addManagerFeedback(String managerContent,Integer feedbackID){
+//        if (StringUtils.isEmpty(managerContent) ){
+//            throw new CustomException("类型不能为空");
+//        }
+//        if (StringUtils.startsWith(managerContent," ")){
+//            throw new CustomException("类型不能有空位");
+//        }
+//        if(feedbackID==null){
+//            throw new CustomException("类型为空！");
+//        }
         feedbackService.addManagerFeedback(managerContent,feedbackID);
         return Response.ok("管理员回复成功！");
     }
@@ -106,10 +105,10 @@ public class FeedbackController {
     @PostMapping("/updateUserOr")
     @ResponseBody
     @ApiImplicitParam(name="feedbackID",value = "反馈id")
-    public Response updateUserToOne(Integer feedbackID) throws CustomException {
-        if(feedbackID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response updateUserToOne(Integer feedbackID) {
+//        if(feedbackID==null){
+//            throw new CustomException("类型为空！");
+//        }
         feedbackService.updateUserToOne(feedbackID);
         return Response.ok("用户查看管理员反馈成功！");
     }
@@ -118,10 +117,10 @@ public class FeedbackController {
     @PostMapping("/queryManagerToU")
     @ResponseBody
     @ApiImplicitParam(name="feedbackID",value = "反馈id")
-    public Response queryManagerToUser(Integer feedbackID) throws CustomException {
-        if(feedbackID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response queryManagerToUser(Integer feedbackID){
+//        if(feedbackID==null){
+//            throw new CustomException("类型为空！");
+//        }
         int a=feedbackService.queryManagerToUser(feedbackID);
         if(a==0){
             return Response.error("该用户未查看管理员回复！");
@@ -134,10 +133,10 @@ public class FeedbackController {
     @PostMapping("/deleteFeedback")
     @ResponseBody
     @ApiImplicitParam(name="feedbackID",value = "反馈ID")
-    public Response deleteFeedback(Integer feedbackID) throws CustomException {
-        if(feedbackID==null){
-            throw new CustomException("类型为空！");
-        }
+    public Response deleteFeedback(Integer feedbackID){
+//        if(feedbackID==null){
+//            throw new CustomException("类型为空！");
+//        }
         feedbackService.deleteFeedback(feedbackID);
         return Response.ok("删除成功！");
     }

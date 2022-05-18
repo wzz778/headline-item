@@ -182,9 +182,8 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
-    public  List<Posts> getlist(int start,int count){   //获取用户list
-        List<Posts> users = new ArrayList<>();
-        users = postsMapper.getlist(start,count);
+    public  List<Posts> getList(int start,int count){   //获取用户list
+        List<Posts> users = postsMapper.getList(start,count);
         return users;
     }
     @Override

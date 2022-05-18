@@ -1,9 +1,12 @@
 package com.skynews.service;
 
+import com.skynews.pojo.Posts;
 import com.skynews.pojo.Vip;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+
 
 public interface VipService {
     //成为vip
@@ -23,4 +26,10 @@ public interface VipService {
 
     //test
     Vip test(int userID,String times);
+
+    //返回除了status为-2的文章的个数
+    int queryStatusNoTwo();
+
+    //返回status为1的文章（n条）
+    List<Posts> queryStatusOneN(int count);
 }

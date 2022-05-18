@@ -37,6 +37,15 @@ body a {
   }
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 .container2 {
   margin: 0 auto;
   max-width: 1100px;
@@ -75,6 +84,7 @@ body a {
 
 #top .top_find {
   margin-left: 30px;
+  margin-top: 3px;
   border-radius: 15px;
   width: 360px;
   height: 35px;
@@ -107,6 +117,7 @@ body a {
   display: block;
   position: absolute;
   height: 30px;
+  font-weight: 600;
   left: 480px;
 }
 
@@ -122,11 +133,12 @@ body a {
 }
 
 #top #top_header img {
+  margin-top: 5px;
   border-radius: 100px;
   border: 1.5px #929292 solid;
-  padding: 2px;
-  width: 36px;
-  height: 36px;
+  padding: 1px;
+  width: 30px;
+  height: 30px;
 }
 
 #top #top_header div {
@@ -141,18 +153,19 @@ body a {
 #main {
   margin: 0 auto;
   max-width: 1100px;
-  min-width: 900px;
+  min-width: 1000px;
   height: 100vh;
   display: flex;
   justify-content: space-between;
   position: relative;
+  background-color: white;
   z-index: 1;
   top: 0;
 }
 
 #main #main-left {
-  padding: 5px;
-  width: 220px;
+  border: 1.5px #e5e5e5 solid;
+  width: 230px;
   background-color: white;
 }
 
@@ -160,36 +173,124 @@ body a {
   width: 100%;
   height: 40px;
   display: block;
-  border-radius: 8px;
-  background-color: #e1e1e1;
-  margin-bottom: 2px;
+  border-bottom: 1.5px #e5e5e5 solid;
   text-align: center;
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 40px;
-  color: #888888;
+  color: black;
+  position: relative;
+}
+
+#main #main-left .feedback-sort div {
+  display: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background-color: #fa5252;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 #main #main-left .feedback-sort:hover {
-  color: #0771f3;
-  background-color: #7fb0eb;
+  color: white;
+  background-color: #b9d6fa;
 }
 
 #main #main-right {
   width: 820px;
   padding: 20px;
   background-color: white;
+  height: 650px;
+}
+
+#main #main-right .main-right-top {
+  width: 800px;
+  padding: 10px;
+  height: 30px;
+  font-size: 22px;
+  border-bottom: 1.5px #e5e5e5 solid;
+}
+
+#main #main-right .main-right-top a {
+  margin-left: 550px;
+  color: #1890FF;
+  font-size: 15px;
+}
+
+#main #main-right .main-right-top a:hover {
+  color: #68b0f3;
+}
+
+#main #main-right .main-right-bon {
+  width: 400px;
+  margin-top: 10px;
+  margin-left: 400px;
+  height: 28px;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+#main #main-right .main-right-bon input {
+  border: 1.5px solid #1682e6;
+  border-radius: 8px;
+  font-size: 13px;
+  padding-left: 5px;
+}
+
+#main #main-right .main-right-bon a {
+  width: 25px;
+  height: 25px;
+  display: block;
+  float: right;
+  line-height: 25px;
+  text-align: center;
+  border-radius: 5px;
+  color: #77787c;
+  margin: 0 5px;
+  background-color: gainsboro;
+}
+
+#main #main-right .main-right-bon a:hover {
+  background-color: #1890FF;
+  color: white;
+}
+
+#main #main-right .main-right-bon button {
+  width: 80px;
+  height: 26px;
+  display: block;
+  float: right;
+  line-height: 24px;
+  background-color: #E8F4FF;
+  color: #1890FF;
+  border: #c3e0fc 1px solid;
+  text-align: center;
+  border-radius: 5px;
+  color: #6e6e6e;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+#main #main-right .main-right-bon button:hover {
+  background-color: #1890FF;
+  color: white;
+}
+
+#main #main-right .main-right-bon span {
+  height: 25px;
+  margin: 0 5px;
+  line-height: 25px;
+  float: right;
 }
 
 #main #main-right .feedback-a {
-  border-radius: 8px;
-  border: 1.5px #83c3ff solid;
-  width: 780px;
+  border-bottom: 1.5px #e5e5e5 solid;
+  width: 800px;
   padding: 10px;
   height: 50px;
   display: block;
-  background-color: whitesmoke;
-  margin-bottom: 2px;
   transition: .5s;
   position: relative;
 }
@@ -236,7 +337,7 @@ body a {
 
 #main #main-right .feedback-a .feedback-delete {
   opacity: .8;
-  border: #ffffff 1px solid;
+  border: #bbd7f8 1px solid;
   position: absolute;
   top: 35px;
   right: 20px;
@@ -254,6 +355,112 @@ body a {
   background-color: #FFEDED;
   color: #ec4c4c;
   border: #e9a4a4 1px solid;
+}
+
+#main #main-right .alike-a {
+  border-bottom: 1.5px #e5e5e5 solid;
+  width: 800px;
+  padding: 10px;
+  height: 60px;
+  display: flex;
+  transition: .5s;
+  position: relative;
+}
+
+#main #main-right .alike-a .red {
+  display: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  background-color: #fa5252;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#main #main-right .alike-a img {
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+}
+
+#main #main-right .alike-a .message-card {
+  width: 600px;
+  height: 60px;
+  margin-left: 10px;
+}
+
+#main #main-right .alike-a .message-card .message-card-top {
+  width: 600px;
+  height: 30px;
+  line-height: 30px;
+}
+
+#main #main-right .alike-a .message-card .message-card-top .message-username {
+  color: #2a2929;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+#main #main-right .alike-a .message-card .message-card-top .message-username:hover {
+  color: #525252;
+}
+
+#main #main-right .alike-a .message-card .message-card-top .message-tpye {
+  color: #525252;
+  font-size: 13px;
+}
+
+#main #main-right .alike-a .message-card .message-card-bon {
+  width: 600px;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#main #main-right .alike-a .message-card .message-card-bon a {
+  color: #9fccf7;
+  font-weight: 600;
+}
+
+#main #main-right .alike-a .message-card .message-card-bon a:hover {
+  color: #1682e6;
+  font-weight: 700;
+}
+
+#main #main-right .alike-a .message-con {
+  width: 120px;
+  height: 50px;
+  padding: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+#main #main-right .alike-a .message-con .message-delete {
+  opacity: .8;
+  border: #bbd7f8 1px solid;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 5px;
+  margin-left: 90px;
+  transition: 0.15s;
+}
+
+#main #main-right .alike-a .message-con .message-delete i {
+  padding: 0 3px;
+}
+
+#main #main-right .alike-a .message-con .message-delete:hover {
+  background-color: #FFEDED;
+  color: #ec4c4c;
+  border: #e9a4a4 1px solid;
+}
+
+#main #main-right .alike-a .message-con span {
+  font-size: 14px;
+  color: #525252;
 }
 
 #feedback {
@@ -327,4 +534,16 @@ body a {
 #feedback #feedback_main .min_feedback_bottom i {
   color: #1682e6;
   padding-right: 5px;
+}
+
+#emptymessage {
+  width: 100%;
+  height: 600px;
+  text-align: center;
+  font-size: 25px;
+}
+
+#emptymessage i {
+  color: #68b0f3;
+  font-size: 30px;
 }
