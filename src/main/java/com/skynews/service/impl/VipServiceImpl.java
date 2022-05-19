@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Transactional
 @Service
@@ -27,8 +25,15 @@ public class VipServiceImpl implements VipService {
 
 
     @Override
-    public int addVip(Vip vip) {
-        System.out.println(vip);
+    public int addVip(int userID) {
+        Date date = new Date();
+        /**
+         * 创建格式化时间日期类
+         *构造入参String类型就是我们想要转换成的时间形式
+         */
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("格式化后的时间------->"+format.format(date));
+        Vip vip=new Vip(userID,format.format(date));
         return vipMapper.addVip(vip);
     }
 
@@ -94,13 +99,13 @@ public class VipServiceImpl implements VipService {
         }
         List<Integer>list=new LinkedList<>();
         list.add(totalPages);
-        map.put("总共的页数：",list);
+        map.put("总共的页数",list);
         List<Integer>list1=new LinkedList<>();
         list1.add(count);
-        map.put("总条数：",list1);
+        map.put("总条数",list1);
         int thePage=(page-1)*num;
         List<Posts>list2=vipMapper.queryVaguePagesYXY(reside,thing,thePage,num);
-        map.put("分页模糊查询帖子：",list2);
+        map.put("分页模糊查询帖子",list2);
         return map;
     }
 }

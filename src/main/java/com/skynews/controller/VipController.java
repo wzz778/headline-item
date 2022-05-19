@@ -30,23 +30,9 @@ public class VipController {
     @ApiOperation(value = "成为VIP", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addVIP")
     @ResponseBody
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="userID",value = "用户id"),
-            @ApiImplicitParam(name="times",value = "用户成为VIP时间")
-    })
-    public Response addVIP(Integer userID, String times) {
-//        if (StringUtils.isEmpty(times)){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(times," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
-//        if (userID == null){
-//            throw new CustomException("类型为空！");
-//        }
-        System.out.println(userID+"     "+times);
-        Vip vip=new Vip(userID,times);
-        vipService.addVip(vip);
+    @ApiImplicitParam(name="userID",value = "用户id")
+    public Response addVIP(int userID) {
+        vipService.addVip(userID);
         return Response.ok("恭喜您成为VIP！");
     }
 
