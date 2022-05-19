@@ -87,14 +87,15 @@ public class ImgDatasController {
 //        }
         return imgDataService.vagueSaveImgPages(thing,column,total);
     }
-    //管理员查询待审核的图片
+
+    //对照片进行审核
     @ApiOperation(value = "管理员查询待审核的图片", notes = "获取地址", httpMethod = "GET")
     @GetMapping("/downPicture")
     @ResponseBody
     public Response downPicture (){
         return imgDataService.downPicture();
     }
-    //对照片进行审核
+    //管理员查询待审核的图片
     @ApiOperation(value = "审核照片", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/auditPicture")
     @ResponseBody
@@ -119,40 +120,40 @@ public class ImgDatasController {
     public Response allPicture(){
         return imgDataService.allPicture();
     }
-    @ApiOperation(value = "用户查询暂未审核的图片", notes = "获取地址", httpMethod = "GET")
-    @GetMapping("/allAuditingPicture")
+    @ApiOperation(value = "用户查询暂未审核的图片", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/allAuditingPicture")
     @ResponseBody
     public Response allAuditingPicture(@RequestParam("userID") int userID){
         return userService.allAuditingPicture(userID);
     }
-    @ApiOperation(value = "用户查询暂审核过的图片", notes = "获取地址", httpMethod = "GET")
-    @GetMapping("/allPassPicture")
+    @ApiOperation(value = "用户查询暂审核过的图片", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/allPassPicture")
     @ResponseBody
     public Response allPassPicture (@RequestParam("userID") int userID){
         return userService.allPassPicture(userID);
     }
-    @ApiOperation(value = "用户删除图片", notes = "获取地址", httpMethod = "GET")
-    @GetMapping("/deletePicture")
+    @ApiOperation(value = "用户删除图片", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/deletePicture")
     @ResponseBody
 //    @ApiImplicitParam(name="PictureID",value = "图片id")
     public Response deletePicture (@RequestParam("PictureID") int PictureID ){
         return imgDataService.deletePicture(PictureID);
     }
     //    用户根据状态 查询对应图片
-    @ApiOperation(value = "用户根据状态 查询对应的图片", notes = "获取地址", httpMethod = "GET")
-    @GetMapping("/statusPicture")
+    @ApiOperation(value = "用户根据状态 查询对应的图片", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/statusPicture")
     @ResponseBody
     public Response statusPicture (int status,@RequestParam("userID") int userID,int start){
         return imgDataService.statusPicture(status,userID,start);
     }
-    @ApiOperation(value = "得到用户的所有图片", notes = "获取地址", httpMethod = "GET")
-    @GetMapping("/allUserPicture")
+    @ApiOperation(value = "得到用户的所有图片", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/allUserPicture")
     @ResponseBody
     public Response allUserPicture (@RequestParam("userID") int userID,int start){
         return imgDataService.allUserPicture(userID,start);
     }
-    @ApiOperation(value = "得到用户的所有帖子", notes = "获取地址", httpMethod = "GET")
-    @GetMapping("/allCountPicture")
+    @ApiOperation(value = "得到用户的所有帖子", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/allCountPicture")
     @ResponseBody
     public Response  allCountPicture(@RequestParam("userID") int userID){
         return imgDataService.allCountPicture(userID);
