@@ -100,10 +100,14 @@
     <!--{count}模糊查询某个用户的草稿箱信息（分页）-->
     <select id="queryVaguePagesYXYCount" resultType="int">
         select count(*) from tosky.posts
-        where status=-2
+        <where>
+         status=-2
         <if test="reside!=null">
         and reside=#{reside}
         </if>
+        <if test="thing">
         and postsName like concat('%',#{thing},'%')
+        </if>
+        </where>
     </select>
 </mapper>

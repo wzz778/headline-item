@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface VipService {
     //成为vip
-    int addVip(Vip vip);
+    int addVip(int userID);
 
     //展示所有的vip
     List<Vip> queryAllVip();
