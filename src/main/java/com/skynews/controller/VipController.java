@@ -93,11 +93,6 @@ public class VipController {
        return vipService.test(userID,times);
     }
 
-//    //返回除了status为-2的文章的个数
-//    int queryStatusNoTwo();
-//
-//    //返回status为1的文章（n条）
-//    List<Posts> queryStatusOneN(int count);
 
     @ApiOperation(value = "返回除了status为-2的文章的个数", notes = "获取地址", httpMethod = "GET")
     @GetMapping("/queryStatusNoTwo")
