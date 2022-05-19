@@ -124,4 +124,19 @@
         where managerName=#{managerName}
         </if>
     </select>
+
+    <!--根据makerID删除comment-->
+    <delete id="deleteCommentByMakerID" parameterType="int">
+      delete from tosky.comment where makerID=#{makerID}
+   </delete>
+
+    <!--根据makerID删除reviews-->
+    <delete id="deleteReviewsByMakerID" parameterType="int">
+      delete from tosky.reviews where makerID=#{makerID}
+   </delete>
+
+    <!--根据authorID删除messages-->
+    <delete id="deleteMessagesByAuthorID" parameterType="int">
+      delete from tosky.messages where authorID=#{authorID}
+   </delete>
 </mapper>

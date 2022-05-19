@@ -35,5 +35,5 @@ public interface VipService {
     List<Posts> queryStatusOneN(int count);
 
     //模糊查询某个用户的草稿箱信息（分页）
-    Map<String,List>queryVaguePagesYXY(int reside,int page,int num);
+    Map<String,List>queryVaguePagesYXY(int reside,String thing,int page,int num);
 }
