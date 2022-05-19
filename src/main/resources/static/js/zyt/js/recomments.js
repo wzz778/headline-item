@@ -209,7 +209,7 @@ getmessage.then(()=>{
                     }
                 })
                 sessionStorage.setItem('afollow', '0');
-            } else { 
+            } else {
                 swal("取消操作！", "你已经取消操作:","error"); 
             } 
         });
@@ -258,10 +258,11 @@ getmessage.then(()=>{
                 if (data.data == '该帖未被此用户点赞过！') {
                     $.ajax({
                         type: "post",
-                        url: "http://localhost:8080/ToSkyNews_war_exploded/alike/setAlike",
+                        url: "http://localhost:8080/ToSkyNews_war_exploded/alike/setOrDeleteAlike",
                         data: {
                             postsID: article_id,
                             userID: user_id,
+                            thing:'1'
                         },
                         success: function (data) {
                             if(data.data=='点赞成功！'){
@@ -274,7 +275,7 @@ getmessage.then(()=>{
                             }
                         },
                         error: function (err) {
-                            console.log(err);
+                            swal("点赞失败！", '不能频繁的点赞同一个作品!', "error");
                         }
                     })
                 } else {
@@ -291,10 +292,11 @@ getmessage.then(()=>{
     function cancelup() {
         $.ajax({
             type: "post",
-            url: "http://localhost:8080/ToSkyNews_war_exploded/alike/deleteAlike",
+            url: "http://localhost:8080/ToSkyNews_war_exploded/alike/setOrDeleteAlike",
             data: {
                 postsID: article_id,
                 userID: user_id,
+                thing:'-1'
             },
             success: function (data) {
                 console.log(data);
@@ -308,7 +310,7 @@ getmessage.then(()=>{
                 }
             },
             error: function (err) {
-                console.log(err);
+                swal("点赞失败！", '不能频繁的点赞同一个作品!', "error");
             }
         })
     }
@@ -358,10 +360,11 @@ getmessage.then(()=>{
                 } else {
                     $.ajax({
                         type: "post",
-                        url: "http://localhost:8080/ToSkyNews_war_exploded/collections/addCollection",
+                        url: "http://localhost:8080/ToSkyNews_war_exploded/collections/deleteCollectionBoolean",
                         data: {
                             postsID: article_id,
                             userID: user_id,
+                            thing:'1'
                         },
                         success: function (data) {
                             store_tu_bs.style.color = '#af012a';
@@ -370,7 +373,7 @@ getmessage.then(()=>{
                             sessionStorage.setItem('aCollection', '1');
                         },
                         error: function (err) {
-                            console.log(err);
+                            swal("收藏失败！", '不能频繁的收藏同一个作品!', "error");
                         }
                     })
                 }
@@ -385,10 +388,11 @@ getmessage.then(()=>{
     function cancelcollection() {
         $.ajax({
             type: "post",
-            url: "http://localhost:8080/ToSkyNews_war_exploded/collections/deleteCollection",
+            url: "http://localhost:8080/ToSkyNews_war_exploded/collections/deleteCollectionBoolean",
             data: {
                 postsID: article_id,
                 userID: user_id,
+                thing:'-1'
             },
             success: function (data) {
                 store_tu_bs.style.color = '#615f5f';
@@ -397,7 +401,7 @@ getmessage.then(()=>{
                 sessionStorage.setItem('aCollection', '0');
             },
             error: function (err) {
-                console.log(err);
+                swal("收藏失败！", '不能频繁的收藏同一个作品!', "error");
             }
         })
         sessionStorage.setItem('aCollection', '0');
