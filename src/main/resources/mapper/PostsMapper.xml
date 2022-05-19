@@ -231,4 +231,9 @@
         SELECT count(*) FROM tosky.posts
     </select>
 
+    <!--根据postsID删除信息-->
+    <delete id="deleteAllMessagesByPostsID" parameterType="int">
+      delete from tosky.messages where postsID=#{postsID}
+   </delete>
+
 </mapper>

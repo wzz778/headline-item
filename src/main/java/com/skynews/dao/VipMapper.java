@@ -45,5 +45,5 @@ public interface VipMapper {
     List<Posts>queryVaguePagesYXY(@Param("reside") int reside,@Param("thing") String thing,@Param("page") int page,@Param("num") int num);
 
     //{count}模糊查询某个用户的草稿箱信息（分页）
-    int queryVaguePagesYXYCount(int reside);
+    int queryVaguePagesYXYCount(@Param("reside") int reside,@Param("thing") String thing);
 }
