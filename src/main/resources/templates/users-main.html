@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="backfade">
-        <div class="team_fade">·
+        <div class="team_fade">
             <button class="fade">×</button>
             <div id="register_main">
                 <span style="color: #1890FF;font-size: 20px;font-weight: 500;">用户添加栏目</span>
@@ -44,6 +44,14 @@
             <a id="alertfade" href="javascript:;">确定</a>
         </div>
     </div>
+    <div id="backfades">
+        <div id="imgmax">
+            <button id="imgfade">×</button>
+            <div id="mqp">
+              <img id="images1" src="http://www.pig66.com/uploadfile/2017/0511/20170511074941292.jpg" alt="" />
+            </div>
+       </div>
+    </div>
     <div id="top">
         <div style="position: relative;">
             <a style="margin-left: 20px;" href="">未来头条后台管理系统</a>
@@ -59,6 +67,7 @@
             <div class="column_a"><i class="fa fa-file-word-o" aria-hidden="true"></i><span class="column_span">文章管理</span></div>
             <div class="column_a"><i  class="fa fa-envelope-open-o" aria-hidden="true"></i><span class="column_span">用户反馈</span></div>
             <div class="column_a"><i class="fa fa-exclamation-circle" aria-hidden="true"></i><span class="column_span">文章审核</span></div>
+            <div class="column_a"><i class="fa fa-picture-o" aria-hidden="true"></i><span class="column_span">图片审核</span></div>
         </div>
         <div class="function">
             <div class="functions" id="team">
@@ -269,6 +278,40 @@
                     <button onclick="backpagen4()" class="article_back">返回全局查找 . . .</button>
                 </div>
             </div>
+            <div class="functions" id="picture" style="display: none;">
+                <div class="picture_top">
+                    <button class="picture_t_b" onclick="picturedelete()" id="picture_delete"><i class="fa fa-minus-square-o" aria-hidden="true"></i>批量删除</button>
+                    <button class="picture_t_b" onclick="passp()" id="picture_reply"> <i class="fa fa-plus-square-o" aria-hidden="true"> 批量审核</i></button>
+                    <button class="picture_t_b" onclick="nopassp()" id="picture_delete"> <i class="fa fa-minus-square-o" aria-hidden="true"> 批量拒绝</i></button>
+                    <button class="picture_t_b" onclick="topassp()" id="picture_no"> <i class="fa fa-plus-square-o" aria-hidden="true"> 未处理图片</i></button>
+                    <button class="picture_t_b" onclick="pallcheck()" id="picture_no"> <i class="fa fa-plus-square-o" aria-hidden="true"> 全选</i></button>
+                    <div>
+                        <input type="text" class="picture_find_input" placeholder=" 请输入您要寻找的图片描述">
+                        <a href="javascript:;" class="picture_find_bon" onclick="findimg()"><i class="fa fa-search" aria-hidden="true"></i>搜索</a>
+                    </div>
+                </div>
+                <div class="picture_main">
+                    <div class="picture_a">
+                        <div class="pictures" style="background-image: url(../static/img/wzz/feedback.webp)"></div>
+                        <input type='checkbox' name='picture_input' value='all'>
+                        <div class="picture_bon" >
+                            <div class="p_describe">这是图片描述</div>
+                            <div class="p_status">审核中</div>
+                            <span style="display: none;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="picture_b">
+                    <span>前往第 <input   oninput="pchangepage() " class="page" autocomplete="off" value="1" min="1" max="10" style="height: 22px;width: 35px;margin: 0;" type="number" name="page"> 页</span>
+                    <a href="javascript:;"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    <a id="ppages" href="javascript:;" style="background-color:#1890FF;color: white;">1</a>
+                    <a href="javascript:;"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <span id="picture_number">共0个用户</span>
+                </div>
+                <div class="picture_back_max">
+                    <button onclick="backpagen5()" class="picture_back">返回全局查找 . . .</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
@@ -280,4 +323,5 @@
 <script src="../static/js/wzz/users-article.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static/js/wzz/users-team.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static/js/wzz/users-report.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static/js/wzz/users-picture.js" type="text/javascript" charset="utf-8"></script>
 </html>
