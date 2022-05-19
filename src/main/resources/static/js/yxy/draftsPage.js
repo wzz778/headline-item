@@ -348,36 +348,158 @@ window.onload=function(){
                draftsContent((pageNum.innerHTML*1-1)*6);
            }
        })
-    //    //草稿箱
-    //    var findBtn=document.querySelector('.findBox');
-    //    var findDraft=document.querySelector('.findDraft');
-    //    findBtn.addEventListener('click',function(){
-    //         $.ajax({
-    //             type:'post',
-    //             url:'http://localhost:8080/ToSkyNews_war_exploded/user/login',
-    //             data:{
-    //                 account :res.data.account,
-    //                 password:newPass.value
-    //             },
-    //             success:function(res_1){
-    //                 // console.log(res_1);
-    //                 tipText.innerHTML='注册成功';
-    //                 loginTip.style.height='200px';
-    //                 loginTip.style.top='50px';
-    //                 tipOk.addEventListener('click',function(){
-    //                     loginTip.style.height='0px'
-    //                     loginTip.style.top='0';
-    //                     localStorage.setItem('user_id',res_1.data.userID);
-    //                     localStorage.setItem('have_land',"true");
-    //                     localStorage.setItem("tolook", '0');
-    //                     window.location.replace("../templates/user_main.html");
-    //                 })
-                    
-    //             },
-    //             error:function(err){
-    //                 // console.log(err);
-
-    //             }
-    //         })
-    //    })
+     
 }
+//草稿箱模糊搜索
+var findBtn=document.querySelector('.findBox');
+var findDraft=document.querySelector('.findDraft');
+findBtn.addEventListener('click',function(){
+    //  $.ajax({
+    //      type:'post',
+    //      url:'http://localhost:8080/ToSkyNews_war_exploded/vip/queryVaguePagesYXY',
+    //      data:{
+    //          num:6,
+    //          page:1,
+    //          reside:user_id,
+    //          thing:findDraft.value
+    //      },
+    //      success:function(res){
+    //          console.log(res.data.总共的页数:[0]);
+            //  for(let i=0;i<res.data.length;i++){
+            //      var li=`
+            //          <li class="draftItem" textID="">
+            //              <input type="checkbox" class="chooseBox">
+            //              <div class="itemContent">
+            //                  <div class="title">${res.data[i].postsName}</div>
+            //                  <div class="lastTime">上次修改的时间：<span class="time">2${res.data[i].picture}</span></div>
+            //              </div>
+            //              <div class="itemHandle">
+            //                  <button class="itemChange">修改</button>
+            //                  <button class="itemDelete">删除</button>
+            //              </div>
+            //          </li>`
+            //      list.insertAdjacentHTML('beforeend',li);
+            //      var draftItem=document.querySelectorAll('.draftItem');
+            //      var itemDelete=document.querySelectorAll('.itemDelete');
+            //      draftItem[i].textID=res.data[i].postsID;
+            //      // console.log(draftItem[i].textID);
+            //      //获取页数
+            //      num();
+            //      function num(){
+            //          $.ajax({
+            //              type:'post',
+            //              url:'http://localhost:8080/ToSkyNews_war_exploded/user/drafts',
+            //              data:{
+            //                  reside:user_id
+            //              },
+            //              success:function(res){
+            //                  console.log(res.data.length);
+            //                  if(res.data.length%6==0){
+            //                      allPage.innerHTML=res.data.length/6; 
+            //                  }else if(res.data.length==0){
+            //                      list.style.display='none';
+            //                      empty.style.display='flex';
+            //                  }else if(res.data.length%6!=0){
+            //                      allPage.innerHTML=Math.ceil(res.data.length/6);
+            //                  }
+            //              },
+            //              error:function(err){
+            //                  console.log(err);
+            //              }
+            //          })
+            //      }
+            //      //操作
+            //      var chooseBox=document.querySelectorAll('.chooseBox');
+            //      massDelete.addEventListener('click',function(){
+            //          massDelete.style.display='none';
+            //          deleteChoose.style.display='block';
+            //          itemDelete[i].style.display='none';
+            //          allChoose.style.display='inline-block';
+            //          cancelAll.style.display='inline-block';
+            //          reset.style.display='inline-block';
+            //          for(let i=0;i<chooseBox.length;i++){
+            //              chooseBox[i].style.display='inline-block';
+            //          }
+            //      })
+            //      allChoose.addEventListener('click',function(){
+            //          for(let i=0;i<chooseBox.length;i++){
+            //              chooseBox[i].setAttribute('checked',true);
+            //          }
+            //      })
+            //      cancelAll.addEventListener('click',function(){
+            //          for(let i=0;i<chooseBox.length;i++){
+            //              chooseBox[i].removeAttribute('checked');
+            //          }
+            //      })
+            //      reset.addEventListener('click',function(){
+            //          allChoose.style.display='none';
+            //          cancelAll.style.display='none';
+            //          reset.style.display='none';
+            //          deleteChoose.style.display='none';
+            //          massDelete.style.display='block';
+            //          itemDelete[i].style.display='inline-block';
+            //          for(let i=0;i<chooseBox.length;i++){
+            //              chooseBox[i].removeAttribute('checked');
+            //              chooseBox[i].style.display='none';
+            //          }
+            //      })
+            //      chooseBox[i].addEventListener('click',function(){
+            //          if(chooseBox[i].hasAttribute('checked')==true){
+            //              chooseBox[i].removeAttribute('checked');
+            //          }else{
+            //              chooseBox[i].setAttribute('checked',true);
+            //          }
+                     
+            //      })
+                
+            //      //删除草稿
+            //      itemDelete[i].addEventListener('click',function(e){
+            //          e.stopPropagation();
+            //          chooseAppear("确定要删除吗？");
+            //          tipNo.addEventListener('click',function(){
+            //              chooseFade();
+            //          })
+            //          tipOk.addEventListener('click',function(){
+            //              chooseFade();
+            //              $.ajax({
+            //                  type:'post',
+            //                  url:'http://localhost:8080/ToSkyNews_war_exploded/posts/deletePosts',
+            //                  data:{
+            //                      postsID:draftItem[i].textID
+            //                  },
+            //                  success:function(suc){
+            //                      console.log(suc);
+            //                      var pageNum=document.querySelector('.pageNum');
+            //                      num();
+            //                      if(allPage.innerHTML*1>=pageNum.innerHTML*1){
+            //                          draftsContent((pageNum.innerHTML*1-1)*6);
+            //                      }else{
+            //                          draftsContent((allPage.innerHTML*1-1)*6);
+            //                      }
+            //                      sureAppear("删除成功！");
+            //                      successOk.addEventListener('click',function(){
+            //                          sureFade();
+            //                      })
+            //                      list.removeChild(draftItem[i]);
+            //                  },
+            //                  error:function(err){
+            //                      console.log(err);
+            //                  }
+            //              })
+            //          })
+            //      },false)
+            //      //修改草稿
+            //      var itemChange=document.querySelectorAll('.itemChange');
+            //      itemChange[i].addEventListener('click',function(e){
+            //          e.stopPropagation();
+            //          localStorage.setItem('article_id',draftItem[i].textID);
+            //          // localStorage.setItem("tolook", '0');
+            //          window.location.assign("../templates/publish-change.html");
+            //      },false)
+            //  }
+        //  },
+    //      error:function(err){
+    //          console.log(err);
+    //      }
+    //  })
+})
