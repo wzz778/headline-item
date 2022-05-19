@@ -81,7 +81,7 @@ public class VipServiceImpl implements VipService {
     }
 
     @Override
-    public Map<String,List> queryVaguePagesYXY(int reside, int page, int num) {
+    public Map<String,List> queryVaguePagesYXY(int reside, String thing,int page, int num) {
         int count=vipMapper.queryVaguePagesYXYCount(reside);
         int totalPages;
         int total;
@@ -99,7 +99,7 @@ public class VipServiceImpl implements VipService {
         list1.add(count);
         map.put("总条数：",list1);
         int thePage=(page-1)*num;
-        List<Posts>list2=vipMapper.queryVaguePagesYXY(reside,thePage,num);
+        List<Posts>list2=vipMapper.queryVaguePagesYXY(reside,thing,thePage,num);
         map.put("分页模糊查询帖子：",list2);
         return map;
     }

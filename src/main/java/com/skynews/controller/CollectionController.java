@@ -26,6 +26,31 @@ public class CollectionController {
     @Autowired
     private PostsService postsService;
 
+/****整合接口*****/
+    @ApiOperation(value = "用户收藏或取消收藏（删除）", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/deleteCollectionBoolean")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="thing",value = "收藏填1，取消收藏填-1"),
+            @ApiImplicitParam(name="postsID",value = "所收藏帖子ID"),
+            @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
+    })
+    public Response deleteCollectionsBoolean(String thing,int postsID, int userID) {
+        Collections collections=new Collections(postsID,userID);
+        if(thing.equals("1")){
+            int a=collectionService.addCollection(collections);
+            if(a==1){
+                return Response.ok("收藏成功！");
+            }else{
+                return Response.error("此用户已收藏过此帖子！");
+            }
+        }else {
+            collectionService.deleteCollectionById(collections);
+            return Response.ok("取消收藏成功！");
+        }
+    }
+
+    /**待注**/
     @ApiOperation(value = "收藏(添加)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addCollection")
     @ResponseBody
@@ -59,6 +84,7 @@ public class CollectionController {
         return list;
     }
 
+    /**待注**/
     @ApiOperation(value = "用户取消收藏（删除）", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/deleteCollection")
     @ResponseBody

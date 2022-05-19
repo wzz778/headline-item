@@ -133,10 +133,11 @@ public class VipController {
     @ResponseBody
     @ApiImplicitParams({
             @ApiImplicitParam(name="reside",value = "用户id"),
+            @ApiImplicitParam(name="thing",value = "模糊查询的片段"),
             @ApiImplicitParam(name="page",value = "第几页"),
             @ApiImplicitParam(name="num",value = "查询数量")
     })
-    public Response YXY(int reside,int page,int num) {
+    public Response YXY(int reside,String thing,int page,int num) {
         Map<String,List> map=new HashMap<String, List>();
         if(page<0){
             List<String>list=new LinkedList<>();
@@ -144,7 +145,7 @@ public class VipController {
             map.put("error",list);
             return Response.error(map);
         }else{
-            map=vipService.queryVaguePagesYXY(reside,page,num);
+            map=vipService.queryVaguePagesYXY(reside,thing,page,num);
             return Response.ok(map);
         }
     }

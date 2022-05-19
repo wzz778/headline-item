@@ -85,7 +85,11 @@
         	<where>
         	status=-2
         	<if test="reside!=null">
-        	and reside=#{reside} order by postsID desc
+        	and reside=#{reside}
+            </if>
+            <if test="thing!=null">
+            and postsName like concat('%',#{thing},'%')
+        	order by postsID desc
             </if>
             <if test="page!=null and num!=null">
         	limit #{page},#{num}
