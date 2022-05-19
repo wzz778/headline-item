@@ -74,7 +74,7 @@ lastPage.addEventListener('click',function(){
     lastPage.setAttribute('disabled','disabled');
     setTimeout(function(){
         lastPage.removeAttribute('disabled');
-    },500);
+    },100);
     if(pageNum.innerHTML==1){
         sureAppear("已经是第一页了");
         successOk.addEventListener('click',function(){
@@ -89,7 +89,7 @@ nextPage.addEventListener('click',function(){
     nextPage.setAttribute('disabled','disabled');
     setTimeout(function(){
         nextPage.removeAttribute('disabled');
-    },500);
+    },100);
     if(pageNum.innerHTML==allPage.innerHTML){
         sureAppear("已经是最后一页了");
         successOk.addEventListener('click',function(){
@@ -348,4 +348,36 @@ window.onload=function(){
                draftsContent((pageNum.innerHTML*1-1)*6);
            }
        })
+    //    //草稿箱
+    //    var findBtn=document.querySelector('.findBox');
+    //    var findDraft=document.querySelector('.findDraft');
+    //    findBtn.addEventListener('click',function(){
+    //         $.ajax({
+    //             type:'post',
+    //             url:'http://localhost:8080/ToSkyNews_war_exploded/user/login',
+    //             data:{
+    //                 account :res.data.account,
+    //                 password:newPass.value
+    //             },
+    //             success:function(res_1){
+    //                 // console.log(res_1);
+    //                 tipText.innerHTML='注册成功';
+    //                 loginTip.style.height='200px';
+    //                 loginTip.style.top='50px';
+    //                 tipOk.addEventListener('click',function(){
+    //                     loginTip.style.height='0px'
+    //                     loginTip.style.top='0';
+    //                     localStorage.setItem('user_id',res_1.data.userID);
+    //                     localStorage.setItem('have_land',"true");
+    //                     localStorage.setItem("tolook", '0');
+    //                     window.location.replace("../templates/user_main.html");
+    //                 })
+                    
+    //             },
+    //             error:function(err){
+    //                 // console.log(err);
+
+    //             }
+    //         })
+    //    })
 }

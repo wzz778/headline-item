@@ -21,8 +21,8 @@ var collectNum=document.querySelector('.collectNum');
 var moreWorks=document.querySelector('.moreWorks');
 var moreCollect=document.querySelector('.moreCollect');
 var drafts=document.querySelector('.drafts');
-num();
-function num(){
+postNum();
+function postNum(){
     $.ajax({
         type:'post',
         url:'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',

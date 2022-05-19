@@ -22,12 +22,38 @@ var successOk = document.querySelector('.successOk');
 var successText = document.querySelector('.successText');
 var workNum = document.querySelector('.workNum');
 var collectNum = document.querySelector('.collectNum');
+
+//弹窗
+var chooseCover=document.querySelector('.chooseCover');
+function chooseAppear(text){
+    tipText.innerHTML=text;
+    chooseCover.style.display='flex';
+    chooseCover.style.opacity=1;
+    tip.style.height='200px';
+}
+function chooseFade(){
+    chooseCover.style.display='none';
+    chooseCover.style.opacity=0;
+    tip.style.height='0px';
+}
+var sureCover=document.querySelector('.sureCover');
+function sureAppear(text){
+    successText.innerHTML=text;
+    sureCover.style.display='flex';
+    sureCover.style.opacity=1;
+    successTip.style.height='200px';
+}
+function sureFade(){
+    sureCover.style.display='none';
+    sureCover.style.opacity=0;
+    successTip.style.height='0px';
+}
 //加载更多
 var moreWorks = document.querySelector('.moreWorks');
 var moreCollect = document.querySelector('.moreCollect');
-num();
+postNum();
 //收藏和作品数量
-function num() {
+function postNum() {
 	$.ajax({
 		type: 'post',
 		url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',
@@ -161,10 +187,9 @@ $.ajax({
 })
 focusOther.addEventListener('click', function() {
 	if (have_land == 'false') {
-		successText.innerHTML = '请先登录';
-		successTip.style.height = '200px';
+        sureAppear('请先登录')
 		successOk.addEventListener('click', function() {
-			successTip.style.height = 0;
+			sureFade();
 		})
 	} else {
 		if (focusOther.innerHTML == '关注TA') {
@@ -327,20 +352,18 @@ function getMyWorks(x) {
                     collect[y].addEventListener('click', function(e) {
                         e.stopPropagation();
                         if (have_land == 'false') {
-                            successText.innerHTML = '请先登录';
-                            successTip.style.height = '200px';
+                            sureAppear('请先登录')
                             successOk.addEventListener('click', function() {
-                                successTip.style.height = 0;
+                                sureFade();
                             })
                         } else {
                             if (collect[y].innerHTML == '收藏') {
-                                tipText.innerHTML = '确定要收藏吗？';
-                                tip.style.height = '200px';
+                                chooseAppear('确定要收藏吗？');
                                 tipNo.addEventListener('click', function() {
-                                    tip.style.height = '0';
+                                    chooseFade();
                                 })
                                 tipOk.addEventListener('click', function() {
-                                    tip.style.height = '0';
+                                    chooseFade();
                                     $.ajax({
                                         type: 'post',
                                         url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/addCollection',
@@ -360,13 +383,12 @@ function getMyWorks(x) {
                                     })
                                 })
                             } else {
-                                tipText.innerHTML = '确定要取消收藏吗?';
-                                tip.style.height = '200px';
+                                chooseAppear('确定要取消收藏吗?');
                                 tipNo.addEventListener('click', function() {
-                                    tip.style.height = '0px';
+                                    chooseFade();
                                 })
                                 tipOk.addEventListener('click', function() {
-                                    tip.style.height = '0px';
+                                    chooseFade();
                                     $.ajax({
                                         type: 'post',
                                         url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/deleteCollection',
@@ -509,7 +531,7 @@ function getLoveWorks(m) {
                                             sureFade();
                                         })
                                     haveWorks.removeChild(worksItem[n]);
-                                    num();
+                                    postNum();
                                 },
                                 error: function(fal) {
                                     console.log(fal);
@@ -737,21 +759,19 @@ searchBox.addEventListener('click', function() {
                             collect[i].addEventListener('click', function(e) {
                                 e.stopPropagation();
                                 if (have_land == 'false') {
-                                    successText.innerHTML = '请先登录';
-                                    successTip.style.height = '200px';
+                                    sureAppear('请先登录');
                                     successOk.addEventListener('click', function() {
-                                        successTip.style.height = 0;
+                                        sureFade();
                                     })
                                 } else {
                                     //用户收藏自己的帖子
                                     if (collect[i].innerHTML == '收藏') {
-                                        tipText.innerHTML = '确定要收藏吗？';
-                                        tip.style.height = '200px';
+                                        chooseAppear('确定要收藏吗？');
                                         tipNo.addEventListener('click', function() {
-                                            tip.style.height = '0';
+                                            chooseFade();
                                         })
                                         tipOk.addEventListener('click', function() {
-                                            tip.style.height = '0';
+                                            chooseFade();
                                             $.ajax({
                                                 type: 'post',
                                                 url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/addCollection',
@@ -771,10 +791,9 @@ searchBox.addEventListener('click', function() {
                                             })
                                         })
                                     } else {
-                                        tipText.innerHTML = '确定要取消收藏吗?';
-                                        tip.style.height = '200px';
+                                        chooseAppear('确定要取消收藏吗?');
                                         tipOk.addEventListener('click', function() {
-                                            tip.style.height = '0px';
+                                            chooseFade();
                                             $.ajax({
                                                 type: 'post',
                                                 url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/deleteCollection',
