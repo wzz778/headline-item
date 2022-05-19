@@ -104,16 +104,4 @@ public class VipServiceImpl implements VipService {
         return map;
     }
 }
-/*int count=alikeMapper.queryMessagesCount(authorID);
-        int totalPages;
-        int total;
-        if(count%7==0){
-            totalPages=count/7;
-        }else{
-            total=count/7;
-            totalPages=total+1;
-        }
-        List<Integer>list=new LinkedList<>();
-        list.add(count);
-        list.add(totalPages);
-        return list;*/
+

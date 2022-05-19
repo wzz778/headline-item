@@ -1,6 +1,10 @@
 package com.skynews.service.impl;
 
+import com.skynews.dao.CollectionMapper;
+import com.skynews.dao.CommentMapper;
+import com.skynews.dao.ManagerMapper;
 import com.skynews.dao.PostsMapper;
+import com.skynews.pojo.Comment;
 import com.skynews.pojo.Posts;
 import com.skynews.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +18,21 @@ public class PostsServiceImpl implements PostsService {
 
     //service层调用dao层：组合dao
     @Autowired
+    private ManagerMapper managerMapper;
+
+    @Autowired
+    private CollectionMapper collectionMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
     private PostsMapper postsMapper;
+
     public void setPostsMapper(PostsMapper postsMapper){
         this.postsMapper=postsMapper;
     }
+
     @Override
     public List<Posts> queryAllPosts() {
         return postsMapper.queryAllPosts();
@@ -25,6 +40,21 @@ public class PostsServiceImpl implements PostsService {
 
     @Override
     public int deletePostsById(int postsID) {
+        //通过帖子id获取其下父评论id
+        List<Comment>list=commentMapper.queryCommentByPosts(postsID);
+        for(int i=0;i<list.size();i++){
+            Comment comment=list.get(i);
+            //根据父评论ID（parentID）逐条删除子评论
+            commentMapper.deleteReviewsByParentID(comment.getCommentID());
+            //根据postsID删除父评论
+            commentMapper.deleteCommentById(comment.getCommentID());
+        }
+        //根据postsID删除信息
+        postsMapper.deleteAllMessagesByPostsID(postsID);
+        //根据postsID删除收藏
+        collectionMapper.deleteCollectionWrite(postsID);
+        //根据postsID删除点赞
+        collectionMapper.deleteAlikeWrite(postsID);
         return postsMapper.deletePostsById(postsID);
     }
 
