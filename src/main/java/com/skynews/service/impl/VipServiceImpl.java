@@ -82,7 +82,7 @@ public class VipServiceImpl implements VipService {
 
     @Override
     public Map<String,List> queryVaguePagesYXY(int reside, String thing,int page, int num) {
-        int count=vipMapper.queryVaguePagesYXYCount(reside);
+        int count=vipMapper.queryVaguePagesYXYCount(reside,thing);
         int totalPages;
         int total;
         Map<String,List>map=new HashMap<>();

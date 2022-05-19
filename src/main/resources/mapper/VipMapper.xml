@@ -104,5 +104,6 @@
         <if test="reside!=null">
         and reside=#{reside}
         </if>
+        and postsName like concat('%',#{thing},'%')
     </select>
 </mapper>
