@@ -13,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Api(tags="反馈类")
 @Controller
@@ -54,13 +51,19 @@ public class FeedbackController {
     @PostMapping("/queryAllFeedbackBetter")
     @ResponseBody
     @ApiImplicitParams({
-            @ApiImplicitParam(name="column",value = "从第几条数据开始查询"),
-            @ApiImplicitParam(name="total",value = "查询数量")
+            @ApiImplicitParam(name="page",value = "查询的页数"),
+            @ApiImplicitParam(name="num",value = "查询数量")
     })
-    public Map<String,List> map(Integer column, Integer total) {
-        List<Feedback>list=feedbackService.queryAllFeedback(column,total);
+    public Map<String,List> map(int page,int num) {
         Map<String,List>map=new HashMap<>();
-        return map;
+        List<String>error=new LinkedList<>();
+        if(page<0){
+            error.add("请输入合理的页数！");
+            map.put("error",error);
+            return map;
+        }else{
+            return feedbackService.queryFeedbackBetter(page,num);
+        }
     }
 
     /****************************************************************************************/
