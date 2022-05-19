@@ -25,70 +25,121 @@ var collectNum = document.querySelector('.collectNum');
 //加载更多
 var moreWorks = document.querySelector('.moreWorks');
 var moreCollect = document.querySelector('.moreCollect');
-myWorksNav.setAttribute('condition', 1);
-collectWorkNav.setAttribute('condition', 0);
-var ind=1;
-$(window).on("resize scroll",function(){
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    if (scrollHeight - 1 <= scrollTop + windowHeight) {
-        myWorksNav.setAttribute('index',ind);
-        if(myWorksNav.getAttribute('condition')==1){
-            console.log(ind)
-            if(workNum.innerHTML*1%10==0){
-                if(workNum.innerHTML*1/10!=ind){
-                    getMyWorks(ind*10);
-                    ind++;
-                    myWorksNav.setAttribute('index',ind);
-                    console.log(ind)
-                }else if(workNum.innerHTML*1/10==ind){
-                    moreWorks.innerHTML='已加载全部';
-                }
+num();
+//收藏和作品数量
+function num() {
+	$.ajax({
+		type: 'post',
+		url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',
+		data: {
+			userID: otherUser_id
+		},
+		success: function(suc_1) {
+            console.log(suc_1)
+			collectNum.innerHTML = suc_1.length;
+		},
+		error: function(err) {
+			// console.log(err);
+		}
+	})
+	$.ajax({
+		type: 'post',
+		url: 'http://localhost:8080/ToSkyNews_war_exploded/user/allCountPosts',
+		data: {
+			reside: otherUser_id
+		},
+		success: function(suc_1) {
+			 console.log(suc_1);
+            workNum.innerHTML=suc_1;
+            if(workNum.innerHTML=='0'){
+               console.log(workNum.innerHTML);
+               moreWorks.style.display='none';
+               moreCollect.style.display='none';
+               haveWorks.style.display='none';
+               empty.style.display='flex';
             }else{
-                if(Math.ceil(workNum.innerHTML*1/10)!=ind){
-                    getMyWorks( ind*10);
-                    ind++;
-                    myWorksNav.setAttribute('index',ind);
-                    console.log(ind)
-                }else if(Math.ceil(workNum.innerHTML*1/10)==ind){
-                    moreWorks.innerHTML='已加载全部';
-                }
+                console.log(workNum.innerHTML);
+                empty.style.display='none';
+                moreWorks.style.display='inline-block';
+                moreCollect.style.display='none';
+                haveWorks.style.display='inline-block';
+                more();
             }
-        } 
-    }
-});
-var n=1;
-$(window).on("resize scroll",function(){
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-    if (scrollHeight - 1 <= scrollTop + windowHeight) {
-        collectWorkNav.setAttribute('num',n);
-        if(collectWorkNav.getAttribute('condition')==1){
-            console.log(ind)
-            if(collectWorkNav.innerHTML*1%10==0){
-                if(collectNum.innerHTML*1/10!=ind){
-                    getLoveWorks(n*10);
-                    n++;
-                    collectWorkNav.setAttribute('num',n);
-                    console.log(n)
-                }else if(collectNum.innerHTML*1/10==n){
-                    moreCollect.innerHTML='已加载全部';
+
+		},
+		error: function(err) {
+			// console.log(err);
+		}
+	})
+}
+function more(){
+    getMyWorks(0);
+    myWorksNav.setAttribute('condition', 1);
+    collectWorkNav.setAttribute('condition', 0);
+    var ind=1;
+    $(window).on("resize scroll",function(){
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        if (scrollHeight - 1 <= scrollTop + windowHeight) {
+            myWorksNav.setAttribute('index',ind);
+            if(myWorksNav.getAttribute('condition')==1){
+                console.log(ind)
+                if(workNum.innerHTML*1%10==0){
+                    if(workNum.innerHTML*1/10!=ind){
+                        getMyWorks(ind*10);
+                        ind++;
+                        myWorksNav.setAttribute('index',ind);
+                        console.log(ind)
+                    }else if(workNum.innerHTML*1/10==ind){
+                        moreWorks.innerHTML='已加载全部';
+                    }
+                }else{
+                    if(Math.ceil(workNum.innerHTML*1/10)!=ind){
+                        getMyWorks( ind*10);
+                        ind++;
+                        myWorksNav.setAttribute('index',ind);
+                        console.log(ind)
+                    }else if(Math.ceil(workNum.innerHTML*1/10)==ind){
+                        moreWorks.innerHTML='已加载全部';
+                    }
                 }
-            }else{
-                if(Math.ceil(collectNum.innerHTML*1/10)!=n){
-                    getLoveWorks(n*10);
-                    n++;
-                    collectWorkNav.setAttribute('num',n);
-                    console.log(n)
-                }else if(Math.ceil(collectNum.innerHTML*1/10)==n){
-                    moreCollect.innerHTML='已加载全部';
+            } 
+        }
+    });
+    var n=1;
+    $(window).on("resize scroll",function(){
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        if (scrollHeight - 1 <= scrollTop + windowHeight) {
+            collectWorkNav.setAttribute('num',n);
+            if(collectWorkNav.getAttribute('condition')==1){
+                console.log(ind)
+                if(collectWorkNav.innerHTML*1%10==0){
+                    if(collectNum.innerHTML*1/10!=ind){
+                        getLoveWorks(n*10);
+                        n++;
+                        collectWorkNav.setAttribute('num',n);
+                        console.log(n)
+                    }else if(collectNum.innerHTML*1/10==n){
+                        moreCollect.innerHTML='已加载全部';
+                    }
+                }else{
+                    if(Math.ceil(collectNum.innerHTML*1/10)!=n){
+                        getLoveWorks(n*10);
+                        n++;
+                        collectWorkNav.setAttribute('num',n);
+                        console.log(n)
+                    }else if(Math.ceil(collectNum.innerHTML*1/10)==n){
+                        moreCollect.innerHTML='已加载全部';
+                    }
                 }
-            }
-        } 
-    }
-});
+            } 
+        }
+    });
+}
+
 $.ajax({
 	type: 'post',
 	url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/queryFocusBoolean',
@@ -154,46 +205,7 @@ focusOther.addEventListener('click', function() {
 
 })
 
-//收藏和作品数量
-num();
 
-function num() {
-	$.ajax({
-		type: 'post',
-		url: 'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',
-		data: {
-			userID: otherUser_id
-		},
-		success: function(suc_1) {
-			collectNum.innerHTML = suc_1.length;
-		},
-		error: function(err) {
-			// console.log(err);
-		}
-	})
-	$.ajax({
-		type: 'post',
-		url: 'http://localhost:8080/ToSkyNews_war_exploded/user/allCountPosts',
-		data: {
-			reside: otherUser_id
-		},
-		success: function(suc_1) {
-			//  console.log(suc_1);
-            workNum.innerHTML=suc_1;
-            if(suc_1==0){
-                empty.style.display='flex';
-                haveWorks.style.display='none';
-            }else{
-               empty.style.display='none';
-               haveWorks.style.display='block';
-            }
-
-		},
-		error: function(err) {
-			// console.log(err);
-		}
-	})
-}
 
 //用户自己的帖子
 // getMyWorks(0);
@@ -527,7 +539,7 @@ var searchNav = document.querySelector('.searchNav');
 var workNav = document.querySelector('.workNav');
 var find = document.querySelector('#find');
 var searchInput = document.querySelector('.searchInput');
-getMyWorks(0);
+
 myWorksNav.addEventListener('click', function() {
 	haveWorks.innerHTML='';
     if(workNum.innerHTML==0){
@@ -536,17 +548,18 @@ myWorksNav.addEventListener('click', function() {
     }else{
        empty.style.display='none';
        haveWorks.style.display='block';
+       moreWorks.style.display='inline-block';
+    moreCollect.style.display='none';
+    myWorksNav.setAttribute('condition',1);
+    collectWorkNav.setAttribute('condition',0);
+    getMyWorks(0);
     }
     // noWork.innerHTML='暂未发表作品';
     myWorksNav.style.color='cornflowerblue';
     collectWorkNav.style.color='black';
     // haveCollect.style.display='none';
     // haveMyWork.style.display='block';
-    moreWorks.style.display='inline-block';
-    moreCollect.style.display='none';
-    myWorksNav.setAttribute('condition',1);
-    collectWorkNav.setAttribute('condition',0);
-    getMyWorks(0);
+    
 })
 collectWorkNav.addEventListener('click', function() {
     haveWorks.innerHTML='';

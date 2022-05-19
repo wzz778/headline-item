@@ -79,8 +79,10 @@ let getmessage=new Promise((resolve,reject)=>{
 getmessage.then(()=>{
     publisher_name = sessionStorage.getItem('publisher_name');
     function toland() {
-        alert('请先登录!');
-        window.location.assign("../templates/login.html");
+        swal('请先登录!');
+        setTimeout(function(){
+            window.location.assign("../templates/login.html");
+        },1000)
     }
     // 隐藏评论中的隐藏
     var recos1_remark_text = this.document.querySelector('.recos1_remark_text');
@@ -155,7 +157,7 @@ getmessage.then(()=>{
                             console.log(data);
                             if (data.data=='用户自己不能关注自己！') {
                                 sessionStorage.setItem('afollow', '0');
-                                alert("用户自己不能关注自己！");
+                                swal("用户自己不能关注自己！");
                             }else{
                                 sessionStorage.setItem('afollow', '1');
                                 care.style.backgroundColor = '#fff';
@@ -176,27 +178,41 @@ getmessage.then(()=>{
     }
     // 用户取消点赞
     function cancelfollow() {
-        let choose = confirm("你是否确定取消关注?");
-        if (choose == true) {
-            $.ajax({
-                type: "post",
-                url: "http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus",
-                data: {
-                    focusID: publisher_id,
-                    fansID: user_id,
-                },
-                success: function (data) {
-                    care.style.backgroundColor = 'rgb(255, 0, 60)';
-                    care.style.color = 'white';
-                    care.innerHTML = "+关注"
-                    sessionStorage.setItem('afollow', '0');
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            })
-            sessionStorage.setItem('afollow', '0');
-        }
+        swal({ 
+            title: "你是否确定取消关注?", 
+            type: "warning",
+            showCancelButton: true, 
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定取消！", 
+            cancelButtonText: "取消操作！",
+            closeOnConfirm: false, 
+            closeOnCancel: false	
+            },
+            function(isConfirm){ 
+            if (isConfirm) { 
+                swal("取消成功！", "你所选的用户已经被您取消关注。","success"); 
+                $.ajax({
+                    type: "post",
+                    url: "http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus",
+                    data: {
+                        focusID: publisher_id,
+                        fansID: user_id,
+                    },
+                    success: function (data) {
+                        care.style.backgroundColor = 'rgb(255, 0, 60)';
+                        care.style.color = 'white';
+                        care.innerHTML = "+关注"
+                        sessionStorage.setItem('afollow', '0');
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
+                sessionStorage.setItem('afollow', '0');
+            } else { 
+                swal("取消操作！", "你已经取消操作:","error"); 
+            } 
+        });
     }
     //  判断用户是否点赞
     $.ajax({
@@ -439,7 +455,7 @@ getmessage.then(()=>{
     food_find_bon.onclick = function () {
         let text = food_find_input.value;
         if (text == '') {
-            newalert("请输入搜索内容！");
+            swal("请输入搜索内容！");
         } else {
             localStorage.setItem('search_input', text);
             window.location.assign("../templates/search.html");

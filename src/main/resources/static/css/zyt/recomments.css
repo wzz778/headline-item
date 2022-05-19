@@ -594,7 +594,10 @@ body a {
 }
 
 .recos1_right .recos1_right_top {
-  margin: 30px 0;
+  margin: 20px 0;
+  width: 320px;
+  top: 50px;
+  position: fixed;
   background-color: #f8fbfe;
   padding: 20px 0;
   border-radius: 8px;
@@ -1068,12 +1071,13 @@ body a {
 }
 
 #hot {
-  top: 100px;
+  top: 250px;
   width: 310px;
+  margin: 20px 0;
   height: 320px;
   display: flex;
   padding-left: 10px;
-  position: sticky;
+  position: fixed;
   overflow: hidden;
   flex-wrap: wrap;
   flex-direction: column;

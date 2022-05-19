@@ -73,26 +73,38 @@ function articleall() {
             let id = n.parentNode.parentNode.children[7].innerHTML;
             let ttt = n.parentNode.parentNode.children[4].innerHTML;
             if (ttt == '批准') {
-                newalert("已批准！");
+                swal("已批准！");
             } else {
-                let choose = confirm("你是否确定批准标题为：" + title + " 的文章?");
-                if (choose == true) {
-                    $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/auditingPosts',
-                        { 'postsID': id },
-                        function (date) {
-                            // console.log(id);
-                            // alert("成功批准！");
-                            n.parentNode.parentNode.children[4].innerHTML = "批准";
-                            let findstatus=sessionStorage.getItem("articlefind");
-                            if (findstatus=='0') {
-                                allchange1();                
-                            }else if(findstatus=='1'){
-                                articlefind();
-                            }else{
-                                articlefail();
-                            }
+                swal({ 
+                    title: "你是否确定批准标题为：" + title + " 的文章?", 
+                    type: "warning",
+                    showCancelButton: true, 
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定批准！", 
+                    cancelButtonText: "取消批准！",
+                    closeOnConfirm: false, 
+                    closeOnCancel: false	
+                    },
+                    function(isConfirm){ 
+                    if (isConfirm) { 
+                        swal("批准！", "你所选的文章被批准。","success"); 
+                        $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/auditingPosts',
+                            { 'postsID': id },
+                            function (date) {
+                                n.parentNode.parentNode.children[4].innerHTML = "批准";
+                                let findstatus=sessionStorage.getItem("articlefind");
+                                if (findstatus=='0') {
+                                    allchange1();                
+                                }else if(findstatus=='1'){
+                                    articlefind();
+                                }else{
+                                    articlefail();
+                                }
                         })
-                }
+                    } else { 
+                        swal("取消！", "你已经取消批准:","error"); 
+                    } 
+                });
             }
         }
     }
@@ -102,17 +114,26 @@ function articleall() {
             let id = n.parentNode.parentNode.children[7].innerHTML;
             let ttt = n.parentNode.parentNode.children[4].innerHTML;
             if (ttt == '批准') {
-                newalert("已批准！");
+                swal("已批准！");
             } else if (ttt == '拒绝') {
-                newalert("已拒绝！");
+                swal("已拒绝！");
             } else {
-                let choose = confirm("你是否确定拒绝标题为：" + title + " 的文章?");
-                if (choose == true) {
-                    $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/disAuditing',
+                swal({ 
+                    title: "你是否确定拒绝标题为：" + title + " 的文章?", 
+                    type: "warning",
+                    showCancelButton: true, 
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定拒绝！", 
+                    cancelButtonText: "取消拒绝！",
+                    closeOnConfirm: false, 
+                    closeOnCancel: false	
+                    },
+                    function(isConfirm){ 
+                    if (isConfirm) { 
+                        swal("拒绝！", "你所选的文章被拒绝。","success"); 
+                        $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/disAuditing',
                         { 'postsID': id },
                         function (date) {
-                            // console.log(id);
-                            // alert("成功批准！");
                             n.parentNode.parentNode.children[4].innerHTML = "拒绝";
                             let findstatus=sessionStorage.getItem("articlefind");
                             if (findstatus=='0') {
@@ -123,7 +144,10 @@ function articleall() {
                                 articlefail();
                             }
                         })
-                }
+                    } else { 
+                        swal("取消！", "你已经取消拒绝:","error"); 
+                    } 
+                });
             }
         }
     }
@@ -214,7 +238,7 @@ function allchange1() {
     }
     else if (apages.value == "" || sessionStorage.getItem('apagen') == null) { }
     else {
-        newalert("请输入合理的页数！");
+        swal("请输入合理的页数！");
     }
 }
 //遍历全部数据
@@ -225,7 +249,7 @@ function articlefind() {
     sessionStorage.setItem("articlefind", '1');
     let name = document.getElementsByClassName("article_input")[0].value;
     if (name == '') {
-        newalert('请输入搜索内容！');
+        swal('请输入搜索内容！');
     } else {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/vagueQueryAll',
             { 'thing': name, 'column': "0", 'total': "10" },
@@ -350,27 +374,41 @@ var articldelete = document.getElementById("articl_delete");
 var articlall = document.getElementsByName("article_all")[0];
 var articla = document.getElementsByName("article_a");
 function articledelete() {
-    let choose = confirm("你确定删除选中文章的信息?");
-    if (choose) {
-        for (let i in articla) {
-            if (articla[i].checked) {
-                var id = articla[i].parentNode.parentNode.children[7].innerHTML;
-                console.log(id);
-                $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/deletePosts', { "postsID": id },
-                    function (date) {
-                        let findstatus=sessionStorage.getItem("articlefind");
-                            if (findstatus=='0') {
-                                allchange1();                
-                            }else if(findstatus=='1'){
-                                articlefind();
-                            }else{
-                                articlefail();
-                            }
-                    })
+    swal({ 
+        title: "你确定删除选中文章的信息?", 
+        text: "你将无法恢复这些文章的信息！", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！", 
+        cancelButtonText: "取消删除！",
+        closeOnConfirm: false, 
+        closeOnCancel: false	
+        },
+        function(isConfirm){ 
+        if (isConfirm) { 
+            for (let i in articla) {
+                if (articla[i].checked) {
+                    var id = articla[i].parentNode.parentNode.children[7].innerHTML;
+                    console.log(id);
+                    $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/deletePosts', { "postsID": id },
+                        function (date) {
+                            let findstatus=sessionStorage.getItem("articlefind");
+                                if (findstatus=='0') {
+                                    allchange1();                
+                                }else if(findstatus=='1'){
+                                    articlefind();
+                                }else{
+                                    articlefail();
+                                }
+                        })
+                }
             }
-        }
-        newalert("删除成功");
-    }
+            swal("删除！", "你所勾选的文章被删除。","success"); 
+        } else { 
+            swal("取消！", "你已经取消删除:","error"); 
+        } 
+    });
 }
 articldelete.onmousemove = function () {
     let c = false;
@@ -382,7 +420,7 @@ articldelete.onmousemove = function () {
     if (!c) {
         articldelete.style.cursor = "not-allowed";
         articldelete.onclick = () => {
-            newalert("请勾选你要删除的对象！");
+            swal("请勾选你要删除的对象！");
         };
     } else {
         articldelete.style.cursor = "pointer";

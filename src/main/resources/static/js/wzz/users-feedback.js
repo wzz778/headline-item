@@ -51,9 +51,20 @@ $.get('http://localhost:8080/ToSkyNews_war_exploded/collections/queryFeedbackCou
 var articlall = document.getElementsByName("feedback_all")[0];
 function feedbackdelete() {
     var fa = document.getElementsByName("feedback_a");
-    let choose = confirm("你确定删除选中文章的信息?");
-    if (choose) {
-        for (let i in fa) {
+    swal({ 
+        title: "你确定删除选中反馈信息?", 
+        text: "你将无法恢复该反馈信息！", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！", 
+        cancelButtonText: "取消删除！",
+        closeOnConfirm: false, 
+        closeOnCancel: false	
+        },
+        function(isConfirm){ 
+        if (isConfirm) { 
+            for (let i in fa) {
             if (fa[i].checked) {
                 var id = fa[i].parentNode.parentNode.children[1].innerHTML;
                 $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/deleteFeedback',
@@ -67,8 +78,11 @@ function feedbackdelete() {
                     })
             }
         }
-        newalert("删除成功");
-    }
+            swal("删除！", "你所勾选的反馈信息被删除。","success"); 
+        } else { 
+            swal("取消！", "你已经取消删除:","error"); 
+        } 
+    });
 }
 // 展示页数，个数
 var feedback_b = document.getElementsByClassName('feedback_b')[0];
@@ -159,7 +173,7 @@ function allbegin() {
             })
     } else if (apage.value == "" || sessionStorage.getItem('fpagen') == null) { }
     else {
-        newalert("请输入合理的页数！");
+        swal("请输入合理的页数！");
     }
 }
 // 遍历全部数据
@@ -242,7 +256,7 @@ function feedback_to() {
             function (date) {
                 console.log(date);
                 if (date.message == 'success') {
-                    newalert('管理员回复成功！');
+                    swal("管理员回复成功","回复成功","success"); 
                     feedback_fade.style.top = "-500px";
                     backfade.classList.remove('fade');
                     backfade.style.display = 'none';
@@ -252,11 +266,11 @@ function feedback_to() {
                         allbegin();
                     }
                 } else {
-                    newalert(date.message);
+                    swal("管理员回复失败！","error"); 
                 }
             })
     } else {
-        newalert("请填写回复内容！");
+        swal("请填写回复内容！");
     }
 }
 // 管理员回复功能
@@ -310,7 +324,7 @@ feedback_t_b.onmousemove = function () {
     if (!c) {
         feedback_t_b.style.cursor = "not-allowed";
         feedback_t_b.onclick = () => {
-            newalert("请勾选你要删除的对象！");
+            swal("请勾选你要删除的对象！");
         };
     } else {
         feedback_t_b.style.cursor = "pointer";

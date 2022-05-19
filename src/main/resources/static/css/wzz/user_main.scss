@@ -650,6 +650,8 @@ $bluecolor: #1890FF;
             border-radius: 8px;
             background-color: #FAFAFA;
             transition: .3s;
+            top: 0;
+            position: relative;
             &:hover{
                 background-color: #bddcf9;
             }
