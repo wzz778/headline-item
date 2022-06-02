@@ -183,9 +183,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "userID", value = "待删除的用户id")
     public Response update8(Integer userID){
-//        if (userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.deleteAllMessagesByUserID(userID);
         return Response.ok("删除成功！");
     }

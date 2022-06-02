@@ -52,15 +52,6 @@ public class   managerController {
           //  @ApiImplicitParam(name="account",value = "账号")
     })
     public Response addUser(String username,String password,String telephone,Integer age,String sex,String signature,String picture)  {
-//        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)|| StringUtils.isEmpty(telephone)|| StringUtils.isEmpty(sex)|| StringUtils.isEmpty(signature)){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(username," ") || StringUtils.startsWith(password," ")|| StringUtils.startsWith(telephone," ")|| StringUtils.startsWith(sex," ")|| StringUtils.startsWith(signature," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
-//        if(age==null){
-//            throw new CustomException("类型为空！");
-//        }
         String account= String.valueOf(new Random().nextInt(899999) + 1000000);
         if(StringUtils.isEmpty(picture)){
             picture="https://linxun-1310915694.cos.ap-shanghai.myqcloud.com/toSkyNews/20220429192703_none.jpg";
@@ -83,24 +74,7 @@ public class   managerController {
             @ApiImplicitParam(name="picture",value = "头像地址链接")
     })
     public Response updateUser(@RequestParam("userID") int userID,String username,String password,String telephone,Integer age,String sex,String signature,String picture){
-//        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)|| StringUtils.isEmpty(telephone)|| StringUtils.isEmpty(sex)|| StringUtils.isEmpty(signature)|| StringUtils.isEmpty(picture)){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(username," ") || StringUtils.startsWith(password," ")|| StringUtils.startsWith(telephone," ")|| StringUtils.startsWith(sex," ")|| StringUtils.startsWith(signature," ")|| StringUtils.startsWith(picture," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
-//        if(age==null){
-//            throw new CustomException("类型为空！");
-//        }
         User user=new User(userID,username,password,telephone,age,sex,signature,picture);
-        //        int a=managerService.updateUser(user);
-//        if(a==1){
-//            return Response.ok("success");
-//        }
-//        else{
-//            return Response.error("修改失败！您的用户名已有人使用！");
-//        }
-//        User user1=managerService.queryUserById(user.getUserID());
         managerService.updateUser(user);
         return Response.ok("修改成功！");
     }
@@ -108,11 +82,7 @@ public class   managerController {
     @ApiOperation(value = "根据id删除用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/del/{userID}")
     @ResponseBody
- //   @ApiImplicitParam(name="userID",value = "用户id")
     public Response deleteUser(Integer userID)  {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         User user=managerService.queryUserById(userID);
         if(user!=null){
             managerService.deleteUserById(userID);
@@ -120,7 +90,6 @@ public class   managerController {
         }else{
             return Response.error("删除失败！");
         }
- //       return "redirect:/users/allUser";
     }
 
     @ApiOperation(value = "根据id查询用户", notes = "获取地址", httpMethod = "POST")
@@ -128,9 +97,6 @@ public class   managerController {
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "用户id")
     public User queryUserByID(Integer userID) {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         User user=managerService.queryUserById(userID);
         if(user!=null){
             return user;
@@ -148,12 +114,6 @@ public class   managerController {
     public Response login(String managerName, String password, @ApiIgnore HttpSession session)  {
         Manager manager=managerService.sign(managerName,password);
         session.setAttribute("manager",manager);
-//        if (StringUtils.isEmpty(managerName) || StringUtils.isEmpty(password)){
-//            throw new CustomException("用户名或密码不能为空");
-//        }
-//        if (StringUtils.startsWith(managerName," ") || StringUtils.startsWith(password," ")){
-//            throw new CustomException("用户名或密码不能有空位");
-//        }
         if(manager!=null){
             return Response.ok("success");
         }else{
@@ -165,7 +125,6 @@ public class   managerController {
     @ApiOperation(value = "根据名字模糊查询用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryVagueUser")
     @ResponseBody
- //   @ApiImplicitParam(name="thing",value = "模糊查询的片段")
     public List<User>list2 (@RequestParam("thing") String thing)  {
         List <User> list= managerService.queryVagueUser(thing);
         return list;
@@ -177,12 +136,6 @@ public class   managerController {
     @ResponseBody
     @ApiImplicitParam(name="username",value = "用户name（如果用户名字不存在则会返回空值，可以根据用户id=0来判断）")
     public User queryUserByName(String username) {
-//        if (StringUtils.isEmpty(username) ){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(username," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
         User user=managerService.queryUserByName(username);
         return user;
     }
@@ -195,9 +148,6 @@ public class   managerController {
             @ApiImplicitParam(name="total",value = "查询数量"),
     })
     public List<User>list4(Integer column,Integer total) {
-//        if(column==null||total==null){
-//            throw new CustomException("类型为空！");
-//        }
         List <User> list=managerService.queryPagingUser(column,total);
         return list;
     }
@@ -214,9 +164,6 @@ public class   managerController {
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "用户id")
     public List<Posts> list4(Integer userID) {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         List<Posts>list= managerService.queryPostsID(userID);
         for(int i=0;i<list.size();i++){
             Posts posts=list.get(i);
@@ -232,12 +179,6 @@ public class   managerController {
             @ApiImplicitParam(name="password",value = "管理员密码")
     })
     public Manager queryManagerByName(String password)  {
-//        if (StringUtils.isEmpty(password) ){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(password," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
         String managerName= IDutils.getManagerName();
         Manager manager=new Manager(managerName,password);
         managerService.addManager(manager);
