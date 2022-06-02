@@ -77,11 +77,13 @@ public class UserServiceImpl implements UserService {
             Posts posts=posts1.get(i);
             userMapper.deleteCollectionByPostsID(posts.getPostsID());
         }
+        userMapper.deleteCommentByMakerID(userID);
+        userMapper.deleteReviewsByMakerID(userID);
+        userMapper.deleteMessagesByAuthorID(userID);
         userMapper.deleteCollectionByUser(userID);
         userMapper.deletePostsByUser(userID);
         userMapper.deleteFans(userID);
         userMapper.deleteFocus(userID);
-
         return userMapper.deleteUserById(userID);
     }
 

@@ -171,9 +171,6 @@ public class FocusController {
             @ApiImplicitParam(name="fansID",value = "粉丝id"),
     })
     public Response queryCollectionBoolean(Integer focusID, Integer fansID){
-//        if(fansID==null||focusID==null){
-//            throw new CustomException("类型为空！");
-//        }
         Focus focus=new Focus(focusID,fansID);
         int a=focusService.queryFocus(focus);
         if(a==1){

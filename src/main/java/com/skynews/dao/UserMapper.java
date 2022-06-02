@@ -81,6 +81,14 @@ public interface UserMapper {
     List<Posts> savePosts(int reside,int column);
     //用户根据状态 查询对应的帖子
     List<Picture> onePicture(int userID,int status);
+    //根据makerID删除comment
+    int deleteCommentByMakerID(int makerID);
+
+    //根据makerID删除reviews
+    int deleteReviewsByMakerID(int makerID);
+
+    //根据authorID删除messages
+    int deleteMessagesByAuthorID(int authorID);
 
 
     /********杨赛雅加的**********/

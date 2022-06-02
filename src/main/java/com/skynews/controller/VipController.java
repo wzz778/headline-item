@@ -48,9 +48,6 @@ public class VipController {
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "用户ID")
     public Response deleteVip(Integer userID)  {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         vipService.deleteVip(userID);
         return Response.ok("删除成功！");
     }
@@ -59,12 +56,6 @@ public class VipController {
     @PostMapping("/queryAllVague")
     @ResponseBody
     public Response list2(String thing) {
-//        if (StringUtils.isEmpty(thing) ){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(thing," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
         return Response.ok(vipService.overAllPicture(thing));
     }
 
@@ -73,9 +64,6 @@ public class VipController {
     @PostMapping("/judgeVipIs")
     @ResponseBody
     public Response judgeVipI(Integer userID) {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         int vip=vipService.judgeVip(userID);
         if(vip==1){
             return Response.ok("此用户为vip用户！");
