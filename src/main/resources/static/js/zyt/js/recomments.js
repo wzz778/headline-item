@@ -18,7 +18,9 @@ function getTime() {
 }
 var date = new Date();
 // 由帖子id查询相应的帖子
-var article_id = localStorage.getItem('article_id');
+let url=window.location.href;
+let urlmessage=url.split('?')[1];
+var article_id=urlmessage.split('=')[1];
 var user_id = localStorage.getItem('user_id');
 var user_name = localStorage.getItem('user_name');
 var user_img = localStorage.getItem('user_img');
@@ -76,6 +78,9 @@ let getmessage=new Promise((resolve,reject)=>{
                 })
         })
 })
+function sharea(){
+    window.location.assign(`https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${url}`);
+}
 getmessage.then(()=>{
     publisher_name = sessionStorage.getItem('publisher_name');
     function toland() {

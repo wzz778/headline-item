@@ -371,7 +371,7 @@ function attFun(indexAtt){
                                         url:'http://localhost:8080/ToSkyNews_war_exploded/focus/queryAllFansPage',
                                         data:{
                                             focusID:user_id,
-                                            num:num
+                                            num:indexAtt
                                         },
                                         success:function(suc_1){
                                             if(suc_1.length<10000){

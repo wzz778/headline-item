@@ -187,7 +187,32 @@ body{
 #content2Nav{
     width: 300px;
     height: 40px;
+    float: left;
     background-color: #3e70b7;
+}
+#contentNavRight{
+    width: 300px;
+    height: 40px;
+    float: right;
+    margin-right: 27px;
+}
+#input_text{
+    width: 200px;
+    height: 33px;
+    text-indent: 15px;
+    margin-top: 2px;
+    outline-style: none;
+    border-radius: 5px;
+    /*border-style: none;*/
+    border:2px solid #bbd7f8;
+}
+.input_sub{
+    width: 55px;
+    height: 33px;
+    outline-style: none;
+    border-radius: 5px;
+    border:1px solid #9ac0ef;
+    background-color: #bbd7f8;
 }
 #content2Nav{
     margin-left: 20px;
@@ -229,14 +254,28 @@ body{
     overflow:hidden;
     margin:10px;
 }
+.imgsDiv:hover .imgCover{
+    display: block;
+}
+.imgCover{
+    width: 140px;
+    height: 30px;
+    position: absolute;
+    left: 10px;
+    bottom: 0px;
+    text-align: center;
+    line-height: 30px;
+    display: none;
+    color: #bddcf9;
+    background-color: rgba(1,1,1,0.5);
+}
 .imgs{
-    /*margin-top: 10px;*/
     margin-left: 10px;
 }
 #pageBig{
     width: 260px;
     height: 30px;
-    margin: 0 auto;
+    float: right;
     background-color:  #3e70b7;
 }
 #pageBig button{
@@ -246,6 +285,12 @@ body{
     border-style: none;
     border-radius: 5px;
     background-color: #e3e4e5;
+}
+#pictureNum{
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 520px;
 }
 #aa{
     background-color:#1890FF;
@@ -258,6 +303,35 @@ body{
     background-color: #032d61;
 }
 #pageBig span{
+    font-size: 15px;
+}
+#pageBig1{
+    width: 260px;
+    height: 30px;
+    float: right;
+    position: absolute;
+    right: 0px;
+    background-color:  #3e70b7;
+}
+#pageBig1 button{
+    width: 50px;
+    height: 30px;
+    outline-style: none;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #e3e4e5;
+}
+#aa1{
+    background-color:#1890FF;
+    color: white;
+    display: inline-block;
+    min-width: 25px;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #032d61;
+}
+#pageBig1 span{
     font-size: 15px;
 }
 .statusColor{
@@ -327,4 +401,10 @@ body{
 }
 #sure:hover{
     background-color: #2f70c5;
+}
+.tipStatus{
+    width: 200px;
+    height: 200px;
+    margin-left: 350px;
+    margin-top: 160px;
 }

@@ -8,6 +8,34 @@ var workNav = document.querySelector('.workNav');
 var find = document.querySelector('#find');
 var close = document.querySelector('.close');
 var otherUser_id = localStorage.getItem('otherUser_id');
+
+//弹窗
+//弹窗
+var chooseCover=document.querySelector('.chooseCover');
+function chooseAppear(text){
+    tipText.innerHTML=text;
+    chooseCover.style.display='flex';
+    chooseCover.style.opacity=1;
+    tip.style.height='200px';
+}
+function chooseFade(){
+    chooseCover.style.display='none';
+    chooseCover.style.opacity=0;
+    tip.style.height='0px';
+}
+var sureCover=document.querySelector('.sureCover');
+function sureAppear(text){
+    successText.innerHTML=text;
+    sureCover.style.display='flex';
+    sureCover.style.opacity=1;
+    successTip.style.height='200px';
+}
+function sureFade(){
+    sureCover.style.display='none';
+    sureCover.style.opacity=0;
+    successTip.style.height='0px';
+}
+
 //用户信息
 var userHead = document.querySelector('.userHead');
 //用户主页显示用户信息
@@ -54,7 +82,7 @@ $.ajax({
 userAtt();
 close.addEventListener('click', function() {
 	userAtt();
-	successTip.style.height = 0;
+	sureFade();
 })
 
 function userAtt() {
@@ -250,12 +278,11 @@ $.ajax({
 				// left.style.display='block';
 				attFun(indexAtt);
 			} else if (indexAtt == 0) {
-				successText.innerHTML = '已经是第一页了';
-				successTip.style.height = '200px';
+				sureAppear('已经是第一页了');
 				leftAtt.setAttribute('disabled', true);
 				rightAtt.setAttribute('disabled', true);
 				successOk.addEventListener('click', function() {
-					successTip.style.height = 0;
+					sureFade();
 					leftAtt.removeAttribute('disabled');
 					rightAtt.removeAttribute('disabled');
 				})
@@ -265,12 +292,11 @@ $.ajax({
 		rightAtt.addEventListener('click', function() {
 			if (suc_2.length % 8 == 0) {
 				if (suc_2.length == indexAtt + 8) {
-					successText.innerHTML = '已经是最后一页了';
-					successTip.style.height = '200px';
+					sureAppear('已经是最后一页了');
 					leftAtt.setAttribute('disabled', true);
 					rightAtt.setAttribute('disabled', true);
 					successOk.addEventListener('click', function() {
-						successTip.style.height = 0;
+						sureFade();
 						leftAtt.removeAttribute('disabled');
 						rightAtt.removeAttribute('disabled');
 					})
@@ -283,12 +309,11 @@ $.ajax({
 				}
 			} else if (suc_2.length % 8 != 0) {
 				if ((suc_2.length - (suc_2.length % 8)) == indexAtt) {
-					successText.innerHTML = '已经是最后一页了';
-					successTip.style.height = '200px';
+					sureAppear('已经是最后一页了');
 					leftAtt.setAttribute('disabled', true);
 					rightAtt.setAttribute('disabled', true);
 					successOk.addEventListener('click', function() {
-						successTip.style.height = 0;
+						sureFade();
 						leftAtt.removeAttribute('disabled');
 						rightAtt.removeAttribute('disabled');
 					})
@@ -367,11 +392,14 @@ function attFun(indexAtt) {
 							setTimeout(function() {
 								var fansItem = document.querySelectorAll('.fansItem');
 								fansItem[i].addEventListener('click', function() {
-									localStorage.setItem('otherUser_id', res
-										.userID);
-									localStorage.setItem("tolook", '0');
-									window.location.assign(
-										"../templates/otherUserPage.html");
+									if(res.userID==user_id){
+										localStorage.setItem("tolook", '0');
+										window.location.assign("../templates/myPage.html");
+									}else{
+										localStorage.setItem('otherUser_id', res.userID);
+										localStorage.setItem("tolook", '0');
+										window.location.assign("../templates/otherUserPage.html");
+									}
 								})
 								var fansName = document.querySelectorAll('.fansName');
 								var fansfans = document.querySelectorAll('.fansfans');
@@ -380,7 +408,7 @@ function attFun(indexAtt) {
 									url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/queryAllFansPage',
 									data: {
 										focusID: otherUser_id,
-										num: num
+										num: indexAtt
 									},
 									success: function(suc_1) {
 										if (suc_1.length < 10000) {
@@ -476,24 +504,10 @@ function attFun(indexAtt) {
 																res_2
 																) {
 																// console.log(res_2);
-																attBox
-																	[
-																		i]
-																	.firstElementChild
-																	.style
-																	.display =
-																	'none';
-																attBox
-																	[
-																		i]
-																	.lastElementChild
-																	.style
-																	.display =
-																	'block';
+																attBox[i].firstElementChild.style.display ='none';
+																attBox[i].lastElementChild.style.display ='block';
 															},
-															error: function(
-																err
-																) {
+															error: function(err) {
 																// console.log(err);
 															}
 														})
@@ -522,24 +536,10 @@ function attFun(indexAtt) {
 																res_3
 																) {
 																// console.log(res_3);
-																attBox
-																	[
-																		i]
-																	.lastElementChild
-																	.style
-																	.display =
-																	'none';
-																attBox
-																	[
-																		i]
-																	.firstElementChild
-																	.style
-																	.display =
-																	'block';
+																attBox[i].lastElementChild.style.display ='none';
+																attBox[i].firstElementChild.style.display ='block';
 															},
-															error: function(
-																err
-																) {
+															error: function(err) {
 																// console.log(err);
 															}
 														})
@@ -572,7 +572,7 @@ var focusBox = document.querySelector('.focus');
 var focusNav = document.querySelector('.focusNav');
 var fansNav = document.querySelector('.fansNav');
 fansNav.addEventListener('click', function() {
-	successTip.style.height = 0;
+	sureFade();
 	leftAtt.style.display = 'none';
 	rightAtt.style.display = 'none';
 	left.style.display = 'block';
@@ -584,13 +584,12 @@ fansNav.addEventListener('click', function() {
 
 focusBox.addEventListener('click', function() {
 	if (have_land == 'false') {
-		successText.innerHTML = '你还未登录，无权查看';
-		successTip.style.height = '200px';
+		sureAppear('你还未登录，无权查看');
 		successOk.addEventListener('click', function() {
-			successTip.style.height = 0;
+			sureFade();
 		})
 	} else {
-		successTip.style.height = 0;
+		sureFade();
 		leftAtt.style.display = 'block';
 		rightAtt.style.display = 'block';
 		left.style.display = 'none';
@@ -602,7 +601,7 @@ focusBox.addEventListener('click', function() {
 
 })
 focusNav.addEventListener('click', function() {
-	successTip.style.height = 0;
+	sureFade();
 	leftAtt.style.display = 'block';
 	rightAtt.style.display = 'block';
 	left.style.display = 'none';
@@ -618,10 +617,9 @@ var fansList = document.querySelector('.fansList');
 var fans = document.querySelector('.fans');
 fans.addEventListener('click', function() {
 	if (have_land == 'false') {
-		successText.innerHTML = '你还未登录，无权查看';
-		successTip.style.height = '200px';
+		sureAppear('你还未登录，无权查看');
 		successOk.addEventListener('click', function() {
-			successTip.style.height = 0;
+			sureFade();
 		})
 	} else {
 		fansFun(0);
@@ -653,12 +651,11 @@ $.ajax({
 				// left.style.display='block';
 				fansFun(index);
 			} else if (index == 0) {
-				successText.innerHTML = '已经是第一页了';
-				successTip.style.height = '200px';
+				sureAppear('已经是第一页了');
 				left.setAttribute('disabled', true);
 				right.setAttribute('disabled', true);
 				successOk.addEventListener('click', function() {
-					successTip.style.height = 0;
+					sureFade();
 					left.removeAttribute('disabled');
 					right.removeAttribute('disabled');
 				})
@@ -668,12 +665,11 @@ $.ajax({
 		right.addEventListener('click', function() {
 			if (suc_2 % 8 == 0) {
 				if (suc_2 == index + 8) {
-					successText.innerHTML = '已经是最后一页了';
-					successTip.style.height = '200px';
+					sureAppear('已经是最后一页了');
 					left.setAttribute('disabled', true);
 					right.setAttribute('disabled', true);
 					successOk.addEventListener('click', function() {
-						successTip.style.height = 0;
+						sureFade();
 						left.removeAttribute('disabled');
 						right.removeAttribute('disabled');
 					})
@@ -684,14 +680,14 @@ $.ajax({
 					fansFun(index);
 					// console.log(index);
 				}
-			} else if (suc_2 % 8 != 0) {
+			} 
+			if (suc_2 % 8 != 0) {
 				if ((index + 8) - suc_2 <= 8) {
-					successText.innerHTML = '已经是最后一页了';
-					successTip.style.height = '200px';
+					sureAppear('已经是最后一页了');
 					left.setAttribute('disabled', true);
 					right.setAttribute('disabled', true);
 					successOk.addEventListener('click', function() {
-						successTip.style.height = 0;
+						sureFade();
 						left.removeAttribute('disabled');
 						right.removeAttribute('disabled');
 					})
@@ -722,7 +718,7 @@ function fansFun(num) {
 			num: num
 		},
 		success: function(suc_1) {
-			// console.log(suc_1);
+			console.log(suc_1);
 			if (suc_1.length == 0) {
 				nullBox.style.display = 'block';
 				fansList.style.display = 'none';
@@ -731,8 +727,8 @@ function fansFun(num) {
 			} else {
 				nullBox.style.display = 'none';
 				fansList.style.display = 'block';
-				leftAtt.style.display = 'block';
-				rightAtt.style.display = 'block';
+				leftAtt.style.display = 'inline-block';
+				rightAtt.style.display = 'inline-block';
 				for (let i = 0; i < suc_1.length; i++) {
 					$.ajax({
 						type: 'post',
@@ -768,11 +764,14 @@ function fansFun(num) {
 							setTimeout(function() {
 								var fansItem = document.querySelectorAll('.fansItem');
 								fansItem[i].addEventListener('click', function() {
-									localStorage.setItem('otherUser_id', res
-										.userID);
-									localStorage.setItem("tolook", '0');
-									window.location.assign(
-										"../templates/otherUserPage.html");
+									if(res.userID==user_id){
+										localStorage.setItem("tolook", '0');
+										window.location.assign("../templates/myPage.html");
+									}else{
+										localStorage.setItem('otherUser_id', res.userID);
+										localStorage.setItem("tolook", '0');
+										window.location.assign("../templates/otherUserPage.html");
+									}
 								})
 								var fansName = document.querySelectorAll('.fansName');
 								var fansfans = document.querySelectorAll('.fansfans');
