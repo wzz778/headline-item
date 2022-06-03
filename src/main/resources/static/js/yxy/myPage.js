@@ -13,12 +13,13 @@ var userName=document.querySelectorAll('.userName');
 var briefText=document.querySelector('.briefText');
 var boy=document.querySelector('#boy');
 var girl=document.querySelector('#girl');
-var successText=document.querySelector('.successText');
-var successTip=document.querySelector('.successTip');
-var successOk=document.querySelector('.successOk');
 var nullBox=document.querySelector('.nullBox');
 //弹窗
 var chooseCover=document.querySelector('.chooseCover');
+var successText=document.querySelector('.successText');
+var successTip=document.querySelector('.successTip');
+var successOk=document.querySelector('.successOk');
+var tip=document.querySelector('.tip');
 function chooseAppear(text){
     tipText.innerHTML=text;
     chooseCover.style.display='flex';
@@ -358,6 +359,8 @@ function attFun(indexAtt){
                                 fansList.insertAdjacentHTML('beforeend',li);
                                 //点击进入其他用户页面
                                 setTimeout(function(){
+                                    var attention=document.querySelectorAll('.attention');
+                                    var noAttention=document.querySelectorAll('.noAttention')
                                     var fansItem=document.querySelectorAll('.fansItem');
                                     fansItem[i].addEventListener('click',function(){
                                         localStorage.setItem('otherUser_id',res.userID);
@@ -431,8 +434,14 @@ function attFun(indexAtt){
                                                 var attBox=document.querySelectorAll('.attBox');
                                                 attBox[i].firstElementChild.style.display='block';
                                                 attBox[i].lastElementChild.style.display='none';
-                                                attBox[i].firstElementChild.addEventListener('click',function(e){
-                                                    e.stopPropagation();
+                                            }else if(res_1.code==-1){
+                                                var attBox=document.querySelectorAll('.attBox');
+                                                attBox[i].firstElementChild.style.display='none';
+                                                attBox[i].lastElementChild.style.display='block';
+                                            }
+                                            attBox[i].addEventListener('click',function(e){
+                                                e.stopPropagation();
+                                                if(attention[i].style.display=='block'){
                                                     $.ajax({
                                                         type:'post',
                                                         url:'http://localhost:8080/ToSkyNews_war_exploded/focus/addFocus',
@@ -449,13 +458,7 @@ function attFun(indexAtt){
                                                             // console.log(err);
                                                         }
                                                     })
-                                                })
-                                            }else if(res_1.code==-1){
-                                                var attBox=document.querySelectorAll('.attBox');
-                                                attBox[i].firstElementChild.style.display='none';
-                                                attBox[i].lastElementChild.style.display='block';
-                                                attBox[i].lastElementChild.addEventListener('click',function(e){
-                                                    e.stopPropagation();
+                                                }else if(noAttention[i].style.display=='block'){
                                                     $.ajax({
                                                         type:'post',
                                                         url:'http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus',
@@ -472,8 +475,9 @@ function attFun(indexAtt){
                                                             // console.log(err);
                                                         }
                                                     })
-                                                })
-                                            }
+                                                }
+                                                
+                                            },false)
                                             
                                         },
                                         error:function(err){
@@ -669,6 +673,8 @@ function fansFun(num){
                                     </div>
                                 </li>`;
                                 fansList.insertAdjacentHTML('beforeend',li);
+                                var attention=document.querySelectorAll('.attention');
+                                var noAttention=document.querySelectorAll('.noAttention')
                                 //点击进入其他用户页面
                                 setTimeout(function(){
                                     var fansItem=document.querySelectorAll('.fansItem');
@@ -731,8 +737,14 @@ function fansFun(num){
                                                 var attBox=document.querySelectorAll('.attBox');
                                                 attBox[i].firstElementChild.style.display='block';
                                                 attBox[i].lastElementChild.style.display='none';
-                                                attBox[i].firstElementChild.addEventListener('click',function(e){
-                                                    e.stopPropagation();
+                                            }else if(res_1.code==-1){
+                                                var attBox=document.querySelectorAll('.attBox');
+                                                attBox[i].firstElementChild.style.display='none';
+                                                attBox[i].lastElementChild.style.display='block';
+                                            }
+                                            attBox[i].addEventListener('click',function(e){
+                                                e.stopPropagation();
+                                                if(attention[i].style.display=='block'){
                                                     $.ajax({
                                                         type:'post',
                                                         url:'http://localhost:8080/ToSkyNews_war_exploded/focus/addFocus',
@@ -749,13 +761,7 @@ function fansFun(num){
                                                             // console.log(err);
                                                         }
                                                     })
-                                                })
-                                            }else if(res_1.code==-1){
-                                                var attBox=document.querySelectorAll('.attBox');
-                                                attBox[i].firstElementChild.style.display='none';
-                                                attBox[i].lastElementChild.style.display='block';
-                                                attBox[i].lastElementChild.addEventListener('click',function(e){
-                                                    e.stopPropagation();
+                                                }else if(noAttention[i].style.display=='block'){
                                                     $.ajax({
                                                         type:'post',
                                                         url:'http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus',
@@ -772,8 +778,9 @@ function fansFun(num){
                                                             // console.log(err);
                                                         }
                                                     })
-                                                })
-                                            }
+                                                }
+                                                
+                                            },false)
                                             
                                         },
                                         error:function(err){
@@ -814,7 +821,8 @@ var food_find_bon = document.getElementsByClassName("food_find_bon")[0];
 food_find_bon.onclick = function () {
     let text = food_find_input.value;
     if(text==''){
-        alert("请输入搜索内容！");
+        sureAppear("请输入搜索内容！");
+        successOk
     }else{
         localStorage.setItem('search_input', text);
         localStorage.setItem("tolook", '0');

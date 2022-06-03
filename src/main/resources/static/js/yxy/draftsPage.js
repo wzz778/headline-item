@@ -152,7 +152,7 @@ function draftsContent(num){
                 for(let i=0;i<res.data.length;i++){
                     var li=`
                         <li class="draftItem" textID="">
-                            <input type="checkbox" class="chooseBox">
+                            <span class="noChoose"></span>
                             <div class="itemContent">
                                 <div class="title">${res.data[i].postsName}</div>
                                 <div class="lastTime">上次修改的时间：<span class="time">2${res.data[i].picture}</span></div>
@@ -166,15 +166,6 @@ function draftsContent(num){
                     var draftItem=document.querySelectorAll('.draftItem');
                     var itemDelete=document.querySelectorAll('.itemDelete');
                     draftItem[i].textID=res.data[i].postsID;
-                    // console.log(draftItem[i].textID);
-                    var chooseBox=document.querySelectorAll('.chooseBox');
-                    chooseBox[i].addEventListener('click',function(){
-                        if(chooseBox[i].hasAttribute('checked')==true){
-                           chooseBox[i].removeAttribute('checked');
-                        }else{
-                           chooseBox[i].setAttribute('checked','checked');
-                        }
-                    })
                      //获取页数
                     num();
                     function num(){
@@ -267,7 +258,7 @@ function draftsContent(num){
     })    
 }
 
- //批量删除草稿
+
 window.onload=function(){
     var allChoose=document.querySelector('.allChoose');
     var cancelAll=document.querySelector('.cancelAll');
@@ -278,56 +269,69 @@ window.onload=function(){
     
      //操作
      var chooseBox=document.querySelectorAll('.chooseBox');
-     
+     //批量选择
      massDelete.addEventListener('click',function(){
-        var chooseBox=document.querySelectorAll('.chooseBox');
+        var noChoose=document.querySelectorAll('.noChoose');
         var itemDelete=document.querySelectorAll('.itemDelete');
          massDelete.style.display='none';
          deleteChoose.style.display='inline-block';
          allChoose.style.display='inline-block';
          cancelAll.style.display='inline-block';
          reset.style.display='inline-block';
-         for(let i=0;i<chooseBox.length;i++){
-             chooseBox[i].style.display='inline-block';
+         for(let i=0;i<noChoose.length;i++){
+             noChoose[i].style.display='inline-block';
              itemDelete[i].style.display='none';
+             noChoose[i].addEventListener('click',function(){
+                console.log('点击')
+                 if(noChoose[i].style.backgroundColor=='rgb(100, 166, 247)'){
+                     noChoose[i].style.backgroundColor='rgb(255, 255, 255)';
+                     console.log(noChoose[i].style.backgroundColor)
+                 }else{
+                     noChoose[i].style.backgroundColor='rgb(100, 166, 247)';
+                     console.log(noChoose[i].style.backgroundColor);
+                 }
+            })   
          }
+         
      })
+     //全选
      allChoose.addEventListener('click',function(){
-        var chooseBox=document.querySelectorAll('.chooseBox');
-         for(let i=0;i<chooseBox.length;i++){
-             chooseBox[i].setAttribute('checked','checked');
+        var noChoose=document.querySelectorAll('.noChoose');
+         for(let i=0;i<noChoose.length;i++){
+            noChoose[i].style.backgroundColor='rgb(100, 166, 247)';
          }
      })
+    //取消全选
      cancelAll.addEventListener('click',function(){
-        var chooseBox=document.querySelectorAll('.chooseBox');
-         for(let i=0;i<chooseBox.length;i++){
-             chooseBox[i].removeAttribute('checked');
+        var noChoose=document.querySelectorAll('.noChoose');
+         for(let i=0;i<noChoose.length;i++){
+            noChoose[i].style.backgroundColor='rgb(255, 255, 255)';
          }
      })
+     //重置
      reset.addEventListener('click',function(){
-        var chooseBox=document.querySelectorAll('.chooseBox');
+        var noChoose=document.querySelectorAll('.noChoose');
         var itemDelete=document.querySelectorAll('.itemDelete');
          allChoose.style.display='none';
          cancelAll.style.display='none';
          reset.style.display='none';
          deleteChoose.style.display='none';
-         massDelete.style.display='block';
-         for(let i=0;i<chooseBox.length;i++){
+         massDelete.style.display='inline-block';
+         for(let i=0;i<noChoose.length;i++){
             itemDelete[i].style.display='inline-block';
-            chooseBox[i].removeAttribute('checked');
-            chooseBox[i].style.display='none';
+            noChoose[i].style.backgroundColor='rgb(255, 255, 255)';
          }
      })
      
     
     // function onclickFun(){
+         //批量删除草稿
         deleteChoose.addEventListener('click',function(){
             var arr=new Array();
             var  draftItem=document.querySelectorAll('.draftItem') ;
-            var chooseBox=document.querySelectorAll('.chooseBox');
+            var noChoose=document.querySelectorAll('.noChoose');
             for(let j=0;j<draftItem.length;j++){
-                console.log(chooseBox[j].hasAttribute('checked'));
-                if(chooseBox[j].hasAttribute('checked')==true){
+                if(noChoose[j].style.backgroundColor=='rgb(100, 166, 247)'){
                     arr.push(draftItem[j].textID);
                     // console.log('我被选择')
                 }
@@ -421,13 +425,13 @@ window.onload=function(){
                    sureFade();
                })
            }else{
-               cancelAll.style.display='none';
-        deleteChoose.style.display='none';
-        reset.style.display='none';
-        allChoose.style.display='none';
-        massDelete.style.display='inline-block';
-               pageNum.innerHTML=searchPage.value;
-               draftsContent((pageNum.innerHTML*1-1)*6);
+                cancelAll.style.display='none';
+                deleteChoose.style.display='none';
+                reset.style.display='none';
+                allChoose.style.display='none';
+                massDelete.style.display='inline-block';
+                pageNum.innerHTML=searchPage.value;
+                draftsContent((pageNum.innerHTML*1-1)*6);
            }
        })
        var findAllChoose=document.querySelector('.findAllChoose');
@@ -451,7 +455,7 @@ window.onload=function(){
         // }
         
         findMassDelete.addEventListener('click',function(){
-           var findChooseBox=document.querySelectorAll('.findChooseBox');
+           var findChoose=document.querySelectorAll('.findChoose');
            var findItemDelete=document.querySelectorAll('.findItemDelete');
            findMassDelete.style.display='none';
            lastInfo.style.display='none';
@@ -459,25 +463,35 @@ window.onload=function(){
            findAllChoose.style.display='inline-block';
            findCancelAll.style.display='inline-block';
            findReset.style.display='inline-block';
-           for(let i=0;i<findChooseBox.length;i++){
+           for(let i=0;i<findChoose.length;i++){
                findItemDelete[i].style.display='none';
-               findChooseBox[i].style.display='inline-block';
+               findChoose[i].style.display='inline-block';
+               findChoose[i].addEventListener('click',function(){
+                    console.log('点击')
+                    if(findChoose[i].style.backgroundColor=='rgb(100, 166, 247)'){
+                        findChoose[i].style.backgroundColor='rgb(255, 255, 255)';
+                        console.log(findChoose[i].style.backgroundColor)
+                    }else{
+                        findChoose[i].style.backgroundColor='rgb(100, 166, 247)';
+                        console.log(findChoose[i].style.backgroundColor);
+                    }
+            })   
            }
         })
         findAllChoose.addEventListener('click',function(){
-           var findChooseBox=document.querySelectorAll('.findChooseBox');
-            for(let i=0;i<findChooseBox.length;i++){
-               findChooseBox[i].setAttribute('checked','checked');
+           var findChoose=document.querySelectorAll('.findChoose');
+            for(let i=0;i<findChoose.length;i++){
+               findChoose[i].style.backgroundColor='rgb(100, 166, 247)';
             }
         })
         findCancelAll.addEventListener('click',function(){
-           var findChooseBox=document.querySelectorAll('.findChooseBox');
-            for(let i=0;i<findChooseBox.length;i++){
-               findChooseBox[i].removeAttribute('checked');
+           var findChoose=document.querySelectorAll('.findChoose');
+            for(let i=0;i<findChoose.length;i++){
+               findChoose[i].style.backgroundColor='rgb(255, 255, 255)';
             }
         })
         findReset.addEventListener('click',function(){
-           var findChooseBox=document.querySelectorAll('.findChooseBox');
+           var findChoose=document.querySelectorAll('.findChoose');
            var findItemDelete=document.querySelectorAll('.findItemDelete');
            findAllChoose.style.display='none';
            findCancelAll.style.display='none';
@@ -485,10 +499,9 @@ window.onload=function(){
            lastInfo.style.display='inline-block';
            findDeleteChoose.style.display='none';
            findMassDelete.style.display='inline-block';
-           for(let i=0;i<findChooseBox.length;i++){
+           for(let i=0;i<findChoose.length;i++){
                findItemDelete[i].style.display='inline-block';
-               findChooseBox[i].removeAttribute('checked');
-               findChooseBox[i].style.display='none';
+               findChoose[i].style.backgroundColor='rgb(255, 255, 255)';
            }
         })
 
@@ -498,10 +511,9 @@ window.onload=function(){
         findDeleteChoose.addEventListener('click',function(){
             var arr=new Array();
             var  draftItem=document.querySelectorAll('.draftItem') ;
-            var findChooseBox=document.querySelectorAll('.findChooseBox');
-            for(let j=0;j<findChooseBox.length;j++){
-                console.log(findChooseBox[j].hasAttribute('checked'));
-                if(findChooseBox[j].hasAttribute('checked')==true){
+            var findChoose=document.querySelectorAll('.findChoose');
+            for(let j=0;j<findChoose.length;j++){
+                if(findChoose[j].style.backgroundColor=='rgb(100, 166, 247)'){
                     arr.push(draftItem[j].textID);
                     // console.log('我被选择')
                 }

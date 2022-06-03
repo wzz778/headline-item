@@ -16,27 +16,6 @@ var findReset=document.querySelector('.findReset');
 //获取总页数
 var findAllPage=document.querySelector('.findAllPage');
 var findDraft=document.querySelector('.findDraft');
-// findNum(1);
-// function findNum(allNums){
-//     $.ajax({
-//         type:'post',
-//          url:'http://localhost:8080/ToSkyNews_war_exploded/vip/queryVaguePagesYXY',
-//          data:{
-//              num:6,
-//              page:allNums,
-//              reside:user_id,
-//              thing:findDraft.value
-//         },
-//         success:function(res){
-//             console.log(res.data.总共的页数[0]);
-//             findAllPage.innerHTML=res.data.总共的页数[0];
-//         },
-//         error:function(err){
-//             console.log(err);
-//         }
-//     })
-// }
-
 
 //查询
 var empty=document.querySelector('.empty');
@@ -81,7 +60,7 @@ function findVague(nums){
                 for(let i=0;i<res.data.分页模糊查询帖子.length;i++){
                     var li=`
                         <li class="draftItem" textID="">
-                            <input type="checkbox" class="findChooseBox">
+                            <span class="findChoose"></span>
                             <div class="itemContent">
                                 <div class="title">${res.data.分页模糊查询帖子[i].postsName}</div>
                                 <div class="lastTime">上次修改的时间：<span class="time">2${res.data.分页模糊查询帖子[i].picture}</span></div>
@@ -95,16 +74,6 @@ function findVague(nums){
                     var draftItem=document.querySelectorAll('.draftItem');
                     var findItemDelete=document.querySelectorAll('.findItemDelete');
                     draftItem[i].textID=res.data.分页模糊查询帖子[i].postsID;
-                    var findChooseBox=document.querySelectorAll('.findChooseBox');
-                    findChooseBox[i].addEventListener('click',function(){
-                        if(findChooseBox[i].hasAttribute('checked')==true){
-                            findChooseBox[i].removeAttribute('checked');
-                            console.log('移除了');
-                        }else{
-                            findChooseBox[i].setAttribute('checked','checked');
-                            console.log('添加了');
-                        }
-                    })
             
                     //删除草稿
                     setTimeout(function(){
@@ -163,23 +132,29 @@ function findVague(nums){
         }
     })
 }
-
 findBtn.addEventListener('click',function(){
-    list.style.display='none';
-    find.style.display='flex';
-    page.style.display='none';
-    findPage.style.display='flex';
-    btn_1.style.display='none';
-    btn_2.style.display='inline-block';
-    findVague(1);
-    findPageNum.innerHTML=1;
+    if(findDraft.value==''){
+        sureAppear('请输入搜索内容');
+        successOk.addEventListener('click',function(){
+            sureFade();
+        })
+    }else{
+        list.style.display='none';
+        find.style.display='flex';
+        page.style.display='none';
+        findPage.style.display='flex';
+        btn_1.style.display='none';
+        btn_2.style.display='inline-block';
+        findVague(1);
+        findPageNum.innerHTML=1;
+    }
+    
 })
-// window.onload=function(){
-   
-// }
+
 var findLastPage=document.querySelector('.findLastPage');
 var findNextPage=document.querySelector('.findNextPage');
 var findPageNum=document.querySelector('.findPageNum');
+//上一页
 findLastPage.addEventListener('click',function(){
     findLastPage.setAttribute('disabled','disabled');
     setTimeout(function(){
@@ -201,6 +176,7 @@ findLastPage.addEventListener('click',function(){
         findMassDelete.style.display='inline-block';
     }
 })
+//下一页
 findNextPage.addEventListener('click',function(){
     findNextPage.setAttribute('disabled','disabled');
     setTimeout(function(){

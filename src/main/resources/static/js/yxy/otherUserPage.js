@@ -388,6 +388,8 @@ function attFun(indexAtt) {
                                     </div>
                                 </li>`;
 							fansList.insertAdjacentHTML('beforeend', li);
+							var attention=document.querySelectorAll('.attention');
+							var noAttention=document.querySelectorAll('.noAttention')
 							//点击进入其他用户页面
 							setTimeout(function() {
 								var fansItem = document.querySelectorAll('.fansItem');
@@ -480,71 +482,57 @@ function attFun(indexAtt) {
 									},
 									success: function(res_1) {
 										// console.log(res_1);
+										
+										var attBox = document.querySelectorAll('.attBox');
 										if (res_1.code == 1) {
-											var attBox = document
-												.querySelectorAll(
-												'.attBox');
-											attBox[i].firstElementChild
-												.style.display = 'block';
-											attBox[i].lastElementChild.style
-												.display = 'none';
-											attBox[i].firstElementChild
-												.addEventListener('click',
-													function(e) {
-														e.stopPropagation();
-														$.ajax({
-															type: 'post',
-															url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/addFocus',
-															data: {
-																fansID: user_id,
-																focusID: res
-																	.userID
-															},
-															success: function(
-																res_2
-																) {
-																// console.log(res_2);
-																attBox[i].firstElementChild.style.display ='none';
-																attBox[i].lastElementChild.style.display ='block';
-															},
-															error: function(err) {
-																// console.log(err);
-															}
-														})
-													})
+											attBox[i].firstElementChild.style.display = 'block';
+											attBox[i].lastElementChild.style.display = 'none';
+											
 										} else if (res_1.code == -1) {
-											var attBox = document
-												.querySelectorAll(
-												'.attBox');
-											attBox[i].firstElementChild
-												.style.display = 'none';
-											attBox[i].lastElementChild.style
-												.display = 'block';
-											attBox[i].lastElementChild
-												.addEventListener('click',
-													function(e) {
-														e.stopPropagation();
-														$.ajax({
-															type: 'post',
-															url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus',
-															data: {
-																fansID: user_id,
-																focusID: res
-																	.userID
-															},
-															success: function(
-																res_3
-																) {
-																// console.log(res_3);
-																attBox[i].lastElementChild.style.display ='none';
-																attBox[i].firstElementChild.style.display ='block';
-															},
-															error: function(err) {
-																// console.log(err);
-															}
-														})
-													})
+											attBox[i].firstElementChild.style.display = 'none';
+											attBox[i].lastElementChild.style.display = 'block';		
 										}
+										attBox[i].addEventListener('click',function(e) {
+											e.stopPropagation();
+											if(attention[i].style.display=='block'){
+												$.ajax({
+													type: 'post',
+													url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/addFocus',
+													data: {
+														fansID: user_id,
+														focusID: res.userID
+													},
+													success: function(
+														res_2
+														) {
+														// console.log(res_2);
+														attBox[i].firstElementChild.style.display ='none';
+														attBox[i].lastElementChild.style.display ='block';
+													},
+													error: function(err) {
+														// console.log(err);
+													}
+												})
+											}else{
+												$.ajax({
+													type: 'post',
+													url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus',
+													data: {
+														fansID: user_id,
+														focusID: res.userID
+													},
+													success: function(res_3) {
+														// console.log(res_3);
+														attBox[i].lastElementChild.style.display ='none';
+														attBox[i].firstElementChild.style.display ='block';
+													},
+													error: function(err) {
+														// console.log(err);
+													}
+												})
+											}
+											
+										})
 
 									},
 									error: function(err) {
@@ -760,6 +748,8 @@ function fansFun(num) {
                                     </div>
                                 </li>`;
 							fansList.insertAdjacentHTML('beforeend', li);
+							var attention=document.querySelectorAll('.attention');
+                            var noAttention=document.querySelectorAll('.noAttention')
 							//点击进入其他用户页面
 							setTimeout(function() {
 								var fansItem = document.querySelectorAll('.fansItem');
@@ -783,8 +773,7 @@ function fansFun(num) {
 										focusID: res.userID
 									},
 									success: function(suc_2) {
-										fansfans[i].innerHTML = suc_2
-										.length;
+										fansfans[i].innerHTML = suc_2.length;
 									},
 									error: function(err) {
 										// console.log(err);
@@ -800,10 +789,8 @@ function fansFun(num) {
 									},
 									success: function(res_4) {
 										// console.log(res_4);
-										fansName[i].innerHTML = res_4
-											.username;
-										fansHead[i].style.backgroundImage =
-											`url(${res_4.picture})`;
+										fansName[i].innerHTML = res_4.username;
+										fansHead[i].style.backgroundImage =`url(${res_4.picture})`;
 									},
 									error: function(err) {
 										// console.log(err);
@@ -825,98 +812,55 @@ function fansFun(num) {
 									success: function(res_1) {
 										// console.log(res_1);
 										if (res_1.code == 1) {
-											var attBox = document
-												.querySelectorAll(
-												'.attBox');
-											attBox[i].firstElementChild
-												.style.display = 'block';
-											attBox[i].lastElementChild.style
-												.display = 'none';
-											attBox[i].firstElementChild
-												.addEventListener('click',
-													function(e) {
-														e.stopPropagation();
-														$.ajax({
-															type: 'post',
-															url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/addFocus',
-															data: {
-																fansID: user_id,
-																focusID: res
-																	.userID
-															},
-															success: function(
-																res_2
-																) {
-																// console.log(res_2);
-																attBox
-																	[
-																		i]
-																	.firstElementChild
-																	.style
-																	.display =
-																	'none';
-																attBox
-																	[
-																		i]
-																	.lastElementChild
-																	.style
-																	.display =
-																	'block';
-															},
-															error: function(
-																err
-																) {
-																// console.log(err);
-															}
-														})
-													})
+											var attBox = document.querySelectorAll('.attBox');
+											attBox[i].firstElementChild.style.display = 'block';
+											attBox[i].lastElementChild.style.display = 'none';
+											
 										} else if (res_1.code == -1) {
-											var attBox = document
-												.querySelectorAll(
-												'.attBox');
-											attBox[i].firstElementChild
-												.style.display = 'none';
-											attBox[i].lastElementChild.style
-												.display = 'block';
-											attBox[i].lastElementChild
-												.addEventListener('click',
-													function(e) {
-														e.stopPropagation();
-														$.ajax({
-															type: 'post',
-															url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus',
-															data: {
-																fansID: user_id,
-																focusID: res
-																	.userID
-															},
-															success: function(
-																res_3
-																) {
-																// console.log(res_3);
-																attBox
-																	[
-																		i]
-																	.lastElementChild
-																	.style
-																	.display =
-																	'none';
-																attBox
-																	[
-																		i]
-																	.firstElementChild
-																	.style
-																	.display =
-																	'block';
-															},
-															error: function(
-																err
-																) {
-																// console.log(err);
-															}
-														})
-													})
+											var attBox = document.querySelectorAll('.attBox');
+											attBox[i].firstElementChild.style.display = 'none';
+											attBox[i].lastElementChild.style.display = 'block';
 										}
+										attBox[i].addEventListener('click',function(e) {
+											e.stopPropagation();
+											if(attention[i].style.display=='block'){
+												$.ajax({
+													type: 'post',
+													url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/addFocus',
+													data: {
+														fansID: user_id,
+														focusID: res.userID
+													},
+													success: function(res_2) {
+														// console.log(res_2);
+														attBox[i].firstElementChild.style.display ='none';
+														attBox[i].lastElementChild.style.display ='block';
+													},
+													error: function(err) {
+														// console.log(err);
+													}
+												})	
+											}else{
+												$.ajax({
+													type: 'post',
+													url: 'http://localhost:8080/ToSkyNews_war_exploded/focus/deleteFocus',
+													data: {
+														fansID: user_id,
+														focusID: res
+															.userID
+													},
+													success: function(res_3) {
+														// console.log(res_3);
+														attBox[i].lastElementChild.style.display ='none';
+														attBox[i].firstElementChild.style.display ='block';
+													},
+													error: function(err) {
+														// console.log(err);
+													}
+												})
+											}
+												
+										})
 
 									},
 									error: function(err) {
