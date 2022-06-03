@@ -123,15 +123,16 @@ function post(){
     var labelInput=document.getElementById('labelInput');
     $.ajax({
         type: "post",
-        url: "http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsByID",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/posts/getPostByID",
         data: {
             postsID: article_id
         },
         dataType: "json",
         success: function (data) {
-            $('.w-e-text').html(data.content);
-            titleInput.value=data.postsName;
-            labelInput.value=data.label
+            // console.log(data)
+            $('.w-e-text').html(data.data.content);
+            titleInput.value=data.data.postsName;
+            labelInput.value=data.data.label
         },
         err: function (result) {
             console.log('出错啦！')
