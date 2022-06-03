@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 //草稿箱模糊搜索
 var lastInfo=document.querySelector('.lastInfo');
 var findBtn=document.querySelector('.findBtn');
