@@ -137,6 +137,7 @@ body{
     width:160px;
     height:130px;
     opacity:0;
+    border-radius: 5px;
 }
 .imageDiv {
     display:inline-block;
@@ -164,10 +165,10 @@ body{
     text-align:center;
     cursor:pointer;
 }
-.cover .delbtn {
-    color:red;
-    font-size:20px;
-}
+/*.cover .delbtn {*/
+/*    color:red;*/
+/*    font-size:20px;*/
+/*}*/
 .imageDiv:hover .cover {
     display:block;
 }
@@ -175,6 +176,7 @@ body{
     display:inline-block;
     width:160px;
     height:140px;
+    border-radius: 5px;
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box;
@@ -182,7 +184,23 @@ body{
     background:#f8f8f8;
     position:relative;
     overflow:hidden;
+    box-shadow: darkgrey 2px 2px 2px;
     margin:10px;
+}
+.imageDiv{
+    width:160px;
+    height:130px;
+    border-radius: 5px;
+    box-shadow: darkgrey 2px 2px 2px;
+}
+.images{
+    margin-left: -5px;
+    border-radius: 5px;
+    width: 170px;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 #content2Nav{
     width: 300px;
@@ -252,16 +270,18 @@ body{
     background:#f8f8f8;
     position:relative;
     overflow:hidden;
+    box-shadow: darkgrey 2px 2px 2px;
+    border-radius: 5px;
     margin:10px;
 }
 .imgsDiv:hover .imgCover{
     display: block;
 }
 .imgCover{
-    width: 140px;
+    width: 160px;
     height: 30px;
     position: absolute;
-    left: 10px;
+    left: 0px;
     bottom: 0px;
     text-align: center;
     line-height: 30px;
@@ -270,7 +290,13 @@ body{
     background-color: rgba(1,1,1,0.5);
 }
 .imgs{
-    margin-left: 10px;
+    margin-left: -5px;
+    border-radius: 5px;
+    width: 170px;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 #pageBig{
     width: 260px;
@@ -408,3 +434,47 @@ body{
     margin-left: 350px;
     margin-top: 160px;
 }
+#re_status{
+    position: absolute;
+    width: 230px;
+    height: 40px;
+    top: 0px;
+    display: none;
+    margin-left: 20px;
+    line-height: 40px;
+    background-color: #3e70b7;
+}
+#re_status:hover{
+   color: #f7f9fb;
+}
+.toast-error {
+    position: absolute;
+    z-index: 10000;
+    top: 10%;
+    left: 50%;
+    width:200px;
+    transform: translateX(-50%);
+    height: 40px;
+    display: none;
+    line-height: 40px;
+    background: #d7d2d2;
+    border-radius: 5px;
+    text-align: center;
+    color: #FFFFFF;
+    animation: toast-error 0.3s 1 ease;
+}
+@keyframes toast-error {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.toast-error span{
+    color:red;
+}
+
