@@ -106,7 +106,7 @@
 }
 #silder-email{
     width: 100px;
-    height: 300px;
+    height: 170px;
     position: absolute;
     top: 65px;
     right: 200px;
@@ -244,6 +244,23 @@
     left: 400px;
     font-size: 15px;
     display: none;
+}
+#profile-silder #file{
+    position: absolute;
+    bottom: 0px;
+    height: 120px;
+    width: 200px;
+}
+.text-detail {
+    position: absolute;
+    bottom:-1px;
+    left: 50px;
+    color: #bddcf9;
+    text-align:center;
+}
+.text-detail span {
+    font-size:70px;
+    color: #bddcf9;
 }
 #touxiang button{
     width: 70px;

@@ -50,22 +50,23 @@
                     <li>未审核</li>
                 </ul>
             </div>
-            <div id="rightCenter2">
-                <div class="imgsDiv">
-                    <img class="imgs" src="../static/img/lsw/tu1.png" width="140px;height:120px">
-                </div>
-                <div class="imgsDiv">
-                    <img class="imgs" src="../static/img/lsw/tu1.png" width="140px;height:120px">
-                </div>
-                <div class="imgsDiv">
-                    <img class="imgs" src="../../static/img/lsw/tu1.png" width="140px;height:120px">
-                </div>
+            <div id="contentNavRight">
+                <input type="text" class="input_text" id="input_text" name="word" placeholder="请输入信息" />
+                <button type="submit" class="input_sub" onclick="search();">搜索</button>
             </div>
+            <div id="rightCenter2"></div>
+            <div id="pictureNum"></div>
             <div id="pageBig">
                 <button id="ago">上一页</button>
                 <a id="aa" href="javascript:;">1</a>
                 <button id="next">下一页</button>
                 <span>跳转至&nbsp;<input oninput="pictureAllNum()" value="1" style="width: 20px;" id="page"/>&nbsp;页</span>
+            </div>
+            <div id="pageBig1">
+                <button id="ago1">上一页</button>
+                <a id="aa1" href="javascript:;">1</a>
+                <button id="next1">下一页</button>
+                <span>跳转至&nbsp;<input oninput="pictureAllNum()" value="1" style="width: 20px;" id="page1"/>&nbsp;页</span>
             </div>
         </div>
     </div>
@@ -78,5 +79,5 @@
     </div>
 </body>
 <script src="../static/js/lsw/picture.js"></script>
-
+<script src="../static/js/lsw/pictureFuzzy.js"></script>
 </html>
