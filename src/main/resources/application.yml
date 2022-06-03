@@ -15,6 +15,7 @@ spring:
 #        decrypt: true
 #        driver-class-name: com.kingbase8.Driver
 
+
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -28,7 +29,12 @@ mybatis:
 server:
   port: 8080
   tomcat:
-    max_connections: 1000
+    max-connections: 10000
+  multipart:
+    # 设置 上传文件的大小
+    max-file-size: 10MB
+    # 设置 整个请求的大小
+    max-request-size: 15MB
   servlet:
     context-path: /ToSkyNews_war_exploded
   resources:
@@ -78,6 +84,4 @@ mail:
         smtp:
           ssl:
             enable: true
-
-
 

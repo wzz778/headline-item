@@ -3,7 +3,7 @@ input.value=localStorage.getItem('search_input');
 var leftcontent=document.getElementById('leftContent');
 var tab=leftcontent.querySelector('#tab');
 var list =document.querySelector('#tab').querySelectorAll('li')
-var all_sort = ["综合", "科学", "体育", "军事", "游戏", "娱乐"];
+var all_sort = ["综合", "科学", "体育", "军事", "游戏", "娱乐","图片"];
 for (let i in list) {
     list[i].onclick = function () {
         let sort = list[i].innerHTML;
@@ -16,6 +16,7 @@ for (let i in list) {
         label_count();
         sorts();
         changePage();
+        picture()
     }
 }
 // 根据帖子标签查询所有相同标签且审核通过的帖子（模糊查询）的数量
@@ -478,6 +479,39 @@ function hot_post() {
         }
     }
     localStorage.setItem("tolook", '0');
+}
+
+var paging=document.getElementById('paging')
+function picture(){
+    // paging.style.display='none'
+    let sort = sessionStorage.getItem('c-sort');
+    if(sort == all_sort[6]||sort == null) {
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost:8080/ToSkyNews_war_exploded/img/vagueQueryPicture',
+            data: {
+                thing: input.value,
+            },
+            success: function (result) {
+                console.log(result)
+                if(result.code==-1){
+                    alert('无相关搜索')
+                }else if(result.code==1){
+                    leftcontent.innerHTML = null;
+                    for (let i = 0; i < result.data.length; i++) {
+                        leftcontent.innerHTML += `
+                    <div class="imgsDiv">
+                        <img class="imgs" src='${result.data[i].userImg}' width="140px;height:120px">
+                    </div>
+                    `
+                    }
+                }
+            },
+            err: function (err) {
+                console.log(err)
+            },
+        })
+    }
 }
 
 

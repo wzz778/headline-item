@@ -10,8 +10,8 @@ var teamall = document.getElementsByName("team_all")[0];
 var teama = document.getElementsByName("team_a");
 var teamrevise = document.getElementById("team_revise_b");
 var backfade = document.getElementById("backfade");
-var team_back_max=document.getElementsByClassName('team_back_max')[0];
-let team_b=document.getElementsByClassName('team_b')[0];
+var team_back_max = document.getElementsByClassName('team_back_max')[0];
+let team_b = document.getElementsByClassName('team_b')[0];
 //重新newalert（）方法
 var alertbox = document.getElementById("alert");
 var alertfade = document.getElementById("alertfade");
@@ -35,48 +35,48 @@ for (let i = 0; i < teamf.length; i++) {
     fade[i].onclick = () => {
         teamf[i].style.display = "none";
         backfade.classList.remove('fade');
-        backfade.style.display='none';
+        backfade.style.display = 'none';
     }
 }
 teamadd.onclick = () => {
-    teamf[0].style.display= "block";
+    teamf[0].style.display = "block";
     backfade.classList.add('fade');
-    backfade.style.display='block';
+    backfade.style.display = 'block';
 }
 function teamdeletef() {
     let teamd = document.getElementsByClassName("team_delete");
-    swal({ 
-        title: "你确定删除选中人的信息?", 
-        text: "你将无法恢复该用户信息！", 
+    swal({
+        title: "你确定删除选中人的信息?",
+        text: "你将无法恢复该用户信息！",
         type: "warning",
-        showCancelButton: true, 
+        showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "确定删除！", 
+        confirmButtonText: "确定删除！",
         cancelButtonText: "取消删除！",
-        closeOnConfirm: false, 
-        closeOnCancel: false	
-        },
-        function(isConfirm){ 
-        if (isConfirm) { 
-            for (let i in teama) {
-                if (teama[i].checked) {
-                    var id = teamd[i].parentNode.parentNode.children[6].innerHTML;
-                    $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
-                        { "userID": id },
-                        function (date) {
-                            if (sessionStorage.getItem("teamfind")=="1") {
-                                teamfind() ;
-                            } else{
-                                changepage();
-                            }
-                        })
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                for (let i in teama) {
+                    if (teama[i].checked) {
+                        var id = teamd[i].parentNode.parentNode.children[6].innerHTML;
+                        $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
+                            { "userID": id },
+                            function (date) {
+                                if (sessionStorage.getItem("teamfind") == "1") {
+                                    teamfind();
+                                } else {
+                                    changepage();
+                                }
+                            })
+                    }
                 }
+                swal("删除！", "你所勾选的用户信息被删除。", "success");
+            } else {
+                swal("取消！", "你已经取消删除:", "error");
             }
-            swal("删除！", "你所勾选的用户信息被删除。","success"); 
-        } else { 
-            swal("取消！", "你已经取消删除:","error"); 
-        } 
-    });
+        });
 
 }
 //批量删除
@@ -107,41 +107,41 @@ function r() {
         n.onclick = function () {
             let us = n.parentNode.parentNode.children[1].innerHTML;
             let id = n.parentNode.parentNode.children[6].innerHTML;
-            swal({ 
-                title: "你是否确定删除" + us + "的信息?", 
-                text: "你将无法恢复该用户信息！", 
+            swal({
+                title: "你是否确定删除" + us + "的信息?",
+                text: "你将无法恢复该用户信息！",
                 type: "warning",
-                showCancelButton: true, 
+                showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确定删除！", 
+                confirmButtonText: "确定删除！",
                 cancelButtonText: "取消删除！",
-                closeOnConfirm: false, 
-                closeOnCancel: false	
-                },
-                function(isConfirm){ 
-                if (isConfirm) { 
-                    swal("删除！", "你所选的用户信息已经被删除。","success"); 
-                $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
-                { "userID": id },
-                function (date) {
-                    if (sessionStorage.getItem("teamfind")=="1") {
-                        teamfind() ;
-                    } else{
-                        changepage();
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        swal("删除！", "你所选的用户信息已经被删除。", "success");
+                        $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
+                            { "userID": id },
+                            function (date) {
+                                if (sessionStorage.getItem("teamfind") == "1") {
+                                    teamfind();
+                                } else {
+                                    changepage();
+                                }
+                            })
+                    } else {
+                        swal("取消！", "你已经取消删除:", "error");
                     }
-                })
-                } else { 
-                    swal("取消！", "你已经取消删除:","error"); 
-                } 
-            });
+                });
         }
     }
     for (let n in teamr) {
         teamr[n].onclick = function () {
-            teamf[0].style.display= "none";
-            teamf[1].style.display= "block";
+            teamf[0].style.display = "none";
+            teamf[1].style.display = "block";
             backfade.classList.add('fade');
-            backfade.style.display='block';
+            backfade.style.display = 'block';
             let us = teamd[n].parentNode.parentNode.children[1].innerHTML;
             let sexn = teamd[n].parentNode.parentNode.children[3].innerHTML;
             let sex = sexn == "男" ? 0 : 1;
@@ -149,7 +149,7 @@ function r() {
             let pl = teamd[n].parentNode.parentNode.children[5].innerHTML;
             let age = teamd[n].parentNode.parentNode.children[4].innerHTML;
             let id = teamd[n].parentNode.parentNode.children[6].innerHTML;
-            let telephone= teamd[n].parentNode.parentNode.children[7].innerHTML;
+            let telephone = teamd[n].parentNode.parentNode.children[7].innerHTML;
             let signature = teamd[n].parentNode.parentNode.children[8].innerHTML;
             let picture = teamd[n].parentNode.parentNode.children[9].innerHTML;
             tri[0].value = us;
@@ -164,41 +164,43 @@ function r() {
                 let tri = document.getElementsByClassName("team_reivse_input");
                 let ts = document.getElementsByName("team_sex");
                 let sex = ts[0].checked == true ? "男" : "女";
-                swal({ 
-                    title: "你是否确定修改该成员的信息?", 
-                    text: "你将无法恢复该用户信息！", 
+                swal({
+                    title: "你是否确定修改该成员的信息?",
+                    text: "你将无法恢复该用户信息！",
                     type: "warning",
-                    showCancelButton: true, 
+                    showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "确定修改！", 
+                    confirmButtonText: "确定修改！",
                     cancelButtonText: "取消修改！",
-                    closeOnConfirm: false, 
-                    closeOnCancel: false	
-                    },
-                    function(isConfirm){ 
-                    if (isConfirm) { 
-                        $.post('http://localhost:8080/ToSkyNews_war_exploded/users/updateUser',
-                                {"userID": id, "username": tri[0].value, 'signature':signature,'picture':picture,
-                                "telephone": telephone, "password": tri[1].value,"age": tri[2].value, "sex": sex },
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            $.post('http://localhost:8080/ToSkyNews_war_exploded/users/updateUser',
+                                {
+                                    "userID": id, "username": tri[0].value, 'signature': signature, 'picture': picture,
+                                    "telephone": telephone, "password": tri[1].value, "age": tri[2].value, "sex": sex
+                                },
                                 function (date) {
-                                    swal("修改成功！","已完成修改操作","success");
-                                    if(date.data=='修改成功！'){
+                                    swal("修改成功！", "已完成修改操作", "success");
+                                    if (date.data == '修改成功！') {
                                         teamf[1].style.display = "none";
                                         backfade.classList.remove('fade');
-                                        backfade.style.display='none';
+                                        backfade.style.display = 'none';
                                     }
-                                    if (sessionStorage.getItem("teamfind")=="1") {
-                                        teamfind() ;
-                                    } else{
+                                    if (sessionStorage.getItem("teamfind") == "1") {
+                                        teamfind();
+                                    } else {
                                         changepage();
                                     }
                                 })
-                        swal("成功！", "你已经成功修改。",
-                    "success"); 
-                    } else { 
-                        swal("取消！", "你已经取消修改:","error"); 
-                    } 
-                });
+                            swal("成功！", "你已经成功修改。",
+                                "success");
+                        } else {
+                            swal("取消！", "你已经取消修改:", "error");
+                        }
+                    });
             }
         }
     }
@@ -229,45 +231,54 @@ function changepage() {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryPagingUser',
             { 'column': pager, 'total': "10" },
             function (date) {
-                team.innerHTML = "<tr class='tmt'><th class='ms'><input type='checkbox' onchange='s()' name='team_all' value='all'></th>" +
-                    "<th class='ms'>用户名</th>" +
-                    " <th class='ml' style='display: none;'>密码</th>" +
-                    "<th class='ms'>性别</th>" +
-                    "<th class='ms'>年龄</th>" +
-                    "<th class='ml'>账号</th>" +
-                    "<th class='ml'  style='display: none;'>操作码</th>" +
-                    "<th class='ml'>邮箱</th>" +
-                    "<th class='ml'>操作</td></tr>";
-                for (let n = 0; n < date.length; n++) {
-                    team.innerHTML += "<tr><td class='ms'><input type='checkbox' name='team_a' value='all'></td>" +
-                        "<td class='ms'>" + date[n].username + "</td>" +
-                        "<td class='ml' style='display: none;'>" + date[n].password + "</td>" +
-                        "<td class='ms'>" + date[n].sex + "</td>" +
-                        "<td class='ms'>" + date[n].age + "</td>" +
-                        "<td class='ml'>" + date[n].account + "</td>" +
-                        "<td class='ml'  style='display: none;'>" + date[n].userID + "</td>" +
-                        "<td class='ml'>" + date[n].telephone + "</td>" +
-                        "<td class='ml'  style='display: none;'>" + date[n].signature+ "</td>" +
-                        "<td class='ml'  style='display: none;'>" + date[n].picture + "</td>" +
-                        "<td class='ml'><a class='mr team_revise' href='javascript:;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>修改</a>" +
-                        "<a class='md team_delete' href='javascript:;'><i class='fa fa-minus-square-o' aria-hidden='true'></i>删除</a></td></tr>";
-                    let ms = document.getElementsByClassName("ms");
-                    let ml = document.getElementsByClassName("ml");
-                    for (let i of ms) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
+                if (date.length == 0) {
+                    team.innerHTML = `   
+                    <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                        <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                        什么都没有呢 . . .
+                    </div>`;
+                } else {
+                    team.innerHTML = "<tr class='tmt'><th class='ms'><input type='checkbox' onchange='s()' name='team_all' value='all'></th>" +
+                        "<th class='ms'>用户名</th>" +
+                        " <th class='ml' style='display: none;'>密码</th>" +
+                        "<th class='ms'>性别</th>" +
+                        "<th class='ms'>年龄</th>" +
+                        "<th class='ml'>账号</th>" +
+                        "<th class='ml'  style='display: none;'>操作码</th>" +
+                        "<th class='ml'>邮箱</th>" +
+                        "<th class='ml'>操作</td></tr>";
+                    for (let n = 0; n < date.length; n++) {
+                        team.innerHTML += "<tr><td class='ms'><input type='checkbox' name='team_a' value='all'></td>" +
+                            "<td class='ms'>" + date[n].username + "</td>" +
+                            "<td class='ml' style='display: none;'>" + date[n].password + "</td>" +
+                            "<td class='ms'>" + date[n].sex + "</td>" +
+                            "<td class='ms'>" + date[n].age + "</td>" +
+                            "<td class='ml'>" + date[n].account + "</td>" +
+                            "<td class='ml'  style='display: none;'>" + date[n].userID + "</td>" +
+                            "<td class='ml'>" + date[n].telephone + "</td>" +
+                            "<td class='ml'  style='display: none;'>" + date[n].signature + "</td>" +
+                            "<td class='ml'  style='display: none;'>" + date[n].picture + "</td>" +
+                            "<td class='ml'><a class='mr team_revise' href='javascript:;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>修改</a>" +
+                            "<a class='md team_delete' href='javascript:;'><i class='fa fa-minus-square-o' aria-hidden='true'></i>删除</a></td></tr>";
+                        let ms = document.getElementsByClassName("ms");
+                        let ml = document.getElementsByClassName("ml");
+                        for (let i of ms) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
+                        }
+                        for (let i of ml) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
                         }
                     }
-                    for (let i of ml) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
-                        }
-                    }
+                    //获取一页的用户信息
+                    r();
+
                 }
-                //获取一页的用户信息
-                r();
             })
-    } else if (page.value == ""||sessionStorage.getItem('tpagen')==null) { } 
+    } else if (page.value == "" || sessionStorage.getItem('tpagen') == null) { }
     else {
         swal("请输入合理的页数！");
     }
@@ -290,40 +301,46 @@ a[0].onclick = () => {
 }
 $("#add_number").click(function () {
     let input = document.getElementsByClassName("registerinput");
-    let have=0;
-    for(let n of input){
-        if(n.value==''){
+    let have = 0;
+    for (let n of input) {
+        if (n.value == '') {
             swal("请输入完整内容！");
-            have=1;
+            have = 1;
             break;
         };
     }
-    if(have==0){
-        var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        var mailJudge=mailLimit.test(input[2].value);
-        if(mailJudge==true){
-            $.post('http://localhost:8080/ToSkyNews_war_exploded/users/addUser',
-            {
-                "username": input[0].value, "age": '8', "password": input[1].value,
-                "picture": 'https://linxun-1310915694.cos.ap-shanghai.myqcloud.com/toSkyNews/20220429192703_none.jpg',
-                "sex": '男', "signature": '无', "telephone": input[2].value
-            },
-            function (date) {
-                if (date.message == "success") {
-                    swal("添加成功!");
-                    for (let n of input) {
-                        n.value = "";
-                        backfade.classList.remove('fade');
-                        backfade.style.display='none';
-                    }
-    
-                    changepage();
-                } else {
-                    swal(date.message);
-                }
-            })
-        }else{
-            swal('您的邮箱格式输入错误!');
+    if (have == 0) {
+        var mailLimit = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        var passLimit = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+        var mailJudge = mailLimit.test(input[2].value);
+        var passJudge = passLimit.test(input[1].value);
+        if (mailJudge == true) {
+            if (passJudge == true) {
+                $.post('http://localhost:8080/ToSkyNews_war_exploded/users/addUser',
+                    {
+                        "username": input[0].value, "age": '8', "password": input[1].value,
+                        "picture": 'https://linxun-1310915694.cos.ap-shanghai.myqcloud.com/toSkyNews/20220429192703_none.jpg',
+                        "sex": '男', "signature": '无', "telephone": input[2].value
+                    },
+                    function (date) {
+                        if (date.message == "success") {
+                            swal("添加成功!");
+                            for (let n of input) {
+                                n.value = "";
+                                backfade.classList.remove('fade');
+                                backfade.style.display = 'none';
+                            }
+
+                            changepage();
+                        } else {
+                            swal(date.message);
+                        }
+                    })
+            } else {
+                swal("添加失败！", "请输入的字母加数字6~12位的密码!","error"); 
+            }
+        } else {
+            swal("添加失败！", '您的邮箱格式输入错误!',"error"); 
         }
     }
 });
@@ -351,64 +368,64 @@ function teamfind() {
     } else {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryVagueUser', { 'thing': name },
             function (date) {
-                if (date.length==0) {
-                    team.innerHTML =`   
+                if (date.length == 0) {
+                    team.innerHTML = `   
                     <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
                         <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
                         什么都没有呢 . . .
                     </div>`;
-                }else{
-                team.innerHTML = "<tr class='tmt'><th class='ms'><input type='checkbox' onchange='s()' name='team_all' value='all'></th>" +
-                    "<th class='ms'>用户名</th>" +
-                    " <th class='ml' style='display: none;'>密码</th>" +
-                    "<th class='ms'>性别</th>" +
-                    "<th class='ms'>年龄</th>" +
-                    "<th class='ml'>电话</th>" +
-                    "<th class='ml'  style='display: none;'>操作码</th>" +
-                    "<th class='ml'>邮箱</th>" +
-                    "<th class='ml'>操作</td></tr>";
-                for (let n = 0; n < date.length; n++) {
-                    team.innerHTML += "<tr><td class='ms'><input type='checkbox' name='team_a' value='all'></td>" +
-                        "<td class='ms'>" + date[n].username + "</td>" +
-                        "<td class='ml' style='display: none;'>" + date[n].password + "</td>" +
-                        "<td class='ms'>" + date[n].sex + "</td>" +
-                        "<td class='ms'>" + date[n].age + "</td>" +
-                        "<td class='ml'>" + date[n].account + "</td>" +
-                        "<td class='ml'  style='display: none;'>" + date[n].userID + "</td>" +
-                        "<td class='ml'>" + date[n].telephone + "</td>" +
-                        "<td class='ml'  style='display: none;'>" + date[n].signature+ "</td>" +
-                        "<td class='ml'  style='display: none;'>" + date[n].picture + "</td>" +
-                        "<td class='ml'><a class='mr team_revise' href='javascript:;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>修改</a>" +
-                        "<a class='md team_delete' href='javascript:;'><i class='fa fa-minus-square-o' aria-hidden='true'></i>删除</a></td></tr>";
-                    let ms = document.getElementsByClassName("ms");
-                    let ml = document.getElementsByClassName("ml");
-                    for (let i of ms) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
+                } else {
+                    team.innerHTML = "<tr class='tmt'><th class='ms'><input type='checkbox' onchange='s()' name='team_all' value='all'></th>" +
+                        "<th class='ms'>用户名</th>" +
+                        " <th class='ml' style='display: none;'>密码</th>" +
+                        "<th class='ms'>性别</th>" +
+                        "<th class='ms'>年龄</th>" +
+                        "<th class='ml'>电话</th>" +
+                        "<th class='ml'  style='display: none;'>操作码</th>" +
+                        "<th class='ml'>邮箱</th>" +
+                        "<th class='ml'>操作</td></tr>";
+                    for (let n = 0; n < date.length; n++) {
+                        team.innerHTML += "<tr><td class='ms'><input type='checkbox' name='team_a' value='all'></td>" +
+                            "<td class='ms'>" + date[n].username + "</td>" +
+                            "<td class='ml' style='display: none;'>" + date[n].password + "</td>" +
+                            "<td class='ms'>" + date[n].sex + "</td>" +
+                            "<td class='ms'>" + date[n].age + "</td>" +
+                            "<td class='ml'>" + date[n].account + "</td>" +
+                            "<td class='ml'  style='display: none;'>" + date[n].userID + "</td>" +
+                            "<td class='ml'>" + date[n].telephone + "</td>" +
+                            "<td class='ml'  style='display: none;'>" + date[n].signature + "</td>" +
+                            "<td class='ml'  style='display: none;'>" + date[n].picture + "</td>" +
+                            "<td class='ml'><a class='mr team_revise' href='javascript:;'><i class='fa fa-pencil-square-o' aria-hidden='true'></i>修改</a>" +
+                            "<a class='md team_delete' href='javascript:;'><i class='fa fa-minus-square-o' aria-hidden='true'></i>删除</a></td></tr>";
+                        let ms = document.getElementsByClassName("ms");
+                        let ml = document.getElementsByClassName("ml");
+                        for (let i of ms) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
+                        }
+                        for (let i of ml) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
                         }
                     }
-                    for (let i of ml) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
-                        }
-                    }
+                    //获取一页的用户信息
+                    r();
                 }
-                //获取一页的用户信息
-                r();
-            }
             })
-        team_b.style.display='none';
-        team_back_max.style.display='block';
+        team_b.style.display = 'none';
+        team_back_max.style.display = 'block';
     }
 }
 //查找页面栏目
 sessionStorage.setItem("teamfind", '0');
-function backpagen1(){
+function backpagen1() {
     sessionStorage.setItem("teamfind", '0');
-    document.getElementsByClassName("team_find_input")[0].value='';
+    document.getElementsByClassName("team_find_input")[0].value = '';
     changepage();
-    team_b.style.display=' flex';
-    team_back_max.style.display='none';
+    team_b.style.display = ' flex';
+    team_back_max.style.display = 'none';
 }
 changepage();
 

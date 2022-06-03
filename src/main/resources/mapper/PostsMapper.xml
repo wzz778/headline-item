@@ -235,5 +235,8 @@
     <delete id="deleteAllMessagesByPostsID" parameterType="int">
       delete from tosky.messages where postsID=#{postsID}
    </delete>
+    <select id="getPostByID" resultType="Posts">
+        select * from tosky.posts where postsID=#{postsID}
+    </select>
 
 </mapper>

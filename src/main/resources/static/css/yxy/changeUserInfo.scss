@@ -2,6 +2,9 @@
     padding: 0;
     margin: 0;
 }
+body{
+    height: 100%;
+}
 .bigBox{
     display: flex;
     justify-content: space-around;
@@ -16,7 +19,7 @@
         height: 0px;
         z-index: 99;
         overflow: hidden;
-        top: 0;
+        top: 120px;
         background-color: #fff;
         box-shadow: 0 10px 30px rgba(175, 169, 169, 0.4);
         border-radius: 10px;
@@ -55,7 +58,7 @@
         height: 0px;
         z-index: 99;
         overflow: hidden;
-        top: 0;
+        top: 120px;
         background-color: #fff;
         box-shadow: 0 10px 30px rgba(175, 169, 169, 0.4);
         border-radius: 10px;
@@ -94,7 +97,7 @@
         height: 0px;
         z-index: 99;
         overflow: hidden;
-        top: 0;
+        top: 120px;
         background-color: #fff;
         box-shadow: 0 10px 30px rgba(175, 169, 169, 0.4);
         border-radius: 10px;
@@ -191,7 +194,7 @@
         position: relative;
         width: 400px;
         height: 650px;
-        margin-top: 60px;
+        margin-top: 50px;
         background-color: rgb(255, 255, 255);
         box-shadow: 0 10px 30px rgba(175, 169, 169, 0.4);
         border: 1px solid transparent;

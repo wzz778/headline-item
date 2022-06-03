@@ -299,4 +299,12 @@ public class postsController {
         userService.upDrafts(reside);
         return Response.ok("发布成功！");
     }
+//    通过帖子id获取帖子
+    @ApiOperation(value = "通过帖子id获取帖子", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/getPostByID")
+    @ResponseBody
+    @ApiImplicitParam(name="postsID",value = "帖子id")
+    public Response getPostByID(int postsID)  {
+        return  postsService.getPostByID(postsID);
+    }
 }

@@ -596,3 +596,27 @@
 .wer{
     background-color: #e3e4e5;
 }
+.imgsDiv{
+    display:inline-block;
+    width:160px;
+    height:130px;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    border:1px dashed darkgray;
+    background:#f8f8f8;
+    position:relative;
+    overflow:hidden;
+    box-shadow: darkgrey 2px 2px 2px;
+    border-radius: 5px;
+    margin:10px;
+}
+.imgs{
+    margin-left: -5px;
+    border-radius: 5px;
+    width: 170px;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}

@@ -4,7 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ViewAndModel {
+public class view {
+
     @RequestMapping("/about_title")
     public String q1(){
         return "/about_title";
@@ -16,10 +17,6 @@ public class ViewAndModel {
     @RequestMapping("/changeUserInfo")
     public String a1(){
         return "/changeUserInfo";
-    }
-    @RequestMapping("/error")
-    public String q3(){
-        return "/error";
     }
     @RequestMapping("/forgetPass")
     public String aaa(){

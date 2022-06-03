@@ -51,38 +51,38 @@ $.get('http://localhost:8080/ToSkyNews_war_exploded/collections/queryFeedbackCou
 var articlall = document.getElementsByName("feedback_all")[0];
 function feedbackdelete() {
     var fa = document.getElementsByName("feedback_a");
-    swal({ 
-        title: "你确定删除选中反馈信息?", 
-        text: "你将无法恢复该反馈信息！", 
+    swal({
+        title: "你确定删除选中反馈信息?",
+        text: "你将无法恢复该反馈信息！",
         type: "warning",
-        showCancelButton: true, 
+        showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "确定删除！", 
+        confirmButtonText: "确定删除！",
         cancelButtonText: "取消删除！",
-        closeOnConfirm: false, 
-        closeOnCancel: false	
-        },
-        function(isConfirm){ 
-        if (isConfirm) { 
-            for (let i in fa) {
-            if (fa[i].checked) {
-                var id = fa[i].parentNode.parentNode.children[1].innerHTML;
-                $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/deleteFeedback',
-                    { "feedbackID": id },
-                    function (date) {
-                        if (sessionStorage.getItem("feedbackfind")=="1") {
-                            on_feedback() ;
-                        } else{
-                            allbegin();
-                        }
-                    })
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+        function (isConfirm) {
+            if (isConfirm) {
+                for (let i in fa) {
+                    if (fa[i].checked) {
+                        var id = fa[i].parentNode.parentNode.children[1].innerHTML;
+                        $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/deleteFeedback',
+                            { "feedbackID": id },
+                            function (date) {
+                                if (sessionStorage.getItem("feedbackfind") == "1") {
+                                    on_feedback();
+                                } else {
+                                    allbegin();
+                                }
+                            })
+                    }
+                }
+                swal("删除！", "你所勾选的反馈信息被删除。", "success");
+            } else {
+                swal("取消！", "你已经取消删除:", "error");
             }
-        }
-            swal("删除！", "你所勾选的反馈信息被删除。","success"); 
-        } else { 
-            swal("取消！", "你已经取消删除:","error"); 
-        } 
-    });
+        });
 }
 // 展示页数，个数
 var feedback_b = document.getElementsByClassName('feedback_b')[0];
@@ -129,16 +129,23 @@ function allbegin() {
             function (date) {
                 let tbody = document.getElementsByClassName("feedback_main")[0].getElementsByTagName("tbody")[0];
                 tbody.innerHTML = null;
-                for (let n = 0; n < date.length; n++) {
-                    let status;
-                    if (date[n].userOr == 0) {
-                        status = "未回复"
-                    } else if (date[n].userOr == -1) {
-                        status = "用户未接收";
-                    } else {
-                        status = "用户已接收";
-                    }
-                    tbody.innerHTML += `
+                if (date.length == 0) {
+                    tbody.innerHTML = `   
+                        <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
+                            <i class="fa fa-files-o" aria-hidden="true" style="padding-bottom: 10px;color: #68b0f3;font-size: 40px;"></i></br>
+                            什么都没有呢 . . .
+                        </div>`;
+                } else {
+                    for (let n = 0; n < date.length; n++) {
+                        let status;
+                        if (date[n].userOr == 0) {
+                            status = "未回复"
+                        } else if (date[n].userOr == -1) {
+                            status = "用户未接收";
+                        } else {
+                            status = "用户已接收";
+                        }
+                        tbody.innerHTML += `
                 <tr>
                     <td class='fms'><input type='checkbox' name='feedback_a' value='all'></td>
                     <td class="fms none">${date[n].feedbackID}</td>
@@ -155,21 +162,22 @@ function allbegin() {
                     </td>
                 </tr>
                 `;
-                    let ms = document.getElementsByClassName("fms");
-                    let ml = document.getElementsByClassName("fml");
-                    for (let i of ms) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
+                        let ms = document.getElementsByClassName("fms");
+                        let ml = document.getElementsByClassName("fml");
+                        for (let i of ms) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
+                        }
+                        for (let i of ml) {
+                            if (i.innerHTML == "null" || i.innerHTML == "undefined") {
+                                i.innerHTML = " ";
+                            }
                         }
                     }
-                    for (let i of ml) {
-                        if (i.innerHTML == "null" || i.innerHTML == "undefined") {
-                            i.innerHTML = " ";
-                        }
-                    }
+                    //获取一页的用户信息
+                    allchange2();
                 }
-                //获取一页的用户信息
-                allchange2();
             })
     } else if (apage.value == "" || sessionStorage.getItem('fpagen') == null) { }
     else {
@@ -256,17 +264,17 @@ function feedback_to() {
             function (date) {
                 console.log(date);
                 if (date.message == 'success') {
-                    swal("管理员回复成功","回复成功","success"); 
+                    swal("管理员回复成功", "回复成功", "success");
                     feedback_fade.style.top = "-500px";
                     backfade.classList.remove('fade');
                     backfade.style.display = 'none';
-                    if (sessionStorage.getItem("feedbackfind")=="1") {
+                    if (sessionStorage.getItem("feedbackfind") == "1") {
                         on_feedback();
-                    } else{
+                    } else {
                         allbegin();
                     }
                 } else {
-                    swal("管理员回复失败！","error"); 
+                    swal("管理员回复失败！", "error");
                 }
             })
     } else {
@@ -301,7 +309,7 @@ function allchange2() {
             backfade.style.display = 'block';
             feedback_fade.style.top = "20vh";
             feedback_text.innerHTML = this.parentNode.parentNode.children[6].innerHTML;
-            feedback_reply.innerHTML = this.parentNode.parentNode.children[7].innerHTML==" "?"":this.parentNode.parentNode.children[7].innerHTML;
+            feedback_reply.innerHTML = this.parentNode.parentNode.children[7].innerHTML == " " ? "" : this.parentNode.parentNode.children[7].innerHTML;
             sessionStorage.setItem('feedbackid', this.parentNode.parentNode.children[1].innerHTML);
         }
     }
@@ -335,7 +343,7 @@ feedback_t_b.onmousemove = function () {
 sessionStorage.setItem("feedbackfind", '0');
 function backpagen3() {
     sessionStorage.setItem("feedbackfind", '0');
-    document.getElementsByClassName("feedback_find_input")[0].value='';
+    document.getElementsByClassName("feedback_find_input")[0].value = '';
     allbegin();
     feedback_b.style.display = ' flex';
     feedback_back_max.style.display = 'none';
