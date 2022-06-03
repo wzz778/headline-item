@@ -44,13 +44,10 @@
                     </div>
                 </div>
                 <div id="silder-email">
-                    <li style="margin-top: 5px;">系统通知</li>
+                    <li style="margin-top: 5px;" onclick="goPic()">图片管理</li>
                     <li>评论</li>
                     <li>粉丝</li>
                     <li>点赞</li>
-                    <li>@我</li>
-                    <li>私信</li>
-                    <li>问答邀请</li>
                 </div>
                 <div id="silder-user">
                     <div id="silder-user-top">
@@ -110,8 +107,12 @@
             <input type="text" id="answer" name="CheckResult" hidden/>
         </div>
         <div id="profile-silder">
-            <img id="img" accept="image/jpg,image/jpeg,image/png" alt="" style="width: 160px;height: 110px;;">
-            <input type="file" id="file" name="image" size="50">
+            <img id="img" accept=".png,.jpg,.jpeg,image/png,image/jpg,image/jpeg" alt="" style="width: 160px;height: 130px;;">
+            <input type="file" style="opacity: 0;z-index: 999" id="file" name="image" size="50">
+            <div class="text-detail" id="text-detail">
+                <span>+</span>
+                <p>点击上传</p>
+            </div>
         </div>
         <div id="tailoring-silder">
             <div id="tailoring">
@@ -170,4 +171,5 @@
 <script src="../static/js/lsw/wangEditor.min.js"></script>
 <script src="../static/js/lsw/jquery.min.js"></script>
 <script src="../static/js/lsw/publish.js"></script>
+
 </html>

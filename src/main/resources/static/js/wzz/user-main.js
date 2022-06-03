@@ -153,7 +153,7 @@ window.addEventListener('scroll', function () {
         all_top.classList.add("down");
         all_top.style.display = "block";
         hot.style.position = 'fixed';
-        hot.style.top = '250px';
+        hot.style.top = '280px';
         id_card.style.position = 'fixed';
         id_card.style.top = '60px';
     } else {
@@ -268,9 +268,9 @@ function all_a() {
                                         <span>${date[n].picture}</span>
                                         <span style="display: none">${date[n].postsID}</span>
                                     </div>
-                                <img class="column_img"
-                                 src="../static/img/wzz/header.jpg" 
-                                alt="">
+                                <div class='column_img_div'>
+                                    <img class="column_img" src="../static/img/wzz/header.jpg" alt="">
+                                </div>
                         </a>
                     `;
                     let columnnew = document.getElementsByClassName('column_news')[n];
@@ -374,9 +374,9 @@ function chance_sort() {
                                                 <span>${date[n].picture}</span>
                                                 <span style="display: none">${date[n].postsID}</span>
                                             </div>
-                                        <img class="column_img"
-                                        src="../static/img/wzz/header.jpg" 
-                                        alt="">
+                                            <div class='column_img_div'>
+                                            <img class="column_img" src="../static/img/wzz/header.jpg" alt="">
+                                        </div>
                                 </a>
                             `;
                             let columnnew = document.getElementsByClassName('column_news')[n];

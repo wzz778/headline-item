@@ -37,6 +37,11 @@ public class CommentController {
     @Autowired
     private ManagerService managerService;
 
+
+    /*****************************************接口的优化和整合********************************************************/
+
+    /*****************************************接口的优化和整合********************************************************/
+
     @ApiOperation(value = "发布评论", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addComment")
     @ResponseBody
@@ -46,15 +51,6 @@ public class CommentController {
             @ApiImplicitParam(name="makerID",value = "评论人id"),
     })
     public Response addComment(String contain, Integer postsID, Integer makerID) {
-//        if (StringUtils.isEmpty(contain) || StringUtils.isEmpty(picture)|| StringUtils.isEmpty(commentTime)|| StringUtils.isEmpty(commentName)){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(contain," ") || StringUtils.startsWith(picture," ")|| StringUtils.startsWith(commentName," ")|| StringUtils.startsWith(commentTime," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
-//        if(authorID==null||makerID==null||postsID==null){
-//            throw new CustomException("类型为空！");
-//        }
         Comment comment=new Comment(contain,postsID,makerID);
         commentService.addComment(comment);
         return Response.ok("评论成功！");
@@ -66,9 +62,6 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子id")
     public List<Comment> list(Integer postsID)  {
-//        if(postsID==null){
-//            throw new CustomException("类型为空！");
-//        }
         List <Comment> list=commentService.queryCommentByPosts(postsID);
         return list;
     }
@@ -79,9 +72,6 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParam(name="commentID",value = "评论ID")
     public Response deletePosts(Integer commentID)  {
-//        if(commentID==null){
-//            throw new CustomException("类型为空！");
-//        }
         commentService.deleteCommentById(commentID);
         return Response.ok("删除成功！");
     }
@@ -91,9 +81,6 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParam(name="postsID",value = "帖子ID")
     public int queryCommentCounts(Integer postsID){
-//        if(postsID==null){
-//            throw new CustomException("类型为空！");
-//        }
         return commentService.queryCommentCount(postsID);
     }
 
@@ -107,15 +94,6 @@ public class CommentController {
             @ApiImplicitParam(name="makerID",value = "写这条评论的人的id")
     })
     public Response addReviews(Integer parentID,Integer childID,String contain,Integer makerID) {
-//        if (StringUtils.isEmpty(contain)){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(contain," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
-//        if(parentID==null||makerID==null){
-//            throw new CustomException("类型为空！");
-//        }
         if(childID==null){
             childID=0;
         }
@@ -130,9 +108,6 @@ public class CommentController {
     @ResponseBody
     @ApiImplicitParam(name="reviewsID",value = "子评论ID")
     public Response deleteReviews(Integer reviewsID) {
-//        if(reviewsID==null){
-//            throw new CustomException("类型为空！");
-//        }
         commentService.deleteReviews(reviewsID);
         return Response.ok("删除子评论成功！");
     }
@@ -144,29 +119,4 @@ public class CommentController {
     public Response list1(Integer parentID) {
         return Response.ok(commentService.queryReviewsByParent(parentID));
     }
-
-    /********************************
-
-    @ApiOperation(value = "通过reviewsID查询某一条子评论", notes = "获取地址", httpMethod = "POST")
-    @PostMapping("/queryReviewsByReviewsID")
-    @ResponseBody
-    public Reviews list7(int reviewsID){
-        return commentService.queryReviewsByReviewsID(reviewsID);
-    }
-
-    @ApiOperation(value = "通过parentID，childID，makerId，contain，times查询某一条子评论的reviewsID", notes = "获取地址", httpMethod = "POST")
-    @PostMapping("/queryReviewsIDByAll")
-    @ResponseBody
-    public int a1 (int parentID, String contain,String times,int makerID){
-
-        return commentService.queryReviewsIDByAll(parentID,contain,times,makerID);
-    }
-    @ApiOperation(value = "通过reviewsID修改childID", notes = "获取地址", httpMethod = "POST")
-    @PostMapping("/updateChildID")
-    @ResponseBody
-    public Response list4(int childID)  {
-      commentService.updateChildID(childID);
-      return Response.ok("success");
-    }
-    */
 }

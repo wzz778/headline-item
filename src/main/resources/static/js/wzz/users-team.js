@@ -42,7 +42,6 @@ teamadd.onclick = () => {
     teamf[0].style.display= "block";
     backfade.classList.add('fade');
     backfade.style.display='block';
-
 }
 function teamdeletef() {
     let teamd = document.getElementsByClassName("team_delete");

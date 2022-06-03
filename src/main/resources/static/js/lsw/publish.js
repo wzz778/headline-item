@@ -117,8 +117,8 @@ sure.onclick=function(){
     shadow2.style.display = "none";
     successTip.style.display = "none";
 }
+var profile_silder=document.getElementById('profile-silder')
 function check(radio) {
-    var profile_silder=document.getElementById('profile-silder')
     document.getElementById("answer").value = radio
     if(radio=='是'){
         profile_silder.style.display='block'
@@ -127,6 +127,16 @@ function check(radio) {
     }
     window.localStorage.yesNo=radio;
 }
+
+var profile_silder=document.getElementById('profile-silder')
+var text_detail = document.querySelector('.text-detail')
+profile_silder.onmouseover = function () {
+    text_detail.style.display = 'block';
+}
+profile_silder.onmouseout = function () {
+    text_detail.style.display = 'none';
+}
+
 var img=document.getElementById("img");
 var timeDiv=document.getElementById('timeDiv');
 var inputImg=document.getElementById('file')
@@ -136,11 +146,24 @@ inputImg.onclick=function(){
     tailoring_silder.style.display='block'
     tailoring.style.display='block'
 }
+
 inputImg.onchange = function () {
     var ff = $("#file").val();
-    console.log(ff)
-    if(/.(gif|jpg|jpeg|png|gif|jpg|png)$/.test(ff)){
-        //获取文件
+    // var file = document.getElementById('#file').value;
+    if (ff == null || ff == "") {
+        alert("请选择要上传的文件!");
+        return false;
+    }
+    //定义允许上传的文件类型
+    var allow_ext = ".jpg|.png|.gif";
+    //提取上传文件的类型
+    var ext_name = ff.substring(ff.lastIndexOf("."));
+    //判断上传文件类型是否允许上传
+    if (allow_ext.indexOf(ext_name + "|") == -1) {
+        var errMsg = "该文件不允许上传，请上传" + allow_ext + "类型的文件,当前文件类型为：" + ext_name;
+        alert(errMsg);
+        return false;
+    }
         var file = this.files[0];
         //创建读取文件对象
         var reader = new FileReader();
@@ -154,12 +177,7 @@ inputImg.onchange = function () {
             // 更换cropper的图片
             cropper.replace(replaceSrc, false);// 默认false，适应高度，不失真
         }
-    }else{
-        tip.innerHTML = "图片类型错误，请重新上传"
-        shadow2.style.display = "block";
-        successTip.style.display = "block";
-        img.src = '';
-    }
+
 }
 var cropper =  new Cropper($('#tailoringImg')[0],{
     aspectRatio: 0 / 0,
@@ -483,6 +501,9 @@ function today() {
     var M = today.getMinutes();
     var S = today.getSeconds();
     return h + "-" + m + "-" + d + " " + H + ":" + M + ":" + S;
+}
+function goPic() {
+    location.href = "picture.html";
 }
 
 

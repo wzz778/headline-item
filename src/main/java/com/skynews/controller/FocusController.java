@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags="关注粉丝类")
 @Controller
@@ -60,48 +63,58 @@ public class FocusController {
             @ApiImplicitParam(name="ID",value = "对应id"),
             @ApiImplicitParam(name="num",value = "开始查询")
     })
-    public List<Focus>list12(String thing,Integer focusID,Integer num) {
-        List<Focus> list;
+    public Map<String,List> list12(String thing, Integer ID, Integer num) {
+        List<Focus> list=new LinkedList<>();
+        Map<String,List>map=new HashMap<>();
+        List<Integer>list1 =new LinkedList<>();
+        int count;
         if(thing.equals("1")){
-            list = focusService.queryAllFansPage(focusID, num);
+            list = focusService.queryAllFansPage(ID, num);
+            count=focusService.querySumFans(ID);
         }else{
-            list = focusService.queryAllFocusPage(focusID, num);
+            list = focusService.queryAllFocusPage(ID, num);
+            count=focusService.querySumFocus(ID);
         }
-        return list;
+        list1.add(count);
+        map.put("总数量",list1);
+        map.put("查询到的粉丝或关注",list);
+        return map;
     }
 
-    @ApiOperation(value = "（整合）查询某个用户所有粉丝或关注", notes = "获取地址", httpMethod = "POST")
-    @PostMapping("/queryAllFansOrFocus")
-    @ResponseBody
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="ID",value = "对应id"),
-            @ApiImplicitParam(name="thing",value = "查询粉丝输入1，查询关注输入-1"),
-    })
-    public List<Focus>list3(String thing,Integer ID)  {
-        List<Focus> list;
-        if(thing.equals("1")){
-            list = focusService.queryAllFans(ID);
-        }else{
-            list = focusService.queryAllFocus(ID);
-        }
-        return list;
-    }
+//    @ApiOperation(value = "（整合）查询某个用户所有粉丝或关注", notes = "获取地址", httpMethod = "POST")
+//    @PostMapping("/queryAllFansOrFocus")
+//    @ResponseBody
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name="ID",value = "对应id"),
+//            @ApiImplicitParam(name="thing",value = "查询粉丝输入1，查询关注输入-1"),
+//    })
+//    public List<Focus>list3(String thing,Integer ID)  {
+//        List<Focus> list;
+//        if(thing.equals("1")){
+//            list = focusService.queryAllFans(ID);
+//        }else{
+//            list = focusService.queryAllFocus(ID);
+//        }
+//        return list;
+//    }
 
-    @ApiOperation(value = "（整合）根据用户id获取用户的粉丝数或关注数（数量）", notes = "获取地址", httpMethod = "POST")
-    @PostMapping("/queryAllSumFansOrFocus")
-    @ResponseBody
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="ID",value = "你想要查询的此用户的粉丝数的此用户的id(如果此id不存在则返回0)"),
-            @ApiImplicitParam(name="thing",value = "查询粉丝数输入1，查询关注数输入-1"),
-    })
-    public int queryAllSumFans1(String thing,Integer ID){
-        if(thing.equals("1")){
-            return focusService.querySumFans(ID);
-        }else{
-            return focusService.querySumFocus(ID);
-        }
-    }
+//    @ApiOperation(value = "（整合）根据用户id获取用户的粉丝数或关注数（数量）", notes = "获取地址", httpMethod = "POST")
+//    @PostMapping("/queryAllSumFansOrFocus")
+//    @ResponseBody
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name="ID",value = "你想要查询的此用户的粉丝数的此用户的id(如果此id不存在则返回0)"),
+//            @ApiImplicitParam(name="thing",value = "查询粉丝数输入1，查询关注数输入-1"),
+//    })
+//    public int queryAllSumFans1(String thing,Integer ID){
+//        if(thing.equals("1")){
+//            return focusService.querySumFans(ID);
+//        }else{
+//            return focusService.querySumFocus(ID);
+//        }
+//    }
     /***********************************************************************************************/
+
+
     @ApiOperation(value = "关注某用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addFocus")
     @ResponseBody
@@ -158,9 +171,6 @@ public class FocusController {
             @ApiImplicitParam(name="fansID",value = "粉丝id"),
     })
     public Response queryCollectionBoolean(Integer focusID, Integer fansID){
-//        if(fansID==null||focusID==null){
-//            throw new CustomException("类型为空！");
-//        }
         Focus focus=new Focus(focusID,fansID);
         int a=focusService.queryFocus(focus);
         if(a==1){

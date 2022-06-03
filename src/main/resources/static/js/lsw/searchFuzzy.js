@@ -368,6 +368,7 @@ function allchange() {
             var id = item_title[i].querySelector('.postsID').innerHTML;
             console.log(id)
             localStorage.setItem('article_id', id)
+            window.location.assign(`../templates/recomments.html?article_id=${id}`)
 
         }
     }
@@ -467,13 +468,13 @@ function queryData() {
 
 // 点击热搜跳转页面
 var hot_posts = document.getElementsByClassName('hot_posts')
-
 function hot_post() {
     for (let i in hot_posts) {
         hot_posts[i].onclick = function () {
             window.location.assign('recomments.html');
             let id = hot_posts[i].querySelector('.postsID').innerHTML;
             localStorage.setItem('article_id', id)
+            window.location.assign(`../templates/recomments.html?article_id=${id}`)
         }
     }
     localStorage.setItem("tolook", '0');

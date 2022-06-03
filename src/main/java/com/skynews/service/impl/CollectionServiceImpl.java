@@ -65,8 +65,14 @@ public class CollectionServiceImpl implements CollectionService {
             SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("*******************"+postsID+"*******************");
             System.out.println("格式化后的时间------->"+format.format(date));
-            Messages messages=new Messages(reside,postsName,userID,authorID,format.format(date),postsID);
-            collectionMapper.setMessages(messages);
+            Messages m=alikeMapper.queryMessagesID(reside,userID,postsID);
+            if(m!=null){
+                int messagesID=m.getMessagesID();
+                alikeMapper.updateMessages(format.format(date),messagesID);
+            }else{
+                Messages messages=new Messages(reside,postsName,userID,authorID,format.format(date),postsID);
+                collectionMapper.setMessages(messages);
+            }
             /******** messages *********/
             collectionMapper.addCollection(collections);
             return 1;

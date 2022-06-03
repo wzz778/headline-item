@@ -4,6 +4,7 @@ import com.skynews.pojo.Feedback;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FeedbackService {
 
@@ -33,4 +34,7 @@ public interface FeedbackService {
 
     //查询所有管理员未回复的反馈
     List<Feedback> queryManagerOrFeedback();
+
+    //（整合和优化）查询所有反馈（分页查询）
+    Map<String,List> queryFeedbackBetter(int page, int num);
 }

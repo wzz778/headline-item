@@ -134,9 +134,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "messagesID", value = "信息id")
     public Response update3(Integer messagesID){
-//        if (messagesID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.deleteMessages(messagesID);
         return Response.ok("删除成功！");
     }
@@ -144,12 +141,6 @@ public class AlikeController {
 
     /*************************/
 
-//    @ApiOperation(value = "huoqu信息", notes = "获取地址", httpMethod = "POST")
-//    @PostMapping("/queryIDMessages")
-//    @ResponseBody
-//    public Messages query(String reside, int userID, int postsID) throws CustomException {
-//        return alikeService.queryMessagesID(reside, userID, postsID);
-//    }
 
     @ApiOperation(value = "分页查询某个用户下的所有信息（被收藏或点赞)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryMessagesPages")
@@ -192,9 +183,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "userID", value = "待删除的用户id")
     public Response update8(Integer userID){
-//        if (userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.deleteAllMessagesByUserID(userID);
         return Response.ok("删除成功！");
     }

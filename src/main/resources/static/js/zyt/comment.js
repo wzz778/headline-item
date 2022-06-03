@@ -175,7 +175,7 @@ function tosayall(event1, event2) {
 tosayall(remark_area, tosay);
 tosayall(showcommit_area, showcommit_tosay);
 tosay.onclick = function () {
-    if (remark_area.value == ' ') {
+    if (remark_area.value == '') {
         swal('你还没有输入内容！')
     } else {
         $.ajax({
@@ -205,7 +205,7 @@ tosay.onclick = function () {
     }
 }
 showcommit_tosay.onclick = function () {
-    if (showcommit_area.value == ' ') {
+    if (showcommit_area.value == '') {
         swal('你还没有输入内容！')
     } else {
         $.ajax({
@@ -224,7 +224,7 @@ showcommit_tosay.onclick = function () {
                 if (data.message == '类型不能为空') {
                     swal('请输入评论内容！');
                 }
-                showcommit_areavalue = '';
+                showcommit_area.value = '';
                 remarkShow();
                 comnumber();
             },
@@ -287,12 +287,16 @@ function sonreply(event) {
             let commentID = this.parentNode.parentNode.parentNode.getElementsByTagName('span')[0].innerHTML;
             let childid = event.parentNode.parentNode.parentNode.getElementsByTagName('span')[1].innerHTML;
             let itsson = this.parentNode.parentNode.parentNode.getElementsByClassName('comson')[0];
-            $.post('http://localhost:8080/ToSkyNews_war_exploded/comments/addReviews',
+            if ( comsonarea.value=='') {
+                swal('请输入评论内容！');
+            }else{
+                $.post('http://localhost:8080/ToSkyNews_war_exploded/comments/addReviews',
                 { "parentID": commentID, "contain": comsonarea.value, "makerID": user_id, "childID": childid },
                 function (date) {
-                    console.log(date);
+                    comsonarea.value='';
                     showcomson(itsson);
                 })
+            }
         }
     } else {
         sayshow.innerHTML = '';
@@ -445,12 +449,16 @@ function allwork() {
                 comson_tosay.onclick = function () {
                     let commentID = this.parentNode.parentNode.parentNode.getElementsByTagName('span')[0].innerHTML;
                     let itsson = this.parentNode.parentNode.parentNode.getElementsByClassName('comson')[0];
-                    $.post('http://localhost:8080/ToSkyNews_war_exploded/comments/addReviews',
-                        { "parentID": commentID, "contain": comsonarea.value, "makerID": user_id },
-                        function (date) {
-                            console.log(date);
-                            showcomson(itsson);
-                        })
+                    if ( comsonarea.value=='') {
+                        swal('请输入评论内容！');
+                    }else{
+                        $.post('http://localhost:8080/ToSkyNews_war_exploded/comments/addReviews',
+                            { "parentID": commentID, "contain": comsonarea.value, "makerID": user_id },
+                            function (date) {
+                                comsonarea.value='';
+                                showcomson(itsson);
+                            })
+                    }
                 }
             } else {
                 sayshow[i].innerHTML = '';
