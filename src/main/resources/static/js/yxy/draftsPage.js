@@ -115,7 +115,9 @@ nextPage.addEventListener('click',function(){
 
 //渲染草稿箱内容
 draftsContent(0);
+var empty=document.querySelector('.empty');
 var nav=document.querySelector('.nav');
+var findBox=document.querySelector('.findBox');
 function draftsContent(num){
     $.ajax({
         type:'post',
@@ -127,117 +129,136 @@ function draftsContent(num){
             status:-2
         },
         success:function(res){
-            console.log(res);
+            console.log(res.data);
             list.innerHTML='';
-            for(let i=0;i<res.data.length;i++){
-                var li=`
-                    <li class="draftItem" textID="">
-                        <input type="checkbox" class="chooseBox">
-                        <div class="itemContent">
-                            <div class="title">${res.data[i].postsName}</div>
-                            <div class="lastTime">上次修改的时间：<span class="time">2${res.data[i].picture}</span></div>
-                        </div>
-                        <div class="itemHandle">
-                            <button class="itemChange">修改</button>
-                            <button class="itemDelete">删除</button>
-                        </div>
-                    </li>`
-                list.insertAdjacentHTML('beforeend',li);
-                var draftItem=document.querySelectorAll('.draftItem');
-                var itemDelete=document.querySelectorAll('.itemDelete');
-                draftItem[i].textID=res.data[i].postsID;
-                // console.log(draftItem[i].textID);
-                var chooseBox=document.querySelectorAll('.chooseBox');
-                chooseBox[i].addEventListener('click',function(){
-                    if(chooseBox[i].hasAttribute('checked')==true){
-                       chooseBox[i].removeAttribute('checked');
-                    }else{
-                       chooseBox[i].setAttribute('checked','checked');
-                    }
-                })
-                 //获取页数
-                num();
-                function num(){
-                    $.ajax({
-                        type:'post',
-                        url:'http://localhost:8080/ToSkyNews_war_exploded/user/drafts',
-                        data:{
-                            reside:user_id
-                        },
-                        success:function(res){
-                            console.log(res.data.length);
-                            if(res.data.length%6==0){
-                                allPage.innerHTML=res.data.length/6; 
-                            }else if(res.data.length==0){
-                                list.style.display='none';
-                                empty.style.display='flex';
-                            }else if(res.data.length%6!=0){
-                                allPage.innerHTML=Math.ceil(res.data.length/6);
-                            }
-                        },
-                        error:function(err){
-                            console.log(err);
+            if(res.data=='输入错误'){
+                empty.style.display='flex';
+                list.style.display='none';
+                find.style.display='none';
+                allChoose.style.display='none';
+                cancelAll.style.display='none';
+                deleteChoose.style.display='none';
+                massDelete.style.display='none';
+                reset.style.display='none';
+                findPage.style.display='none';
+                page.style.display='none';
+                findBox.style.display='none';
+            }else{
+                findBox.style.display='flex';
+                empty.style.display='none';
+                list.style.display='flex';
+                btn_1.style.display='flex';
+                page.style.display='flex';
+                for(let i=0;i<res.data.length;i++){
+                    var li=`
+                        <li class="draftItem" textID="">
+                            <input type="checkbox" class="chooseBox">
+                            <div class="itemContent">
+                                <div class="title">${res.data[i].postsName}</div>
+                                <div class="lastTime">上次修改的时间：<span class="time">2${res.data[i].picture}</span></div>
+                            </div>
+                            <div class="itemHandle">
+                                <button class="itemChange">修改</button>
+                                <button class="itemDelete">删除</button>
+                            </div>
+                        </li>`
+                    list.insertAdjacentHTML('beforeend',li);
+                    var draftItem=document.querySelectorAll('.draftItem');
+                    var itemDelete=document.querySelectorAll('.itemDelete');
+                    draftItem[i].textID=res.data[i].postsID;
+                    // console.log(draftItem[i].textID);
+                    var chooseBox=document.querySelectorAll('.chooseBox');
+                    chooseBox[i].addEventListener('click',function(){
+                        if(chooseBox[i].hasAttribute('checked')==true){
+                           chooseBox[i].removeAttribute('checked');
+                        }else{
+                           chooseBox[i].setAttribute('checked','checked');
                         }
                     })
-                }
-               
-               setTimeout(function(){
-                    //删除草稿
-                    itemDelete[i].addEventListener('click',function(e){
-                        e.stopPropagation();
-                        chooseAppear("确定要删除吗？");
-                        tipNo.addEventListener('click',function(){
-                            chooseFade();
-                        })
-                        tipOk.addEventListener('click',function(){
-                            chooseFade();
-                            $.ajax({
-                                type:'post',
-                                url:'http://localhost:8080/ToSkyNews_war_exploded/posts/deletePosts',
-                                data:{
-                                    postsID:draftItem[i].textID
-                                },
-                                success:function(suc){
-                                    console.log(suc);
-                                    var pageNum=document.querySelector('.pageNum');
-                                    num();
-                                    if(allPage.innerHTML*1>=pageNum.innerHTML*1){
-                                        draftsContent((pageNum.innerHTML*1-1)*6);
-                                        cancelAll.style.display='none';
-                                        deleteChoose.style.display='none';
-                                        reset.style.display='none';
-                                        allChoose.style.display='none';
-                                        massDelete.style.display='inline-block';
-                                    }else{
-                                        draftsContent((allPage.innerHTML*1-1)*6);
-                                        cancelAll.style.display='none';
-                                        deleteChoose.style.display='none';
-                                        reset.style.display='none';
-                                        allChoose.style.display='none';
-                                        massDelete.style.display='inline-block';
-                                    }
-                                    sureAppear("删除成功！");
-                                    successOk.addEventListener('click',function(){
-                                        sureFade();
-                                    })
-                                    // list.removeChild(draftItem[i]);
-                                },
-                                error:function(err){
-                                    console.log(err);
+                     //获取页数
+                    num();
+                    function num(){
+                        $.ajax({
+                            type:'post',
+                            url:'http://localhost:8080/ToSkyNews_war_exploded/user/drafts',
+                            data:{
+                                reside:user_id
+                            },
+                            success:function(res){
+                                console.log(res.data.length);
+                                if(res.data.length%6==0){
+                                    allPage.innerHTML=res.data.length/6; 
+                                }else if(res.data.length==0){
+                                    list.style.display='none';
+                                    empty.style.display='flex';
+                                }else if(res.data.length%6!=0){
+                                    allPage.innerHTML=Math.ceil(res.data.length/6);
                                 }
-                            })
+                            },
+                            error:function(err){
+                                console.log(err);
+                            }
                         })
-                    },false)
-                    //修改草稿
-                    var itemChange=document.querySelectorAll('.itemChange');
-                    itemChange[i].addEventListener('click',function(e){
-                        e.stopPropagation();
-                        localStorage.setItem('article_id',draftItem[i].textID);
-                        // localStorage.setItem("tolook", '0');
-                        window.location.assign(`../templates/publish-change.html?article_id=${draftItem[i].textID}`);
-                    },false)
-               },60)
-                
+                    }
+                   
+                   setTimeout(function(){
+                        //删除草稿
+                        itemDelete[i].addEventListener('click',function(e){
+                            e.stopPropagation();
+                            chooseAppear("确定要删除吗？");
+                            tipNo.addEventListener('click',function(){
+                                chooseFade();
+                            })
+                            tipOk.addEventListener('click',function(){
+                                chooseFade();
+                                $.ajax({
+                                    type:'post',
+                                    url:'http://localhost:8080/ToSkyNews_war_exploded/posts/deletePosts',
+                                    data:{
+                                        postsID:draftItem[i].textID
+                                    },
+                                    success:function(suc){
+                                        console.log(suc);
+                                        var pageNum=document.querySelector('.pageNum');
+                                        num();
+                                        if(allPage.innerHTML*1>=pageNum.innerHTML*1){
+                                            draftsContent((pageNum.innerHTML*1-1)*6);
+                                            cancelAll.style.display='none';
+                                            deleteChoose.style.display='none';
+                                            reset.style.display='none';
+                                            allChoose.style.display='none';
+                                            massDelete.style.display='inline-block';
+                                        }else{
+                                            draftsContent((allPage.innerHTML*1-1)*6);
+                                            cancelAll.style.display='none';
+                                            deleteChoose.style.display='none';
+                                            reset.style.display='none';
+                                            allChoose.style.display='none';
+                                            massDelete.style.display='inline-block';
+                                        }
+                                        sureAppear("删除成功！");
+                                        successOk.addEventListener('click',function(){
+                                            sureFade();
+                                        })
+                                        // list.removeChild(draftItem[i]);
+                                    },
+                                    error:function(err){
+                                        console.log(err);
+                                    }
+                                })
+                            })
+                        },false)
+                        //修改草稿
+                        var itemChange=document.querySelectorAll('.itemChange');
+                        itemChange[i].addEventListener('click',function(e){
+                            e.stopPropagation();
+                            localStorage.setItem('article_id',draftItem[i].textID);
+                            // localStorage.setItem("tolook", '0');
+                            window.location.assign(`../templates/publish-change.html?article_id=${draftItem[i].textID}`);
+                        },false)
+                   },60)
+                    
+                }
             }
         },
         error:function(err){
