@@ -129,13 +129,17 @@ newPassBtn.addEventListener('click',function(){
 
         //获取验证码
         getNum.addEventListener('click',function(){
+            var mailLimit=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            var mailJudge=mailLimit.test(mail.value);
             var passLimit=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
             var passJudge=passLimit.test(newPass.value);
             if(mail.value==''){
                 mailTip.innerHTML='邮箱不能为空';
                 mailTip.style.display='inline';
-            }
-             else{
+            }else if(mailJudge==false){
+                mailTip.innerHTML='邮箱格式不正确';
+                mailTip.style.display='inline';
+            }else{
                 newPassTip.style.display='none';
                 var time=30;
                 var timer=setInterval(function(){
