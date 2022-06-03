@@ -1,7 +1,11 @@
 package com.skynews.controller;
 
+import com.skynews.pojo.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class view {
@@ -29,7 +33,7 @@ public class view {
 
     @RequestMapping("/login")
     public String demo(){
-        return "/login";
+        return "login";
     }
     @RequestMapping("/lunbo")
     public String q5(){
@@ -85,6 +89,12 @@ public class view {
     public String a9(){
         return "/user_main";
     }
+@RequestMapping("/index")
+public String index(Model model, HttpServletRequest request){
+    User user1 = (User) request.getSession().getAttribute("user1");
+    model.addAttribute("user1",user1);
+    return "/index";
+}
 
     @RequestMapping("/users-feedback")
     public String s1(){

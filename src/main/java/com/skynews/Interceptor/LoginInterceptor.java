@@ -18,10 +18,11 @@
 //            HttpSession session = request.getSession();
 //            //统一拦截（查询当前session是否存在user）(这里user会在每次登录成功后，写入session)
 //            User user = (User) session.getAttribute("user1");
+//            System.out.println(user);
 //            if (user != null) {
 //                return true;
 //            }
-//            response.sendRedirect(request.getContextPath() + "login");
+//            response.sendRedirect(request.getContextPath() + "/login");
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
