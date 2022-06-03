@@ -129,7 +129,6 @@ function post(){
         },
         dataType: "json",
         success: function (data) {
-            // console.log(data)
             $('.w-e-text').html(data.content);
             titleInput.value=data.postsName;
             labelInput.value=data.label

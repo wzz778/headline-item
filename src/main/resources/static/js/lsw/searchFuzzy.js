@@ -479,5 +479,24 @@ function hot_post() {
     }
     localStorage.setItem("tolook", '0');
 }
+//
+// function picture(){
+//     let sort = sessionStorage.getItem('c-sort');
+//     if(sort == all_sort[6]||sort == null) {
+//         $.ajax({
+//             type: 'post',
+//             url: 'http://localhost:8080/ToSkyNews_war_exploded/img/vagueQueryPicture',
+//             data: {
+//                 thing: input.value,
+//             },
+//             success: function (data) {
+//               console.log(data)
+//             },
+//             err: function (err) {
+//                 console.log(err)
+//             },
+//         })
+//     }
+// }
 
 
