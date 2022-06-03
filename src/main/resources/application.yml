@@ -15,7 +15,6 @@ spring:
 #        decrypt: true
 #        driver-class-name: com.kingbase8.Driver
 
-
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -29,11 +28,7 @@ mybatis:
 server:
   port: 8080
   tomcat:
-    uri-encoding: UTF-8
-    max-threads: 800 #最大工作线程数量
-    min-spare-threads: 20 #最小工作线程数量
-    #max-connections: 10000 #一瞬间最大支持的并发的连接数
-    accept-count: 200 #等待队列长度
+    max_connections: 1000
   servlet:
     context-path: /ToSkyNews_war_exploded
   resources:
