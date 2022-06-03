@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class AlikeController {
     @Autowired
     private AlikeService alikeService;
 
-    /***/
+    /**待注接口*/
     @ApiOperation(value = "用户点赞", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/setAlike")
     @ResponseBody
@@ -34,15 +35,12 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
     public Response setAlike(Integer postsID, Integer userID){
-//        if (postsID == null || userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         Alike alike = new Alike(postsID, userID);
         alikeService.setAlikeTable(alike);
         return Response.ok("点赞成功！");
     }
 
-    /***/
+    /**待注接口*/
     @ApiOperation(value = "用户取消点赞", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/deleteAlike")
     @ResponseBody
@@ -51,9 +49,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
     public Response deleteAlike(Integer postsID, Integer userID) {
-//        if (postsID == null || userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         Alike alike = new Alike(postsID, userID);
         int a = alikeService.deleteAlikeTable(alike);
         if (a == 1) {
@@ -96,9 +91,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
     public Response queryAlikeBoolean(Integer postsID, Integer userID) {
-//        if (postsID == null || userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         Alike alike = new Alike(postsID, userID);
         int a = alikeService.queryAlike(alike);
         if (a == 1) {
@@ -113,9 +105,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "messagesID", value = "信息id")
     public Response update1(Integer messagesID) {
-//        if (messagesID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.updateMessagesStatus(messagesID);
         return Response.ok("用户已查看此信息！");
     }
@@ -127,9 +116,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "authorID", value = "所要查询的某个用户的id"),
     })
     public List<Messages> update5(Integer authorID) {
-//        if (authorID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         return alikeService.queryAllMessages(authorID);
     }
 
@@ -140,9 +126,6 @@ public class AlikeController {
             @ApiImplicitParam(name = "userID", value = "所要查询的某个用户的id"),
     })
     public List<User> update2(Integer userID) {
-//        if (userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         return alikeService.queryAllMessagesUser(userID);
     }
 
@@ -151,9 +134,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "messagesID", value = "信息id")
     public Response update3(Integer messagesID){
-//        if (messagesID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.deleteMessages(messagesID);
         return Response.ok("删除成功！");
     }
@@ -161,12 +141,6 @@ public class AlikeController {
 
     /*************************/
 
-//    @ApiOperation(value = "huoqu信息", notes = "获取地址", httpMethod = "POST")
-//    @PostMapping("/queryIDMessages")
-//    @ResponseBody
-//    public Messages query(String reside, int userID, int postsID) throws CustomException {
-//        return alikeService.queryMessagesID(reside, userID, postsID);
-//    }
 
     @ApiOperation(value = "分页查询某个用户下的所有信息（被收藏或点赞)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/queryMessagesPages")
@@ -176,15 +150,19 @@ public class AlikeController {
             @ApiImplicitParam(name = "page", value = "第几页")
     })
     public Response update6(Integer authorID,Integer page) {
-//        if (authorID == null||page==null) {
-//            throw new CustomException("类型为空！");
-//        }
-        List<Messages>list=alikeService.queryPagesMessages(authorID,page);
-        List<Integer>list1=alikeService.queryMessagesCount(authorID);
         Map<String, List>map=new HashMap<>();
-        map.put("totalPages",list1);
-        map.put("list",list);
-        return Response.ok(map);
+        if(page<1){
+            List<String>list2=new LinkedList<>();
+            list2.add("请输入合理的页数！");
+            map.put("error",list2);
+            return Response.ok(map);
+        }else {
+            List<Messages> list = alikeService.queryPagesMessages(authorID, page);
+            List<Integer> list1 = alikeService.queryMessagesCount(authorID);
+            map.put("totalPages", list1);
+            map.put("list", list);
+            return Response.ok(map);
+        }
     }
 
     @ApiOperation(value = "用户批量删除信息", notes = "获取地址", httpMethod = "POST")
@@ -205,9 +183,6 @@ public class AlikeController {
     @ResponseBody
     @ApiImplicitParam(name = "userID", value = "待删除的用户id")
     public Response update8(Integer userID){
-//        if (userID == null) {
-//            throw new CustomException("类型为空！");
-//        }
         alikeService.deleteAllMessagesByUserID(userID);
         return Response.ok("删除成功！");
     }

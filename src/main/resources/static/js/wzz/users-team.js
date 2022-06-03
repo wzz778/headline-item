@@ -42,28 +42,42 @@ teamadd.onclick = () => {
     teamf[0].style.display= "block";
     backfade.classList.add('fade');
     backfade.style.display='block';
-
 }
 function teamdeletef() {
-    let choose = confirm("你确定删除选中人的信息?");
     let teamd = document.getElementsByClassName("team_delete");
-    if (choose) {
-        for (let i in teama) {
-            if (teama[i].checked) {
-                var id = teamd[i].parentNode.parentNode.children[6].innerHTML;
-                $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
-                    { "userID": id },
-                    function (date) {
-                        if (sessionStorage.getItem("teamfind")=="1") {
-                            teamfind() ;
-                        } else{
-                            changepage();
-                        }
-                    })
+    swal({ 
+        title: "你确定删除选中人的信息?", 
+        text: "你将无法恢复该用户信息！", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！", 
+        cancelButtonText: "取消删除！",
+        closeOnConfirm: false, 
+        closeOnCancel: false	
+        },
+        function(isConfirm){ 
+        if (isConfirm) { 
+            for (let i in teama) {
+                if (teama[i].checked) {
+                    var id = teamd[i].parentNode.parentNode.children[6].innerHTML;
+                    $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
+                        { "userID": id },
+                        function (date) {
+                            if (sessionStorage.getItem("teamfind")=="1") {
+                                teamfind() ;
+                            } else{
+                                changepage();
+                            }
+                        })
+                }
             }
-        }
-        alert("删除成功");
-    }
+            swal("删除！", "你所勾选的用户信息被删除。","success"); 
+        } else { 
+            swal("取消！", "你已经取消删除:","error"); 
+        } 
+    });
+
 }
 //批量删除
 teamdelete.onmousemove = function () {
@@ -76,7 +90,7 @@ teamdelete.onmousemove = function () {
     if (!c) {
         teamdelete.style.cursor = "not-allowed";
         teamdelete.onclick = () => {
-            newalert("请勾选你要删除的对象！");
+            swal("请勾选你要删除的对象！");
         };
     } else {
         teamdelete.style.cursor = "pointer";
@@ -93,19 +107,33 @@ function r() {
         n.onclick = function () {
             let us = n.parentNode.parentNode.children[1].innerHTML;
             let id = n.parentNode.parentNode.children[6].innerHTML;
-            let choose = confirm("你是否确定删除" + us + "的信息?");
-            if (choose == true) {
+            swal({ 
+                title: "你是否确定删除" + us + "的信息?", 
+                text: "你将无法恢复该用户信息！", 
+                type: "warning",
+                showCancelButton: true, 
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定删除！", 
+                cancelButtonText: "取消删除！",
+                closeOnConfirm: false, 
+                closeOnCancel: false	
+                },
+                function(isConfirm){ 
+                if (isConfirm) { 
+                    swal("删除！", "你所选的用户信息已经被删除。","success"); 
                 $.post(`http://localhost:8080/ToSkyNews_war_exploded/users/del/${id}`,
-                    { "userID": id },
-                    function (date) {
-                        newalert(date.data);
-                        if (sessionStorage.getItem("teamfind")=="1") {
-                            teamfind() ;
-                        } else{
-                            changepage();
-                        }
-                    })
-            }
+                { "userID": id },
+                function (date) {
+                    if (sessionStorage.getItem("teamfind")=="1") {
+                        teamfind() ;
+                    } else{
+                        changepage();
+                    }
+                })
+                } else { 
+                    swal("取消！", "你已经取消删除:","error"); 
+                } 
+            });
         }
     }
     for (let n in teamr) {
@@ -136,25 +164,41 @@ function r() {
                 let tri = document.getElementsByClassName("team_reivse_input");
                 let ts = document.getElementsByName("team_sex");
                 let sex = ts[0].checked == true ? "男" : "女";
-                var choose = confirm("你是否确定修改该成员的信息?");
-                if (choose == true) {
-                    $.post('http://localhost:8080/ToSkyNews_war_exploded/users/updateUser',
-                        {"userID": id, "username": tri[0].value, 'signature':signature,'picture':picture,
-                        "telephone": telephone, "password": tri[1].value,"age": tri[2].value, "sex": sex },
-                        function (date) {
-                            newalert(date.data);
-                            if(date.data=='修改成功！'){
-                                teamf[1].style.display = "none";
-                                backfade.classList.remove('fade');
-                                backfade.style.display='none';
-                            }
-                            if (sessionStorage.getItem("teamfind")=="1") {
-                                teamfind() ;
-                            } else{
-                                changepage();
-                            }
-                        })
-                }
+                swal({ 
+                    title: "你是否确定修改该成员的信息?", 
+                    text: "你将无法恢复该用户信息！", 
+                    type: "warning",
+                    showCancelButton: true, 
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "确定修改！", 
+                    cancelButtonText: "取消修改！",
+                    closeOnConfirm: false, 
+                    closeOnCancel: false	
+                    },
+                    function(isConfirm){ 
+                    if (isConfirm) { 
+                        $.post('http://localhost:8080/ToSkyNews_war_exploded/users/updateUser',
+                                {"userID": id, "username": tri[0].value, 'signature':signature,'picture':picture,
+                                "telephone": telephone, "password": tri[1].value,"age": tri[2].value, "sex": sex },
+                                function (date) {
+                                    swal("修改成功！","已完成修改操作","success");
+                                    if(date.data=='修改成功！'){
+                                        teamf[1].style.display = "none";
+                                        backfade.classList.remove('fade');
+                                        backfade.style.display='none';
+                                    }
+                                    if (sessionStorage.getItem("teamfind")=="1") {
+                                        teamfind() ;
+                                    } else{
+                                        changepage();
+                                    }
+                                })
+                        swal("成功！", "你已经成功修改。",
+                    "success"); 
+                    } else { 
+                        swal("取消！", "你已经取消修改:","error"); 
+                    } 
+                });
             }
         }
     }
@@ -225,7 +269,7 @@ function changepage() {
             })
     } else if (page.value == ""||sessionStorage.getItem('tpagen')==null) { } 
     else {
-        newalert("请输入合理的页数！");
+        swal("请输入合理的页数！");
     }
 }
 a[2].onclick = () => {
@@ -249,7 +293,7 @@ $("#add_number").click(function () {
     let have=0;
     for(let n of input){
         if(n.value==''){
-            newalert("请输入完整内容！");
+            swal("请输入完整内容！");
             have=1;
             break;
         };
@@ -266,7 +310,7 @@ $("#add_number").click(function () {
             },
             function (date) {
                 if (date.message == "success") {
-                    newalert("添加成功!");
+                    swal("添加成功!");
                     for (let n of input) {
                         n.value = "";
                         backfade.classList.remove('fade');
@@ -275,11 +319,11 @@ $("#add_number").click(function () {
     
                     changepage();
                 } else {
-                    newalert(date.message);
+                    swal(date.message);
                 }
             })
         }else{
-            newalert('您的邮箱格式输入错误!');
+            swal('您的邮箱格式输入错误!');
         }
     }
 });
@@ -303,7 +347,7 @@ function teamfind() {
     sessionStorage.setItem("teamfind", '1');
     let name = document.getElementsByClassName("team_find_input")[0].value;
     if (name == '') {
-        newalert("请输入搜索内容!");
+        swal("请输入搜索内容!");
     } else {
         $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryVagueUser', { 'thing': name },
             function (date) {

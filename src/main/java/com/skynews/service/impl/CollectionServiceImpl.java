@@ -3,8 +3,10 @@ package com.skynews.service.impl;
 
 import com.skynews.dao.AlikeMapper;
 import com.skynews.dao.CollectionMapper;
+import com.skynews.dao.CommentMapper;
 import com.skynews.dao.PostsMapper;
 import com.skynews.pojo.Collections;
+import com.skynews.pojo.Comment;
 import com.skynews.pojo.Messages;
 import com.skynews.pojo.Posts;
 import com.skynews.service.CollectionService;
@@ -24,6 +26,9 @@ public class CollectionServiceImpl implements CollectionService {
     public void setCollectionMapper(CollectionMapper collectionMapper){
         this.collectionMapper=collectionMapper;
     }
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Autowired
     private PostsMapper postsMapper;
@@ -57,11 +62,17 @@ public class CollectionServiceImpl implements CollectionService {
              * 创建格式化时间日期类
              *构造入参String类型就是我们想要转换成的时间形式
              */
-            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             System.out.println("*******************"+postsID+"*******************");
             System.out.println("格式化后的时间------->"+format.format(date));
-            Messages messages=new Messages(reside,postsName,userID,authorID,format.format(date),postsID);
-            collectionMapper.setMessages(messages);
+            Messages m=alikeMapper.queryMessagesID(reside,userID,postsID);
+            if(m!=null){
+                int messagesID=m.getMessagesID();
+                alikeMapper.updateMessages(format.format(date),messagesID);
+            }else{
+                Messages messages=new Messages(reside,postsName,userID,authorID,format.format(date),postsID);
+                collectionMapper.setMessages(messages);
+            }
             /******** messages *********/
             collectionMapper.addCollection(collections);
             return 1;
@@ -104,10 +115,15 @@ public class CollectionServiceImpl implements CollectionService {
 
     public int deleteBatchPosts(List<Integer>list){
         for(int i=0;i<list.size();i++){
-            postsMapper.deletePostsById(list.get(i));
+            List<Comment>list1=commentMapper.queryCommentByPosts(list.get(i));
             collectionMapper.deleteAlikeWrite(list.get(i));
             collectionMapper.deleteCollectionWrite(list.get(i));
             collectionMapper.deleteCommentWrite(list.get(i));
+            postsMapper.deletePostsById(list.get(i));
+            for(int a=0;a<list1.size();a++){
+                Comment comment=list1.get(i);
+                commentMapper.deleteReviewsByParentID(comment.getCommentID());
+            }
         }
         return 0;
     }

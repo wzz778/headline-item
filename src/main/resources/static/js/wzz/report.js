@@ -2,14 +2,6 @@ var feedback = document.getElementById("feedback");
 var feedback_main = document.getElementById("feedback_main");
 var feedback_send = document.getElementsByClassName("feedback_send")[0];
 var feedback_text = document.getElementsByClassName("feedback_text")[0];
-
-function newalert(text) {
-    feedbackfade.style.display = 'block';
-    feedbackfade.style.opacity = '1';
-    feedbackfade.classList.add("fade");
-    alerttext.innerHTML = text;
-    alertbox.style.top = '50px';
-}
 function Feedback_show() {
     feedback.style.display = "block";
     feedback.style.opacity = "1";
@@ -71,7 +63,7 @@ tofeedback.onclick = function () {
         }
     }
     if (typen == undefined) {
-        alert("请填写完整内容！");
+        swal("请填写完整内容！");
     } else {
         type = feedbackarray[typen];
     }
@@ -80,7 +72,7 @@ tofeedback.onclick = function () {
             { "userID": user_id, "postsID": postid, "kind": type, "opinion": text, "contact": send, "times": time },
             function (date) {
                 if (date.message == 'success') {
-                    alert('举报发出！');
+                    swal('举报发出！');
                 }
                 console.log(date);
                 Feedback_down();

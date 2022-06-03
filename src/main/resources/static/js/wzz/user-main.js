@@ -68,7 +68,7 @@ var food_find_bon = document.getElementsByClassName("food_find_bon")[0];
 food_find_bon.onclick = function () {
     let text = food_find_input.value;
     if (text == '') {
-        newalert("请输入搜索内容！");
+        swal("请输入搜索内容！");
     } else {
         localStorage.setItem('search_input', text);
         window.location.assign("../templates/search.html");
@@ -79,7 +79,7 @@ var main_find_bon = document.getElementsByClassName("main_find_bon")[0];
 main_find_bon.onclick = function () {
     let text = main_find_input.value;
     if (text == '') {
-        newalert("请输入搜索内容！");
+        swal("请输入搜索内容！");
     } else {
         localStorage.setItem('search_input', text);
         window.location.assign("../templates/search.html");
@@ -148,16 +148,21 @@ window.addEventListener('scroll', function () {
     let all_top = document.getElementById('all_top');
     let main = document.getElementsByClassName("main")[0].getBoundingClientRect().top;
     let hot = document.getElementById("hot");
+    let id_card= document.getElementsByClassName("id_card")[0];
     if (main < 0) {
         all_top.classList.add("down");
         all_top.style.display = "block";
         hot.style.position = 'fixed';
-        hot.style.top = '100px';
+        hot.style.top = '280px';
+        id_card.style.position = 'fixed';
+        id_card.style.top = '60px';
     } else {
         all_top.classList.remove("down");
         all_top.style.display = "none";
         hot.style.position = 'relative';
         hot.style.top = '30px';
+        id_card.style.position = 'relative';
+        id_card.style.top = '0px';
     }
 })
 //顶部下滑处理
@@ -241,7 +246,7 @@ function all_a() {
             for (let n = 0; n < date.length; n++) {
                 if (date[n].cover == null) {
                     column.innerHTML += `
-                        <a class="column_news" href="recomments.html" target="_blank">
+                        <a class="column_news" href="recomments.html">
                             <div class="column_news_title">${date[n].postsName}</div>
                             <div class="column_news_Acommit">${date[n].contentA}</div>
                             <div class="column_news_information">
@@ -254,7 +259,7 @@ function all_a() {
                     `;
                 } else {
                     column.innerHTML += `
-                        <a class="column_news" href="recomments.html" target="_blank">
+                        <a class="column_news" href="recomments.html">
                                     <div class="column_news_titles">${date[n].postsName}</div>
                                     <div class="column_news_Acommits">${date[n].contentA}</div>
                                     <div class="column_news_information">
@@ -263,9 +268,9 @@ function all_a() {
                                         <span>${date[n].picture}</span>
                                         <span style="display: none">${date[n].postsID}</span>
                                     </div>
-                                <img class="column_img"
-                                 src="../static/img/wzz/header.jpg" 
-                                alt="">
+                                <div class='column_img_div'>
+                                    <img class="column_img" src="../static/img/wzz/header.jpg" alt="">
+                                </div>
                         </a>
                     `;
                     let columnnew = document.getElementsByClassName('column_news')[n];
@@ -347,7 +352,7 @@ function chance_sort() {
                     for (let n = 0; n < date.length; n++) {
                         if (date[n].cover == null) {
                             column.innerHTML += `
-                                <a class="column_news" href="recomments.html" target="_blank">
+                                <a class="column_news" href="recomments.html">
                                             <div class="column_news_title">${date[n].postsName}</div>
                                             <div class="column_news_Acommit">${date[n].contentA}</div>
                                             <div class="column_news_information">
@@ -360,7 +365,7 @@ function chance_sort() {
                             `;
                         } else {
                             column.innerHTML += `
-                                <a class="column_news" href="recomments.html" target="_blank">
+                                <a class="column_news" href="recomments.html">
                                             <div class="column_news_titles">${date[n].postsName}</div>
                                             <div class="column_news_Acommits">${date[n].contentA}</div>
                                             <div class="column_news_information">
@@ -369,9 +374,9 @@ function chance_sort() {
                                                 <span>${date[n].picture}</span>
                                                 <span style="display: none">${date[n].postsID}</span>
                                             </div>
-                                        <img class="column_img"
-                                        src="../static/img/wzz/header.jpg" 
-                                        alt="">
+                                            <div class='column_img_div'>
+                                            <img class="column_img" src="../static/img/wzz/header.jpg" alt="">
+                                        </div>
                                 </a>
                             `;
                             let columnnew = document.getElementsByClassName('column_news')[n];
@@ -516,11 +521,11 @@ if (localStorage.getItem('have_land') == "true") {
 } else {
     for (let n of haveland) {
         n.onclick = function () {
-            newalert("请先登录！");
+            swal("请先登录！");
         }
     }
     top_work.onclick = function () {
-        newalert("请先登录！");
+        swal("请先登录！");
     };
     top_header.style.display = "none";
     top_land.style.display = "block";

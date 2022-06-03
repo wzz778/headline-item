@@ -99,4 +99,7 @@ public interface PostsMapper {
 
     //获取用户总数
     Integer getTotal();
+
+    //根据postsID删除信息
+    int deleteAllMessagesByPostsID(int postsID);
 }

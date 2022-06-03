@@ -63,5 +63,14 @@ public interface ManagerMapper {
 
     //根据名字查询manager
     Manager queryManagerByName(String managerName);
+
+    //根据makerID删除comment
+    int deleteCommentByMakerID(int makerID);
+
+    //根据makerID删除reviews
+    int deleteReviewsByMakerID(int makerID);
+
+    //根据authorID删除messages
+    int deleteMessagesByAuthorID(int authorID);
 }
 

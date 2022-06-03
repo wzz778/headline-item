@@ -584,13 +584,19 @@ body a {
   margin-top: 2px;
 }
 
-.main .main_left .column .column_news img {
+.main .main_left .column .column_news .column_img_div {
   top: 10px;
   width: 150px;
   height: 90px;
   position: absolute;
   right: 10px;
   z-index: 1;
+  overflow: hidden;
+  align-items: center;
+}
+
+.main .main_left .column .column_news img {
+  width: 150px;
 }
 
 .main .main_left .column .column_news:hover {
@@ -755,6 +761,8 @@ body a {
   border-radius: 8px;
   background-color: #FAFAFA;
   transition: .3s;
+  top: 0;
+  position: relative;
 }
 
 .main .main_right .id_card:hover {

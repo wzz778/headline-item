@@ -33,8 +33,10 @@ public class ManagerServiceImpl implements ManagerService {
             Posts posts=list.get(i);
             managerMapper.deleteCollectionByPostsID(posts.getPostsID());
         }
+        managerMapper.deleteCommentByMakerID(userID);
+        managerMapper.deleteReviewsByMakerID(userID);
+        managerMapper.deleteMessagesByAuthorID(userID);
         managerMapper.deleteFans(userID);
-
         managerMapper.deleteFocus(userID);
         managerMapper.deleteCollectionByUser(userID);
         managerMapper.deletePostsByUser(userID);

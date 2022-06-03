@@ -26,6 +26,31 @@ public class CollectionController {
     @Autowired
     private PostsService postsService;
 
+/****整合接口*****/
+    @ApiOperation(value = "用户收藏或取消收藏（删除）", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/deleteCollectionBoolean")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="thing",value = "收藏填1，取消收藏填-1"),
+            @ApiImplicitParam(name="postsID",value = "所收藏帖子ID"),
+            @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
+    })
+    public Response deleteCollectionsBoolean(String thing,int postsID, int userID) {
+        Collections collections=new Collections(postsID,userID);
+        if(thing.equals("1")){
+            int a=collectionService.addCollection(collections);
+            if(a==1){
+                return Response.ok("收藏成功！");
+            }else{
+                return Response.error("此用户已收藏过此帖子！");
+            }
+        }else {
+            collectionService.deleteCollectionById(collections);
+            return Response.ok("取消收藏成功！");
+        }
+    }
+
+    /**待注**/
     @ApiOperation(value = "收藏(添加)", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addCollection")
     @ResponseBody
@@ -35,9 +60,6 @@ public class CollectionController {
     })
 
     public Response addCollection(Integer postsID, Integer userID)  {
-//        if(postsID==null||userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         Collections collections=new Collections(postsID,userID);
         int a=collectionService.addCollection(collections);
         if(a==1){
@@ -52,13 +74,11 @@ public class CollectionController {
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "所要查询的用户ID")
     public List<Collections> list(Integer userID) {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         List <Collections> list=collectionService.queryCollectionByUserID(userID);
         return list;
     }
 
+    /**待注**/
     @ApiOperation(value = "用户取消收藏（删除）", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/deleteCollection")
     @ResponseBody
@@ -67,9 +87,6 @@ public class CollectionController {
             @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
     })
     public Response deleteCollections(Integer postsID, Integer userID) {
-//        if(postsID==null||userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         Collections collections=new Collections(postsID,userID);
         collectionService.deleteCollectionById(collections);
         return Response.ok("取消收藏成功！");
@@ -83,10 +100,6 @@ public class CollectionController {
             @ApiImplicitParam(name="userID",value = "所收藏用户ID")
     })
     public Response queryCollectionBo(Integer postsID, Integer userID){
-//        if(postsID==null||userID==null){
-//            throw new CustomException("类型为空！");
-//        }
-  //      Collections collections=new Collections(postsID,userID);
         int a=collectionService.queryCollection(postsID,userID);
         System.out.println("controller"+a);
         if(a!=0){
@@ -102,7 +115,6 @@ public class CollectionController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="thing",value = "所收藏帖子ID(用逗号（中文字符）隔开)"),
             @ApiImplicitParam(name="userID",value = "所收藏用户ID"),
-   //         @ApiImplicitParam(name="num",value = "批量删除数据个数")
     })
     public Response deleteBatchCollections(String thing, Integer userID)  {
         String[]strings=thing.split("，");
@@ -115,24 +127,6 @@ public class CollectionController {
         }
         return Response.ok("批量删除成功！");
     }
-
-//    @ApiOperation(value = "用户批量删除帖子", notes = "获取地址", httpMethod = "POST")
-//    @PostMapping("/deleteBatchPosts")
-//    @ResponseBody
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(name="thing",value = "帖子ID"),
-//    })
-//    public Response deleteBatchPosts(String thing){
-//        String[]strings=thing.split(",");
-//        int []nums=new int[strings.length];
-//        for(int i=0;i<strings.length;i++) {
-//            nums[i]=Integer.parseInt(strings[i]);
-//        }
-//        for(int i=0;i<nums.length;i++){
-//            postsService.deletePostsById(nums[i]);
-//        }
-//        return Response.ok("批量删除成功！");
-//    }
 
     @ApiOperation(value = "用户批量删除帖子", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/deleteBatchPosts")

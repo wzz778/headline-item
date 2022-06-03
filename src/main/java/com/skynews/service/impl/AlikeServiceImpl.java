@@ -38,7 +38,8 @@ public class AlikeServiceImpl implements AlikeService {
         /******** messages *********/
         int userID=alike.getUserID();
         String reside="alike";
-        Posts posts=postsMapper.queryPostsById(postsID);
+        Posts posts=postsMapper.getPost(postsID);
+  //      System.out.println(posts+"4444444444");
         String postsName=posts.getPostsName();
         int authorID=posts.getReside();
         //使用Date创建日期对象
@@ -47,7 +48,7 @@ public class AlikeServiceImpl implements AlikeService {
          * 创建格式化时间日期类
          *构造入参String类型就是我们想要转换成的时间形式
          */
-        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("格式化后的时间------->"+format.format(date));
         Messages m=alikeMapper.queryMessagesID(reside,userID,postsID);
         if(m!=null) {

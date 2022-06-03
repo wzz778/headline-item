@@ -39,8 +39,12 @@ $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID
 // 搜索遍历
 food_find_bon.onclick = function () {
     let text = food_find_input.value;
-    localStorage.setItem('search_input', text);
-    window.location.assign("../templates/search.html");
+    if(text==''){
+        swal("请输入搜索内容！")
+    }else{
+        localStorage.setItem('search_input', text);
+        window.location.assign("../templates/search.html");
+    }
 }
 function findred1() {
     sortred[0].style.display = 'none';
@@ -77,16 +81,31 @@ findred2();
 // 遍历反馈数据
 // 遍历举报数据
 function deleteallmessage() {
-    let con = confirm("确定清空该全部信息？");
-    if (con == true) {
-        $.post('http://localhost:8080/ToSkyNews_war_exploded/alike/deleteAllMessagesByUserID',
+    swal({ 
+        title: "确定清空该全部信息？?", 
+        text: "你将无法恢复该些信息！", 
+        type: "warning",
+        showCancelButton: true, 
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "确定删除！", 
+        cancelButtonText: "取消删除！",
+        closeOnConfirm: false, 
+        closeOnCancel: false	
+        },
+        function(isConfirm){ 
+        if (isConfirm) { 
+            swal("删除！", "你所选的信息已经被删除。","success"); 
+            $.post('http://localhost:8080/ToSkyNews_war_exploded/alike/deleteAllMessagesByUserID',
             { "userID": user_id },
             function (date) {
-                newalert('清空成功！');
+                swal("清空成功！", "信息已被全部清空完毕","success"); 
                 sessionStorage.setItem('message_page', 1);
                 changepage1();
             })
-    }
+        } else { 
+            swal("取消！", "你已经取消删除:","error"); 
+        } 
+    });
 }
 sessionStorage.setItem('message_page', 1);
 function changepage1() {
@@ -180,9 +199,9 @@ function changepage1() {
                 let username = document.getElementsByClassName("message-username");
                 let messagedelete = document.getElementsByClassName("message-delete");
                 let postname = document.getElementsByClassName("message-postname");
-                for (let i in userid) {
+                for (let i=0; i<userid.length;i++) {
                     $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}',
-                        { "userID": userid[i].innerHTML },
+                        { "userID": userid[i].innerHTML},
                         function (date) {
                             img[i].src = date.picture;
                             username[i].innerHTML = date.username;
@@ -197,15 +216,30 @@ function changepage1() {
                         window.location.assign("../templates/recomments.html");
                     }
                     messagedelete[i].onclick = function () {
-                        let t = confirm("确定删除该条信息？");
-                        if (t) {
-                            $.post('http://localhost:8080/ToSkyNews_war_exploded/alike/deleteMessages',
+                        swal({ 
+                            title: "你是否确定删除这条信息?", 
+                            text: "你将无法恢复该条信息！", 
+                            type: "warning",
+                            showCancelButton: true, 
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "确定删除！", 
+                            cancelButtonText: "取消删除！",
+                            closeOnConfirm: false, 
+                            closeOnCancel: false	
+                            },
+                            function(isConfirm){ 
+                            if (isConfirm) { 
+                                swal("删除！", "你所选的信息已经被删除。","success"); 
+                                $.post('http://localhost:8080/ToSkyNews_war_exploded/alike/deleteMessages',
                                 { "messagesID": messageid[i].innerHTML },
                                 function (date) {
-                                    newalert(date.data);
+                                    swal(date.data, "你所选的用户信息已被删除。","success"); 
                                     changepage1();
                                 })
-                        }
+                            } else { 
+                                swal("取消！", "你已经取消删除:","error"); 
+                            } 
+                        });
                     }
                 }
             }
@@ -215,7 +249,7 @@ function changepage2() {
     $.post('http://localhost:8080/ToSkyNews_war_exploded/showPortsById',
         { "userID": user_id },
         function (date) {
-            main.innerHTML = "<div class='main-right-top'>举报栏目</div>";
+            main.innerHTML = "<div class='main-right-top'>举报栏目<a href='javascript:;'>清空该信息空间</a></div>";
             if (date.length == 0) {
                 main.innerHTML += `
                     <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
@@ -258,7 +292,7 @@ function changepage2() {
                         let id = fid[i].innerHTML;
                         let fa = fat[i].innerHTML;
                         if (status[i].innerHTML == "待回复") {
-                            newalert("您暂未收到回复！");
+                            swal("您暂未收到回复！");
                         }
                         else if (status[i].innerHTML == "举报成功") {
                             Feedback_show();
@@ -274,15 +308,30 @@ function changepage2() {
                         feedback[i].onclick = null;
                         this.onclick = function () {
                             let id = fid[i].innerHTML;
-                            var choose = confirm("你是否确定删除这条信息?");
-                            if (choose == true) {
-                                $.post('http://localhost:8080/ToSkyNews_war_exploded/deleteReports',
+                            swal({ 
+                                title: "你是否确定删除这条信息?", 
+                                text: "你将无法恢复该条信息！", 
+                                type: "warning",
+                                showCancelButton: true, 
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "确定删除！", 
+                                cancelButtonText: "取消删除！",
+                                closeOnConfirm: false, 
+                                closeOnCancel: false	
+                                },
+                                function(isConfirm){ 
+                                if (isConfirm) { 
+                                    swal("删除！", "你所选的信息已经被删除。","success"); 
+                                    $.post('http://localhost:8080/ToSkyNews_war_exploded/deleteReports',
                                     { "reportID": id },
                                     function (date) {
-                                        newalert(date.data)
+                                        swal(date.data, "你所选的用户信息已被删除。","success");
                                         changepage2();
                                     })
-                            }
+                                } else { 
+                                    swal("取消！", "你已经取消删除:","error"); 
+                                } 
+                            });
                         }
                     }
                     feedbackdelete[i].onmouseout = function () {
@@ -290,7 +339,7 @@ function changepage2() {
                             let id = fid[i].innerHTML;
                             let fa = fat[i].innerHTML;
                             if (status[i].innerHTML == "待回复") {
-                                newalert("您暂未收到回复！");
+                                swal("您暂未收到回复！");
                             }
                             else if (status[i].innerHTML == "举报成功") {
                                 Feedback_show();
@@ -312,7 +361,7 @@ function changepage3() {
     $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/queryUserFeedback',
         { "userID": user_id },
         function (date) {
-            main.innerHTML = "<div class='main-right-top'>反馈栏目</div>";
+            main.innerHTML = "<div class='main-right-top'>反馈栏目<a href='javascript:;'>清空该信息空间</a></div>";
             if (date.length == 0) {
                 main.innerHTML += `
                     <div id="emptymeaage" style="padding-top: 200px;width: 100%;height: 200px;text-align: center;font-size: 16px;">
@@ -359,13 +408,12 @@ function changepage3() {
                         let ft = mft[i].innerHTML;
                         let fa = fat[i].innerHTML;
                         if (ft == 'null') {
-                            newalert("您暂未收到回复！");
+                            swal("您暂未收到回复！");
                         }
                         else {
                             $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/updateUserOr',
                                 { "feedbackID": id },
                                 function (date) {
-                                    console.log(date);
                                     changepage3();
                                     findred2();
                                 })
@@ -378,16 +426,31 @@ function changepage3() {
                         feedback[i].onclick = null;
                         this.onclick = function () {
                             let id = fid[i].innerHTML;
-                            var choose = confirm("你是否确定删除这条信息?");
-                            if (choose == true) {
-                                $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/deleteFeedback',
-                                    { "feedbackID": id },
-                                    function (date) {
-                                        newalert(date.data)
-                                        findred2();
-                                        changepage3();
-                                    })
-                            }
+                            swal({ 
+                                title: "你是否确定删除这条信息?", 
+                                text: "你将无法恢复该条信息！", 
+                                type: "warning",
+                                showCancelButton: true, 
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "确定删除！", 
+                                cancelButtonText: "取消删除！",
+                                closeOnConfirm: false, 
+                                closeOnCancel: false	
+                                },
+                                function(isConfirm){ 
+                                if (isConfirm) { 
+                                    swal("删除！", "你所选的信息已经被删除。","success"); 
+                                    $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/deleteFeedback',
+                                            { "feedbackID": id },
+                                            function (date) {
+                                                swal(date.data, "你所选的用户信息已被删除。","success");
+                                                findred2();
+                                                changepage3();
+                                            })
+                                } else { 
+                                    swal("取消！", "你已经取消删除:","error"); 
+                                } 
+                            });
                         }
                     }
                     feedbackdelete[i].onmouseout = function () {
@@ -396,13 +459,12 @@ function changepage3() {
                             let ft = mft[i].innerHTML;
                             let fa = fat[i].innerHTML;
                             if (ft == 'null') {
-                                newalert("您暂未收到回复！");
+                                swal("您暂未收到回复！");
                             }
                             else {
                                 $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/updateUserOr',
                                     { "feedbackID": id },
                                     function (date) {
-                                        console.log(date);
                                         findred2();
                                         changepage3();
                                     })

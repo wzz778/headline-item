@@ -13,16 +13,18 @@ function landf() {
     $.post('http://localhost:8080/ToSkyNews_war_exploded/users/sign', { "managerName": id, "password": ps },
         function (date) {
             if (date.data == "success") {
-                alert("登录成功");
-                window.location.assign("../templates/users-main.html");
-                sessionStorage.setItem("tousers", '1');
+                swal("登录成功","你输入了正确的账号密码","success");
+                setTimeout(function(){
+                    window.location.assign("../templates/users-main.html");
+                    sessionStorage.setItem("tousers", '1');
+                },1000)
             }
             else if (id == '' || ps == '') {
-                alert("请输入完整信息！");
+                swal("请输入完整信息！");
 
             }
             else {
-                alert("您输入的账号或密码错误！");
+                swal("您输入的账号或密码错误！");
             }
         })
 }

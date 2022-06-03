@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Api(tags="VIP类")
 @Controller
@@ -27,23 +30,9 @@ public class VipController {
     @ApiOperation(value = "成为VIP", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/addVIP")
     @ResponseBody
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="userID",value = "用户id"),
-            @ApiImplicitParam(name="times",value = "用户成为VIP时间")
-    })
-    public Response addVIP(Integer userID, String times) {
-//        if (StringUtils.isEmpty(times)){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(times," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
-//        if (userID == null){
-//            throw new CustomException("类型为空！");
-//        }
-        System.out.println(userID+"     "+times);
-        Vip vip=new Vip(userID,times);
-        vipService.addVip(vip);
+    @ApiImplicitParam(name="userID",value = "用户id")
+    public Response addVIP(int userID) {
+        vipService.addVip(userID);
         return Response.ok("恭喜您成为VIP！");
     }
 
@@ -59,9 +48,6 @@ public class VipController {
     @ResponseBody
     @ApiImplicitParam(name="userID",value = "用户ID")
     public Response deleteVip(Integer userID)  {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         vipService.deleteVip(userID);
         return Response.ok("删除成功！");
     }
@@ -70,12 +56,6 @@ public class VipController {
     @PostMapping("/queryAllVague")
     @ResponseBody
     public Response list2(String thing) {
-//        if (StringUtils.isEmpty(thing) ){
-//            throw new CustomException("类型不能为空");
-//        }
-//        if (StringUtils.startsWith(thing," ")){
-//            throw new CustomException("类型不能有空位");
-//        }
         return Response.ok(vipService.overAllPicture(thing));
     }
 
@@ -84,9 +64,6 @@ public class VipController {
     @PostMapping("/judgeVipIs")
     @ResponseBody
     public Response judgeVipI(Integer userID) {
-//        if(userID==null){
-//            throw new CustomException("类型为空！");
-//        }
         int vip=vipService.judgeVip(userID);
         if(vip==1){
             return Response.ok("此用户为vip用户！");
@@ -104,11 +81,6 @@ public class VipController {
        return vipService.test(userID,times);
     }
 
-//    //返回除了status为-2的文章的个数
-//    int queryStatusNoTwo();
-//
-//    //返回status为1的文章（n条）
-//    List<Posts> queryStatusOneN(int count);
 
     @ApiOperation(value = "返回除了status为-2的文章的个数", notes = "获取地址", httpMethod = "GET")
     @GetMapping("/queryStatusNoTwo")
@@ -122,5 +94,28 @@ public class VipController {
     @ResponseBody
     public List<Posts> queryStatusOneN(int count) {
         return vipService.queryStatusOneN(count);
+    }
+
+    /***************************/
+    @ApiOperation(value = "模糊查询某个用户的草稿箱信息（分页）", notes = "获取地址", httpMethod = "POST")
+    @PostMapping("/queryVaguePagesYXY")
+    @ResponseBody
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="reside",value = "用户id"),
+            @ApiImplicitParam(name="thing",value = "模糊查询的片段"),
+            @ApiImplicitParam(name="page",value = "第几页"),
+            @ApiImplicitParam(name="num",value = "查询数量")
+    })
+    public Response YXY(int reside,String thing,int page,int num) {
+        Map<String,List> map=new HashMap<String, List>();
+        if(page<0){
+            List<String>list=new LinkedList<>();
+            list.add("请输入合理的页数！");
+            map.put("error",list);
+            return Response.error(map);
+        }else{
+            map=vipService.queryVaguePagesYXY(reside,thing,page,num);
+            return Response.ok(map);
+        }
     }
 }
