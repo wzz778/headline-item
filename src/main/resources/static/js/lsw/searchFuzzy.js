@@ -482,10 +482,11 @@ function hot_post() {
 }
 
 var paging=document.getElementById('paging')
+var allPicture
 function picture(){
-    // paging.style.display='none'
     let sort = sessionStorage.getItem('c-sort');
     if(sort == all_sort[6]||sort == null) {
+        paging.style.display='none'
         $.ajax({
             type: 'post',
             url: 'http://localhost:8080/ToSkyNews_war_exploded/img/vagueQueryPicture',
@@ -493,7 +494,8 @@ function picture(){
                 thing: input.value,
             },
             success: function (result) {
-                console.log(result)
+                console.log(result.data.length)
+                allPicture=result.data.length
                 if(result.code==-1){
                     alert('无相关搜索')
                 }else if(result.code==1){
@@ -512,6 +514,8 @@ function picture(){
             },
         })
     }
+
 }
+
 
 
