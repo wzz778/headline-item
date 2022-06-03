@@ -7,6 +7,7 @@ import com.skynews.pojo.Collections;
 import com.skynews.service.PostsService;
 import com.skynews.service.UserService;
 import com.skynews.utils.PageUtils;
+import com.skynews.utils.RegexUtils;
 import com.skynews.utils.Response;
 import com.skynews.utils.SendMail;
 import io.swagger.annotations.Api;
@@ -47,22 +48,26 @@ public class userController {
 //    @ApiImplicitParam(name="targetEmail",value = "邮箱号")
     public Response mail(@RequestParam("targetEmail") String targetEmail) {
         String targetEmail1=targetEmail.replaceAll(" ","");
+//        if(targetEmail.equals("^([\\\\w-\\\\.]+)@((\\\\[[0-9]{1,3}\\\\.[0-9]{1,3}\\\\.[0-9]{1,3}\\\\.)|(([\\\\w-]+\\\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\\\]?)$")){
+//            authCode = String.valueOf(new Random().nextInt(899999) + 100000);
+//            //sendMail.sendMail(email, "你的验证码为" + captcha + "(五分钟内有效)");
+//            sendMail.sendEmailCode(targetEmail1, "你的验证码为" + authCode + "(五分钟内有效)");
+//        }
+        if (RegexUtils.checkEmail(targetEmail)){
+            authCode = String.valueOf(new Random().nextInt(899999) + 100000);
+            sendMail.sendEmailCode(targetEmail1, "你的验证码为" + authCode + "(五分钟内有效)");
+            return Response.ok(targetEmail1,"验证码发生成功");
+        }
+
+
+
 //        if (StringUtils.isEmpty(targetEmail)){
 //            throw new CustomException("邮箱号不能为空");
 //        }
 //        if (StringUtils.startsWith(targetEmail," ")){
 //            throw new CustomException("邮箱号不能有空位");
 //        }
-        log.debug("debug.....");
-//        消息
-        log.info("info.....");
-        log.error("error....");
-        log.warn("warn....");
-        //生成六位数验证码
-        authCode = String.valueOf(new Random().nextInt(899999) + 100000);
-        //sendMail.sendMail(email, "你的验证码为" + captcha + "(五分钟内有效)");
-        sendMail.sendEmailCode(targetEmail1, "你的验证码为" + authCode + "(五分钟内有效)");
-        return Response.ok(targetEmail1,"验证码发生成功");
+       return Response.error("输入错误");
     }
     //注册
     @ApiOperation(value ="注册",notes = "获取注册",httpMethod = "POST")
@@ -87,18 +92,22 @@ public class userController {
 //        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)|| StringUtils.isEmpty(targetEmail)|| StringUtils.isEmpty(authCode1)){
 //            throw new CustomException("用户名或密码不能为空");
 //        }
-        User user=new User(username,password,targetEmail);
-        if(authCode1.equals(authCode)) {
-           int register = userService.register(user);
-           if (register == 1) {
-               System.out.println(account);
-                return Response.ok(user,"验证码输入正确,账号生成成功,注册成功");
-           } else {
-               return Response.error("注册失败！您的账号已存在！");
-           }
-       }else {
-           return Response.error("验证码输入错误");
-       }
+        if(RegexUtils.checkEmail(targetEmail)&&RegexUtils.checkDigit(password)&&RegexUtils.checkDigit(authCode1)&&RegexUtils.checkChinese(username)){
+            User user=new User(username,password,targetEmail);
+
+            if(authCode1.equals(authCode)) {
+                int register = userService.register(user);
+                if (register == 1) {
+                    System.out.println(account);
+                    return Response.ok(user,"验证码输入正确,账号生成成功,注册成功");
+                } else {
+                    return Response.error("注册失败！您的账号已存在！");
+                }
+            }else {
+                return Response.error("验证码输入错误");
+            }
+        }
+       return Response.error("输入错误");
     }
     //登录验证
     @ApiOperation(value ="登录验证",notes = "获取登录",httpMethod = "POST")
@@ -146,29 +155,43 @@ public class userController {
         User user = userService.getUser(account);
         if(user!=null){
             String telephone = user.getTelephone();
-            if(targetEmail.equals(telephone)){
-                if (password.equals(newpassword2)) {
-                    if (authCode1.equals(authCode)) {
-                        user.setPassword(password);
-                        System.out.println(user);
-                        userService.changePassword(user);
-                        return Response.ok("验证码输入正确,两次密码输入正确,修改密码成功,请登录");
-                    }else{
-                        return Response.ok("验证码输入错误,请重新输入");
-                    }
-                }else{
-                    return Response.error("两次密码不一致,请重新输入");
-
-                }
-
-            } else {
-                return Response.error("邮箱号输入错误");
-
+            if(!targetEmail.equals(telephone)){
+                return Response.ok("邮箱号输入错误,请重新输入");
             }
+            if (!password.equals(newpassword2)){
+                return Response.error("两次密码不一致,请重新输入");
+            }
+            if (!authCode1.equals(authCode)){
+                return Response.ok("验证码输入错误,请重新输入");
+            }
+            user.setPassword(password);
+            userService.changePassword(user);
+            return Response.ok("验证码输入正确,两次密码输入正确,修改密码成功,请登录");
         }
         return Response.error("账号错误或用户不存在");
 
     }
+
+//            if(targetEmail.equals(telephone)){
+//                if (password.equals(newpassword2)) {
+//                    if (authCode1.equals(authCode)) {
+//                        user.setPassword(password);
+//                        System.out.println(user);
+//                        userService.changePassword(user);
+//
+//                    }else{
+//                        return Response.ok("验证码输入错误,请重新输入");
+//                    }
+//                }else{
+//                    return Response.error("两次密码不一致,请重新输入");
+//
+//                }
+//
+//            } else {
+//                return Response.error("邮箱号输入错误");
+//
+//            }
+
     //修改信息
     @ApiOperation(value = "修改用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/updateUser")
@@ -192,7 +215,7 @@ public class userController {
     @ApiOperation(value = "注销用户", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/del/{userID}")
     @ResponseBody
-    public Response deleteUser(@PathVariable("userID")Integer userID){
+    public Response deleteUser(@PathVariable("userID")int  userID){
 //        if(StringUtils.isEmpty(String.valueOf(userID))){
 //            throw new CustomException("类型为空!");
 //        }
@@ -202,7 +225,6 @@ public class userController {
         User user = userService.queryUserById(userID);
         if(user!=null){
             userService.deleteUserById(userID);
-
             return Response.ok(userID,"删除成功");
         }
         return Response.error("用户不存在");
@@ -292,33 +314,6 @@ public class userController {
         List <Posts> list=userService.allPass(reside);
         return list;
     }
-//    @ApiOperation(value = "通过分页查询用户发布的帖子", notes = "获取地址", httpMethod = "POST")
-//    @PostMapping("/savePosts")
-//    @ResponseBody
-////    @ApiImplicitParams({
-////            @ApiImplicitParam(name="reside",value = "用户id",required = true),
-////            @ApiImplicitParam(name="column",value = "开始查询索引"),
-////    })
-//    public List<Posts> savePosts( int reside, int status, int start, int count) throws CustomException {
-////        if(StringUtils.startsWith(reside," ")||StringUtils.startsWith(column," ")){
-////            throw new CustomException("类型不能有空位");
-////        }
-////        if(StringUtils.isEmpty(String.valueOf(reside))||StringUtils.isEmpty(String.valueOf(column))){
-////            throw new CustomException("类型不能为空");
-////        }
-//        List<Posts> postsList = userService.savePosts(reside, status, start, count);
-////        PageUtils pageUtils=new PageUtils(start,count);
-////        pageUtils.setStart(start);
-////        pageUtils.setCount(count);
-////        List<Posts> postsList = userService.savePosts(reside, status, pageUtils.getStart(), pageUtils.getCount());
-////        int total = userService.allCountPosts(reside);
-////        System.out.println(total);
-////        pageUtils.setTotal(total);
-////        Map<String,Object> map=new HashMap<>();
-////        map.put("pageUtils",pageUtils);
-////        map.put("postsList",postsList);
-//        return postsList;
-//    }
     @ApiOperation(value = "通过用户id查询发布的帖子总数量", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/allCountPosts")
     @ResponseBody
@@ -441,5 +436,7 @@ public class userController {
     public Response savePosts(int reside,int column){
         return userService.savePosts(reside,column);
     }
+
+
 }
 

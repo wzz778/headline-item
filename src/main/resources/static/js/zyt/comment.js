@@ -18,7 +18,6 @@ function getTime() {
 }
 var date = new Date();
 // 由帖子id查询相应的帖子
-var article_id = localStorage.getItem('article_id');
 var user_id = localStorage.getItem('user_id');
 var user_name = localStorage.getItem('user_name');
 var user_img = localStorage.getItem('user_img');
@@ -96,7 +95,6 @@ function touserpage(number) {
     }
 }
 // 返回帖子评论数
-var article_id = this.localStorage.getItem('article_id');
 var recos1_title = document.getElementsByClassName('recos1_title')[0];
 function comnumber() {
     $.ajax({

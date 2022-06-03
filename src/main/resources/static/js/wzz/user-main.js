@@ -178,8 +178,8 @@ $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryAlikeDesc',
             maxfire[i].onclick = function () {
                 let id = fireid[i].innerHTML;
                 localStorage.setItem("article_id", id);
-
-                window.location.assign("../templates/recomments.html");
+                // window.location.assign("../templates/recomments.html?");
+                window.location.assign(`../templates/recomments.html?article_id=${id}`);
             }
         }
     })
@@ -196,7 +196,7 @@ function allchange() {
                     console.log(date);
                 })
             localStorage.setItem("article_id", id);
-
+            window.location.assign(`../templates/recomments.html?article_id=${id}`);
         }
     }
 }
@@ -246,7 +246,7 @@ function all_a() {
             for (let n = 0; n < date.length; n++) {
                 if (date[n].cover == null) {
                     column.innerHTML += `
-                        <a class="column_news" href="recomments.html">
+                        <a class="column_news" href="javascript:;">
                             <div class="column_news_title">${date[n].postsName}</div>
                             <div class="column_news_Acommit">${date[n].contentA}</div>
                             <div class="column_news_information">
@@ -259,7 +259,7 @@ function all_a() {
                     `;
                 } else {
                     column.innerHTML += `
-                        <a class="column_news" href="recomments.html">
+                        <a class="column_news" href="javascript:;">
                                     <div class="column_news_titles">${date[n].postsName}</div>
                                     <div class="column_news_Acommits">${date[n].contentA}</div>
                                     <div class="column_news_information">
@@ -352,7 +352,7 @@ function chance_sort() {
                     for (let n = 0; n < date.length; n++) {
                         if (date[n].cover == null) {
                             column.innerHTML += `
-                                <a class="column_news" href="recomments.html">
+                                <a class="column_news" href="javascript:;">
                                             <div class="column_news_title">${date[n].postsName}</div>
                                             <div class="column_news_Acommit">${date[n].contentA}</div>
                                             <div class="column_news_information">
@@ -365,7 +365,7 @@ function chance_sort() {
                             `;
                         } else {
                             column.innerHTML += `
-                                <a class="column_news" href="recomments.html">
+                                <a class="column_news" href="javascript:;">
                                             <div class="column_news_titles">${date[n].postsName}</div>
                                             <div class="column_news_Acommits">${date[n].contentA}</div>
                                             <div class="column_news_information">
