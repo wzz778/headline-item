@@ -294,11 +294,9 @@ function getMyWorks(x) {
                             },
                             success: function(suc_1) {
                                 console.log(suc_1);
-                                localStorage.setItem('article_id',
-                                    workTitle[y].textID);
+                                localStorage.setItem('article_id',workTitle[y].textID);
 
-                                window.location.assign(
-                                    "../templates/recomments.html");
+                                window.location.assign(`../templates/recomments.html?article=${workTitle[y].textID}`);
                             },
                             error: function(err) {
                                 console.log(err);
@@ -506,7 +504,7 @@ function getLoveWorks(m) {
                         })
                         localStorage.setItem('article_id', workTitle[n].textID);
 
-                        window.location.assign("../templates/recomments.html");
+                        window.location.assign(`../templates/recomments.html?article_id-${workTitle[n].textID}`);
                     })
                     // 取消收藏
                     var collect = document.querySelectorAll('.collect');
