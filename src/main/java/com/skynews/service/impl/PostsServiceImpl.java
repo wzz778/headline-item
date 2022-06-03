@@ -7,6 +7,7 @@ import com.skynews.dao.PostsMapper;
 import com.skynews.pojo.Comment;
 import com.skynews.pojo.Posts;
 import com.skynews.service.PostsService;
+import com.skynews.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -220,4 +221,13 @@ public class PostsServiceImpl implements PostsService {
     public Integer getTotal() {
         return postsMapper.getTotal();
     }  //获取用户总数
+
+    @Override
+    public Response getPostByID(int postsID) {
+        Posts post = postsMapper.getPostByID(postsID);
+        if(post!=null){
+            return Response.ok(post);
+        }
+        return Response.error("error");
+    }
 }
