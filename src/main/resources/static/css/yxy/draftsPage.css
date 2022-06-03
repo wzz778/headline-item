@@ -172,10 +172,11 @@ body {
 }
 
 .content .handle .massDelete,
-.content .handle .deleteChoose {
-  position: absolute;
-  right: 100px;
-  top: 20px;
+.content .handle .deleteChoose,
+.content .handle .findMassDelete,
+.content .handle .findDeleteChoose,
+.content .handle .lastInfo {
+  display: inline-block;
   width: 80px;
   height: 30px;
   color: #fff;
@@ -184,25 +185,56 @@ body {
   border-radius: 5px;
 }
 
-.content .handle .deleteChoose {
+.content .handle .deleteChoose,
+.content .handle .findDeleteChoose {
   display: none;
+  margin: 20px 5px 20px 5px;
 }
 
-.content .handle .reset {
-  position: absolute;
-  right: 100px;
-  top: 20px;
+.content .handle .lastInfo {
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  background: rgba(72, 96, 184, 0.5);
+  border: none;
+  border-radius: 5px;
+}
+
+.content .handle .reset,
+.content .handle .findReset {
   width: 80px;
   height: 30px;
   color: #fff;
   background: rgba(184, 72, 72, 0.5);
   border: none;
   border-radius: 5px;
+}
+
+.content .handle .btn_1,
+.content .handle .btn_2 {
+  position: absolute;
+  right: 100px;
+  align-items: center;
+  width: 400px;
+  height: 100%;
+}
+
+.content .handle .btn_1 button,
+.content .handle .btn_2 button {
+  margin: 20px 5px 20px 5px;
+}
+
+.content .handle .btn_2 {
+  display: none;
 }
 
 .content .handle .allChoose,
 .content .handle .cancelAll,
-.content .handle .reset {
+.content .handle .reset,
+.content .handle .findAllChoose,
+.content .handle .findCancelAll,
+.content .handle .findReset {
   display: none;
   width: 80px;
   height: 30px;
@@ -211,24 +243,6 @@ body {
   border: none;
   border-radius: 5px;
   color: #fff;
-}
-
-.content .handle .allChoose {
-  position: absolute;
-  top: 20px;
-  right: 200px;
-}
-
-.content .handle .cancelAll {
-  position: absolute;
-  top: 20px;
-  right: 300px;
-}
-
-.content .handle .reset {
-  position: absolute;
-  top: 20px;
-  right: 400px;
 }
 
 .content .handle .findBox {
@@ -371,7 +385,94 @@ body {
   background-color: #76aef3;
 }
 
-.content .page {
+.content .find {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height: 420px;
+  background-color: #fff;
+}
+
+.content .find li {
+  display: flex;
+  position: relative;
+  height: 70px;
+  width: 100%;
+  border-bottom: 1.5px #e5e5e5 solid;
+  border-radius: 8px;
+}
+
+.content .find li:hover {
+  background-color: #dae8fa;
+}
+
+.content .find li .chooseBox,
+.content .find li .findChooseBox {
+  display: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 30px;
+}
+
+.content .find li .itemContent {
+  display: inline-block;
+  position: absolute;
+  left: 40px;
+  width: 500px;
+  height: 100%;
+}
+
+.content .find li .itemContent .title {
+  display: inline-block;
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #636262;
+}
+
+.content .find li .itemContent .lastTime {
+  display: inline-block;
+  width: 100%;
+  font-size: 14px;
+  color: #76aef3;
+}
+
+.content .find li .itemHandle {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 100%;
+  right: 40px;
+}
+
+.content .find li button {
+  width: 60px;
+  height: 30px;
+  color: #665e5e;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.content .find li .itemDelete {
+  background-color: pink;
+}
+
+.content .find li .itemChange {
+  background-color: #76aef3;
+}
+
+.content .page,
+.content .findPage {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -381,12 +482,18 @@ body {
   margin-top: 40px;
 }
 
-.content .page .line {
+.content .findPage {
+  display: none;
+}
+
+.content .line {
   color: #76aef3;
 }
 
-.content .page .lastPage,
-.content .page .nextPage {
+.content .lastPage,
+.content .nextPage,
+.content .findLastPage,
+.content .findNextPage {
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -400,19 +507,22 @@ body {
   cursor: pointer;
 }
 
-.content .page .lastPage:hover,
-.content .page .nextPage:hover {
+.content .lastPage:hover,
+.content .nextPage:hover,
+.content .findLastPage:hover,
+.content .findNextPage:hover {
   color: #fff;
   background-color: cornflowerblue;
 }
 
-.content .page .searchPageBox {
+.content .searchPageBox,
+.content .findSearchPageBox {
   display: flex;
   width: 163px;
   height: 32px;
 }
 
-.content .page .searchPageBox input {
+.content input {
   display: inline-block;
   width: 100px;
   height: 30px;
@@ -423,7 +533,8 @@ body {
   border-radius: 2px;
 }
 
-.content .page .searchPageBox .sure {
+.content .sure,
+.content .findSure {
   display: inline-block;
   width: 50px;
   height: 32px;
@@ -433,4 +544,12 @@ body {
   border-radius: 2px;
   margin-left: -2px;
   cursor: pointer;
+}
+
+.findItemDelete {
+  background-color: pink;
+}
+
+.findItemChange {
+  background-color: #76aef3;
 }

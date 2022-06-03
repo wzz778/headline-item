@@ -60,10 +60,9 @@ var hot_posts = document.getElementsByClassName('hot_posts')
 function hot_post() {
     for (let i in hot_posts) {
         hot_posts[i].onclick = function () {
-            window.location.assign('recomments.html');
             let id = hot_posts[i].querySelector('.postsID').innerHTML;
-            localStorage.setItem('article_id', id);
-
+            localStorage.setItem("article_id", id);
+            window.location.assign(`../templates/recomments.html?article_id=${id}`);
         }
     }
 }

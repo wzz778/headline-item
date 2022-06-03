@@ -113,9 +113,7 @@ function articleall() {
             let title = n.parentNode.parentNode.children[5].innerHTML;
             let id = n.parentNode.parentNode.children[7].innerHTML;
             let ttt = n.parentNode.parentNode.children[4].innerHTML;
-            if (ttt == '批准') {
-                swal("已批准！");
-            } else if (ttt == '拒绝') {
+             if (ttt == '拒绝') {
                 swal("已拒绝！");
             } else {
                 swal({ 

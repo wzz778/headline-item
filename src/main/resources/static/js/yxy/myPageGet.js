@@ -21,8 +21,8 @@ var collectNum=document.querySelector('.collectNum');
 var moreWorks=document.querySelector('.moreWorks');
 var moreCollect=document.querySelector('.moreCollect');
 var drafts=document.querySelector('.drafts');
-num();
-function num(){
+postNum();
+function postNum(){
     $.ajax({
         type:'post',
         url:'http://localhost:8080/ToSkyNews_war_exploded/collections/queryCollectionByUserID',
@@ -354,7 +354,7 @@ function getMyWorks(x){
                             })
                             localStorage.setItem('article_id',workTitle[y].textID);
                             // localStorage.setItem("tolook", '0');
-                            window.location.assign("../templates/recomments.html");
+                            window.location.assign(`../templates/recomments.html?article_id=${workTitle[y].textID}`);
                         })
                          //删除帖子(阻止了冒泡)
                         deleteText[y].addEventListener('click',function(e){
@@ -393,7 +393,7 @@ function getMyWorks(x){
                                 e.stopPropagation();
                                 localStorage.setItem('article_id',workTitle[y].textID);
                                 // localStorage.setItem("tolook", '0');
-                                window.location.assign("../templates/publish-change.html");
+                                window.location.assign(`../templates/publish-change.html?article_id=${workTitle[y].textID}`);
                             },false)
                     },60)
                  }
@@ -488,7 +488,7 @@ function getLoveWorks(m){
                               })
                               localStorage.setItem('article_id',workTitle[n].textID);
                             //   localStorage.setItem("tolook", '0');
-                              window.location.assign("../templates/recomments.html");
+                              window.location.assign(`../templates/recomments.html?article_id=${workTitle[n].textID}`);
                           })
                           // 取消收藏
                           var cancelLove=document.querySelectorAll('.cancelLove');
@@ -751,7 +751,7 @@ searchBox.addEventListener('click',function(){
                         worksItem[i].addEventListener('click',function(){
                             localStorage.setItem('article_id',workTitle[i].textID);
                             // localStorage.setItem("tolook", '0');
-                            window.location.assign("../templates/recomments.html");
+                            window.location.assign(`../templates/recomments.html?article_id=${workTitle[i].textID}`);
                         })
                         if(res[i].status==1){
                             status[i].style.display='none';
@@ -871,7 +871,7 @@ searchBox.addEventListener('click',function(){
                             e.stopPropagation();
                             localStorage.setItem('article_id',workTitle[i].textID);
                             // localStorage.setItem("tolook", '0');
-                            window.location.assign("../templates/publish-change.html");
+                            window.location.assign(`../templates/publish-change.html?article_id=${workTitle[i].textID}`);
                         },false)
                     }
                 }
