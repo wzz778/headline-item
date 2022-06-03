@@ -167,7 +167,7 @@ function auditingPicture(){
     let pager=(p-1)*10;
     if(all_sort1[2]==window.localStorage.sort1) {
         $.ajax({
-            type: 'get',
+            type: 'post',
             url: 'http://localhost:8080/ToSkyNews_war_exploded/img/statusPicture',
             data: {
                 start: pager,
@@ -204,7 +204,7 @@ function passPicture(){
     let pager=(p-1)*10;
     if(all_sort1[1]==window.localStorage.sort1) {
         $.ajax({
-            type: 'get',
+            type: 'post',
             url: 'http://localhost:8080/ToSkyNews_war_exploded/img/statusPicture',
             data: {
                 start: pager,
@@ -237,7 +237,7 @@ function pictureAllNum(){
     var p=page.value;
     let pager=(p-1)*10;
     $.ajax({
-        type:'get',
+        type:'post',
         url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allUserPicture',
         data:{
             start:pager,
@@ -264,7 +264,7 @@ function pictureAllNum(){
 allPictureNum()
 function allPictureNum(){
     $.ajax({
-        type:'get',
+        type:'post',
         url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allCountPicture',
         data:{
             userID: user_id,
@@ -289,7 +289,7 @@ function allPictureNum(){
 // passPictureNum();
 function passPictureNum(){
     $.ajax({
-        type:'get',
+        type:'post',
         url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allPassPicture',
         data:{
             userID: user_id,
@@ -314,7 +314,7 @@ function passPictureNum(){
 // auditingPictureNum();
 function auditingPictureNum(){
     $.ajax({
-        type:'get',
+        type:'post',
         url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allAuditingPicture',
         data:{
             userID: user_id,
@@ -378,7 +378,7 @@ function auditingPictureNum(){
         var flag = confirm("你确定要删除吗？");
         if (flag) {
             $.ajax({
-                type: "get",
+                type: "post",
                 url: "http://localhost:8080/ToSkyNews_war_exploded/img/deletePicture",
                 data: {
                     PictureID: pictureID
@@ -405,7 +405,7 @@ function auditingPictureNum(){
         var flag1 = confirm("你确定要删除吗？");
         if (flag1) {
             $.ajax({
-                type: "get",
+                type: "post",
                 url: "http://localhost:8080/ToSkyNews_war_exploded/img/deletePicture",
                 data: {
                     PictureID: pictureID
@@ -432,7 +432,7 @@ function auditingPictureNum(){
         var flag2 = confirm("你确定要删除吗？");
         if (flag2) {
             $.ajax({
-                type: "get",
+                type: "post",
                 url: "http://localhost:8080/ToSkyNews_war_exploded/img/deletePicture",
                 data: {
                     PictureID: pictureID2
