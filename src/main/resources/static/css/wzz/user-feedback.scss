@@ -330,7 +330,7 @@ input::-webkit-inner-spin-button {
                 border-radius: 100px;
             }
             .message-card{
-                width: 600px;
+                width: 580px;
                 height: 60px;
                 margin-left: 10px;
                 .message-card-top{
@@ -351,7 +351,7 @@ input::-webkit-inner-spin-button {
                     }
                 }
                 .message-card-bon{
-                    width: 600px;
+                    width: 580px;
                     height: 30px;
                     overflow: hidden;
                     text-overflow: ellipsis;
@@ -367,7 +367,7 @@ input::-webkit-inner-spin-button {
                 }
             }
             .message-con{
-                width: 120px;
+                width: 170px;
                 height: 50px;
                 padding: 5px;
                 overflow: hidden;
@@ -377,8 +377,8 @@ input::-webkit-inner-spin-button {
                     border: #bbd7f8 1px solid;
                     cursor: pointer;
                     border-radius: 8px;
-                    padding: 5px;
-                    margin-left: 90px;
+                    padding: 6px;
+                    margin-left: 100px;
                     transition: 0.15s;
                     i{
                         padding: 0 3px;
@@ -390,6 +390,8 @@ input::-webkit-inner-spin-button {
                     }
                 }
                 span{
+                    display: block;
+                    width: 170px;
                     font-size: 14px;
                     color: #525252;
                 }
