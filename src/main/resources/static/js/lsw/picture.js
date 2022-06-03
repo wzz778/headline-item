@@ -65,6 +65,20 @@ var user_id=localStorage.getItem('user_id');
 var userAgent = navigator.userAgent; //用于判断浏览器类型
 $(".file").change(function() {
     var docObj = $(this)[0];
+    var  docObj1=$('#file').val();
+    // var file = document.getElementById('#file').value;
+    if ( docObj1 == null ||  docObj1 == "") {
+        alert("请选择要上传的文件!");
+        return false;
+    }
+    var allow_ext = ".jpg|.png|.gif";
+    var ext_name =  docObj1.substring( docObj1.lastIndexOf("."));
+    if (allow_ext.indexOf(ext_name + "|") == -1) {
+        var errMsg = "该文件不允许上传，请上传" + allow_ext + "类型的文件,当前文件类型为：" + ext_name;
+        alert(errMsg);
+        return false;
+    }
+
     var picDiv = $(this).parents(".picDiv");
     // 得到所有的图片文件
     var fileList = docObj.files;
