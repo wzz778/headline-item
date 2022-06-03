@@ -115,6 +115,12 @@
             <a id="top_message" class="top_left" href="javascript:;">
                 您有新的消息
             </a>
+            <div id="publish">
+                <a id="top_works" href="javascript:;"><i class="fa fa-file-text-o" aria-hidden="true"></i>发布文章</a>
+                <a id="top_p" href="javascript:;"><i class="fa fa-picture-o" aria-hidden="true"></i>发布图片</a>
+                <a href="javascript:;" onclick=" developing()"><i class="fa fa-video-camera" aria-hidden="true"></i>发布视频</a>
+                <a href="javascript:;" onclick=" developing()"><i class="fa fa-pencil-square-o " aria-hidden="true"></i>发布问答</a>
+            </div>
             <div id="head_show">
                 <a onclick="tomymain()" href="javascript:;">个人主页</a>
                 <a onclick="tocreate()" href="javascript:;">创作文章</a>
@@ -209,7 +215,7 @@
                         <span>评论</span>
                         <span>发布时间</span>
                     </div>
-                </a>
+                </a>    
                 <a class="column_news" href="recomments.html" target="_blank">
                     <div class="column_news_titles">${date[n].postsName}</div>
                     <div class="column_news_Acommits">${date[n].contentA}</div>

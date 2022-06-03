@@ -122,7 +122,7 @@ fileBtn.onclick=function(){
     var formData = new FormData();
     formData.append("profile",$('#file')[0].files[0]);
     formData.append('userID',user_id)
-    formData.append('userDepiction','人物')
+    formData.append('userDepiction','哈')
     $.ajax({
         type:'post',
         url:'http://localhost:8080/ToSkyNews_war_exploded/img/getImgProfile',
@@ -192,14 +192,19 @@ function auditingPicture(){
             },
             dataType: 'json',
             success: function (data) {
-                rightCenter2.innerHTML = null
-                for (let i = 0; i < data.data.length; i++) {
-                    rightCenter2.innerHTML += `
+                if(data.code==-1){
+                    alert('无该状态图片')
+                    rightCenter2.innerHTML = null
+                }else if(data.code==1){
+                    rightCenter2.innerHTML = null
+                    for (let i = 0; i < data.data.length; i++) {
+                        rightCenter2.innerHTML += `
                 <div class="imgsDiv">
                     <div class="imgCover" onclick="qq('${data.data[i].pictureID}')">删除</div>
                     <img class="imgs" src='${data.data[i].userImg}'>
                 </div>
             `
+                    }
                 }
             },
             err: function (err) {
@@ -230,14 +235,19 @@ function passPicture(){
             },
             dataType: 'json',
             success: function (data) {
-                rightCenter2.innerHTML = null
-                for (let i = 0; i < data.data.length; i++) {
-                    rightCenter2.innerHTML += `
+                if(data.code==-1){
+                    alert('无该状态图片')
+                    rightCenter2.innerHTML = null
+                }else if(data.code==1) {
+                    rightCenter2.innerHTML = null
+                    for (let i = 0; i < data.data.length; i++) {
+                        rightCenter2.innerHTML += `
                 <div class="imgsDiv">
                     <div class="imgCover" onclick="q2('${data.data[i].pictureID}')">删除</div>
                     <img class="imgs" src='${data.data[i].userImg}' width="140px;height:120px">
                 </div>
             `
+                    }
                 }
             },
             err: function (err) {
@@ -264,15 +274,15 @@ function pictureAllNum(){
             },
             dataType: 'json',
             success: function (data) {
-                rightCenter2.innerHTML = null
-                for (let i = 0; i < data.data.length; i++) {
-                    rightCenter2.innerHTML += `
+                    rightCenter2.innerHTML = null
+                    for (let i = 0; i < data.data.length; i++) {
+                        rightCenter2.innerHTML += `
                 <div class="imgsDiv">
                     <div class="imgCover"  onclick="q('${data.data[i].pictureID}')">删除</div>
                     <img class="imgs" src='${data.data[i].userImg}' width="140px;height:120px">
                 </div>
             `
-                }
+                    }
             },
             err: function (err) {
                 console.log(err);
