@@ -21,7 +21,7 @@ public interface ImgDataService {
     Response passPicture();
     //对照片进行审核
     Response auditPicture(int status,int PictureID);
-    //    查询图片库所有图片
+    //查询图片库所有图片
     Response allPicture();
     //    用户删除发布的图片
     Response deletePicture(int PictureID);

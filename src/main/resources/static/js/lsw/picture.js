@@ -8,6 +8,17 @@ for (let i = 0; i < list.length; i++) {
     }
 }
 
+var content2Nav=document.getElementById('content2Nav')
+var tu=document.querySelector('#leftNav')
+var pageBig1=document.getElementById('pageBig1');
+content2Nav.onclick=function(){
+    pageBig1.style.display='none'
+}
+tu.onclick=function () {
+    pageBig1.style.display='none'
+}
+
+
 var list1 = document.querySelector('#leftNav_li').querySelectorAll('li')
 var items = document.querySelectorAll('.item')
 for (var i = 0; i < list1.length; i++) {
@@ -24,6 +35,8 @@ for (var i = 0; i < list1.length; i++) {
         items[index].style.display = 'block';
     }
 }
+
+// 获取头像
 if(localStorage.getItem('have_land')=="true") {
     var user_img=document.querySelector('.user_img');
     var user_name = document.getElementById('user_name');
@@ -38,7 +51,6 @@ if(localStorage.getItem('have_land')=="true") {
             var user_img=document.querySelector('.user_img');
             localStorage.setItem('user_name', date.username);
             user_name.innerHTML = date.username;
-            // user_img.src=date.picture;
             user_img.style.backgroundImage=`url(${date.picture})`;
         }
     })
@@ -56,11 +68,8 @@ $(".file").change(function() {
     var picDiv = $(this).parents(".picDiv");
     // 得到所有的图片文件
     var fileList = docObj.files;
-    //循环遍历
     for (var i = 0; i < fileList.length; i++) {
-        //动态添加html元素
-        var picHtml = "<div class='imageDiv' nm='"+fileList[i].name+"'> <img id='img" + fileList[i].name + "' /> <div class='cover'><i class='delbtn'>删除</i></div></div>";
-        console.log(picHtml);
+        var picHtml = "<div class='imageDiv' nm='"+fileList[i].name+"'> <img id='img" + fileList[i].name + "' /><div class='cover'><i class='delbtn'>删除</i></div></div>";
         picDiv.prepend(picHtml);
         //获取图片imgi的对象
         var imgObjPreview = document.getElementById("img" + fileList[i].name);
@@ -71,7 +80,6 @@ $(".file").change(function() {
             imgObjPreview.style.height = '130px';
             if (userAgent.indexOf('MSIE') == -1) {
                 imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]); //获取上传图片文件的物理路径;
-                console.log(imgObjPreview.src);
             } else {
                 if (docObj.value.indexOf(",") != -1) {
                     var srcArr = docObj.value.split(",");
@@ -111,12 +119,15 @@ fileBtn.onclick=function(){
             if(data.code==10000){
                 shadow2.style.display='block';
                 successTip.style.display='block';
+                tip.innerHTML = "图片上传成功，请耐心等待审核"
+                tip.style.left=-50+'px'
             }
             console.log(data)
         }
     })
 }
 var status_li=document.querySelector('#status').querySelectorAll('li');
+var pictureNum=document.getElementById('pictureNum');
 var all_sort1 = ["全部","已审核","未审核"];
 status_li[0].className = 'statusColor';
 for (let i in status_li) {
@@ -130,9 +141,18 @@ for (let i in status_li) {
         page.value=1
         aa.innerText=page.value;
         num();
-        passPicture();
-        auditingPicture();
-
+    }
+}
+// 获取三种状态的数量
+function num(){
+    if(all_sort1[1]==window.localStorage.sort1){
+        passPictureNum();
+    }
+    if(all_sort1[2]==window.localStorage.sort1){
+        auditingPictureNum();
+    }
+    if(all_sort1[0]==window.localStorage.sort1){
+        allPictureNum();
     }
 }
 // 未审核的分页
@@ -147,7 +167,7 @@ function auditingPicture(){
     let pager=(p-1)*10;
     if(all_sort1[2]==window.localStorage.sort1) {
         $.ajax({
-            type: 'get',
+            type: 'post',
             url: 'http://localhost:8080/ToSkyNews_war_exploded/img/statusPicture',
             data: {
                 start: pager,
@@ -160,6 +180,7 @@ function auditingPicture(){
                 for (let i = 0; i < data.data.length; i++) {
                     rightCenter2.innerHTML += `
                 <div class="imgsDiv">
+                    <div class="imgCover" onclick="qq('${data.data[i].pictureID}')">删除</div>
                     <img class="imgs" src='${data.data[i].userImg}' width="140px;height:120px">
                 </div>
             `
@@ -175,7 +196,7 @@ function auditingPicture(){
 passPicture();
 function passPicture(){
     if(all_sort1[0]==window.localStorage.sort1){
-        pictureAllNum()
+        pictureAllNum();
     }
     var rightCenter2=document.getElementById('rightCenter2');
     var page=document.querySelector('#page');
@@ -183,7 +204,7 @@ function passPicture(){
     let pager=(p-1)*10;
     if(all_sort1[1]==window.localStorage.sort1) {
         $.ajax({
-            type: 'get',
+            type: 'post',
             url: 'http://localhost:8080/ToSkyNews_war_exploded/img/statusPicture',
             data: {
                 start: pager,
@@ -196,6 +217,7 @@ function passPicture(){
                 for (let i = 0; i < data.data.length; i++) {
                     rightCenter2.innerHTML += `
                 <div class="imgsDiv">
+                    <div class="imgCover" onclick="q2('${data.data[i].pictureID}')">删除</div>
                     <img class="imgs" src='${data.data[i].userImg}' width="140px;height:120px">
                 </div>
             `
@@ -215,7 +237,7 @@ function pictureAllNum(){
     var p=page.value;
     let pager=(p-1)*10;
     $.ajax({
-        type:'get',
+        type:'post',
         url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allUserPicture',
         data:{
             start:pager,
@@ -227,6 +249,7 @@ function pictureAllNum(){
             for(let i=0;i<data.data.length;i++){
                 rightCenter2.innerHTML +=`
                 <div class="imgsDiv">
+                    <div class="imgCover"  onclick="q('${data.data[i].pictureID}')">删除</div>
                     <img class="imgs" src='${data.data[i].userImg}' width="140px;height:120px">
                 </div>
             `
@@ -237,18 +260,49 @@ function pictureAllNum(){
         }
     })
 }
-// 未审核的数量
-auditingPictureNum();
-function auditingPictureNum(){
+// 全部的数量
+allPictureNum()
+function allPictureNum(){
     $.ajax({
-        type:'get',
-        url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allAuditingPicture',
+        type:'post',
+        url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allCountPicture',
         data:{
             userID: user_id,
         },
         dataType: 'json',
         success:function(data){
-            window.localStorage.totalNum=data.data.length;
+            if(data.code==1){
+                window.localStorage.totalNums=data.data;
+            }
+            console.log(Math.ceil(window.localStorage.totalNums / 10))
+            paging()
+            pictureAllNum();
+            pictureNum.innerHTML="总共有" + window.localStorage.totalNums + "张图片,总共" + Math.ceil(window.localStorage.totalNums / 10)+ "页";
+
+        },
+        err:function(err){
+            console.log(err);
+        }
+    })
+}
+// // 审核通过的数量
+// passPictureNum();
+function passPictureNum(){
+    $.ajax({
+        type:'post',
+        url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allPassPicture',
+        data:{
+            userID: user_id,
+        },
+        dataType: 'json',
+        success:function(data){
+            if(data.code==1){
+                window.localStorage.totalNums=data.data.length;
+            }
+            console.log(Math.ceil(window.localStorage.totalNums / 10))
+            paging()
+            passPicture();
+            pictureNum.innerHTML="总共有" + window.localStorage.totalNums + "张图片,总共" + Math.ceil(window.localStorage.totalNums / 10)+ "页";
             // console.log(data.data.length)
         },
         err:function(err){
@@ -256,76 +310,226 @@ function auditingPictureNum(){
         }
     })
 }
-// 审核通过的数量
-passPictureNum();
-function passPictureNum(){
+// 未审核的数量
+// auditingPictureNum();
+function auditingPictureNum(){
     $.ajax({
-        type:'get',
-        url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allPassPicture',
+        type:'post',
+        url: 'http://localhost:8080/ToSkyNews_war_exploded/img/allAuditingPicture',
         data:{
             userID: user_id,
         },
         dataType: 'json',
         success:function(data){
-            window.localStorage.totalNum=data.data.length;
-            // console.log(data.data.length);
+            if(data.code==1){
+                window.localStorage.totalNums=data.data.length;
+            }
+            console.log(Math.ceil(window.localStorage.totalNums / 10))
+            paging();
+            auditingPicture();
+            pictureNum.innerHTML="总共有" + window.localStorage.totalNums + "张图片,总共" + Math.ceil(window.localStorage.totalNums / 10)+ "页";
         },
         err:function(err){
-            console.log(err);
+            console.log(err)
         }
     })
 }
+    function statusPicture() {
+        if (all_sort1[1] == window.localStorage.sort1) {
+            passPicture();
+        }
+        if (all_sort1[2] == window.localStorage.sort1) {
+            auditingPicture()
+        }
+        if (all_sort1[0] == window.localStorage.sort1) {
+            pictureAllNum()
+        }
+    }
 
-// 获取三种状态的数量
-function num(){
-    if(all_sort1[1]==window.localStorage.sort1){
-        passPictureNum();
-        paging()
-        console.log(Math.ceil(window.localStorage.totalNum/10))
-    }
-    if(all_sort1[2]==window.localStorage.sort1){
-        auditingPictureNum();
-        paging()
-        console.log(Math.ceil(window.localStorage.totalNum/10))
-    }
-    if(all_sort1[0]==window.localStorage.sort1){
-        window.localStorage.totalNum=34;
-        paging()
-        console.log(Math.ceil(window.localStorage.totalNum/10))
-    }
-}
-function statusPicture(){
-    if(all_sort1[1]==window.localStorage.sort1){
-        passPicture();
-    }
-    if(all_sort1[2]==window.localStorage.sort1){
-        auditingPicture()
-    }
-    if(all_sort1[0]==window.localStorage.sort1){
-        pictureAllNum()
-    }
-}
 // 为三种状态绑定下一页，上一页
-function paging() {
-    var totalPage = Math.ceil(window.localStorage.totalNum / 10)
-    ago.onclick = function () {
-        var n = parseInt(page.value);
-        if (n > 1 && n <= totalPage) {
-            page.value -= 1;
-            aa.innerText = page.value;
-        }
-        statusPicture();
-    }
-    next.onclick = function () {
-        var n = parseInt(page.value);
-        if (n > 0 && n <= totalPage) {
-            page.value++;
-            if (page.value > totalPage) {
-                page.value = 1
+    function paging() {
+        var totalPage = Math.ceil(window.localStorage.totalNums / 10)
+        ago.onclick = function () {
+            var n = parseInt(page.value);
+            if (n > 1 && n <= totalPage) {
+                page.value -= 1;
+                aa.innerText = page.value;
             }
-            aa.innerText = page.value;
+            statusPicture();
         }
-        statusPicture();
+        next.onclick = function () {
+            var n = parseInt(page.value);
+            if (n > 0 && n <= totalPage) {
+                page.value++;
+                if (page.value > totalPage) {
+                    shadow2.style.display = "block";
+                    successTip.style.display = "block";
+                    tip.innerHTML = "这已经是最后一页了"
+                    tip.style.left = 17 + 'px';
+                    page.value = 1
+                }
+                aa.innerText = page.value;
+            }
+            statusPicture();
+        }
     }
+
+    function q(pictureID) {
+        var flag = confirm("你确定要删除吗？");
+        if (flag) {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/ToSkyNews_war_exploded/img/deletePicture",
+                data: {
+                    PictureID: pictureID
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 1) {
+                        shadow2.style.display = "block";
+                        successTip.style.display = "block";
+                        tip.innerHTML = "删除成功"
+                        tip.style.left = 45 + 'px';
+                        page.value = 1
+                    }
+                    allPictureNum()
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }
+    }
+
+    function qq(pictureID) {
+        var flag1 = confirm("你确定要删除吗？");
+        if (flag1) {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/ToSkyNews_war_exploded/img/deletePicture",
+                data: {
+                    PictureID: pictureID
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 1) {
+                        shadow2.style.display = "block";
+                        successTip.style.display = "block";
+                        tip.innerHTML = "删除成功"
+                        tip.style.left = 45 + 'px';
+                        page.value = 1
+                    }
+                    auditingPictureNum()
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }
+    }
+
+    function q2(pictureID2) {
+        var flag2 = confirm("你确定要删除吗？");
+        if (flag2) {
+            $.ajax({
+                type: "post",
+                url: "http://localhost:8080/ToSkyNews_war_exploded/img/deletePicture",
+                data: {
+                    PictureID: pictureID2
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 1) {
+                        shadow2.style.display = "block";
+                        successTip.style.display = "block";
+                        tip.innerHTML = "删除成功"
+                        tip.style.left = 45 + 'px';
+                        page.value = 1
+                    }
+                    passPictureNum()
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }
 }
 
+// 模糊查询加分页
+var aa1=document.getElementById('aa1');
+var ago1=document.getElementById('ago1');
+var next1=document.getElementById('next1');
+var input_text=document.getElementById('input_text');
+var pageBig1=document.getElementById('pageBig1');
+var rightCenter2=document.getElementById('rightCenter2');
+function search(){
+    pageBig1.style.display='block'
+    if(input_text.value==''){
+        alert('请输入描述')
+    }else{
+        $.ajax({
+            type: "post",
+            url: "http://localhost:8080/ToSkyNews_war_exploded/img/vagueQueryPicture",
+            data: {
+                thing: input_text.value
+            },
+            dataType: "json",
+            success: function (result) {
+                console.log(result)
+                pictureNum.innerHTML="总共有" + result.data.length + "张图片,总共" + Math.ceil( result.data.length / 15)+ "页";
+                sort();
+            },
+            err: function (result) {
+                console.log("报错了！")
+            }
+        })
+    }
+}
+function sort(){
+    let page1=document.querySelector('#page1');
+    let pagerOne=(page1.value-1)*15;
+    $.ajax({
+        type: "post",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/img/vagueSaveImgPages",
+        data: {
+            column: pagerOne,
+            thing:input_text.value,
+            total:15
+        },
+        dataType: "json",
+        success: function (result) {
+            console.log(result)
+            rightCenter2.innerHTML=null
+            for(let i=0;i<result.data.length;i++){
+                rightCenter2.innerHTML +=`
+                <div class="imgsDiv">
+                    <div class="imgCover"  onclick="q('${result.data[i].pictureID}')">删除</div>
+                    <img class="imgs" src='${result.data[i].userImg}' width="140px;height:120px">
+                </div>
+            `
+            }
+        },
+        err: function (result) {
+            console.log("报错了！")
+        }
+    })
+    paging1()
+}
+function paging1() {
+    ago1.onclick = function () {
+        var n = parseInt(page1.value);
+        if (n > 1) {
+            page1.value --;
+            aa1.innerText = page1.value;
+        }
+        search()
+    }
+    next1.onclick = function () {
+        var n = parseInt(page1.value);
+        if (n > 0 && n <= 2) {
+            page1.value++;
+            aa1.innerText = page1.value;
+        }
+        search()
+    }
+}

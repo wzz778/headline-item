@@ -37,11 +37,21 @@
                     <input class="findDraft" placeholder="请输入草稿标题"/>
                     <button class="findBtn">搜索</button>
                 </div>
-                <button class="allChoose">全选</button>
-                <button class="cancelAll">取消全选</button>
-                <button class="deleteChoose">删除</button>
-                <button class="massDelete">批量删除</button>
-                <button class="reset">重置</button>
+                <div class="btn_1">
+                    <button class="allChoose">全选</button>
+                    <button class="cancelAll">取消全选</button>
+                    <button class="deleteChoose">删除</button>
+                    <button class="massDelete">批量删除</button>
+                    <button class="reset">重置</button>
+                </div>
+                <div class="btn_2">
+                    <button class="findAllChoose">全选</button>
+                    <button class="findCancelAll">取消全选</button>
+                    <button class="findDeleteChoose">删除</button>
+                    <button class="findMassDelete">批量删除</button>
+                    <button class="findReset">重置</button>
+                    <button class="lastInfo">返回</button>
+                </div>
             </div>
             <div class="empty">
                 <div class="emptyBox">
@@ -49,74 +59,8 @@
                     <p>暂无草稿</p>
                 </div>
             </div>
-            <ul class="list">
-                <!-- <li class="draftItem">
-                    <input type="checkbox" class="check"/>
-                    <div class="itemContent">
-                        <div class="title">你好啊</div>
-                        <div class="lastTime">上次修改的时间：<span class="time">2022/5/15/10:48</span></div>
-                    </div>
-                    <div class="itemHandle">
-                        <button class="itemDelete">删除</button>
-                        <button class="itemChange">修改</button>
-                    </div>
-                </li>
-                <li class="draftItem">
-                    <input type="checkbox" class="check"/>
-                    <div class="itemContent">
-                        <div class="title">你好啊</div>
-                        <div class="lastTime">上次修改的时间：<span class="time">2022/5/15/10:48</span></div>
-                    </div>
-                    <div class="itemHandle">
-                        <button class="itemDelete">删除</button>
-                        <button class="itemChange">修改</button>
-                    </div>
-                </li>
-                <li class="draftItem">
-                    <input type="checkbox" class="check"/>
-                    <div class="itemContent">
-                        <div class="title">你好啊</div>
-                        <div class="lastTime">上次修改的时间：<span class="time">2022/5/15/10:48</span></div>
-                    </div>
-                    <div class="itemHandle">
-                        <button class="itemDelete">删除</button>
-                        <button class="itemChange">修改</button>
-                    </div>
-                </li>
-                <li class="draftItem">
-                    <input type="checkbox" class="check"/>
-                    <div class="itemContent">
-                        <div class="title">你好啊</div>
-                        <div class="lastTime">上次修改的时间：<span class="time">2022/5/15/10:48</span></div>
-                    </div>
-                    <div class="itemHandle">
-                        <button class="itemDelete">删除</button>
-                        <button class="itemChange">修改</button>
-                    </div>
-                </li>
-                <li class="draftItem">
-                    <input type="checkbox" class="check"/>
-                    <div class="itemContent">
-                        <div class="title">你好啊</div>
-                        <div class="lastTime">上次修改的时间：<span class="time">2022/5/15/10:48</span></div>
-                    </div>
-                    <div class="itemHandle">
-                        <button class="itemDelete">删除</button>
-                        <button class="itemChange">修改</button>
-                    </div>
-                </li>
-                <li class="draftItem">
-                    <input type="checkbox" class="check"/>
-                    <div class="itemContent">
-                        <div class="title">你好啊</div>
-                        <div class="lastTime">上次修改的时间：<span class="time">2022/5/15/10:48</span></div>
-                    </div>
-                    <div class="itemHandle">
-                        <button class="itemDelete">删除</button>
-                        <button class="itemChange">修改</button>
-                    </div>
-                </li> -->
-            </ul>
+            <ul class="list"></ul>
+            <ul class="find"></ul>
             <div class="page">
                 <button class="lastPage"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
                 <span class="pageNum">1</span>
@@ -128,8 +72,20 @@
                     <button class="sure">前往</button>
                 </div>
             </div>
+            <div class="findPage">
+                <button class="findLastPage"><i class="fa fa-angle-double-left" aria-hidden="true"></i></button>
+                <span class="findPageNum">1</span>
+                <span class="line">/</span>
+                <span class="findAllPage">0</span>
+                <button class="findNextPage"><i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+                <div class="findSearchPageBox">
+                    <input class="findSearchPage" type="text" placeholder="请输入页数"/>
+                    <button class="findSure">前往</button>
+                </div>
+            </div>
         </div>
     <script src="../static/js/jquery-3.6.0.js"></script>
+    <script src="../static/js/yxy/findDrafts.js"></script>
     <script src="../static/js/yxy/draftsPage.js"></script>
 </body>
 </html>

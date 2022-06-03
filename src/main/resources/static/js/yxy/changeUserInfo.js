@@ -416,52 +416,85 @@ forgetPass.addEventListener('click',function(){
     window.location.assign("../templates/forgetPass.html");
 })
 //wzz添加的上传头像
+function checkFile(img) {
+    var file = img;
+    if (file == null || file == "") {
+        successText.innerHTML = '请选择要上传的文件!';
+        keepSuccess.style.height = '200px';
+        inputReadOnly();
+        okBtn.addEventListener('click', function() {
+            keepSuccess.style.height = 0;
+            inputChange();
+        })
+        return false;
+    }
+    //定义允许上传的文件类型
+    var allow_ext = ".jpg|.png|.gif";
+    //提取上传文件的类型
+    var ext_name = file.substring(file.lastIndexOf("."));
+    //判断上传文件类型是否允许上传
+    if (allow_ext.indexOf(ext_name + "|") == -1) {
+        var errMsg = "该文件不允许上传，请上传" + allow_ext + "类型的文件,当前文件类型为：" + ext_name;
+        successText.innerHTML = errMsg;
+            keepSuccess.style.height = '200px';
+            inputReadOnly();
+            okBtn.addEventListener('click', function() {
+                keepSuccess.style.height = 0;
+                inputChange();
+            })
+        return false;
+    }
+}
 function fileChange() {
     var formData = new FormData();
-    let changemyhead=new Promise((resolve,reject)=>{
-        formData.append('profile1', $('#file')[0].files[0]);
-        formData.append('account', sessionStorage.getItem("account"));
-        resolve();
-    });
-    changemyhead.then(()=>{
-        $.ajax({
-            // 类型
-            type: "POST",
-            url: "http://localhost:8080/ToSkyNews_war_exploded/saveUserProfile",
-            data: formData,
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function(date) {
-                console.log(date);
-                if (date.message == "成功并返回数据") {
-                    successText.innerHTML = '上传头像成功！!';
-                    keepSuccess.style.height = '200px';
-                    inputReadOnly();
-                    okBtn.addEventListener('click', function() {
-                        keepSuccess.style.height = 0;
-                        inputChange();
-                    })
-                } else {
-                    successText.innerHTML = '上传头像失败，请重试！';
-                    keepSuccess.style.height = '200px';
-                    inputReadOnly();
-                    okBtn.addEventListener('click', function() {
-                        keepSuccess.style.height = 0;
-                        inputChange();
-                    })
+    let file=$('#file')[0].value;
+    let toimg=checkFile(file);
+    if(toimg!=false){
+        let changemyhead=new Promise((resolve,reject)=>{
+            formData.append('profile1', $('#file')[0].files[0]);
+            formData.append('account', sessionStorage.getItem("account"));
+            resolve();
+        });
+        changemyhead.then(()=>{
+            $.ajax({
+                // 类型
+                type: "POST",
+                url: "http://localhost:8080/ToSkyNews_war_exploded/saveUserProfile",
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                success: function(date) {
+                    console.log(date);
+                    if (date.message == "成功并返回数据") {
+                        successText.innerHTML = '上传头像成功！!';
+                        keepSuccess.style.height = '200px';
+                        inputReadOnly();
+                        okBtn.addEventListener('click', function() {
+                            keepSuccess.style.height = 0;
+                            inputChange();
+                        })
+                    } else {
+                        successText.innerHTML = '上传头像失败，请重试！';
+                        keepSuccess.style.height = '200px';
+                        inputReadOnly();
+                        okBtn.addEventListener('click', function() {
+                            keepSuccess.style.height = 0;
+                            inputChange();
+                        })
+                    }
+                    console.log(date.data.file.data);
+                    changeHead.style.backgroundImage = `url(${date.data.file.data})`;
+                    for (let i = 0; i < userHead.length; i++) {
+                        userHead[i].style.backgroundImage = `url(${date.data.file.data})`;
+                    }
+                },
+                error: function(returndata) {
+                    console.log(returndata);
                 }
-                console.log(date.data.file.data);
-                changeHead.style.backgroundImage = `url(${date.data.file.data})`;
-                for (let i = 0; i < userHead.length; i++) {
-                    userHead[i].style.backgroundImage = `url(${date.data.file.data})`;
-                }
-            },
-            error: function(returndata) {
-                console.log(returndata);
-            }
+            })
         })
-    })
+    }
 }
 //所有input框不可修改
 function inputReadOnly(){
