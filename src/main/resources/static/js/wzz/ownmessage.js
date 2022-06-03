@@ -212,8 +212,7 @@ function changepage1() {
                     }
                     postname[i].onclick = function () {
                         localStorage.setItem("article_id", postid[i].innerHTML);
-
-                        window.location.assign("../templates/recomments.html");
+                        window.location.assign(`../templates/recomments.html?article_id=${postid[i].innerHTML}`);
                     }
                     messagedelete[i].onclick = function () {
                         swal({ 

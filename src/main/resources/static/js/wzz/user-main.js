@@ -11,6 +11,10 @@ var column = document.getElementsByClassName("column")[0];
 var haveland = document.getElementsByClassName('havaland');
 var lookmore= document.getElementById("lookmore");
 var lookend= document.getElementById("lookend");
+var top_work = document.getElementById("top_work");
+var top_works = document.getElementById("top_works");
+var top_p= document.getElementById("top_p");
+var publish = document.getElementById("publish");
 $.get('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPassPosts',
     function (date) { sessionStorage.setItem('postall', date.length); })
 //重新newalert（）方法
@@ -74,6 +78,9 @@ food_find_bon.onclick = function () {
         window.location.assign("../templates/search.html");
     }
 }
+function developing() {
+    swal('快发中...',"正在努力开发中，尽情期待！");
+}
 var main_find_input = document.getElementsByClassName("main_find_input")[0];
 var main_find_bon = document.getElementsByClassName("main_find_bon")[0];
 main_find_bon.onclick = function () {
@@ -87,30 +94,20 @@ main_find_bon.onclick = function () {
 }
 //搜索跳转：
 // getweather();
-top_header.onmousemove = () => {
-    head_show.style.display = "block";
-    head_show.classList.add('fade');
+function showfade(event1,event2){
+    event1.onmousemove =function(){
+        event2.style.display = "block";
+        event2.classList.add('fade');
+    }
+    event1.onmouseout = function(){
+        event2.style.display = "none";
+        event2.classList.remove('fade');
+    }
 }
-top_header.onmouseout = () => {
-    head_show.style.display = "none";
-    head_show.classList.remove('fade');
-}
-head_show.onmousemove = () => {
-    head_show.style.display = "block";
-    head_show.classList.add('fade');
-}
-head_show.onmouseout = () => {
-    head_show.style.display = "none";
-    head_show.classList.remove('fade');
-}
-top_header.onmousemove = () => {
-    head_show.style.display = "block";
-    head_show.classList.add('fade');
-}
-top_header.onmouseout = () => {
-    head_show.style.display = "none";
-    head_show.classList.remove('fade');
-}
+showfade(top_header,head_show);
+showfade(head_show,head_show);
+showfade(top_work,publish);
+showfade(publish,publish);
 id_card_top.onmousemove = () => {
     arrow.style.transform = ("rotate(-180deg)");
 }
@@ -178,7 +175,6 @@ $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryAlikeDesc',
             maxfire[i].onclick = function () {
                 let id = fireid[i].innerHTML;
                 localStorage.setItem("article_id", id);
-                // window.location.assign("../templates/recomments.html?");
                 window.location.assign(`../templates/recomments.html?article_id=${id}`);
             }
         }
@@ -410,7 +406,6 @@ chance_sort();
 var top_land = document.getElementsByClassName("top_land")[0];
 var top_header = document.getElementById("top_header");
 var user_name = document.getElementById("user_name");
-var top_work = document.getElementById("top_work");
 var small_cade1 = document.getElementsByClassName("small_cade")[0];
 var small_cade2 = document.getElementsByClassName("small_cade")[1];
 var top_header_name = top_header.getElementsByTagName("span")[0];
@@ -438,6 +433,15 @@ function tocreate() {
 }
 function tomymain() {
     window.location.assign("../templates/myPage.html");
+}
+function topicture(){
+    window.location.assign("../templates/picture.html");
+}
+function noland(){
+    swal('请先登录！');
+    setTimeout(function(){
+        window.location.assign("../templates/login.html");
+    },1000);
 }
 //判断是否有反馈
 var top_message = document.getElementById("top_message");
@@ -486,6 +490,8 @@ function showmessage() {
 var user_img = document.getElementsByClassName("user_img");
 if (localStorage.getItem('have_land') == "true") {
     top_work.onclick = tocreate;
+    top_works.onclick = tocreate;
+    top_p.onclick =topicture;
     var user_id = localStorage.getItem('user_id');
     top_header.style.display = "block";
     top_land.style.display = "none";
@@ -520,13 +526,11 @@ if (localStorage.getItem('have_land') == "true") {
         })
 } else {
     for (let n of haveland) {
-        n.onclick = function () {
-            swal("请先登录！");
-        }
+        n.onclick = noland;
     }
-    top_work.onclick = function () {
-        swal("请先登录！");
-    };
+    top_work.onclick =noland;
+    top_works.onclick = noland;
+    top_p.onclick =noland;
     top_header.style.display = "none";
     top_land.style.display = "block";
     small_cade2.style.display = "none";
