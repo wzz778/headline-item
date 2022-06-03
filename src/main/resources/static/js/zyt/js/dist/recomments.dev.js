@@ -81,7 +81,7 @@ window.addEventListener('load', function () {
 
     document.getElementById('publicer').onclick = function () {
       localStorage.setItem('otherUser_id', publisher_id);
-      window.location.assign("../templates/otherUserPage.html");
+      window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
     };
 
     $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}', {
@@ -126,7 +126,7 @@ window.addEventListener('load', function () {
           var all_commit_a = document.createElement("div");
           all_commit.append(all_commit_a);
           all_commit_a.className = 'all_commit_a';
-          all_commit_a.innerHTML = "\n                        <div class=\"all_commit_top\">\n                        <img src=\"../static/img/zyt/user.jpeg\" alt=\"\" class=\"all_commit_img\">\n                            <a href=\"javascript:;\" class=\"all_commit_name\">".concat(data[_i].commentName, "</a>\n                            <div class=\"all_commit_time\">").concat(data[_i].commentTime, "</div>\n                        </div>\n                        <div class=\"all_commit_text\">").concat(data[_i].contain, "</div>\n                        ");
+          all_commit_a.innerHTML = "\n                        <div class=\"all_commit_top\">\n                        <img src=\"img/zyt/user.jpeg\" alt=\"\" class=\"all_commit_img\">\n                            <a href=\"javascript:;\" class=\"all_commit_name\">".concat(data[_i].commentName, "</a>\n                            <div class=\"all_commit_time\">").concat(data[_i].commentTime, "</div>\n                        </div>\n                        <div class=\"all_commit_text\">").concat(data[_i].contain, "</div>\n                        ");
 
           var all_commit_img = document.getElementsByClassName("all_commit_img")[_i];
 
@@ -142,7 +142,7 @@ window.addEventListener('load', function () {
 
           all_commit_name.onclick = function () {
             localStorage.setItem('otherUser_id', data[_i].makerID);
-            window.location.assign("../templates/otherUserPage.html");
+            window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
           };
         };
 
@@ -566,7 +566,7 @@ window.addEventListener('load', function () {
     recos1_remark_text.style.display = 'none';
 
     remark_hide_login.onclick = function () {
-      location.assign("../templates/login.html");
+      location.assign("http://localhost:8080/ToSkyNews_war_exploded/login");
     };
   } else {
     remark_hide_li1.style.display = 'none';
@@ -580,7 +580,7 @@ window.addEventListener('load', function () {
     column_sort_a[_i2].onclick = function () {
       var sort = column_sort_a[_i2].innerHTML;
       sessionStorage.setItem("c-sort", sort);
-      window.location.assign("../templates/user_main.html");
+      window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/user_main");
     };
   };
 
@@ -594,7 +594,7 @@ window.addEventListener('load', function () {
   food_find_bon.onclick = function () {
     var text = food_find_input.value;
     localStorage.setItem('search_input', text);
-    window.location.assign("../templates/search.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/search");
   }; //wzz
 
 

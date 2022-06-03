@@ -12,7 +12,7 @@ if (localStorage.getItem('have_land') == 'true') {
 } else {
     function Feedback_show() {
         alert('请先登录!');
-        window.location.assign("../templates/login.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/login");
     }
 }
 // 判断是否登录

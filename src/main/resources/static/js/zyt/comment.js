@@ -64,9 +64,9 @@ $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryPostsByID', {
         document.getElementById('publicer').onclick = function () {
             if (publisher_id != user_id) {
                 localStorage.setItem('otherUser_id', publisher_id);
-                window.location.assign("../templates/otherUserPage.html");
+                window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
             } else {
-                window.location.assign("../templates/myPage.html");
+                window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
             }
         }
         $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}', {
@@ -89,9 +89,9 @@ publisher_name = sessionStorage.getItem('publisher_name');
 function touserpage(number) {
     if (number != user_id) {
         localStorage.setItem('otherUser_id', number);
-        window.location.assign("../templates/otherUserPage.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
     } else {
-        window.location.assign("../templates/myPage.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
     }
 }
 // 返回帖子评论数

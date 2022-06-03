@@ -245,7 +245,7 @@ function draftsContent(num){
                             e.stopPropagation();
                             localStorage.setItem('article_id',draftItem[i].textID);
                             // localStorage.setItem("tolook", '0');
-                            window.location.assign(`../templates/publish-change.html?article_id=${draftItem[i].textID}`);
+                            window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/publish-change?article_id=${draftItem[i].textID}`);
                         },false)
                    },60)
                     

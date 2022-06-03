@@ -11,8 +11,11 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +37,7 @@ public class AlikeController {
             @ApiImplicitParam(name = "postsID", value = "被点赞帖子ID"),
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
-    public Response setAlike(Integer postsID, Integer userID){
+    public Response setAlike(int postsID,int userID){
         Alike alike = new Alike(postsID, userID);
         alikeService.setAlikeTable(alike);
         return Response.ok("点赞成功！");
@@ -90,7 +93,7 @@ public class AlikeController {
             @ApiImplicitParam(name = "postsID", value = "所点赞帖子ID"),
             @ApiImplicitParam(name = "userID", value = "所点赞用户ID"),
     })
-    public Response queryAlikeBoolean(Integer postsID, Integer userID) {
+    public Response queryAlikeBoolean(int postsID, int userID) {
         Alike alike = new Alike(postsID, userID);
         int a = alikeService.queryAlike(alike);
         if (a == 1) {

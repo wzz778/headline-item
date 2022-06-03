@@ -281,7 +281,7 @@ function filePublishChange() {
     formData.append('postsID', article_id);
     $.ajax({
         type: "POST",
-        url: "../templates/changePostProfile",
+        url: "http://localhost:8080/ToSkyNews_war_exploded/changePostProfile",
         data: formData,
         dataType:"json",
         contentType: false,
@@ -299,7 +299,7 @@ function filePublishChange() {
                 let time = document.querySelector("#time");
                 second--;
                 if (second <= 0) {
-                    location.href = "user_main.html";
+                    location.href = "user_main";
                 }
                 time.innerHTML= second.toString();
             }
@@ -339,7 +339,7 @@ function nofilePublishChange(){
                 let time = document.querySelector("#time");
                 second--;
                 if (second <= 0) {
-                    location.href = "user_main.html";
+                    location.href = "user_main";
                 }
                 time.innerHTML= second.toString();
             }
@@ -418,7 +418,7 @@ function nofileSave() {
                 let time = document.querySelector("#time");
                 second--;
                 if (second <= 0) {
-                    location.href = "myPage.html";
+                    location.href = "myPage";
                 }
                 time.innerHTML= second.toString();
             }
@@ -466,7 +466,7 @@ function fileSave() {
                 let time = document.querySelector("#time");
                 second--;
                 if (second <= 0) {
-                    location.href = "myPage.html";
+                    location.href = "myPage";
                 }
                 time.innerHTML= second.toString();
             }
@@ -512,7 +512,7 @@ function fileChange() {
                 let time = document.querySelector("#time");
                 second--;
                 if (second <= 0) {
-                    location.href = "user_main.html";
+                    location.href = "user_main";
                 }
                 time.innerHTML= second.toString();
             }
@@ -554,7 +554,7 @@ function nofileChange(){
                 let time = document.querySelector("#time");
                 second--;
                 if (second <= 0) {
-                    location.href = "user_main.html";
+                    location.href = "user_main";
                 }
                 time.innerHTML= second.toString();
             }
@@ -618,5 +618,5 @@ if(localStorage.getItem('have_land')=="true") {
 // 退出登录
 function signoutland(){
     localStorage.setItem('have_land',"false");
-    window.location.assign("../templates/user_main.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/user_main");
 }

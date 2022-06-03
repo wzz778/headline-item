@@ -289,6 +289,7 @@ public class postsController {
         map.put("userlist",usersList);
         return Response.ok(map);
     }
+
     //用户对草稿箱帖子进行发布
     @ApiOperation(value = "用户对草稿箱帖子进行发布", notes = "获取地址", httpMethod = "POST")
     @PostMapping("/upDrafts")

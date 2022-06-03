@@ -202,7 +202,7 @@ newPassBtn.addEventListener('click',function(){
                                                 localStorage.removeItem('user_id');
                                                 localStorage.setItem('have_land','false');
                                                 localStorage.setItem("tolook", '0');
-                                                window.location.replace("../templates/login.html");
+                                                window.location.replace("http://localhost:8080/ToSkyNews_war_exploded/login");
                                             })
                                          }
                                     },
