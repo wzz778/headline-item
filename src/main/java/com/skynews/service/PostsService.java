@@ -1,6 +1,7 @@
 package com.skynews.service;
 
 import com.skynews.pojo.Posts;
+import com.skynews.utils.Response;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -90,4 +91,6 @@ public interface PostsService {
     List<Posts> findUser();
     List<Posts> getList(int start,int count); //获取用户list
     Integer getTotal(); //获取用户总数
+    //    根据帖子id获取对应的帖子信息
+    Response getPostByID(int postsID);
 }

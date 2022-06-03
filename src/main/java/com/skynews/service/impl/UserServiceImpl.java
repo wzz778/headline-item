@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response allAuditingPicture(int userID) {
         List<Picture> pictures = userMapper.allAuditingPicture(userID);
-        if(pictures.size()==0){
+        if(pictures.isEmpty()){
             return Response.error("error");
         }
         return Response.ok(pictures); 
@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response allPassPicture(int userID) {
         List<Picture> pictures = userMapper.allPassPicture(userID);
-        if(pictures.size()==0){
+        if(pictures.isEmpty()){
             return Response.error("error");
         }
         return Response.ok(pictures);
@@ -232,7 +232,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Response savePosts(int reside, int column) {
         List<Posts> postsList = userMapper.savePosts(reside, column);
-        if(postsList==null){
+        if(postsList.isEmpty()){
             return Response.error("查询为空");
         }
         return Response.ok(postsList);

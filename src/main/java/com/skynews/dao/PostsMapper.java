@@ -102,4 +102,7 @@ public interface PostsMapper {
 
     //根据postsID删除信息
     int deleteAllMessagesByPostsID(int postsID);
+
+//    根据帖子id获取对应的帖子信息
+    Posts getPostByID(int postsID);
 }

@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.exception.CosClientException;
 import com.qcloud.cos.model.CannedAccessControlList;
+import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.skynews.config.CosConfig;
 import com.skynews.service.CosService;
@@ -60,6 +61,8 @@ public class CosServiceImpl implements CosService {
             String filePath = getFileKey(originalfileName);
 
             // 上传文件
+            ObjectMetadata objectMetadata = new ObjectMetadata();
+            objectMetadata.setContentLength(inputStream.available());
             cosClient.putObject(new PutObjectRequest(bucketName, filePath, inputStream, null));
             cosClient.setBucketAcl(bucketName, CannedAccessControlList.PublicRead);
             String url = path + "/" + filePath;
