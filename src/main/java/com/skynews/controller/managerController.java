@@ -34,7 +34,7 @@ public class   managerController {
     @ApiOperation(value = "展示所有用户", notes = "获取地址", httpMethod = "GET")
     @GetMapping("/allUser")
     @ResponseBody
-    public List<User>list(Model model){
+    public List<User>list(){
         List<User> list=managerService.queryAllUser();
         return list;
     }

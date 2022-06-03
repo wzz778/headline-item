@@ -58,11 +58,11 @@
     </delete>
 <!--    用户根据帖子状态查询对应的帖子-->
     <select id="statusPicture" resultType="Picture">
-        SELECT * from tosky.picture where status=#{status} and userID=#{userID} order by PictureID desc limit #{start},10
+        SELECT * from tosky.picture where status=#{status} and userID=#{userID} order by PictureID desc limit #{start},15
     </select>
 <!--    分页遍历用户的所有图片-->
     <select id="allUserPicture" resultType="Picture">
-        SELECT * from tosky.picture where userID=#{userID} order by PictureID desc limit #{start},10
+        SELECT * from tosky.picture where userID=#{userID} order by PictureID desc limit #{start},15
     </select>
     <select id="allCountPicture" resultType="int">
         select count(PictureID) from tosky.picture where userID=#{userID}
