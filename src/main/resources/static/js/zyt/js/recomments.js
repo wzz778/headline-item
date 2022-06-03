@@ -57,9 +57,9 @@ let getmessage=new Promise((resolve,reject)=>{
             document.getElementById('publicer').onclick = function () {
                 if (publisher_id != user_id) {
                     localStorage.setItem('otherUser_id', publisher_id);
-                    window.location.assign("../templates/otherUserPage.html");
+                    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
                 } else {
-                    window.location.assign("../templates/myPage.html");
+                    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
                 }
             }
             $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}', {
@@ -86,7 +86,7 @@ getmessage.then(()=>{
     function toland() {
         swal('请先登录!');
         setTimeout(function(){
-            window.location.assign("../templates/login.html");
+            window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/login");
         },1000)
     }
     // 隐藏评论中的隐藏
@@ -97,7 +97,7 @@ getmessage.then(()=>{
         remark_hide_li1.style.display = 'block';
         recos1_remark_text.style.display = 'none';
         remark_hide_login.onclick = function () {
-            location.assign("../templates/login.html");
+            location.assign("http://localhost:8080/ToSkyNews_war_exploded/login");
         }
     } else {
         remark_hide_li1.style.display = 'none';
@@ -456,7 +456,7 @@ getmessage.then(()=>{
         column_sort_a[i].onclick = function () {
             let sort = column_sort_a[i].innerHTML;
             sessionStorage.setItem("c-sort", sort);
-            window.location.assign("../templates/user_main.html");
+            window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/user_main");
         }
     }
     var food_find_input = document.getElementsByClassName("food_find_input")[0];
@@ -467,7 +467,7 @@ getmessage.then(()=>{
             swal("请输入搜索内容！");
         } else {
             localStorage.setItem('search_input', text);
-            window.location.assign("../templates/search.html");
+            window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/search");
         }
     }
     if (localStorage.getItem("have_land") == 'false') {

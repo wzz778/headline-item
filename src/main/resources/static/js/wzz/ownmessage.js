@@ -27,7 +27,7 @@ function newalert(text) {
 
 // 获取个人信息
 document.getElementById('top_name').onclick = function () {
-    window.location.assign("../templates/myPage.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
 }
 $.post('http://localhost:8080/ToSkyNews_war_exploded/users/queryUserByID/{userID}', { "userID": user_id },
     function (date) {
@@ -43,7 +43,7 @@ food_find_bon.onclick = function () {
         swal("请输入搜索内容！")
     }else{
         localStorage.setItem('search_input', text);
-        window.location.assign("../templates/search.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/search");
     }
 }
 function findred1() {
@@ -126,7 +126,7 @@ function changepage1() {
                     main.innerHTML += `
                 <div class="alike-a">
                 <div class="red"></div>
-                <img src="../static/img/wzz/header.jpg" class="message-img" alt="">
+                <img src="img/wzz/header.jpg" class="message-img" alt="">
                 <div class="message-card">
                 <div class="message-card-top">
                 <a href="javascript:;" class="message-username">这是用户名</a>
@@ -208,11 +208,11 @@ function changepage1() {
                         })
                     username[i].onclick = function () {
                         localStorage.setItem('otherUser_id', userid[i].innerHTML);
-                        window.location.assign("../templates/otherUserPage.html");
+                        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
                     }
                     postname[i].onclick = function () {
                         localStorage.setItem("article_id", postid[i].innerHTML);
-                        window.location.assign(`../templates/recomments.html?article_id=${postid[i].innerHTML}`);
+                        window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id=${postid[i].innerHTML}`);
                     }
                     messagedelete[i].onclick = function () {
                         swal({ 
@@ -500,7 +500,7 @@ feedback_main.onmouseout = function () {
     feedback.onclick = Feedback_down;
 }
 function back() {
-    window.location.assign("../templates/user_main.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/user_main");
 }
 feedback_sort[0].style.color = "white";
 feedback_sort[0].style.backgroundColor = "#7fb0eb";

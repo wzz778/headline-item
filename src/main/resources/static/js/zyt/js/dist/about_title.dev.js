@@ -68,7 +68,7 @@ window.onload = function () {
   var container = document.querySelector('.container');
   container.addEventListener('click', function () {
     setInterval(function () {
-      location.assign('../templates/lunbo.html');
+      location.assign('http://localhost:8080/ToSkyNews_war_exploded/lunbo');
     });
   });
   var about_headline_top_li = document.getElementById('about_headline_top_li');
@@ -82,7 +82,7 @@ window.onload = function () {
   var join = document.getElementById('join');
   join.addEventListener('click', function () {
     setInterval(function () {
-      location.assign('../templates/VIP.html');
+      location.assign('http://localhost:8080/ToSkyNews_war_exploded/VIP');
     }, 2000);
     join.style.backgroundColor = 'rgb(130, 167, 252)';
   });
@@ -97,14 +97,14 @@ window.onload = function () {
   var showPage = document.querySelector('.showPage');
   showPage.addEventListener('mouseover', function () {
     setInterval(function () {
-      location.assign('../templates/instruction.html');
+      location.assign('http://localhost:8080/ToSkyNews_war_exploded/instruction');
     }, 1000);
   });
   var product = document.getElementById('product');
 
   product.onclick = function () {
     setInterval(function () {
-      location.assign('../templates/user_main.html');
+      location.assign('http://localhost:8080/ToSkyNews_war_exploded/user_main');
     }, 1000);
   };
 };

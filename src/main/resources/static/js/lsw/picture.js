@@ -62,10 +62,10 @@ if(localStorage.getItem('have_land')=="true") {
     })
 }
 function goUser(){
-    location.href = "myPage.html";
+    location.href = "myPage";
 }
 function goUser1(){
-    location.href = "myPage.html";
+    location.href = "myPage";
 }
 var user_id=localStorage.getItem('user_id');
 var userAgent = navigator.userAgent; //用于判断浏览器类型

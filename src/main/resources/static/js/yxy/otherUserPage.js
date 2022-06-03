@@ -239,7 +239,7 @@ food_find_bon.onclick = function() {
 	} else {
 		localStorage.setItem('search_input', text);
 		localStorage.setItem("tolook", '0');
-		window.location.assign("../templates/search.html");
+		window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/search");
 	}
 }
 var all_top = document.getElementById("all_top");
@@ -251,7 +251,7 @@ for (let i in all_top_a) {
 		let sort = all_top_a[i].innerHTML;
 		sessionStorage.setItem("c-sort", sort);
 		localStorage.setItem("tolook", '0');
-		window.location.assign("../templates/user_main.html");
+		window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/user_main");
 	}
 }
 //wzz
@@ -396,11 +396,11 @@ function attFun(indexAtt) {
 								fansItem[i].addEventListener('click', function() {
 									if(res.userID==user_id){
 										localStorage.setItem("tolook", '0');
-										window.location.assign("../templates/myPage.html");
+										window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
 									}else{
 										localStorage.setItem('otherUser_id', res.userID);
 										localStorage.setItem("tolook", '0');
-										window.location.assign("../templates/otherUserPage.html");
+										window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
 									}
 								})
 								var fansName = document.querySelectorAll('.fansName');
@@ -756,11 +756,11 @@ function fansFun(num) {
 								fansItem[i].addEventListener('click', function() {
 									if(res.userID==user_id){
 										localStorage.setItem("tolook", '0');
-										window.location.assign("../templates/myPage.html");
+										window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
 									}else{
 										localStorage.setItem('otherUser_id', res.userID);
 										localStorage.setItem("tolook", '0');
-										window.location.assign("../templates/otherUserPage.html");
+										window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/otherUserPage");
 									}
 								})
 								var fansName = document.querySelectorAll('.fansName');

@@ -27,7 +27,7 @@ if(sessionStorage.getItem("tousers")=='1'){
     sessionStorage.setItem("tousers", '0');
 }else if(sessionStorage.getItem("tousers")==null){
     setTimeout(function(){
-        window.location.assign("../templates/users-land.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/users-land");
     },1000)
     swal("请先登录！");
 }

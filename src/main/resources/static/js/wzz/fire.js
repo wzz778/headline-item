@@ -62,7 +62,7 @@ function hot_post() {
         hot_posts[i].onclick = function () {
             let id = hot_posts[i].querySelector('.postsID').innerHTML;
             localStorage.setItem("article_id", id);
-            window.location.assign(`../templates/recomments.html?article_id=${id}`);
+            window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id=${id}`);
         }
     }
 }

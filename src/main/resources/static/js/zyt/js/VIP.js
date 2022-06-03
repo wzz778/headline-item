@@ -3,16 +3,16 @@ window.onload = function () {
     var VIP_deal=document.querySelector('.VIP_deal');
     var VIP_apply=document.querySelector('.VIP_apply');
     VIP_instruction.onclick=function(){
-        location.assign("../templates/VIP_SAY.html");
+        location.assign("http://localhost:8080/ToSkyNews_war_exploded/VIP_SAY");
     }
     VIP_deal.addEventListener('click',function(){
         setInterval(function(){
-            location.assign("../templates/VIP_SAY.html");
+            location.assign("http://localhost:8080/ToSkyNews_war_exploded/VIP_SAY");
         },2000);
     })
     VIP_apply.addEventListener('click',function(){
         setInterval(function(){
-            location.assign("../templates/VIP_start.html");
+            location.assign("http://localhost:8080/ToSkyNews_war_exploded/VIP_start");
         },2000);
     })
 

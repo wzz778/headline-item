@@ -37,7 +37,7 @@ function newalert(text) {
 }
 //重新newalert（）方法
 document.getElementById("top_about").onclick = function () {
-    window.location.assign("../templates/about_title.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/about_title");
 }/*  */
 // function getweather() {
 //     let weather = document.getElementById("weather").getElementsByTagName("span")[0];
@@ -62,8 +62,8 @@ document.getElementById("top_about").onclick = function () {
 //             date_time.innerHTML = date.update_time;
 //             let imgm = date.wea_img;
 //             weather.innerHTML = date.city;
-//             img.src = `../static/img/wzz/${imgm}.png`;
-//             img2.src = `../static/img/wzz/${imgm}.png`;
+//             img.src = `img/wzz/${imgm}.png`;
+//             img2.src = `img/wzz/${imgm}.png`;
 //         })
 // }
 //搜索跳转：
@@ -75,7 +75,7 @@ food_find_bon.onclick = function () {
         swal("请输入搜索内容！");
     } else {
         localStorage.setItem('search_input', text);
-        window.location.assign("../templates/search.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/search");
     }
 }
 function developing() {
@@ -89,7 +89,7 @@ main_find_bon.onclick = function () {
         swal("请输入搜索内容！");
     } else {
         localStorage.setItem('search_input', text);
-        window.location.assign("../templates/search.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/search");
     }
 }
 //搜索跳转：
@@ -175,7 +175,7 @@ $.post('http://localhost:8080/ToSkyNews_war_exploded/posts/queryAlikeDesc',
             maxfire[i].onclick = function () {
                 let id = fireid[i].innerHTML;
                 localStorage.setItem("article_id", id);
-                window.location.assign(`../templates/recomments.html?article_id=${id}`);
+                window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id=${id}`);
             }
         }
     })
@@ -192,7 +192,7 @@ function allchange() {
                     console.log(date);
                 })
             localStorage.setItem("article_id", id);
-            window.location.assign(`../templates/recomments.html?article_id=${id}`);
+            window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id=${id}`);
         }
     }
 }
@@ -265,7 +265,7 @@ function all_a() {
                                         <span style="display: none">${date[n].postsID}</span>
                                     </div>
                                 <div class='column_img_div'>
-                                    <img class="column_img" src="../static/img/wzz/header.jpg" alt="">
+                                    <img class="column_img" src="img/wzz/header.jpg" alt="">
                                 </div>
                         </a>
                     `;
@@ -371,7 +371,7 @@ function chance_sort() {
                                                 <span style="display: none">${date[n].postsID}</span>
                                             </div>
                                             <div class='column_img_div'>
-                                            <img class="column_img" src="../static/img/wzz/header.jpg" alt="">
+                                            <img class="column_img" src="img/wzz/header.jpg" alt="">
                                         </div>
                                 </a>
                             `;
@@ -412,42 +412,42 @@ var top_header_name = top_header.getElementsByTagName("span")[0];
 var id_card_top = document.getElementsByClassName("id_card_top")[0];
 var deedbackp = id_card_top.getElementsByTagName("button")[0];
 id_card_top.onclick = function (event) {
-    window.location.assign("../templates/myPage.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
 }
 deedbackp.onclick = function (event) {
-    window.location.assign("../templates/mymessage.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/mymessage");
     event = event || window.event;
     event.cancelBubble = true;
 }
 function toland() {
-    window.location.assign("../templates/login.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/login");
 }
 top_land.onclick = toland;
 function signoutland() {
     localStorage.setItem('have_land', "false");
     localStorage.removeItem("user_id");
-    window.location.assign("../templates/user_main.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/user_main");
 }
 function tocreate() {
-    window.location.assign("../templates/publish.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/publish");
 }
 function tomymain() {
-    window.location.assign("../templates/myPage.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/myPage");
 }
 function topicture(){
-    window.location.assign("../templates/picture.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/picture");
 }
 function noland(){
     swal('请先登录！');
     setTimeout(function(){
-        window.location.assign("../templates/login.html");
+        window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/login");
     },1000);
 }
 //判断是否有反馈
 var top_message = document.getElementById("top_message");
 var redspot = document.getElementById("redspot");
 top_message.onclick= function () {
-    window.location.assign("../templates/mymessage.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/mymessage");
 }
 $.post('http://localhost:8080/ToSkyNews_war_exploded/collections/queryUserFeedback',
     { "userID": localStorage.getItem('user_id') },

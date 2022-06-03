@@ -142,7 +142,7 @@ function allchange3() {
             sessionStorage.setItem('r_status', status);
             sessionStorage.setItem('r_times', times);
             sessionStorage.setItem('r_kind', kind);
-            window.location.assign("../templates/users-report.html");
+            window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/users-report");
         }
     }
     for (let i of reply) {

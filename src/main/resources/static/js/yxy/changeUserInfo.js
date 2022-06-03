@@ -413,7 +413,7 @@ eyeOpen3.addEventListener('click',function(){
 var forgetPass=document.querySelector('.forgetPass');
 forgetPass.addEventListener('click',function(){
     localStorage.setItem("tolook", '0');
-    window.location.assign("../templates/forgetPass.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/forgetPass");
 })
 //wzz添加的上传头像
 function fileChange() {

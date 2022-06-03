@@ -365,11 +365,11 @@ function allchange() {
                     console.log("报错了！")
                 }
             })
-            window.location.assign('recomments.html');
+            window.location.assign('recomments');
             var id = item_title[i].querySelector('.postsID').innerHTML;
             console.log(id)
             localStorage.setItem('article_id', id)
-            window.location.assign(`../templates/recomments.html?article_id=${id}`)
+            window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id=${id}`)
 
         }
     }
@@ -472,10 +472,10 @@ var hot_posts = document.getElementsByClassName('hot_posts')
 function hot_post() {
     for (let i in hot_posts) {
         hot_posts[i].onclick = function () {
-            window.location.assign('recomments.html');
+            window.location.assign('recomments');
             let id = hot_posts[i].querySelector('.postsID').innerHTML;
             localStorage.setItem('article_id', id)
-            window.location.assign(`../templates/recomments.html?article_id=${id}`)
+            window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id=${id}`)
         }
     }
     localStorage.setItem("tolook", '0');

@@ -20,7 +20,7 @@ window.onload = function () {
                 success: function (data) {
                     console.log(data);
                     setInterval(function(){
-                        location.assign('../templates/VIP.html');
+                        location.assign('http://localhost:8080/ToSkyNews_war_exploded/VIP');
                     },2000);
                    
                 },

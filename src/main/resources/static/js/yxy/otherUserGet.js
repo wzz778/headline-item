@@ -296,7 +296,7 @@ function getMyWorks(x) {
                                 console.log(suc_1);
                                 localStorage.setItem('article_id',workTitle[y].textID);
 
-                                window.location.assign(`../templates/recomments.html?article=${workTitle[y].textID}`);
+                                window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article=${workTitle[y].textID}`);
                             },
                             error: function(err) {
                                 console.log(err);
@@ -504,7 +504,7 @@ function getLoveWorks(m) {
                         })
                         localStorage.setItem('article_id', workTitle[n].textID);
 
-                        window.location.assign(`../templates/recomments.html?article_id-${workTitle[n].textID}`);
+                        window.location.assign(`http://localhost:8080/ToSkyNews_war_exploded/recomments?article_id-${workTitle[n].textID}`);
                     })
                     // 取消收藏
                     var collect = document.querySelectorAll('.collect');

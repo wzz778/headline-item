@@ -15,7 +15,7 @@ function landf() {
             if (date.data == "success") {
                 swal("登录成功","你输入了正确的账号密码","success");
                 setTimeout(function(){
-                    window.location.assign("../templates/users-main.html");
+                    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/users-main");
                     sessionStorage.setItem("tousers", '1');
                 },1000)
             }

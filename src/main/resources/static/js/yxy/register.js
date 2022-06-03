@@ -159,7 +159,7 @@ getNum.addEventListener('click',function(){
                                                         localStorage.setItem('user_id',res_1.data.userID);
                                                         localStorage.setItem('have_land',"true");
                                                         localStorage.setItem("tolook", '0');
-                                                        window.location.replace("../templates/user_main.html");
+                                                        window.location.replace("http://localhost:8080/ToSkyNews_war_exploded/user_main");
                                                     })
                                                     
                                                 },

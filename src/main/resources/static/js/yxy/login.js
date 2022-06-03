@@ -78,7 +78,7 @@ loginBtn.addEventListener('click',function(){
                         localStorage.setItem('user_id',res.data.userID);
                         localStorage.setItem('have_land',"true");
                         localStorage.setItem("tolook", '0');
-                        window.location.replace("../templates/user_main.html");
+                        window.location.replace("http://localhost:8080/ToSkyNews_war_exploded/user_main");
                     })
                     
                 }else if(res.code=='-1'){
@@ -118,5 +118,5 @@ eyeOpen.addEventListener('click',function(){
 forgetPass=document.querySelector('.forgetPass');
 forgetPass.addEventListener('click',function(){
     localStorage.setItem("tolook", '0');
-    window.location.assign("../templates/forgetPass.html");
+    window.location.assign("http://localhost:8080/ToSkyNews_war_exploded/forgetPass");
 })
