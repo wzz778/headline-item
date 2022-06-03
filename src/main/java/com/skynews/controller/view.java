@@ -121,4 +121,14 @@ public class view {
     public String s8(){
         return "/VIP";
     }
+
+    @RequestMapping("/draftsPage")
+    public String s89(){
+        return "/draftsPage";
+    }
+
+    @RequestMapping("/picture")
+    public String c1(){
+        return "/picture";
+    }
 }
