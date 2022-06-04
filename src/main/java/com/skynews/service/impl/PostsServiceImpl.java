@@ -10,6 +10,7 @@ import com.skynews.service.PostsService;
 import com.skynews.utils.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    @Transactional
     public int deletePostsById(int postsID) {
         //通过帖子id获取其下父评论id
         List<Comment>list=commentMapper.queryCommentByPosts(postsID);

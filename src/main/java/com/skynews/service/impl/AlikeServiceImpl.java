@@ -9,6 +9,7 @@ import com.skynews.pojo.User;
 import com.skynews.service.AlikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,6 +64,7 @@ public class AlikeServiceImpl implements AlikeService {
     }
 
     @Override
+    @Transactional
     public int deleteAlikeTable(Alike alike) {
         Alike alike1=alikeMapper.queryAlike(alike);
   //      System.out.println("1111111"+alike1);

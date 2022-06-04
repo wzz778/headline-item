@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 
 @Api(tags="帖子类")
 @Controller
+@EnableTransactionManagement
 @CrossOrigin
 @RequestMapping("/posts")
 public class postsController {

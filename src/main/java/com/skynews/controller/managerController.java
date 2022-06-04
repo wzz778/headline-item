@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
@@ -24,6 +25,7 @@ import java.util.Random;
 
 @Api(tags="管理员类")
 @Controller
+@EnableTransactionManagement
 @CrossOrigin
 @RequestMapping("/users")
 public class   managerController {

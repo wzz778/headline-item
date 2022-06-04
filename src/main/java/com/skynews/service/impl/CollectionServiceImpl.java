@@ -12,6 +12,7 @@ import com.skynews.pojo.Posts;
 import com.skynews.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -113,6 +114,7 @@ public class CollectionServiceImpl implements CollectionService {
         return collectionMapper.deleteBatchCollections(postsID,userID);
     }
 
+    @Transactional
     public int deleteBatchPosts(List<Integer>list){
         for(int i=0;i<list.size();i++){
             List<Comment>list1=commentMapper.queryCommentByPosts(list.get(i));

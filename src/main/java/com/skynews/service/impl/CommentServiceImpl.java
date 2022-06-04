@@ -11,6 +11,7 @@ import com.skynews.pojo.User;
 import com.skynews.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -67,6 +68,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public int deleteCommentById(int commentID) {
         commentMapper.deleteReviewsByParentID(commentID);
         return commentMapper.deleteCommentById(commentID);
