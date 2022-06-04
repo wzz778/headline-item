@@ -192,10 +192,6 @@ function auditingPicture(){
             },
             dataType: 'json',
             success: function (data) {
-                if(data.code==-1){
-                    alert('无该状态图片')
-                    rightCenter2.innerHTML = null
-                }else if(data.code==1){
                     rightCenter2.innerHTML = null
                     for (let i = 0; i < data.data.length; i++) {
                         rightCenter2.innerHTML += `
@@ -205,7 +201,6 @@ function auditingPicture(){
                 </div>
             `
                     }
-                }
             },
             err: function (err) {
                 console.log(err);
@@ -235,10 +230,6 @@ function passPicture(){
             },
             dataType: 'json',
             success: function (data) {
-                if(data.code==-1){
-                    alert('无该状态图片')
-                    rightCenter2.innerHTML = null
-                }else if(data.code==1) {
                     rightCenter2.innerHTML = null
                     for (let i = 0; i < data.data.length; i++) {
                         rightCenter2.innerHTML += `
@@ -248,13 +239,12 @@ function passPicture(){
                 </div>
             `
                     }
-                }
             },
             err: function (err) {
                 console.log(err);
             }
         })
-    }
+}
 }
 // 全部的分页
 var toast=document.querySelector('.toast-error')
