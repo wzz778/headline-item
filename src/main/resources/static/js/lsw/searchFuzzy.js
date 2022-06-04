@@ -494,11 +494,8 @@ function picture(){
                 thing: input.value,
             },
             success: function (result) {
-                console.log(result.data.length)
+                // console.log(result.data.length)
                 allPicture=result.data.length
-                if(result.code==-1){
-                    alert('无相关搜索')
-                }else if(result.code==1){
                     leftcontent.innerHTML = null;
                     for (let i = 0; i < result.data.length; i++) {
                         leftcontent.innerHTML += `
@@ -507,12 +504,13 @@ function picture(){
                     </div>
                     `
                     }
-                }
             },
             err: function (err) {
                 console.log(err)
             },
         })
+    }else{
+        paging.style.display='block'
     }
 
 }
